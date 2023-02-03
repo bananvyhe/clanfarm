@@ -27,13 +27,13 @@ console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'
 import { createApp } from 'vue/dist/vue.esm-bundler';
-const app = createApp({
-data() {
-    return {
-     course: 'Intro to Vue 3 and Rails'
-    }  
-  }  
-})  
-
-app.mount('#app');
+import App from '../app.vue'
+// const app = createApp({
+// data() {
+//     return {
+//      course: 'Intro to Vue 3 and Rails'
+//     }  
+//   }  
+// })  
+createApp(App).mount('#app') 
 console.log("app", app);
