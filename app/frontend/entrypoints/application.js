@@ -35,5 +35,10 @@ import App from '../app.vue'
 //     }  
 //   }  
 // })  
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+
+export default createVuetify()
+
 createApp(App).mount('#app') 
 console.log("app", app);
