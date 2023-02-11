@@ -38,7 +38,11 @@ import App from '../app.vue'
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 
-export default createVuetify()
+// export default createVuetify()
 
-createApp(App).mount('#app') 
+const app = createApp(App);
+const vuetify = createVuetify();
+app.use(vuetify);
+app.mount('#app');
+// createApp(App).mount('#app') 
 console.log("app", app);
