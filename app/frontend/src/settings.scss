@@ -1,4 +1,5 @@
-@use 'vuetify' with (
+@use 'vuetify/settings' with (
   $color-pack: false,
   $utilities: false,
+  $button-height: 70px,
 );

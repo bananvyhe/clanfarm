@@ -9,18 +9,18 @@ import {
   VuetifyResolver,
 } from 'unplugin-vue-components/resolvers'
 import AutoImport from 'unplugin-auto-import/vite'
-import path from 'path';
+// import path from 'path';
 export default defineConfig({
-  resolve: {
-    alias: {
-      '@/': `${path.resolve(__dirname, './src')}/`,
-    },
-  }, 
-  server: {
-    watch: {
-      usePolling: true,
-    }
-  },
+  // resolve: {
+  //   alias: {
+  //     '@/': `${path.resolve(__dirname, './src')}/`,
+  //   },
+  // }, 
+  // server: {
+    // watch: {
+      // usePolling: true,
+    // }
+  // },
   plugins: [
     visualizer(),
   	FullReload(['config/routes.rb', 'app/views/**/*', 'app/frontend/**/*'], { delay: 200 }),
@@ -29,9 +29,7 @@ export default defineConfig({
       include: [/\.vue$/, /\.md$/],
     }),
     vuetify({ 
-      autoImport: true,
-      configFile: 'src/settings.scss',
-
+      styles: { configFile: 'src/settings.scss' }
     }),
     AutoImport({
       imports: ['vue'],
