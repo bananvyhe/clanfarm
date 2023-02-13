@@ -28,6 +28,8 @@ console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify
 // import '~/index.css'
 import { createApp } from 'vue/dist/vue.esm-bundler';
 import App from '../app.vue'
+
+
 // const app = createApp({
 // data() {
 //     return {
@@ -38,13 +40,45 @@ import App from '../app.vue'
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 
- 
+// import { createVuetify, ThemeDefinition } from 'vuetify'
 
 
+// const myCustomLightTheme = {
+//   dark: false,
+//   colors: {
+//     background: '#FFFFFF',
+//     surface: '#FFFFFF',
+//     primary: '#6200EE',
+//     'primary-darken-1': '#3700B3',
+//     secondary: '#03DAC6',
+//     'secondary-darken-1': '#018786',
+//     error: '#B00020',
+//     info: '#2196F3',
+//     success: '#4CAF50',
+//     warning: '#FB8C00',
+//   }
+// }
+
+
+const app = createApp(App);
+const vuetify = createVuetify({
+theme: {
+  	defaultTheme: 'dark'
+  }	
+});
+
+// export default createVuetify({
+//   theme: {
+//   	defaultTheme: 'dark'
+    // defaultTheme: 'myCustomLightTheme',
+    // themes: {
+    //   myCustomLightTheme,
+    // }
+//   }
+// })
 // export default createVuetify()
 document.addEventListener('DOMContentLoaded', () => {
-const app = createApp(App);
-const vuetify = createVuetify();
+
 app.use(vuetify);
 app.mount('#app');
 // createApp(App).mount('#app') 
