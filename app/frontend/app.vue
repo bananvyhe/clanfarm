@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <p>{{ message }}</p>
-    <v-btn color="secondary">tswwss</v-btn>
+    <v-btn>tswwss</v-btn>
   </div>
 </template>
 
