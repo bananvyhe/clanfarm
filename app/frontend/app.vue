@@ -2,7 +2,16 @@
   <div>
 		<v-layout >
 			<v-app-bar density="compact" class="topmenu py-0">
-				{{arrivedState.bottom }} {{isScrolling }} 
+        <v-container  class="py-0 fill-height" >
+          <div class="my-0" >
+            {{message}}<i> {{ tl }}</i> 
+            <div class="subtitle-2 my-0 subt">
+              Yandex neural network translator API 
+            </div>
+          </div>
+          <v-spacer></v-spacer>
+<!--           <userbar></userbar> -->
+        </v-container>
 			</v-app-bar>
 			<!-- <v-btn @click = "topmenu"></v-btn> -->
 				123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123
@@ -28,51 +37,66 @@ onMounted(() => {
 //  
 
 const m1 = gsap.timeline();
-
+const message = ref("Throne and Liberty ")
+const tl = ref("mmorpg")
 let isFirstUpdate = true
 const showmenutop = reactive({ status: true});
 
-const debouncedFunc = debounce(() => {
-  m1.to(".topmenu",{
-    duration: 0.5,
-    y: 0,
-    ease: "elastic.in",
-  });
-  showmenutop.status = true;
-  console.log("scroll top");
-}, 500);
+// const debouncedFunc = debounce(() => {
+//   m1.to(".topmenu",{
+//     duration: 0.5,
+//     y: 0,
+//     ease: "elastic.in",
+//   });
+//   showmenutop.status = true;
+//   console.log("scroll top");
+// }, 500);
 
 watch(() => toTop.value, 
 	(newVal, oldVal) =>{
-		console.log(newVal)
-		console.log(oldVal)
+		// console.log(oldVal)
+		// console.log(newVal)
 		if (isFirstUpdate) {
       isFirstUpdate = false
     } else {
-    	debouncedFunc();			 
+    	if (newVal == true){
+			  m1.to(".topmenu",{
+			    duration: 0.5,
+			    y: 0,
+			    ease: "elastic.in",
+			  });    		
+    	}
+    	// debouncedFunc();			 
     }
   },
 	{deep: true}
 )
 
-const debouncedFuncbot = debounce(() => {
-  m1.to(".topmenu",{
-  duration: 0.5,
-  y: -48,
-  ease: "elastic.in",
-})
- showmenutop.status = false
-  console.log("scroll botom");
-}, 500);
+// const debouncedFuncbot = debounce(() => {
+//   m1.to(".topmenu",{
+// 	  duration: 0.5,
+// 	  y: -48,
+// 	  ease: "elastic.in",
+// 	})
+//  showmenutop.status = false
+//   console.log("scroll botom");
+// }, 500);
 
 watch(() => toBottom.value, 
 	(newVal, oldVal) =>{
-		console.log(newVal)
-		console.log(oldVal)
+		// console.log(oldVal)
+		// console.log(newVal)
  		if (isFirstUpdate) {
       isFirstUpdate = false
     } else {
-    	debouncedFuncbot();			 
+    	if (newVal == true){
+			  m1.to(".topmenu",{
+				  duration: 0.5,
+				  y: -48,
+				  ease: "elastic.in",
+				})
+    	}
+    	// debouncedFuncbot();
     }
 	}, 
 	{deep: true}
