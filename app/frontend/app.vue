@@ -13,12 +13,16 @@
 <!--           <userbar></userbar> -->
         </v-container>
 			</v-app-bar>
-			<!-- <v-btn @click = "topmenu"></v-btn> -->
-				123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123
-<!-- 				<br>123directions.bottom {{directions.bottom}} <br>showmenutop.status {{showmenutop.status}}<br> isScrolling {{isScrolling }} <br>directions.top {{directions.top}}<br>toBottom {{toBottom}}<br>toTop {{toTop
-				}}<br> -->
-				123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br><br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br><br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>123<br>
-				<!-- <div v-if="bottom">Uhuy! Sampai bawah</div>	 -->
+		 <v-main >
+        <v-container class="pt-0 " > 
+
+          <!-- <router-view></router-view> -->
+
+          <!-- <pumpk class="pumpkin"></pumpk> -->
+ 
+        </v-container>
+
+      </v-main>
 		</v-layout>
   </div>
 </template>
