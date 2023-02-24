@@ -27,6 +27,7 @@ console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'
 import { createApp } from 'vue/dist/vue.esm-bundler';
+import { createPinia } from 'pinia'
 import App from '../app.vue'
 import router from '../router'
 
@@ -56,7 +57,7 @@ const myCustomLightTheme = {
     warning: '#FB8C00',
   }
 }
-
+const pinia = createPinia()
 const app = createApp(App);
 const vuetify = createVuetify({
 theme: {
@@ -68,6 +69,7 @@ theme: {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+app.use(pinia)
 app.use(router);
 app.use(vuetify);
 app.mount('#app');
