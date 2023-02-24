@@ -16,7 +16,7 @@
 		 <v-main >
         <v-container class="pt-0 " > 
 
-          <!-- <router-view></router-view> -->
+          <router-view></router-view>
 
           <!-- <pumpk class="pumpkin"></pumpk> -->
  

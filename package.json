@@ -15,6 +15,7 @@
     "vite-bundle-visualizer": "^0.4.2",
     "vite-plugin-vuetify": "^1.0.2",
     "vue": "3.2.33",
+    "vue-router": "4",
     "vuetify": "^3.1.4"
   }
 }

@@ -28,7 +28,7 @@ console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify
 // import '~/index.css'
 import { createApp } from 'vue/dist/vue.esm-bundler';
 import App from '../app.vue'
-
+import router from '../router'
 
 // const app = createApp({
 // data() {
@@ -68,7 +68,7 @@ theme: {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-
+app.use(router);
 app.use(vuetify);
 app.mount('#app');
 // createApp(App).mount('#app') 
