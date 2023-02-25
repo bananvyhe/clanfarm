@@ -30,7 +30,8 @@ import { createApp } from 'vue/dist/vue.esm-bundler';
 import { createPinia } from 'pinia'
 import App from '../app.vue'
 import router from '../router'
-
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 // const app = createApp({
 // data() {
 //     return {
@@ -71,6 +72,8 @@ theme: {
 document.addEventListener('DOMContentLoaded', () => {
 app.use(pinia)
 app.use(router);
+app.use(VueAxios, axios)
+app.provide('axios', app.config.globalProperties.axios)
 app.use(vuetify);
 app.mount('#app');
 // createApp(App).mount('#app') 
