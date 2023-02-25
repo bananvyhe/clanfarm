@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pic: MyString
+  head: MyString
+  date: MyString
+  desc: MyString
+  biglink: MyString
+  fullarticle: MyString
+  link: MyString
+
+two:
+  pic: MyString
+  head: MyString
+  date: MyString
+  desc: MyString
+  biglink: MyString
+  fullarticle: MyString
+  link: MyString
