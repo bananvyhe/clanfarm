@@ -77,5 +77,5 @@ app.provide('axios', app.config.globalProperties.axios)
 app.use(vuetify);
 app.mount('#app');
 // createApp(App).mount('#app') 
-console.log("app", app);
+// console.log("app", app);
 })
