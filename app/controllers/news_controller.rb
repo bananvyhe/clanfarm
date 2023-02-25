@@ -1,13 +1,13 @@
 class NewsController < ApplicationController
-	  def index
 
+	def index
   	puts "==========="
-  	# @news = News.limit(16).order(created_at: :desc).offset(params[:pos])
-@news = News.limit(16)
-		puts @news.inspect
+  	@news = News.limit(16).order(created_at: :desc).offset(params[:pos])
+
+		puts params[:pos]
 	 
 		render json: @news
 		puts "||||||||||"
- 
   end
+
 end
