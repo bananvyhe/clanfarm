@@ -27,7 +27,8 @@
             v-bind:href="item.link"
             class="px-1 py-0 float-left"
             color="orange lighten-2"
-            text x-small>
+            variant="text"
+            size="x-small">
             источник
           </v-btn>              
           </v-col>
