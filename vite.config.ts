@@ -29,7 +29,11 @@ export default defineConfig({
       include: [/\.vue$/, /\.md$/],
     }),
     vuetify({ 
-      styles: { configFile: 'src/settings.scss' }
+      autoImport: true,
+      treeShake: true,
+      styles: { 
+        configFile: 'src/settings.scss',
+      }
     }),
     AutoImport({
       imports: ['vue'],
@@ -37,11 +41,12 @@ export default defineConfig({
     }),
     Components({
       resolvers: [
-          VuetifyResolver(),
+        VuetifyResolver(),
       ],      
       extensions: ['vue', 'md'],
       // allow auto import and register components used in markdown
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
     })    
   ],
+ 
 })

@@ -39,10 +39,13 @@ import VueAxios from 'vue-axios'
 //     }  
 //   }  
 // })  
-import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
-import * as ThemeDefinition  from 'vuetify'
 
+// import 'vuetify/styles'
+
+import { createVuetify } from 'vuetify'
+ 
+import * as ThemeDefinition  from 'vuetify'
+import 'vuetify/lib/styles/main.sass' 
 const myCustomLightTheme = {
   dark: false,
   colors: {
