@@ -8,7 +8,7 @@
             class="align-top float-left mr-1 px-3 py-md-1 mx-md-1">
             <!-- v-bind:style="{backgroundImage: 'url('+ item.pic}" -->
               <div class ="pic px-0 align-center my-2" >
-                <!-- {{pos}} -->
+                <!-- {{pos}} --> 
               </div>
             </div >
             <div class="px-2 pt-2 pb-2 colr"
@@ -30,7 +30,20 @@
             variant="text"
             size="x-small">
             источник
-          </v-btn>              
+          </v-btn>  
+
+          <!-- <div v-if=" loa >= 5 "> -->
+            <!-- <div class="disdiv"> -->
+              <v-btn
+              class="px-2 py-0 mx-2 but"
+              @click="clickhandler(item.id, $event)"
+              :disabled="isButtonDisabled"
+              small>
+                открыть
+              </v-btn>                 
+            <!-- </div> -->
+          <!-- </div>   -->
+
           </v-col>
         </v-row>
       </v-card>
@@ -42,23 +55,28 @@
   const axios: any = inject('axios')
   import { useLogStore } from '../store.js'
   const store = useLogStore()
-  const rock = computed(() => store.thisrock)
   const pos = ref(0)
   const alld = ref([])
+
+  const rock = computed(() => store.trock)
 
   onMounted(() => {
      getList()
   })
-    const getList = (): void => {
-      axios
-        .get("/news",  { params: { pos: pos.value } })
-        .then((response: { data: any }) => {
-          console.log(response.data)
-          alld.value = response.data
-        });
-    };
-     
+  const getList = (): void => {
+    axios
+      .get("/news", { params: { pos: pos.value } })
+      .then((response: { data: any }) => {
+        console.log(response.data)
+        alld.value = response.data
+    });
+  };
 
+  const loa = computed(() => store.tloa)
+  const isButtonDisabled = computed(() => {
+    console.log(loa.value)
+    return loa.value < 5;
+  });
 </script>
 
 <style scoped>
@@ -73,5 +91,11 @@
 }
 .date{
   color: #9d9681; 
+}
+.but{
+  /*background-color: #dad;  */
+  position: absolute;
+  bottom: 1.5em;
+  right: 1.5em;
 }
 </style>

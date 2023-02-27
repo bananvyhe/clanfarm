@@ -3,12 +3,12 @@ import { defineStore } from "pinia";
 export const useLogStore = defineStore('logStore', () => {
 
   const rock = ref(4)
-
-  const thisrock = computed(() => rock.value)
-
+  const loa = ref(2)
+  const trock = computed(() => rock.value)
+  const tloa = computed(() => loa.value)
   // function increment() {
   //   count.value++
   // }
 
-  return { rock, thisrock }
+  return { rock, trock, loa, tloa }
 })
