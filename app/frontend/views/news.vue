@@ -32,18 +32,14 @@
             источник
           </v-btn>  
 
-          <!-- <div v-if=" loa >= 5 "> -->
-            <!-- <div class="disdiv"> -->
-              <v-btn
-              class="px-2 py-0 mx-2 but"
-              @click="clickhandler(item.id, $event)"
-              :disabled="isButtonDisabled"
-              small>
-                открыть
-              </v-btn>                 
-            <!-- </div> -->
-          <!-- </div>   -->
-
+          <v-btn
+          class="px-2 py-0 mx-2 but"
+          @click="clickhandler(item.id, $event)"
+          :disabled="isButtonDisabled"
+          small>
+            открыть
+          </v-btn> 
+                          
           </v-col>
         </v-row>
       </v-card>
@@ -51,24 +47,41 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, reactive, inject, onMounted } from 'vue'
+
+
+  import { ref, reactive, inject, onMounted, watch  } from 'vue'
   const axios: any = inject('axios')
   import { useLogStore } from '../store.js'
   const store = useLogStore()
+
+  import { useScroll } from '@vueuse/core'
+  const {arrivedState} = useScroll(document)  
+  
   const pos = ref(0)
   const alld = ref([])
-
+  const { bottom } = toRefs( arrivedState )
+  watch(() => bottom.value, (val) => {
+    if (val == true){
+      getList(val)
+    }
+    console.log(val)
+  })
+ 
   const rock = computed(() => store.trock)
 
   onMounted(() => {
      getList()
   })
-  const getList = (): void => {
+
+  const getList = (val): void => {
     axios
       .get("/news", { params: { pos: pos.value } })
       .then((response: { data: any }) => {
         console.log(response.data)
         alld.value = response.data
+        alld.value = alld.value.concat(response.data);
+        pos.value = Object.keys(alld.value).length
+        // console.log( Object.keys(alld.value).length)
     });
   };
 
