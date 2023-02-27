@@ -15,7 +15,7 @@
              >
               <h3>{{ item.head }}</h3>
             </div>
-            <div class="px-2 body-1">
+            <div class="px-2 text-body-1">
             {{item.desc}}… 
             </div>
             <v-card-subtitle

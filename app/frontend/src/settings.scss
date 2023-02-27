@@ -1,19 +1,11 @@
+@use 'global.scss';
 @use 'vuetify/settings' with (
   $color-pack: false,
-  $utilities: false,
-  // $button-height: 170px,
-
+  // $utilities: false,
+  // $button-height: global.$sizew,
+  $body-font-family: 'Roboto Slab',
 );
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-$body-font-family: 'Roboto Slab';
-$heading-font-family: 'Roboto';
-  h1, h2, h3, h4, h5, {
-    line-height: 1.75rem;
-    font-family: $heading-font-family;
-    // color: #989f60 !important;
-  }
 	a{
 		color: #80d0ff 	!important;
 		text-decoration: none;
@@ -31,7 +23,6 @@ $grid-breakpoints:  (
 
 $material-dark: (
   'background': #11120e,
- 
 	'text': (
     'primary': #e9f1f5,
 		'secondary': #e1e3d1,

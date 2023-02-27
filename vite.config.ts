@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import FullReload from 'vite-plugin-full-reload'
 import RubyPlugin from 'vite-plugin-ruby'
 import vue from '@vitejs/plugin-vue'
-import vuetify from 'vite-plugin-vuetify'
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import { visualizer } from "rollup-plugin-visualizer"
 import Components from 'unplugin-vue-components/vite'
 import {
@@ -11,28 +11,20 @@ import {
 import AutoImport from 'unplugin-auto-import/vite'
 // import path from 'path';
 export default defineConfig({
-  // resolve: {
-  //   alias: {
-  //     '@/': `${path.resolve(__dirname, './src')}/`,
-  //   },
-  // }, 
-  // server: {
-    // watch: {
-      // usePolling: true,
-    // }
-  // },
+ 
   plugins: [
     visualizer(),
   	FullReload(['config/routes.rb', 'app/views/**/*', 'app/frontend/**/*'], { delay: 200 }),
     RubyPlugin(),
     vue({
       include: [/\.vue$/, /\.md$/],
+      template: { transformAssetUrls }
     }),
     vuetify({ 
       autoImport: true,
       treeShake: true,
       styles: { 
-        configFile: 'src/settings.scss',
+        configFile: 'src/settings.scss',    
       }
     }),
     AutoImport({
@@ -48,5 +40,14 @@ export default defineConfig({
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
     })    
   ],
+
+    // css: {
+    // // Add your global CSS file here
+    // preprocessorOptions: {
+    //   scss: {
+    //     additionalData: `@import "./src/styles/global.scss";`,
+    //   },
+    // },
+  // },
  
 })

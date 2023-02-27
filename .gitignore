@@ -33,3 +33,5 @@ node_modules
 
 
 stats.html
+.yarn/releases/yarn-1.22.19.cjs
+.yarnrc
