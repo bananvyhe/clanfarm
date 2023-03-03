@@ -119,6 +119,14 @@
   function handleClick(val){
     console.log(val)
     showModal.value = true
+    axios
+      .post("/fullnews", {  id: val  })
+      .then((response: { data: any }) => {
+        console.log(response.data)
+        
+ 
+        // console.log( Object.keys(alld.value).length)
+    });    
   }  
 </script>
 
