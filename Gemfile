@@ -20,7 +20,17 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem 'vite_rails'
 gem 'mechanize'
 gem 'httparty'
+gem "redis"
+gem 'redis-namespace'
+gem 'whenever'
+gem 'sidekiq-client-cli'
+gem 'sidekiq', '5.2.5'
+gem 'capistrano-sidekiq'
 group :development, :test do
+  gem 'capistrano-passenger'
+  gem "capistrano", "~> 3.10", require: false
+  gem "capistrano-rails", "~> 1.6", require: false  
+  gem 'capistrano-rbenv', '~> 2.2'	
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
