@@ -33,7 +33,7 @@
         </v-btn>  
 <!-- @click="handleClick(item.id)" -->
         <v-btn
-          @click="handleClick(item.id)"
+          @click="handleClick(item.id, item.head)"
           class="px-2 py-0 mx-2 but"
           :disabled="isButtonDisabled"
           small>
@@ -49,11 +49,11 @@
       width="95%">
       <v-card 
       class="px-md-5 py-md-2">
-      <!-- <v-card-title class="pb-md-4">
-          <h5>{{item.head}}</h5>
+      <v-card-title class="pb-md-4">
+          <h5>{{ tithead }}</h5>
         </v-card-title>
         <v-card-text >
-
+          <span class="text-body-1" v-html="fullarticle"></span> 
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -63,7 +63,7 @@
             @click="showModal = false">
             Закрыть
             </v-btn>
-          </v-card-actions> -->
+          </v-card-actions>
       </v-card>
     </v-dialog>  
   </div>
@@ -115,15 +115,17 @@
 //article full modal view mech
  
   const showModal = ref(false)
-
-  function handleClick(val){
+  const fullarticle = ref()
+  const tithead = ref()
+  function handleClick(val, head){
     console.log(val)
     showModal.value = true
     axios
       .post("/fullnews", {  id: val  })
       .then((response: { data: any }) => {
         console.log(response.data.fullarticle)
-        
+        fullarticle.value = response.data.fullarticle
+        tithead.value = head
  
         // console.log( Object.keys(alld.value).length)
     });    
