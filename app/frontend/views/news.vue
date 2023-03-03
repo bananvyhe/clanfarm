@@ -122,7 +122,7 @@
     axios
       .post("/fullnews", {  id: val  })
       .then((response: { data: any }) => {
-        console.log(response.data)
+        console.log(response.data.fullarticle)
         
  
         // console.log( Object.keys(alld.value).length)
