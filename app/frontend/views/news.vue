@@ -30,7 +30,7 @@
           variant="text"
           size="x-small">
           источник
-        </v-btn>  
+        </v-btn>  {{bottom }}
 <!-- @click="handleClick(item.id)" -->
         <v-btn
           @click="handleClick(item.id, item.head)"
@@ -92,7 +92,9 @@
   const rock = computed(() => store.trock)
 
   onMounted(() => {
+    console.log(bottom.value)
      getList()
+     console.log("getlist")
   })
 
   const getList = (val): void => {
@@ -100,7 +102,7 @@
       .get("/news", { params: { pos: pos.value } })
       .then((response: { data: any }) => {
         console.log(response.data)
-        alld.value = response.data
+        // alld.value = response.data
         alld.value = alld.value.concat(response.data);
         pos.value = Object.keys(alld.value).length
         // console.log( Object.keys(alld.value).length)

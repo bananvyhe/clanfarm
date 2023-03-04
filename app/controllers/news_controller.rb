@@ -9,6 +9,32 @@ class NewsController < ApplicationController
 		render json: @news
 		puts "||||||||||"
   end
+	def create 
+		getrecords = News.limit(200).order(created_at: :desc)
+		puts "rec"
+		tokenrapid = News.tokenmake
+		params.require(:_json).each do |d|
+			findrec = false
+      link = d[:link].to_s			
+	    getrecords.each do |item|
+	      if item.link == link
+	        findrec = true
+	        puts findrec
+	        break
+	      end
+	    end 
+
+	    if findrec == false
+	    	pic = d[:pic].to_s
+	      head = d[:head].to_s
+	      desc = d[:desc].to_s
+	      date = d[:date].to_s
+
+				TobdWorker.perform_async(pic, head, desc, date, link, tokenrapid)
+			end
+			
+		end
+	end 
 
 	def fullnews
 		puts "===-----------fullnews----------===="

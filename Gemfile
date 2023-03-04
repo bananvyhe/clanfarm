@@ -20,7 +20,7 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem 'vite_rails'
 gem 'mechanize'
 gem 'httparty'
-gem "redis"
+gem "redis", '< 4.6' 
 gem 'redis-namespace'
 gem 'whenever'
 gem 'sidekiq-client-cli'
