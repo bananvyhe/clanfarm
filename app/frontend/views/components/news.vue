@@ -70,7 +70,6 @@
 </template>
 <script setup lang="ts">
 
-  // import fullArticle from './components/fullArticle.vue'
   import { ref, reactive, inject, onMounted, watch  } from 'vue'
   const axios: any = inject('axios')
   import { useLogStore } from '../../store.js'
