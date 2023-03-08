@@ -14,11 +14,11 @@
         </v-container>
 			</v-app-bar>
 		 <v-main >
-        <v-container class="pt-0 " > 
+        <v-container class="pt-0 cont" > 
 
           <router-view></router-view>
 
-          <!-- <pumpk class="pumpkin"></pumpk> -->
+          <pumpk class="pumpkin"></pumpk>
  
         </v-container>
 
@@ -27,6 +27,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import pumpk from './views/components/pumpk.vue'
 import { gsap } from "gsap";
 import { ref, computed, watch, reactive, onMounted, onBeforeMount, toRefs } from 'vue'
 import { useScroll } from '@vueuse/core'
@@ -108,5 +109,13 @@ watch(() => toBottom.value,
 </script>
 
 <style scoped>
-
+  .cont{
+    position: relative;
+  }
+ .pumpkin {
+  position: absolute;
+  top: 60px;
+  right: 18px;
+  z-index: 50;
+ }
 </style>

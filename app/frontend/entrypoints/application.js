@@ -32,6 +32,24 @@ import App from '../app.vue'
 import router from '../router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import ls from 'localstorage-slim';
+import encUTF8 from 'crypto-js/enc-utf8';
+import AES from 'crypto-js/aes';
+ls.config.encrypt = true; 
+ls.config.secret = 'bananvyhe';
+ls.config.encrypter = (data, secret) => AES.encrypt(JSON.stringify(data), secret).toString();
+ls.config.decrypter = (data, secret) => {
+  try {
+    return JSON.parse(AES.decrypt(data, secret).toString(encUTF8));
+  } catch (e) {
+    // incorrect/missing secret, return the encrypted data instead
+    return data;
+  }
+};
+  if (!ls.get('load')){
+    ls.set('load', 0)  
+    console.log("0")
+  }
 // const app = createApp({
 // data() {
 //     return {

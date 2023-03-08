@@ -1,0 +1,65 @@
+<template>
+  <div >
+    <div class="infodmg">
+      {{hit}}   
+    </div>
+  <!-- <div class="hitbox" v-on:click="hitcalc"> -->
+  <!-- </div> -->
+  </div>
+</template>
+<script>
+import { gsap } from "gsap";
+// export default {
+//   data: function () {
+//     return {
+//       basedamage: 110,
+//       lvl: 1,
+//       hit: 0,
+//     }
+//   },
+const basedamage = ref(110)
+const lvl = ref(1)
+const hit = ref(0)
+
+function hitcalc(){
+      hit.value = (((basedamage.value * (lvl.value/10 ))  )* (Math.random() * (0.120 - 0.0200) + 0.3).toFixed(2)*10).toFixed()
+      var m1 = gsap.timeline();
+      m1.from(".infodmg",{
+         y:"10px",
+        opacity: 1, 
+      })
+      .to(".infodmg",{
+        opacity: 0, 
+        y:"-40px",
+        duration: 6,
+      })      
+}
+
+//   methods: {
+//     hitcalc(){
+//       this.hit = (((this.basedamage * (this.lvl/10 ))  )* (Math.random() * (0.120 - 0.0200) + 0.3).toFixed(2)*10).toFixed()
+//       var m1 = gsap.timeline();
+//       m1.from(".infodmg",{
+//          y:"10px",
+//         opacity: 1, 
+//       })
+//       .to(".infodmg",{
+//         opacity: 0, 
+//         y:"-40px",
+//         duration: 6,
+//       })
+//     }
+//   },
+// }
+</script>
+<style scoped>
+.infodmg{
+  position: absolute;
+  opacity: 0;
+}
+/*.hitbox{
+  height: 1em;
+  width: 4em;
+  background-color: #dad;
+}*/
+</style>

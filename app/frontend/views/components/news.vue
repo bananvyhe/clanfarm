@@ -70,7 +70,7 @@
 </template>
 <script setup lang="ts">
 
-  import { ref, reactive, inject, onMounted, watch  } from 'vue'
+  import { ref, reactive, inject, onMounted, watch, computed  } from 'vue'
   const axios: any = inject('axios')
   import { useLogStore } from '../../store.js'
   const store = useLogStore()
@@ -118,17 +118,17 @@
   const showModal = ref(false)
   const fullarticle = ref()
   const tithead = ref()
+
   function handleClick(val, head){
     console.log(val)
     showModal.value = true
     axios
       .post("/fullnews", {  id: val  })
       .then((response: { data: any }) => {
-        console.log(response.data.fullarticle)
-        fullarticle.value = response.data.fullarticle
-        tithead.value = head
- 
-        // console.log( Object.keys(alld.value).length)
+      console.log(response.data.fullarticle)
+      fullarticle.value = response.data.fullarticle
+      tithead.value = head
+      // console.log( Object.keys(alld.value).length)
     });    
   }  
 </script>

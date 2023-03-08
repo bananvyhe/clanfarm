@@ -6,9 +6,16 @@ export const useLogStore = defineStore('logStore', () => {
   const loa = ref(7)
   const trock = computed(() => rock.value)
   const tloa = computed(() => loa.value)
-  // function increment() {
-  //   count.value++
-  // }
 
-  return { rock, trock, loa, tloa }
+  const pumpkdead = ref(false)
+  const tpumpkdead = computed(() => pumpkdead.value)
+  function setPumpkDead() {
+    pumpkdead.value = true
+  }
+  function setPumpkAlive() {
+    pumpkdead.value = false
+  }
+  
+
+  return { rock, trock, loa, tloa, pumpkdead }
 })
