@@ -129,16 +129,17 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
           ls.set('hey', "death") 
           console.log("dead")
           console.log(remaining)
-        }else if ( remaining < 0 ){
+        }else if ( remaining < 0 && store.tpumpkdead && hp.value != 100){
           console.log(remaining)
           console.log("remaining < 0 ")
-          var alive = gsap.timeline();        
-          var m1 = gsap.timeline();
-          m1.to(".character",{
-            delay: 2,
-            // className: "+=character",
-            onComplete: ressurect
-          })
+          ressurect()
+          // var alive = gsap.timeline();        
+          // var m1 = gsap.timeline();
+          // m1.to(".character",{
+          //   delay: 2,
+          //   // className: "+=character",
+          //   onComplete: ressurect
+          // })
           console.log("alive")
         }
       }, 1000);   
@@ -148,7 +149,7 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
         hp.value = 100
         hpoints.value = 124
         store.setPumpkAlive()
-        ls.set('hey', "alive") 
+        ls.set('hey', "alive")
         pumpk()
       }
 
@@ -174,9 +175,9 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
         function myFunction(){
  
           if (store.tpumpkdead){
-             m1.kill()
-             var m2 = gsap.timeline();
-            m2.to(".character",{
+            
+            var m2 = gsap.timeline();
+            m2.to(".character", {
               // className: "+=death",
                 duration: 1,
                 backgroundPosition: "-960px",
@@ -184,17 +185,21 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
                 backgroundImage: 'url('+pubow+')',
                 onComplete: end
             })
-              function end(){
-                var m2 = gsap.timeline();
-                m2.to(".unit",{
-                  opacity: 0
-                  // className: "+=off",
-                })
-              }
-            // }
+            function end(){
+              m2.to(".unit",{
+                opacity: 0,
+                // className: "+=off",
+                onComplete: twooff
+              })
+              m1.kill()
+              function twooff(){
+                m2.kill()
+              }               
+            }
           } 
         }
       }
+
       var master = gsap.timeline();
       if (ls.get('hey') == "alive" || !ls.get('hey')){
         master.add(pumpk())
