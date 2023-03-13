@@ -1,6 +1,7 @@
 <template>
   <div class="main mx-0 my-0">
-    <!-- <drop class="drops"></drop> -->{{store.tloa}}{{  loc  }}{{store.tpumpkdead}}
+    <!-- <drop class="drops"></drop> -->
+    <!-- {{store.tloa}} {{store.tpumpkdead}} -->
 <!-- :class="loc  ? 'unit' : 'off'  " -->
     <div class="unit" v-on:click="handler()" > 
       <div class="hpoints d-flex justify-center subtitle-2">{{hpoints}}</div> 
@@ -46,7 +47,7 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
   const { hitcalc, damageData } = damagecomp()
   
   function handler(){
-    if (ready.value == true) {
+    if (ready.value == true && !store.tpumpkdead) {
       hitpumpk()
       hitn()
       start()
@@ -124,23 +125,14 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
         }
         // если отсчет не завершился то присваиваем статус "мертвый" в локалсорадж
         if( remaining >= 0 ){
-          store.setPumpkDead 
+          store.setPumpkDead()
           ls.set('hey', "death") 
           console.log("dead")
           console.log(remaining)
         }else if ( remaining < 0 ){
           console.log(remaining)
           console.log("remaining < 0 ")
-          store.setPumpkAlive 
-          var alive = gsap.timeline();
-          alive.to(".unit",{
-            delay: 2,
-            // className: "+=unit",
-          })
-        // gsap.set(".character", {
-
-        //   backgroundImage: 'url('+pua+ ')',
-        // });          
+          var alive = gsap.timeline();        
           var m1 = gsap.timeline();
           m1.to(".character",{
             delay: 2,
@@ -148,15 +140,15 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
             onComplete: ressurect
           })
           console.log("alive")
-          ls.set('hey', "alive") 
         }
       }, 1000);   
 
-      var self = this
-
+      // var self = this
       function ressurect() {  
         hp.value = 100
         hpoints.value = 124
+        store.setPumpkAlive()
+        ls.set('hey', "alive") 
         pumpk()
       }
 
@@ -164,7 +156,6 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
         gsap.set(".character", {
           scale: 1.5,
           backgroundImage: 'url('+pua+')',
-
         });
 
         var m1 = gsap.timeline();
@@ -172,15 +163,14 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
           duration: 1,
           repeat:-1,
           repeatDelay: 1,
-           delay:1,
-
+          // delay:1,
           backgroundPosition: "-528px",
           ease: "steps(11)",
-          
- 
           onRepeat: myFunction
         })
-
+        m1.to(".unit",{
+          opacity:1
+        })
         function myFunction(){
  
           if (store.tpumpkdead){
@@ -188,35 +178,17 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
              var m2 = gsap.timeline();
             m2.to(".character",{
               // className: "+=death",
- 
                 duration: 1,
                 backgroundPosition: "-960px",
                 ease: "steps(20)",              
                 backgroundImage: 'url('+pubow+')',
                 onComplete: end
             })
-
-            // console.log("death")
-            // m1.to(".character",{
-            //   className: "+=death",
-            //   onComplete: endFunc
-            // })
-            // function endFunc(){
-            //   console.log("endFunc")
-            //   m1.kill()
-
-            //   var m2 = gsap.timeline();
-            //   m2.to(".death",{
-            //     duration: 1,
-            //     backgroundPosition: "-960px",
-            //     ease: "steps(20)",
-            //     onComplete: end
-            //   })
               function end(){
                 var m2 = gsap.timeline();
                 m2.to(".unit",{
+                  opacity: 0
                   // className: "+=off",
- 
                 })
               }
             // }
