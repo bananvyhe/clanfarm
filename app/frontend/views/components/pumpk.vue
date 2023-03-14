@@ -1,7 +1,8 @@
 <template>
   <div class="main mx-0 my-0">
     <!-- <drop class="drops"></drop> -->
-    <!-- {{store.tloa}} {{store.tpumpkdead}} -->
+    <!-- {{store.tloa}}  -->
+    {{store.tpumpkdead}}
 <!-- :class="loc  ? 'unit' : 'off'  " -->
     <div class="unit" v-on:click="handler()" > 
       <div class="hpoints d-flex justify-center subtitle-2">{{hpoints}}</div> 
@@ -157,11 +158,15 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
         gsap.set(".character", {
           scale: 1.5,
           backgroundImage: 'url('+pua+')',
+          backgroundPosition: "-528px",
         });
 
         var m1 = gsap.timeline();
-        m1.to(".character",{
-          duration: 1,
+        m1.to(".unit",{
+          opacity:1
+        })
+        .to(".character",{
+          duration: 2,
           repeat:-1,
           repeatDelay: 1,
           // delay:1,
@@ -169,34 +174,33 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
           ease: "steps(11)",
           onRepeat: myFunction
         })
-        m1.to(".unit",{
-          opacity:1
-        })
+
         function myFunction(){
- 
-          if (store.tpumpkdead){
-            
+          if (store.tpumpkdead && hp.value <= 0){
             var m2 = gsap.timeline();
             m2.to(".character", {
               // className: "+=death",
-                duration: 1,
-                backgroundPosition: "-960px",
-                ease: "steps(20)",              
-                backgroundImage: 'url('+pubow+')',
-                onComplete: end
+              duration: 1,
+              backgroundPosition: "-960px",
+              ease: "steps(20)",              
+              backgroundImage: 'url('+pubow+')',
+              onComplete: end
             })
+
             function end(){
+            
               m2.to(".unit",{
                 opacity: 0,
                 // className: "+=off",
                 onComplete: twooff
               })
-              m1.kill()
-              function twooff(){
-                m2.kill()
-              }               
+
+              m1.kill()             
             }
           } 
+          function twooff() {  
+            m2.kill() 
+          }         
         }
       }
 
