@@ -55,17 +55,15 @@
       </v-dialog>
     </div> -->
 <!--   v-else  -->
-
-<!--     <div class="loa  ">
-      {{loa}}
-    </div>
+ 
     <div class="useraction d-flex">  
-      <inv  v-if="this.signedIn == true">666</inv>
-      <div class="loa  px-2" v-else>{{ this.loastat}}</div>
+      <!-- <inv  v-if="this.signedIn == true">666</inv> -->
+      <!-- v-else -->
+      <div class="loa px-2" >{{store.tloa}}</div>
       
       <div class="skull"></div>
-    </div> -->
-  {{store.tloa}}
+    </div>
+  
   </div>
 </template>
 
@@ -141,7 +139,7 @@
  .skull{
   height: 20px;
   width: 20px;
-  background-image: url('./images/skull.png');
+  background-image: url('../images/skull.png');
   image-rendering: pixelated;
  }
 </style>
