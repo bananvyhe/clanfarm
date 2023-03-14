@@ -5,13 +5,9 @@
         <v-container  class="d-flex align-center py-0 my-0" >
 
           <div class=" wel "  >
-            
               <h3 class=" pr-1">
                 {{message}}
-              </h3>                
-
-            
-            
+              </h3>
             <div class=" subs" >
             <span class=" pr-1 text-body-2 mmo"> {{ tl }}</span> 
             <span class="text-caption my-0 subt">
@@ -21,7 +17,7 @@
           </div>
 
           <v-spacer></v-spacer>
-<!--           <userbar></userbar> -->
+          <userbar></userbar>
         </v-container>
 			</v-app-bar>
 		 <v-main >
@@ -35,7 +31,7 @@
   </div>
 </template>
 <script setup lang="ts">
-// import pumpk from './views/components/pumpk.vue'
+import userbar from './views/components/userbar.vue'
 import { gsap } from "gsap";
 import { ref, computed, watch, reactive, onMounted, onBeforeMount, toRefs } from 'vue'
 import { useScroll } from '@vueuse/core'
