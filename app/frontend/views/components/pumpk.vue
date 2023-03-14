@@ -2,7 +2,7 @@
   <div class="main mx-0 my-0">
     <!-- <drop class="drops"></drop> -->
     <!-- {{store.tloa}}  -->
-    {{store.tpumpkdead}}
+    <!-- {{store.tpumpkdead}} -->
 <!-- :class="loc  ? 'unit' : 'off'  " -->
     <div class="unit" v-on:click="handler()" > 
       <div class="hpoints d-flex justify-center subtitle-2">{{hpoints}}</div> 
@@ -10,10 +10,12 @@
       <div class="hpbar">
         <v-progress-linear :model-value="hp" color="success"></v-progress-linear>
       </div>
+      <div class="infodmg">
+        {{damageData.hit}}
+      </div>      
       <div class="character" :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]"></div>
       <!-- :class="loc  ? 'character' : 'death'" -->
     </div>
-
 	</div>
 </template>
 <script setup lang="ts">
@@ -40,7 +42,6 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
   const hp = ref(100)
   const dmg = ref()
   const loc = ref()
- 
 
   const { ready, start } = useTimeout(1000, { controls: true })
     // <p>Ready: {{ ready.toString() }}</p>
@@ -55,8 +56,7 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
     }
     console.log(ready.value)
   }
- 
- 
+
   function hitn(){
     var hitn = gsap.timeline();
     hitn.to(".character",{
@@ -69,7 +69,18 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
       ease: "elastic.out", 
     })      
   }
- 
+  function popupHit(){
+    var m1 = gsap.timeline();
+    m1.from(".infodmg",{
+       y:"10px",
+      opacity: 1, 
+    })
+    .to(".infodmg",{
+      opacity: 0, 
+      y:"-40px",
+      duration: 6,
+    })      
+  } 
   function hitpumpk(){
   //      // var interval = 15000000;
     // var interval = 26500;
@@ -81,6 +92,7 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
     hpoints.value = hpleft
     hp.value = percentcut
 
+    popupHit()
     if (hpoints.value <= 0){
       ls.set('hey', "death") 
       store.setPumpkDead()
@@ -166,7 +178,7 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
           opacity:1
         })
         .to(".character",{
-          duration: 2,
+          duration: 1,
           repeat:-1,
           repeatDelay: 1,
           // delay:1,
@@ -188,16 +200,15 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
             })
 
             function end(){
-            
               m2.to(".unit",{
                 opacity: 0,
                 // className: "+=off",
                 onComplete: twooff
               })
-
               m1.kill()             
             }
           } 
+
           function twooff() {  
             m2.kill() 
           }         
@@ -213,6 +224,10 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
  
 </script>
 <style scoped>
+.infodmg{
+  position: absolute;
+  opacity: 0;
+}
 .drops{
   bottom: 0px;
   right: 0px;
