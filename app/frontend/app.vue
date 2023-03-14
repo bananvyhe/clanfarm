@@ -17,7 +17,7 @@
         <v-container class="pt-0 cont" > 
 
           <router-view></router-view>
-          
+
         </v-container>
       </v-main>
 		</v-layout>
@@ -103,6 +103,9 @@ watch(() => toBottom.value,
 </script>
 
 <style scoped>
+  .subt{
+    color: #73708f;
+  }
   .cont{
     position: relative;
   }
