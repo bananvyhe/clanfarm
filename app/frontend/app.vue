@@ -17,29 +17,23 @@
         <v-container class="pt-0 cont" > 
 
           <router-view></router-view>
-
-          <pumpk class="pumpkin"></pumpk>
- 
+          
         </v-container>
-
       </v-main>
 		</v-layout>
   </div>
 </template>
 <script setup lang="ts">
-import pumpk from './views/components/pumpk.vue'
+// import pumpk from './views/components/pumpk.vue'
 import { gsap } from "gsap";
 import { ref, computed, watch, reactive, onMounted, onBeforeMount, toRefs } from 'vue'
 import { useScroll } from '@vueuse/core'
 import { debounce } from 'lodash'
 const { x, y, isScrolling, arrivedState, directions } = useScroll(document)
 const { left: toLeft, right: toRight, top: toTop, bottom: toBottom } = toRefs(directions)
-
 onMounted(() => {
 
 })
-
-//  
 
 const m1 = gsap.timeline();
 const message = ref("Throne and Liberty ")
@@ -112,10 +106,4 @@ watch(() => toBottom.value,
   .cont{
     position: relative;
   }
- .pumpkin {
-  position: absolute;
-  top: 60px;
-  right: 18px;
-  z-index: 50;
- }
 </style>

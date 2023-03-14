@@ -5,7 +5,7 @@
     <!-- {{store.tpumpkdead}} -->
 <!-- :class="loc  ? 'unit' : 'off'  " -->
     <div class="unit" v-on:click="handler()" > 
-      <div class="hpoints d-flex justify-center subtitle-2">{{hpoints}}</div> 
+      <div class="hpoints d-flex justify-center subtitle-2" v-if="hpoints != 0">{{hpoints}}</div> 
       <!-- <damagecomp ref="hitt"></damagecomp> -->
       <div class="hpbar">
         <v-progress-linear :model-value="hp" color="success"></v-progress-linear>
@@ -69,6 +69,7 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
       ease: "elastic.out", 
     })      
   }
+
   function popupHit(){
     var m1 = gsap.timeline();
     m1.from(".infodmg",{
@@ -81,6 +82,7 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
       duration: 6,
     })      
   } 
+
   function hitpumpk(){
   //      // var interval = 15000000;
     // var interval = 26500;
@@ -88,11 +90,15 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
     hitcalc()
     dmg.value =  damageData.hit 
     var hpleft = hpoints.value - dmg.value
+    if (hpleft < 0){
+      hpleft = 0
+    }
     var percentcut = hpleft * 100 / hpoints.value
+    
     hpoints.value = hpleft
     hp.value = percentcut
-
     popupHit()
+
     if (hpoints.value <= 0){
       ls.set('hey', "death") 
       store.setPumpkDead()

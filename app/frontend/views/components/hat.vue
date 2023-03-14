@@ -3,7 +3,7 @@
   	<div class="hat">	
 	  	<div class="container">
  
-<!-- 		  	<div class="flash"></div>
+		  	<div class="flash"></div>
 
 		  	<div class="clouds2"></div>
 		  	<div class="bgshad"></div>
@@ -16,8 +16,9 @@
 	 
 		  	</div>
 		  	<div class="warriors brightness"></div>
-		  	<div class="bgshad2"></div> -->
-			
+		  	<div class="bgshad2"></div>
+
+			<pumpk class="pumpkin"></pumpk>
 			</div>  		
   	</div>
 
@@ -25,11 +26,11 @@
 	</div>
 </template>
 <script setup lang="ts">
-	import News from './news.vue'
- 
+import News from './news.vue'
+import pumpk from './pumpk.vue'
 import { gsap } from "gsap";
 import { SlowMo } from "gsap/EasePack";
- import { ref, onMounted, nextTick } from 'vue';
+import { ref, onMounted, nextTick } from 'vue';
 gsap.registerPlugin(SlowMo);
 
 const repDelay = ref()
@@ -171,6 +172,13 @@ console.log("mounted2")
 
 </script>
 <style scoped>
+ .pumpkin {
+  position: absolute;
+  /*top: 60px;*/
+  bottom: 4px;
+  right: 14px;
+  z-index: 50;
+ }
 .plashken {
 	position: absolute;
 	width: 100%;
