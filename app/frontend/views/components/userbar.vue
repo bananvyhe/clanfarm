@@ -65,16 +65,21 @@
       
       <div class="skull"></div>
     </div> -->
-  1234
+  {{store.tloa}}
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+  import { ref } from 'vue';
+  import { useLogStore } from '../../store.js'  
+  const store = useLogStore()
+
   // import Inv from './packs/components/inventory.vue';  
  
   // import { useLogStore } from 'store.js'
   // import Signup from './packs/components/Signup.vue';
   // import Signin from './packs/components/Signin.vue';
+  const loa = ref()
 // export default {
   // data: function () {
   //   return {
