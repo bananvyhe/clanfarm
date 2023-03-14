@@ -2,13 +2,24 @@
   <div>
 		<v-layout >
 			<v-app-bar density="compact" class="topmenu py-0">
-        <v-container  class="py-0 fill-height" >
-          <div class="my-0" >
-            {{message}}<i> {{ tl }}</i> 
-            <div class="subtitle-2 my-0 subt">
-              Yandex neural network translator API 
+        <v-container  class="d-flex align-center py-0 my-0" >
+
+          <div class=" wel "  >
+            
+              <h3 class=" pr-1">
+                {{message}}
+              </h3>                
+
+            
+            
+            <div class=" subs" >
+            <span class=" pr-1 text-body-2 mmo"> {{ tl }}</span> 
+            <span class="text-caption my-0 subt">
+              Yandex ai translator API 
+            </span>
             </div>
           </div>
+
           <v-spacer></v-spacer>
 <!--           <userbar></userbar> -->
         </v-container>
@@ -36,8 +47,8 @@ onMounted(() => {
 })
 
 const m1 = gsap.timeline();
-const message = ref("Throne and Liberty ")
-const tl = ref("mmorpg")
+const message = ref("Clan Farm Builder")
+const tl = ref("MMORPG")
 let isFirstUpdate = true
 const showmenutop = reactive({ status: true});
 
@@ -103,8 +114,21 @@ watch(() => toBottom.value,
 </script>
 
 <style scoped>
+.mmo {
+
+}
+.subs{
+  color: #65627d;
+  }
+  .wel{
+    color: #9694ab;
+    line-height: 1em;
+    /*margin-top: -8px;*/
+    white-space: nowrap;
+  }
   .subt{
-    color: #73708f;
+    
+    line-height: 1em;
   }
   .cont{
     position: relative;
