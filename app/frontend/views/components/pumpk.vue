@@ -5,7 +5,7 @@
     <!-- {{store.tpumpkdead}} -->
 <!-- :class="loc  ? 'unit' : 'off'  " -->
     <div class="unit" v-on:click="handler()" > 
-      <div class="hpoints d-flex justify-center subtitle-2" v-if="hpoints != 0">{{hpoints}}</div> 
+      <div class="hpoints d-flex justify-center text-caption" v-if="hpoints != 0">{{hpoints}}</div> 
       <!-- <damagecomp ref="hitt"></damagecomp> -->
       <div class="hpbar">
         <v-progress-linear :model-value="hp" color="success"></v-progress-linear>
