@@ -1,5 +1,5 @@
 <template>
-  <div class="main mx-0 my-0">
+  <div class="main mx-0 my-0" v-if="vis">
     <!-- <drop class="drops"></drop> -->
     <!-- {{store.tloa}}  -->
     <!-- {{store.tpumpkdead}} -->
@@ -19,7 +19,7 @@
 	</div>
 </template>
 <script setup lang="ts">
-  import { ref, reactive, onMounted, watch } from 'vue';
+  import { ref, reactive, onMounted, watch, nextTick } from 'vue';
   import { useLogStore } from '../../store.js'
   import { promiseTimeout, useTimeout } from '@vueuse/core'
  
@@ -42,6 +42,7 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
   const hp = ref(100)
   const dmg = ref()
   const loc = ref()
+  const vis = ref()
 
   const { ready, start } = useTimeout(1000, { controls: true })
     // <p>Ready: {{ ready.toString() }}</p>
@@ -123,6 +124,7 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
 
     onMounted(() => {
     if (ls.get('hey') != "death"){
+      vis.value = true
       loc.value = "alive"
       console.log("666")
     }
@@ -149,9 +151,13 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
           console.log("dead")
           console.log(remaining)
         }else if ( remaining < 0 && store.tpumpkdead && hp.value != 100){
+          vis.value = true
           console.log(remaining)
           console.log("remaining < 0 ")
-          ressurect()
+          nextTick(() => {
+              ressurect()
+          })
+          
           // var alive = gsap.timeline();        
           // var m1 = gsap.timeline();
           // m1.to(".character",{
@@ -217,6 +223,7 @@ const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).
 
           function twooff() {  
             m2.kill() 
+            vis.value = false
           }         
         }
       }
