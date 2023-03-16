@@ -1,6 +1,5 @@
 <template>
   <div>
- 
     <v-card v-for="item in alld" class="px-1 my-2 py-2 ">
       <v-row>
         <v-col>
@@ -11,39 +10,55 @@
               <!-- {{pos}} --> 
             </div>
           </div >
-          <div class="px-2 pt-2 pb-2 colr"
-           >
+          <div class="px-2 pt-2 pb-2 colr">
             <h3>{{ item.head }}</h3>
           </div>
           <div class="px-2 text-body-1">
-          {{item.desc}}… 
+            {{item.desc}}… 
           </div>
           <v-card-subtitle
           class="px-2 py-0 float-left date">
           {{item.date}} 
           </v-card-subtitle>
-        <v-btn  
-          target="_blank" 
-          v-bind:href="item.link"
-          class="px-1 py-0 float-left"
-          color="orange lighten-2"
-          variant="text"
-          size="x-small">
-          источник
-        </v-btn>  {{bottom }}
-<!-- @click="handleClick(item.id)" -->
-        <v-btn
-          @click="handleClick(item.id, item.head)"
-          class="px-2 py-0 mx-2 but"
-          :disabled="isButtonDisabled"
-          small>
-          открыть
-        </v-btn> 
+          <v-btn  
+            target="_blank" 
+            v-bind:href="item.link"
+            class="px-1 py-0 float-left"
+            color="orange lighten-2"
+            variant="text"
+            size="x-small">
+            источник
+          </v-btn> 
+ 
+          <v-tooltip location="start" >
+            <template v-slot:activator="{ props }">
+              <div  class="overbut px-2 py-0 mx-2"  v-bind="props"> 
+                  </div>
+                <v-btn 
+                  class="px-2 py-0 mx-2 but"
+                  v-bind="props"
+                  @click="handleClick(item.id, item.head)"
+                  :disabled="isButtonDisabled" 
+                  small>
+                  открыть
+              </v-btn>                    
+            
+            </template>
+            <span class=" d-flex"  v-if="!isButtonDisabled">
+              <div>стоимость: 5 </div>
+              <div class="skull ml-1">
+              </div>
+            </span>
+            <span class=" "  v-if="isButtonDisabled">
+              недостаточно очков действия
+            </span>
+          </v-tooltip>
+
         </v-col>
       </v-row>
     </v-card>
+
     <v-dialog
-      
       v-model="showModal"
       max-width="1080px"
       width="95%">
@@ -69,7 +84,7 @@
   </div>
 </template>
 <script setup lang="ts">
-
+  const skull = new URL("../images/skull.png", import.meta.url).href;
   import { ref, reactive, inject, onMounted, watch, computed  } from 'vue'
   const axios: any = inject('axios')
   import { useLogStore } from '../../store.js'
@@ -120,12 +135,13 @@
   const tithead = ref()
 
   function handleClick(val, head){
+    store.decrements(5)
     console.log(val)
     showModal.value = true
     axios
       .post("/fullnews", {  id: val  })
       .then((response: { data: any }) => {
-      console.log(response.data.fullarticle)
+      // console.log(response.data.fullarticle)
       fullarticle.value = response.data.fullarticle
       tithead.value = head
       // console.log( Object.keys(alld.value).length)
@@ -134,6 +150,24 @@
 </script>
 
 <style scoped>
+.overbut{
+  /*background-color: #dad;*/
+    bottom: 1.5em;
+  right: 1.5em;
+  height: 2em; 
+  width: 6em;
+  position: absolute;
+  z-index: 1000;
+}
+.skull{
+  opacity: 0.6;
+  height: 1.2em;
+  width: 1.2em;
+  background-image: url('../images/skull.png');
+  /*image-rendering: pixelated;*/
+  background-size: 100%;
+ 
+}
 .pic {
   /*background-color: #dad;*/
   width: 100px;

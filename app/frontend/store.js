@@ -21,6 +21,10 @@ export const useLogStore = defineStore('logStore', () => {
     loa.value += val
     ls.set('load', loa.value)     
   }  
-
-  return { rock, trock, loa, tloa, tpumpkdead, increments, setPumpkAlive, setPumpkDead }
+  function decrements(val) {
+  	console.log(val)
+    loa.value -= val
+    ls.set('load', loa.value)     
+  }  
+  return { rock, trock, loa, tloa, tpumpkdead, increments, decrements, setPumpkAlive, setPumpkDead }
 })
