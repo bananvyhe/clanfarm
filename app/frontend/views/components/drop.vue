@@ -91,7 +91,7 @@ const store = useLogStore()
     
 //   },
   function getdrop(){
- 			 axios.get('/news')
+ 			 axios.get('/my_items/getdrop')
        // this.$http.plain.get('/my_items/getdrop')
       .then(response => { 
         console.log(response.data)

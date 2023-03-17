@@ -4,6 +4,20 @@ Rails.application.routes.draw do
  get :news, to: "news#index" 
  post :fullnews, to: "news#fullnews"
  post :news, to: "news#create"
+  resources :my_items  do 
+    member do
+      # post :use_item
+      # patch :move
+
+    end
+    collection do
+      # get :menuget
+      get :getdrop
+      # post :pickdrop
+    end
+  end 
+
+ 
  require "sidekiq/web"
   Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
