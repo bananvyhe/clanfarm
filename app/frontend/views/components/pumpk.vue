@@ -1,6 +1,7 @@
 <template>
+  <drop class="drops"></drop>
   <div class="main mx-0 my-0" v-if="vis">
-    <drop class="drops"></drop>
+
     <!-- {{store.tloa}}  -->
     <!-- {{store.tpumpkdead}} -->
 <!-- :class="loc  ? 'unit' : 'off'  " -->
@@ -242,6 +243,7 @@
   opacity: 0;
 }
 .drops{
+  position: absolute;
   bottom: 0px;
   right: 0px;
 }
@@ -249,7 +251,9 @@
   cursor: url("../images/sword.png"), pointer;
 }
 .main{
-  position: relative;
+   position: absolute;
+  bottom: 0px;
+  right: 0px;
 }
 
 .hpoints{

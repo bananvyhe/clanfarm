@@ -12,7 +12,7 @@
             <template   v-slot:activator="{ on, attrs}" :name="''+item.id" class="d-flex justify-end">
 
               <div :style="[ signedIn == true ?  {cursor: 'pointer'}:{cursor: 'not-allowed'} ]" v-on:click="pickdrop(item.id)" ><div  v-bind="attrs" v-on="on" class="ore "  v-bind:style="{backgroundImage: 'url(/images/'+item.item+'.png'}"></div></div>
-              <div class="energy "></div>
+              <div class="energy"></div>
             </template>
             <span>
               <span style="color:#ffe79f;" >
@@ -34,22 +34,32 @@
 </template>
 
 <script setup lang="ts">
+// const rock = new URL("../images/sprites/monsters/ore.png", import.meta.url).href;
 import { gsap } from "gsap";
-import { useLogStore } from '../../store.js'
 import { ref, onMounted, watch, nextTick } from 'vue';
-const axios: any = inject('axios')
+import { useLogStore } from '../../store.js'
 const store = useLogStore()
-// export default {
-//   name: 'Signin',
-//   data () {
-//     return {
-//       drop: []
-//     }
-//   },
-  onMounted(() => {
- 		getdrop()
-  })
+const axios: any = inject('axios')
+
 	const drop = ref()
+  onMounted(() => {
+ 		
+  })	
+	watch(() => store.tpumpkdead, (val) => {
+      if (val == true){
+        getdrop()
+      }else{
+        var m8 = gsap.timeline();
+        m8.to(".ore",{
+          opacity: 0,
+        })
+        .to(".ore",{
+          y: 25,
+          display: "none",
+        })
+      }
+  })
+
   watch(() => drop.value, (val) => {
  
   })
@@ -95,8 +105,8 @@ const store = useLogStore()
        // this.$http.plain.get('/my_items/getdrop')
       .then(response => { 
         console.log(response.data)
-        // this.drop = response.data
-        // this.dropanim()
+        drop.value = response.data
+				dropanim()
  
       })
       .catch(error => { this.setError(error, 'Something went wrong') })
@@ -104,6 +114,64 @@ const store = useLogStore()
   }
 //   methods: {
 //     ...mapActions(useLogStore, ["upinv"]),
+  function dropanim(){
+  	nextTick(() => {
+      var m4 = gsap.timeline();
+      m4.to(".energy",{
+        stagger: {
+          each: 1.5,
+          onComplete: bgnull,
+        },
+        background: 'url(/images/energyonce.gif?a='+Math.random()+')',
+        duration: 1.5,
+        delay: 2.5, 
+        opacity: 1,
+        visibility: "visible",
+      })
+      function bgnull(){
+        console.log(" pumpkdead")
+        var m9 = gsap.timeline();
+        m9.to(".energy",{
+        background: 'none',
+        })
+      }
+      gsap.set(".ore", {
+        y: 25,
+        opacity: 0,
+        display: "none",
+      });
+      var m3 = gsap.timeline();
+      m3.to(".ore",{
+        stagger: 1.2,
+        delay: 2.6,
+        y: 0,
+        opacity: 1,
+        display: "block",
+        visibility: "visible",
+        duration: 1,
+        ease: "power4.out",
+        onComplete: oreswing
+      })
+      function oreswing(){
+        var self = this
+        if (self.pumpkdead == true){
+          var m8 = gsap.timeline({repeat: -1});
+          m8.to(".ore",{
+            ease: "expo.in",
+            y: -3,
+            duration: 3,
+            ease: "elastic.in",
+          })
+          .to(".ore",{
+            ease: "elastic.out", 
+            y: 0,
+            duration: 3,
+          })   
+        }
+      }
+    })
+     
+  }
 //     dropanim(){
 //       this.$nextTick(function () {
 //         var m4 = gsap.timeline();
@@ -174,16 +242,7 @@ const store = useLogStore()
 //         .catch(error => { this.setError(error, 'Something went wrong') })   
 //       }   
 //     },
-//     getdrop(){
-//        this.$http.plain.get('/my_items/getdrop')
-//       .then(response => { 
-//         console.log(response.data)
-//         this.drop = response.data
-//         this.dropanim()
- 
-//       })
-//       .catch(error => { this.setError(error, 'Something went wrong') })
-//     },   
+  
 //   }
 // }
 </script>
