@@ -10,9 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_25_073732) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_17_120814) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dropitems", force: :cascade do |t|
+    t.bigint "mob_id", null: false
+    t.bigint "listitem_id", null: false
+    t.float "modifyrate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listitem_id"], name: "index_dropitems_on_listitem_id"
+    t.index ["mob_id"], name: "index_dropitems_on_mob_id"
+  end
+
+  create_table "listitems", force: :cascade do |t|
+    t.string "title"
+    t.string "desc"
+    t.string "item"
+    t.float "rate"
+    t.string "pic"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "mobs", force: :cascade do |t|
+    t.string "name"
+    t.string "hp"
+    t.string "loa"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "my_items", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "listitem_id", null: false
+    t.bigint "qty", default: 0
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listitem_id"], name: "index_my_items_on_listitem_id"
+    t.index ["user_id"], name: "index_my_items_on_user_id"
+  end
 
   create_table "news", force: :cascade do |t|
     t.string "pic"
@@ -27,4 +66,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_25_073732) do
     t.index ["link"], name: "index_news_on_link", unique: true
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.integer "role"
+    t.integer "loa", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "dropitems", "listitems"
+  add_foreign_key "dropitems", "mobs"
+  add_foreign_key "my_items", "listitems"
+  add_foreign_key "my_items", "users"
 end
