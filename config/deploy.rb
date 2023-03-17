@@ -1,9 +1,43 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.17.2"
+set :rbenv_ruby, '3.0.2'
+namespace :sidekiq do
+  task :quiet do
+    on roles(:app) do
+      puts capture("pgrep -f 'sidekiq' | xargs kill -TSTP") 
+    end
+  end
+  task :restart do
+    on roles(:app) do
+      execute :sudo,  :restart, :workers
+    end
+  end
 
-set :application, "my_app_name"
-set :repo_url, "git@example.com:me/my_repo.git"
+set :application, "clanfarm"
+set :repo_url, "git@github.com:bananvyhe/clanfarm.git"
 
+set :branch, "main"
+set :deploy_to, "/home/deploy/apps/farmspot"
+
+namespace :deploy do
+	desc "Update cron jobs"
+  task :update_crontab do
+  	on roles(:deploy) do
+  		run "cd #{release_path} && whenever --update-crontab farmspot"
+  	end
+  end
+    desc "Clear cron jobs"
+  task :clear_crontab do
+  	on roles(:deploy) do
+    	run "cd #{release_path} && whenever --clear-crontab farmspot"
+  	end
+  end
+end
+after 'deploy:starting', 'deploy:clear_crontab'
+after 'deploy:starting', 'deploy:update_crontab'
+
+SSHKit.config.command_map[:sidekiq] = "bundle exec sidekiq"
+SSHKit.config.command_map[:sidekiqctl] = "bundle exec sidekiqctl"
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
