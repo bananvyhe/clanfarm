@@ -1,6 +1,6 @@
 @use 'global.scss';
 @use 'vuetify/settings' with (
-  // $color-pack: false,
+  $color-pack: false,
   // $utilities: false,
   // $button-height: global.$sizew,
   $body-font-family: 'Roboto Slab',

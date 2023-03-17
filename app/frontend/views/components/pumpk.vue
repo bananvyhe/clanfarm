@@ -1,6 +1,6 @@
 <template>
   <div class="main mx-0 my-0" v-if="vis">
-    <!-- <drop class="drops"></drop> -->
+    <drop class="drops"></drop>
     <!-- {{store.tloa}}  -->
     <!-- {{store.tpumpkdead}} -->
 <!-- :class="loc  ? 'unit' : 'off'  " -->
@@ -24,7 +24,7 @@
   import { promiseTimeout, useTimeout } from '@vueuse/core'
  
   const store = useLogStore()
-  // import Drop from './packs/components/drop.vue'
+  import Drop from './drop.vue'
   // import { mapState, mapActions } from 'pinia'  
 	// import Damagecomp from './damagecomp.vue'
   
@@ -32,8 +32,8 @@
   import ls from 'localstorage-slim';
   import { damagecomp } from './damagecomp'
   // import  pubow  from '../images/sprites/monsters/pumpkinbow.png'
-const pubow = new URL("../images/sprites/monsters/pumpkinbow.png", import.meta.url).href;
-const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).href;
+  const pubow = new URL("../images/sprites/monsters/pumpkinbow.png", import.meta.url).href;
+  const pua = new URL("../images/sprites/monsters/pumpkina.png", import.meta.url).href;
   // const classObject = reactive({
   //   active: true,
   //   'text-danger': false    
