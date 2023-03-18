@@ -26,6 +26,8 @@ gem 'whenever'
 gem 'sidekiq-client-cli'
 gem 'sidekiq', '5.2.5'
 gem 'capistrano-sidekiq'
+gem 'ed25519'  
+gem 'bcrypt_pbkdf'  
 group :development, :test do
   gem 'capistrano-passenger'
   gem "capistrano", "~> 3.10", require: false

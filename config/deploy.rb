@@ -12,7 +12,7 @@ namespace :sidekiq do
       execute :sudo,  :restart, :workers
     end
   end
-
+end
 set :application, "clanfarm"
 set :repo_url, "git@github.com:bananvyhe/clanfarm.git"
 
@@ -71,3 +71,28 @@ SSHKit.config.command_map[:sidekiqctl] = "bundle exec sidekiqctl"
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+after 'deploy:starting', 'sidekiq:quiet'
+after 'deploy:updated', 'sidekiq:stop'
+after 'deploy:published', 'sidekiq:start'
+after 'deploy:published', 'passenger:restart'
+after 'deploy:failed', 'sidekiq:restart'
+
+# Default value for :pty is false
+# set :pty, true
+set :pty,  false
+# set :rbenv_map_bins, %w{rake gem bundle ruby rails sidekiq sidekiqctl}
+set :rbenv_map_bins, %w{rake gem bundle ruby rails sidekiq sidekiqctl}
+# Default value for :linked_files is []
+append :linked_files, "config/database.yml"
+set :linked_files, %w{config/master.key}
+# Default value for linked_dirs is []
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+append :linked_dirs, '.bundle'
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+# Default value for local_user is ENV['USER']
+# set :local_user, -> { `git config user.name`.chomp }
+
+# Default value for keep_releases is 5
+set :keep_releases, 2 
