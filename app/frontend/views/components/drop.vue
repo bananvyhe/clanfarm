@@ -9,9 +9,14 @@
             <!-- {{item.id}} -->
 
           <v-tooltip top >
-            <template   v-slot:activator="{ on, attrs}" :name="''+item.id" class="d-flex justify-end">
+            <template   v-slot:activator="{ props}" :name="''+item.id" class="d-flex justify-end">
 
-              <div :style="[ signedIn == true ?  {cursor: 'pointer'}:{cursor: 'not-allowed'} ]" v-on:click="pickdrop(item.id)" ><div  v-bind="attrs" v-on="on" class="ore "  v-bind:style="{backgroundImage: 'url(/images/'+item.item+'.png'}"></div></div>
+              <div 
+              :style="[ signedIn == true ?  {cursor: 'pointer'}:{cursor: 'not-allowed'} ]" 
+              v-on:click="pickdrop(item.id)" >
+                <div  v-bind="props" class="ore "  v-bind:style="{backgroundImage: 'url(/images/'+item.item+'.png'}">
+                </div>
+              </div>
               <div class="energy"></div>
             </template>
             <span>
@@ -40,7 +45,7 @@ import { ref, onMounted, watch, nextTick } from 'vue';
 import { useLogStore } from '../../store.js'
 const store = useLogStore()
 const axios: any = inject('axios')
-
+const signedIn = ref(false)
 	const drop = ref()
   onMounted(() => {
  		
