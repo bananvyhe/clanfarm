@@ -1,6 +1,7 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.17.2"
 set :rbenv_ruby, '3.0.2'
+set :assets_prefix, 'vite'
 namespace :sidekiq do
   task :quiet do
     on roles(:app) do
@@ -13,6 +14,7 @@ namespace :sidekiq do
     end
   end
 end
+
 set :application, "farmspot"
 set :repo_url, "git@github.com:bananvyhe/clanfarm.git"
 
