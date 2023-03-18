@@ -1,29 +1,20 @@
 <template>
-  <div >
+
   	<div class="hat">	
 	  	<div class="container">
- 
 		  	<div class="flash"></div>
-
 		  	<div class="clouds2"></div>
 		  	<div class="bgshad"></div>
-
 		  	<div class="clouds"></div>
-		  	<div class="voodoo fonta">
-		  		FREE PVP ZONE
-		  	</div>
-		  	<div class="warriors">
-	 
-		  	</div>
+		  	<div class="voodoo fonta">FREE PVP ZONE</div>
+		  	<div class="warriors"></div>
 		  	<div class="warriors brightness"></div>
 		  	<div class="bgshad2"></div>
-
-			<pumpk class="pumpkin"></pumpk>
-			</div>  		
+				<pumpk class="pumpkin"></pumpk>
+			</div>
   	</div>
-
 		<news></news>
-	</div>
+
 </template>
 <script setup lang="ts">
 import News from './news.vue'
@@ -172,6 +163,7 @@ console.log("mounted2")
 
 </script>
 <style scoped>
+
  .pumpkin {
   position: absolute;
   /*top: 60px;*/
@@ -192,7 +184,7 @@ console.log("mounted2")
 	height: 100%;
 	overflow: hidden;	
 	padding: 0;
- 
+ z-index: 10;
 	display: flex;
 	align-items: stretch;
 	position: relative;
@@ -207,7 +199,7 @@ console.log("mounted2")
 .warriors {
 	position: absolute;
 	display: flex;
-	z-index: 20;
+ 
 	background-repeat: no-repeat;
 	background-position: center bottom;
  
@@ -287,7 +279,7 @@ console.log("mounted2")
 	width: 100%;
 }
 .bgshad2 {
-	z-index: 21;
+ 
 	background: rgb(0,0,0);
 	background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 60%, rgba(0,0,0,0.2) 80%,rgba(0,0,0,0.3) 95%, rgba(0,0,0,0.4) 100%);
 	position: absolute;
