@@ -10,7 +10,7 @@
 		  	<div class="warriors"></div>
 		  	<div class="warriors brightness"></div>
 		  	<div class="bgshad2"></div>
-				<pumpk class="pumpkin"></pumpk>
+				<pumpk></pumpk>
 			</div>
   	</div>
 		<news></news>
@@ -164,13 +164,13 @@ console.log("mounted2")
 </script>
 <style scoped>
 
- .pumpkin {
+/* .pumpkin {
   position: absolute;
-  /*top: 60px;*/
+ 
   bottom: 4px;
   right: 14px;
   z-index: 50;
- }
+ }*/
 .plashken {
 	position: absolute;
 	width: 100%;
