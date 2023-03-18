@@ -13,8 +13,8 @@ namespace :sidekiq do
     end
   end
 end
-set :application, "clanfarm"
-set :repo_url, "git@github.com:bananvyhe/clanfarm.git"
+set :application, "farmspot"
+set :repo_url, "git@github.com:bananvyhe/farmspot.git"
 
 set :branch, "main"
 set :deploy_to, "/home/deploy/apps/farmspot"
