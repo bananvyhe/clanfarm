@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: clanfarm_production
-  username: clanfarm
+  username: deploy
   password: <%= ENV["CLANFARM_DATABASE_PASSWORD"] %>
