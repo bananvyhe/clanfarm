@@ -160,10 +160,9 @@ const signedIn = ref(false)
       })
       function oreswing(){
         var self = this
-        if (self.pumpkdead == true){
+        if (store.tpumpkdead == true){
           var m8 = gsap.timeline({repeat: -1});
           m8.to(".ore",{
-            ease: "expo.in",
             y: -3,
             duration: 3,
             ease: "elastic.in",
