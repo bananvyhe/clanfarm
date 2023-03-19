@@ -7,7 +7,7 @@ export const useLogStore = defineStore('logStore', () => {
   const trock = computed(() => rock.value)
   const tloa = computed(() => loa.value)
 
-  const pumpkdead = ref(false)
+  const pumpkdead = ref()
   const tpumpkdead = computed(() => pumpkdead.value)
 
   function setPumpkDead() {

@@ -50,8 +50,10 @@ const signedIn = ref(false)
   onMounted(() => {
  		
   })	
-	watch(() => store.tpumpkdead, (val) => {
-      if (val == true){
+	watch(() => store.tpumpkdead, (newv, oldv) => {
+    console.log(oldv +'oldv')
+    console.log(newv +'newv')
+      if (newv == true && oldv != undefined){
         getdrop()
       }else{
         var m8 = gsap.timeline();
