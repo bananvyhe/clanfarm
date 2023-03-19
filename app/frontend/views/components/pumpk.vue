@@ -211,7 +211,13 @@
         })
 
         function myFunction(){
+
           if (store.tpumpkdead && hp.value <= 0){
+            gsap.set(".character", {
+              scale: 1.5,
+              backgroundImage: 'url('+pubow+')',
+              backgroundPosition: "-960px",
+            });
             var m2 = gsap.timeline();
             m2.to(".character", {
               // className: "+=death",
