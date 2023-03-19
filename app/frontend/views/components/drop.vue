@@ -111,8 +111,9 @@ const signedIn = ref(false)
       .then(response => { 
         console.log(response.data)
         drop.value = response.data
-				dropanim()
- 
+        nextTick(() => {
+				  dropanim()
+        })
       })
       .catch(error => { this.setError(error, 'Something went wrong') })
      
