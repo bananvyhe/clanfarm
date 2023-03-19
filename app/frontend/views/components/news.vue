@@ -6,7 +6,7 @@
           <div 
           class="align-top float-left mr-1 px-3 py-md-1 mx-md-1">
           <!-- v-bind:style="{backgroundImage: 'url('+ item.pic}" -->
-            <div class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}">
+            <div class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}" >
               <!-- {{pos}} --> 
             </div>
           </div >
@@ -44,9 +44,9 @@
               </v-btn>                    
             
             </template>
-            <span class=" d-flex"  v-if="!isButtonDisabled">
-              <div  >потратить: 5 </div>
-              <div class="skull ml-1">
+            <span class=" d-flex align-center"  v-if="!isButtonDisabled">
+              <div class="mr-1">потратить: 5</div>
+              <div class="skull">
               </div>
             </span>
             <span class=" "  v-if="isButtonDisabled">
@@ -161,8 +161,8 @@
 }
 .skull{
   opacity: 0.6;
-  height: 1.2em;
-  width: 1.2em;
+  height: 1.1em;
+  width: 1.1em;
   background-image: url('../images/skull.png');
   /*image-rendering: pixelated;*/
   background-size: 100%;
