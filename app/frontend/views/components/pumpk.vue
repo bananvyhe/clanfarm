@@ -107,8 +107,9 @@
 
     if (hpoints.value <= 0){
       ls.set('hey', "death") 
-      store.setPumpkDead()
       mdrop.value = true
+      store.setPumpkDead()
+      
       reset();
       var min = 2
       var max = 5

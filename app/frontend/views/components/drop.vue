@@ -14,7 +14,7 @@
               <div 
               :style="[ signedIn == true ?  {cursor: 'pointer'}:{cursor: 'not-allowed'} ]" 
               v-on:click="pickdrop(item.id)" >
-                <div  v-bind="props" class="ore "  v-bind:style="{backgroundImage: 'url(/images/'+item.item+'.png'}">
+                <div  v-bind="props" class="ore"  v-bind:style="{backgroundImage: 'url(/images/'+item.item+'.png'}">
                 </div>
               </div>
               <div class="energy"></div>
@@ -69,7 +69,9 @@ const signedIn = ref(false)
   })
 
   watch(() => drop.value, (val) => {
- 
+    nextTick(() => {
+      dropanim()
+    })
   })
 //   watch:{
 //     drop: function (){
@@ -114,9 +116,9 @@ const signedIn = ref(false)
       .then(response => { 
         console.log(response.data)
         drop.value = response.data
-        nextTick(() => {
-				  dropanim()
-        })
+      //   nextTick(() => {
+				  // dropanim()
+      //   })
       })
       .catch(error => { this.setError(error, 'Something went wrong') })
      
@@ -124,7 +126,7 @@ const signedIn = ref(false)
 //   methods: {
 //     ...mapActions(useLogStore, ["upinv"]),
   function dropanim(){
-  	nextTick(() => {
+  	
       var m4 = gsap.timeline();
       m4.to(".energy",{
         stagger: {
@@ -177,7 +179,7 @@ const signedIn = ref(false)
           })   
         }
       }
-    })
+    
      
   }
 //     dropanim(){

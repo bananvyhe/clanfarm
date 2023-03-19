@@ -43,7 +43,7 @@ onMounted(() => {
 })
 
 const m1 = gsap.timeline();
-const message = ref("Clan Farm CRM")
+const message = ref("Clan Farm Gang")
 const tl = ref("MMORPG")
 let isFirstUpdate = true
 const showmenutop = reactive({ status: true});
