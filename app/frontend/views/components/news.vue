@@ -45,7 +45,7 @@
             
             </template>
             <span class=" d-flex"  v-if="!isButtonDisabled">
-              <div>стоимость: 5 </div>
+              <div  >потратить: 5 </div>
               <div class="skull ml-1">
               </div>
             </span>
