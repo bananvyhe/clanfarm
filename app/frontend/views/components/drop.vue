@@ -166,6 +166,7 @@ const signedIn = ref(false)
         if (store.tpumpkdead == true){
           var m8 = gsap.timeline({repeat: -1});
           m8.to(".ore",{
+            stagger: 0.6,
             y: -3,
             duration: 3,
             ease: "elastic.in",
