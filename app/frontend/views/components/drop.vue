@@ -20,7 +20,7 @@
               <div class="energy"></div>
             </template>
             <span>
-              <span style="color:#ffe79f;" >
+              <span style="color:#09052e;" >
                 <!-- {{item.title}} -->
                 {{item.title}}
               </span> 
@@ -69,9 +69,7 @@ const signedIn = ref(false)
   })
 
   watch(() => drop.value, (val) => {
-    nextTick(() => {
-      dropanim()
-    })
+
   })
 //   watch:{
 //     drop: function (){
@@ -116,9 +114,9 @@ const signedIn = ref(false)
       .then(response => { 
         console.log(response.data)
         drop.value = response.data
-      //   nextTick(() => {
-				  // dropanim()
-      //   })
+        nextTick(() => {
+				  dropanim()
+        })
       })
       .catch(error => { this.setError(error, 'Something went wrong') })
      
