@@ -4,7 +4,15 @@
   // $utilities: false,
   // $button-height: global.$sizew,
   $body-font-family: 'Roboto Slab',
- 
+ $grid-breakpoints:  (
+    'xs': 0,
+    'sm': 760px,
+    'md': 1060px,
+    'lg': 1180px - 16px,
+    'xl': 1180px - 16px,
+    'xxl': 1380px - 16px,
+) 
+
   // $tooltip-text-color: rgb(var(--v-theme-on-surface-variant)) 
 );
   .v-tooltip{
@@ -17,10 +25,3 @@
 	a:hover {
 		color: #ffdf80 	!important;
 	}
-// $grid-breakpoints:  (
-//     'xs': 0,
-//     'sm': 760px,
-//     'md': 1060px,
-//     'lg': 1180px - 16px,
-//     'xl': 1180px - 16px,
-// );
