@@ -3,7 +3,7 @@
   {{ls.get('hey')}}
   {{ls.get('endTimer')}}
   {{'--'+vis+'--'}} -->
-  <drop class="drops"></drop>
+  <drop class="drops" :makeDrop="mdrop"></drop>
   <div class="main mx-0 my-0" v-if="vis">
 
     <!-- {{store.tloa}}  -->
@@ -48,6 +48,7 @@
   const dmg = ref()
   const loc = ref()
   const vis = ref()
+  const mdrop = ref()
 
   const { ready, start } = useTimeout(1000, { controls: true })
     // <p>Ready: {{ ready.toString() }}</p>
@@ -90,8 +91,8 @@
   } 
 
   function hitpumpk(){
-       var interval = 15000000;
-    // var interval = 26500;
+       // var interval = 15000000;
+    var interval = 26500;
     // var interval = 7000;
     hitcalc()
     dmg.value =  damageData.hit 
@@ -100,7 +101,6 @@
       hpleft = 0
     }
     var percentcut = hpleft * 100 / hpoints.value
-    
     hpoints.value = hpleft
     hp.value = percentcut
     popupHit()
@@ -108,6 +108,7 @@
     if (hpoints.value <= 0){
       ls.set('hey', "death") 
       store.setPumpkDead()
+      mdrop.value = true
       reset();
       var min = 2
       var max = 5
@@ -132,6 +133,9 @@
       vis.value = true
       loc.value = "alive"
       console.log("666")
+      store.setPumpkAlive()
+    }else{
+      store.setPumpkDead()
     }
     if(ls.get('endTimer') == "death"){
        ls.set('hey', "alive") 
@@ -179,6 +183,7 @@
         hp.value = 100
         hpoints.value = 124
         store.setPumpkAlive()
+        mdrop.value = false
         ls.set('hey', "alive")
         pumpk()
       }

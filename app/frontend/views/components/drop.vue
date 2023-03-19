@@ -43,6 +43,8 @@
 import { gsap } from "gsap";
 import { ref, onMounted, watch, nextTick } from 'vue';
 import { useLogStore } from '../../store.js'
+const props = defineProps(['makeDrop'])
+
 const store = useLogStore()
 const axios: any = inject('axios')
 const signedIn = ref(false)
@@ -50,10 +52,9 @@ const signedIn = ref(false)
   onMounted(() => {
  		
   })	
-	watch(() => store.tpumpkdead, (newv, oldv) => {
-    console.log(oldv +'oldv')
-    console.log(newv +'newv')
-      if (newv == true && oldv != undefined){
+	watch(() => props.makeDrop, (val) => {
+
+      if (val == true ){
         getdrop()
       }else{
         var m8 = gsap.timeline();
