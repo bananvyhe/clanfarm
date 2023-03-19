@@ -111,7 +111,7 @@ watch(() => toBottom.value,
 
 <style scoped>
 .mmo {
-
+  line-height: 1em;
 }
 .subs{
   color: #65627d;
