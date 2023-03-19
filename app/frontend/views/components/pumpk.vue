@@ -1,9 +1,13 @@
-<template>
+<template>   
+<!--   {{store.tpumpkdead}}
+  {{ls.get('hey')}}
+  {{ls.get('endTimer')}}
+  {{'--'+vis+'--'}} -->
   <drop class="drops"></drop>
   <div class="main mx-0 my-0" v-if="vis">
 
     <!-- {{store.tloa}}  -->
-    <!-- {{store.tpumpkdead}} -->
+ 
 <!-- :class="loc  ? 'unit' : 'off'  " -->
     <div class="unit" v-on:click="handler()" > 
       <div class="hpoints d-flex justify-center text-caption" v-if="hpoints != 0">{{hpoints}}</div> 
@@ -86,7 +90,7 @@
   } 
 
   function hitpumpk(){
-    var interval = 15000000;
+       var interval = 15000000;
     // var interval = 26500;
     // var interval = 7000;
     hitcalc()
@@ -151,7 +155,7 @@
           ls.set('hey', "death") 
           console.log("dead")
           console.log(remaining)
-        }else if ( remaining < 0 && store.tpumpkdead && hp.value != 100){
+        }else if ( remaining < 0 ){
           vis.value = true
           console.log(remaining)
           console.log("remaining < 0 ")
