@@ -20,9 +20,9 @@
               <div class="energy"></div>
             </template>
             <span>
-              <span style="color:#09052e;" >
-                <!-- {{item.title}} -->
-                {{item.title}}
+              <span style="color:#286020;" class="font-weight-bold" >
+                <b  >{{item.title}}</b> 
+                <!-- <b  ></b> -->
               </span> 
               <br>
               <span >
@@ -71,43 +71,7 @@ const signedIn = ref(false)
   watch(() => drop.value, (val) => {
 
   })
-//   watch:{
-//     drop: function (){
-//       console.log("drop incoming")
-//     },
-//     pumpkdead: function (val){
-//       console.log("DROPval")
-//       if (val == true){
-//         this.getdrop()
-//         console.log('val')
-//         console.log(val)
-//         console.log('val')
-//       }else{
-//         var m8 = gsap.timeline();
-//         m8.to(".ore",{
-//           opacity: 0,
-//         })
-//         .to(".ore",{
-//           y: 25,
-//           display: "none",
-//         })
-//       }
-//     }
-//   },
-//   computed: {   
-//     ...mapState(useLogStore, {
-//       pumpkdead: "thispumpkdead",
-//     }), 
-//     ...mapState(useLogStore, {
-//       signedIn: "thissignedIn",
-//     }),      
-//   },
-//   created () {
-//     console.log("drop")
-//   },
-//   updated () {
-    
-//   },
+
   function getdrop(){
  			 axios.get('/my_items/getdrop')
        // this.$http.plain.get('/my_items/getdrop')
@@ -115,7 +79,8 @@ const signedIn = ref(false)
         console.log(response.data)
         drop.value = response.data
         nextTick(() => {
-				  dropanim()
+				  // dropanim()
+          newdropanim()
         })
       })
       .catch(error => { this.setError(error, 'Something went wrong') })
@@ -123,47 +88,89 @@ const signedIn = ref(false)
   }
 //   methods: {
 //     ...mapActions(useLogStore, ["upinv"]),
-  function dropanim(){
-  	
+
+
+function newdropanim(){
+  var tl = gsap.timeline();
+  const elements = document.querySelectorAll('.ore');
+  tl.staggerFromTo([...elements].reverse(), 1, {opacity: 0, y: 50}, {opacity: 1, y: 0}, 0.5);
+  tl.play()
+
+  gsap.set(".energy", {
+     background: 'url(/images/energyonce.gif?a='+Math.random()+')',
+  });  
+  var tle = gsap.timeline();
+  const elementse = document.querySelectorAll('.energy');
+  tle.staggerFromTo([...elementse].reverse(), 1, {opacity: 0 }, {opacity: 1 }, 0.5);
+  tle.play()
+
+}
+
+
+
+
+
+
+  function dropanim(){ 
+      gsap.set(".energy", {
+          // opacity: 0,
+          // display: "none",
+        });  	
       var m4 = gsap.timeline();
+    
       m4.to(".energy",{
-        stagger: {
-          each: 1.5,
-          onComplete: bgnull,
-        },
+        // stagger: {
+        //   each: 1.5,
+        //   onComplete: bgnull(),
+        // },
+
         background: 'url(/images/energyonce.gif?a='+Math.random()+')',
         duration: 1.5,
         delay: 2.5, 
         opacity: 1,
-        visibility: "visible",
-      })
-      function bgnull(){
-        console.log(" pumpkdead")
-        var m9 = gsap.timeline();
-        m9.to(".energy",{
-        background: 'none',
-        })
-      }
-      gsap.set(".ore", {
-        y: 25,
-        opacity: 0,
-        display: "none",
-      });
-      var m3 = gsap.timeline();
-      m3.to(".ore",{
-        stagger: 1.2,
-        delay: 2.6,
-        y: 0,
-        opacity: 1,
         display: "block",
         visibility: "visible",
-        duration: 1,
-        ease: "power4.out",
-        onComplete: oreswing
+          stagger: function(index, target, list) {
+
+              console.log(index )
+              bgnull(index)
+ 
+          }    
       })
+
+
+
+
+      function bgnull(val){
+        
+        var mqueue = "m"+ val
+        console.log(" pumpkdead" + mqueue)
+        var m9 = gsap.timeline();
+        m9.to(".energy",{
+          // background: 'none',
+        })
+        gsap.set(".ore", {
+          y: 25,
+          opacity: 0,
+          display: "none",
+        });
+        var m3 = gsap.timeline();
+        m3.to(".ore",{
+          stagger: 1.2,
+          delay: 2.6,
+          y: 0,
+          opacity: 1,
+          display: "block",
+          visibility: "visible",
+          duration: 1,
+          ease: "power4.out",
+          // onComplete: oreswing
+        })        
+      }
+
       function oreswing(){
-        var self = this
         if (store.tpumpkdead == true){
+
           var m8 = gsap.timeline({repeat: -1});
           m8.to(".ore",{
             stagger: 0.6,
@@ -181,63 +188,7 @@ const signedIn = ref(false)
     
      
   }
-//     dropanim(){
-//       this.$nextTick(function () {
-//         var m4 = gsap.timeline();
-//         m4.to(".energy",{
-//           stagger: {
-//             each: 1.5,
-//             onComplete: bgnull,
-//           },
-//           background: 'url(/images/energyonce.gif?a='+Math.random()+')',
-//           duration: 1.5,
-//           delay: 2.5, 
-//           opacity: 1,
-//           visibility: "visible",
-//         })
-//         function bgnull(){
-//           console.log(" pumpkdead")
-//           var m9 = gsap.timeline();
-//           m9.to(".energy",{
-//           background: 'none',
-//           })
-//         }
-//         gsap.set(".ore", {
-//           y: 25,
-//           opacity: 0,
-//           display: "none",
-//         });
-//         var m3 = gsap.timeline();
-//         m3.to(".ore",{
-//           stagger: 1.2,
-//           delay: 2.6,
-//           y: 0,
-//           opacity: 1,
-//           display: "block",
-//           visibility: "visible",
-//           duration: 1,
-//           ease: "power4.out",
-//           onComplete: oreswing
-//         })
-//         function oreswing(){
-//           var self = this
-//           if (self.pumpkdead == true){
-//             var m8 = gsap.timeline({repeat: -1});
-//             m8.to(".ore",{
-//               ease: "expo.in",
-//               y: -3,
-//               duration: 3,
-//               ease: "elastic.in",
-//             })
-//             .to(".ore",{
-//               ease: "elastic.out", 
-//               y: 0,
-//               duration: 3,
-//             })   
-//           }
-//         }
-//       })
-//     },    
+
 //     pickdrop(val){
 //       console.log("pickdrop")
 //       if (this.signedIn == true){
@@ -270,8 +221,8 @@ const signedIn = ref(false)
 .energy{
  
     margin-left: -57px;
-    visibility: hidden;
-    opacity: 0;
+    /*visibility: hidden;*/
+    /*opacity: 0;*/
   top:-16px;
  
 
