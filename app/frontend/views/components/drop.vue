@@ -1,5 +1,5 @@
 <template>
- <div class="dropzone d-flex "> 
+ <div class="dropzone d-flex ">
   <!-- {{drop}} -->
   <!-- {{pumpkdead}} -->
       <div class="d-flex drop ">
@@ -48,23 +48,16 @@ const props = defineProps(['makeDrop'])
 const store = useLogStore()
 const axios: any = inject('axios')
 const signedIn = ref(false)
-	const drop = ref()
-  onMounted(() => {
- 		
-  })	
-	watch(() => props.makeDrop, (val) => {
+const drop = ref()
 
+  onMounted(() => {
+  })
+
+	watch(() => props.makeDrop, (val) => {
       if (val == true ){
         getdrop()
       }else{
-        var m8 = gsap.timeline();
-        m8.to(".ore",{
-          opacity: 0,
-        })
-        .to(".ore",{
-          y: 25,
-          display: "none",
-        })
+        drop.value = 0
       }
   })
 
@@ -84,110 +77,85 @@ const signedIn = ref(false)
         })
       })
       .catch(error => { this.setError(error, 'Something went wrong') })
-     
   }
-//   methods: {
-//     ...mapActions(useLogStore, ["upinv"]),
-
 
 function newdropanim(){
   var tl = gsap.timeline();
-  const elements = document.querySelectorAll('.ore');
-  tl.staggerFromTo([...elements].reverse(), 1, {opacity: 0, y: 50}, {opacity: 1, y: 0}, 0.5);
-  tl.play()
-
-  gsap.set(".energy", {
-     background: 'url(/images/energyonce.gif?a='+Math.random()+')',
-  });  
   var tle = gsap.timeline();
-  const elementse = document.querySelectorAll('.energy');
-  tle.staggerFromTo([...elementse].reverse(), 1, {opacity: 0 }, {opacity: 1 }, 0.5);
-  tle.play()
+  if (props.makeDrop == true){
+    
+    const elements = document.querySelectorAll('.ore');
+    tl.staggerFromTo([...elements].reverse(), 1, {opacity: 0, y: 50}, {opacity: 1, y: 0}, 0.5)
+     .eventCallback("onComplete", oreswing)
+    tl.play()
 
+    gsap.set(".energy", {
+       background: 'url(/images/energyonce.gif?a='+Math.random()+')',
+    });  
+    
+    const elementse = document.querySelectorAll('.energy');
+    tle.staggerFromTo([...elementse].reverse(), 1, {opacity: 0 }, {opacity: 1 }, 0.5);
+    tle.play()
+  }else{
+    tl.kill();
+    tle.kill();
+  }
 }
 
+function oreswing(){
+console.log('oreswing')
 
+const elements = gsap.utils.toArray('.ore'); // select all elements with class "ore"
+const duration = 1.5; // set the duration of each shake animation
+const delay = 0.2; // set the delay between each element animation
 
+gsap.to(elements, {
+  y: "+=2", // move elements 2px down
+  duration: duration, // set the duration of the animation
+  ease: "power1.inOut", // set the easing function
+  yoyo: true, // animate back to original position after completing the animation
+  repeat: -1, // repeat the animation continuously
+  stagger: {
+    each: delay, // set the delay between each element animation
+    from: "random", // set the starting position of the staggered delay to a random element
+  },
+});
 
+// loop through each element and create a shake animation with a delay
+// elements.forEach((element, index) => {
+//   const randomDelay = gsap.utils.random(0, 1, true); // generate a random delay between 0 and 1 second
+//   gsap.to(element, {
+//     y: "+=3", // move element 10px down
+//     duration: duration, // set the duration of the animation
+//     ease: "elastic.in", // set the easing function
+//     yoyo: true, // animate back to original position after completing the animation
+//     repeat: -1, // repeat the animation continuously
+//     delay: randomDelay, // set the delay to the random delay generated
+//   });
+// });
 
-
-  function dropanim(){ 
-      gsap.set(".energy", {
-          // opacity: 0,
-          // display: "none",
-        });  	
-      var m4 = gsap.timeline();
-    
-      m4.to(".energy",{
-        // stagger: {
-        //   each: 1.5,
-        //   onComplete: bgnull(),
-        // },
-
-        background: 'url(/images/energyonce.gif?a='+Math.random()+')',
-        duration: 1.5,
-        delay: 2.5, 
-        opacity: 1,
-        display: "block",
-        visibility: "visible",
-          stagger: function(index, target, list) {
-
-              console.log(index )
-              bgnull(index)
+    // var m8 = gsap.timeline({repeat: -1});
+    // const sw = document.querySelectorAll('.ore');
+    // m8.staggerFromTo([...sw].reverse(), 2, {y: 0, ease: "elastic.in" }, {y: -3, ease: "elastic.out" }, 0.3)
+    // .staggerFromTo([...sw].reverse(), 2, {y: -3, ease: "elastic.in" }, {y: -0, ease: "elastic.out" }, 0.3);
  
-          }    
-      })
+ 
+    // m8.play()
 
 
+  //   m8.to(".ore",{
+  //     stagger: 0.6,
+  //     y: -3,
+  //     duration: 3,
+  //     ease: "elastic.in",
+  //   })
+  //   .to(".ore",{
+  //     ease: "elastic.out", 
+  //     y: 0,
+  //     duration: 3,
+  //   })   
 
-
-      function bgnull(val){
-        
-        var mqueue = "m"+ val
-        console.log(" pumpkdead" + mqueue)
-        var m9 = gsap.timeline();
-        m9.to(".energy",{
-          // background: 'none',
-        })
-        gsap.set(".ore", {
-          y: 25,
-          opacity: 0,
-          display: "none",
-        });
-        var m3 = gsap.timeline();
-        m3.to(".ore",{
-          stagger: 1.2,
-          delay: 2.6,
-          y: 0,
-          opacity: 1,
-          display: "block",
-          visibility: "visible",
-          duration: 1,
-          ease: "power4.out",
-          // onComplete: oreswing
-        })        
-      }
-
-      function oreswing(){
-        if (store.tpumpkdead == true){
-
-          var m8 = gsap.timeline({repeat: -1});
-          m8.to(".ore",{
-            stagger: 0.6,
-            y: -3,
-            duration: 3,
-            ease: "elastic.in",
-          })
-          .to(".ore",{
-            ease: "elastic.out", 
-            y: 0,
-            duration: 3,
-          })   
-        }
-      }
-    
-     
-  }
+}
 
 //     pickdrop(val){
 //       console.log("pickdrop")
