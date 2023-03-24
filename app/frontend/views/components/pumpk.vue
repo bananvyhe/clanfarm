@@ -3,8 +3,8 @@
   {{ls.get('hey')}}
   {{ls.get('endTimer')}}
   {{'--'+vis+'--'}} -->
-  <drop class="drops" :makeDrop="mdrop"></drop>
-  <div class="main mx-0 my-0" v-if="vis">
+  <drop class="drops mx-2 pr-3" :makeDrop="mdrop"></drop>
+  <div class="main mx-4 my-0" v-if="vis">
 
     <!-- {{store.tloa}}  -->
  
@@ -107,7 +107,6 @@
 
     if (hpoints.value <= 0){
       ls.set('hey', "death") 
-      mdrop.value = true
       store.setPumpkDead()
       
       reset();
@@ -241,6 +240,7 @@
           function twooff() {  
             m2.kill() 
             vis.value = false
+            mdrop.value = true
           }         
         }
       }
