@@ -13,16 +13,17 @@
     'xxl': 1380px - 16px,
   ),
   $tooltip-text-color: #000,
-$tooltip-background-color: rgba(var(--v-theme-surface-variant), .8)
-  // $tooltip-text-color: rgb(var(--v-theme-on-surface-variant)) 
+  $tooltip-background-color: rgba(var(--v-theme-surface-variant), .8),
+  // $v-theme-primary: global.$primary-color
+ // $v-primary: global.$primary-color !default
 );
   .v-tooltip{
     font-family: 'Play';
   }   
 	a{
-		color: #80d0ff 	!important;
+		color: global.$link-color !important;
 		text-decoration: none;
 	}
 	a:hover {
-		color: #ffdf80 	!important;
+		color:  global.$link-hover 	!important;
 	}

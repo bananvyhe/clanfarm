@@ -6,7 +6,7 @@
           <div 
           class="align-top float-left mr-1 px-3 py-md-1 mx-md-1">
           <!-- v-bind:style="{backgroundImage: 'url('+ item.pic}" -->
-            <div class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}" >
+            <div class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}">
               <!-- {{pos}} --> 
             </div>
           </div >
@@ -32,16 +32,18 @@
  
           <v-tooltip location="start" >
             <template v-slot:activator="{ props }">
-              <div  class="overbut px-2 py-0 mx-2"  v-bind="props"> 
+              <div  class="overbut px-2 py-0 mx-2"  v-bind="props" v-if="isButtonDisabled" :style="{cursor: 'not-allowed'}"> 
                   </div>
                 <v-btn 
+
+                color="primary"
                   class="px-2 py-0 mx-2 but"
                   v-bind="props"
                   @click="handleClick(item.id, item.head)"
                   :disabled="isButtonDisabled" 
                   small>
                   открыть
-              </v-btn>                    
+                  </v-btn>                    
             
             </template>
             <span class=" d-flex align-center"  v-if="!isButtonDisabled">

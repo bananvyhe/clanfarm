@@ -79,12 +79,26 @@ const myCustomLightTheme = {
     warning: '#FB8C00',
   }
 }
+const customDarkTheme = {
+  dark: true,
+  colors: {
+    background: "#15202b",
+    // surface: "#15202b",
+    'surface-variant': '#ccc1b3',
+    primary: "#3f51b5",
+    secondary: "#03dac6",
+    error: "#ff5722",
+  },
+};
+
+
 const pinia = createPinia()
 const app = createApp(App);
 const vuetify = createVuetify({
 theme: {
-    defaultTheme: 'dark',
+    defaultTheme: 'customDarkTheme',
     themes: {
+      customDarkTheme,
       myCustomLightTheme,
     }  	
   }	
