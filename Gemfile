@@ -27,7 +27,11 @@ gem 'sidekiq-client-cli'
 gem 'sidekiq', '5.2.5'
 gem 'capistrano-sidekiq'
 gem 'ed25519'  
-gem 'bcrypt_pbkdf'  
+gem 'bcrypt_pbkdf'
+gem "jwt_sessions"
+gem 'rack-cors'
+
+
 group :development, :test do
   gem 'capistrano-passenger'
   gem "capistrano", "~> 3.10", require: false

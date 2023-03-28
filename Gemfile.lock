@@ -116,6 +116,9 @@ GEM
     io-console (0.6.0)
     irb (1.6.3)
       reline (>= 0.3.0)
+    jwt (2.7.0)
+    jwt_sessions (3.1.0)
+      jwt (~> 2.6, < 3)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -167,6 +170,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.6.4)
+    rack-cors (2.0.1)
+      rack (>= 2.0.0)
     rack-protection (3.0.5)
       rack
     rack-proxy (0.7.6)
@@ -260,9 +265,11 @@ DEPENDENCIES
   debug
   ed25519
   httparty
+  jwt_sessions
   mechanize
   pg (~> 1.1)
   puma (~> 5.0)
+  rack-cors
   rails (~> 7.0.4, >= 7.0.4.2)
   redis (< 4.6)
   redis-namespace
