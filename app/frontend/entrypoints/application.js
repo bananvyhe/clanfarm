@@ -26,12 +26,15 @@ console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify
 
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'
-import { createApp } from 'vue/dist/vue.esm-bundler';
+import { createApp, inject } from 'vue/dist/vue.esm-bundler';
 import { createPinia } from 'pinia'
 import App from '../app.vue'
 import router from '../router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import { securedAxiosInstance, plainAxiosInstance } from '../backend/axios'
+
+
 import ls from 'localstorage-slim';
 import encUTF8 from 'crypto-js/enc-utf8';
 import AES from 'crypto-js/aes';
@@ -94,6 +97,17 @@ const customDarkTheme = {
 
 const pinia = createPinia()
 const app = createApp(App);
+
+
+// app.provide('securedAxiosInstance', securedAxiosInstance)
+// app.provide('plainAxiosInstance', plainAxiosInstance)
+// app.mixin({
+//   mounted() {
+//     this.securedAxios = inject('securedAxiosInstance')
+//     this.plainAxios = inject('plainAxiosInstance')
+//   }
+// })
+
 const vuetify = createVuetify({
 theme: {
     defaultTheme: 'customDarkTheme',
@@ -107,8 +121,14 @@ theme: {
 document.addEventListener('DOMContentLoaded', () => {
 app.use(pinia)
 app.use(router);
-app.use(VueAxios, axios)
+// app.use(VueAxios, axios)
+app.use(VueAxios, {
+  secured: securedAxiosInstance,
+  plain: plainAxiosInstance
+})
+app.provide('plain', app.config.globalProperties.plain) 
 app.provide('axios', app.config.globalProperties.axios)
+
 app.use(vuetify);
 app.mount('#app');
 // createApp(App).mount('#app') 

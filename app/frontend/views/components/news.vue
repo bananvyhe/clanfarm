@@ -6,7 +6,7 @@
           <div 
           class="align-top float-left mr-1 px-3 py-md-1 mx-md-1">
           <!-- v-bind:style="{backgroundImage: 'url('+ item.pic}" -->
-            <div class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}">
+            <div class ="pic px-0 align-center my-2 " v-bind:style="{backgroundImage: 'url('+ item.pic}" >
               <!-- {{pos}} --> 
             </div>
           </div >
@@ -86,18 +86,19 @@
   </div>
 </template>
 <script setup lang="ts">
+
   const skull = new URL("../images/skull.png", import.meta.url).href;
   import { ref, reactive, inject, onMounted, watch, computed  } from 'vue'
   const axios: any = inject('axios')
   import { useLogStore } from '../../store.js'
   const store = useLogStore()
-
   import { useScroll } from '@vueuse/core'
   const {arrivedState} = useScroll(document)  
-  
+
   const pos = ref(0)
   const alld = ref([])
   const { bottom } = toRefs( arrivedState )
+  
   watch(() => bottom.value, (val) => {
     if (val == true){
       getList(val)
@@ -113,8 +114,10 @@
      console.log("getlist")
   })
 
+  const plain: any = inject('plain') 
+  console.log(plain)
   const getList = (val): void => {
-    axios
+    plain
       .get("/news", { params: { pos: pos.value } })
       .then((response: { data: any }) => {
         console.log(response.data)
