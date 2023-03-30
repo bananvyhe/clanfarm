@@ -41,12 +41,14 @@
 <script setup lang="ts">
 // const rock = new URL("../images/sprites/monsters/ore.png", import.meta.url).href;
 import { gsap } from "gsap";
-import { ref, onMounted, watch, nextTick } from 'vue';
+import { ref, onMounted, watch, nextTick, inject } from 'vue';
+  const plain: any = inject('plain')
+  const secured: any = inject('secured') 
 import { useLogStore } from '../../store.js'
 const props = defineProps(['makeDrop'])
-
 const store = useLogStore()
 const axios: any = inject('axios')
+
 const signedIn = ref(false)
 const drop = ref()
 
@@ -66,7 +68,8 @@ const drop = ref()
   })
 
   function getdrop(){
- 			 axios.get('/my_items/getdrop')
+ 			plain
+      .get('/my_items/getdrop')
        // this.$http.plain.get('/my_items/getdrop')
       .then(response => { 
         console.log(response.data)

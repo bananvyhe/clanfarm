@@ -127,6 +127,7 @@ app.use(VueAxios, {
   plain: plainAxiosInstance
 })
 app.provide('plain', app.config.globalProperties.plain) 
+app.provide('secured', app.config.globalProperties.secured) 
 app.provide('axios', app.config.globalProperties.axios)
 
 app.use(vuetify);
