@@ -12,28 +12,12 @@
         @click="signOut">выйти
       </v-btn>  
     </div>   -->
-    <div v-if="signedIn == false">
-      {{trock}}<v-btn @click="store.setrock">rock</v-btn>
-      <v-dialog
-        transition="dialog-top-transition"
-        max-width="600">
-        <template v-slot:activator="{ props }">
-          <v-btn
-          size="small"
-            color="secondary"
-            v-bind="props"
-            
-          >Регистрация</v-btn>
-        </template>
-      
-<!--         <template v-slot:default="dialog"> -->
-          
-          <v-card class="sign">
+    <div v-if="signedIn == false"> 
+      <!-- {{trock}}<v-btn @click="store.setrock">rock</v-btn> -->
+
             <signup></signup>
  
-          </v-card>
-        <!-- </template> -->
-      </v-dialog>
+
 
 <!--       <v-dialog
         transition="dialog-top-transition"
@@ -80,7 +64,7 @@
   import Signup from './sign_up.vue';
   // import Signin from './packs/components/Signin.vue';
   const signedIn = computed(() => store.tsignedIn)
-const trock = computed(() => store.trock)
+// const trock = computed(() => store.trock)
   const loa = ref()
 // export default {
   // data: function () {

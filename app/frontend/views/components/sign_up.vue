@@ -1,5 +1,22 @@
 <template>
-  <v-form class="form-signup" @submit.prevent="signup">
+        <v-dialog
+        transition="dialog-top-transition"
+        max-width="600">
+        <template v-slot:activator="{ props }">
+          <v-btn
+          size="small"
+            color="secondary"
+            v-bind="props"
+            
+          >Регистрация</v-btn>
+        </template>
+      
+<!--         <template v-slot:default="dialog"> -->
+          
+          <v-card class="sign" title="Создать аккаунт" subtitle="для получения доступа">
+            <!-- <v-card-title>создать аккаунт</v-card-title> -->
+
+  <v-form class="form-signup pt-9 pb-5" @submit.prevent="signup">
     <div class="alert alert-danger" v-if="error">{{ error }}</div>
     <div class="form-group"> 
       <!-- <label for="email">Зарегистрироваться</label> -->
@@ -13,18 +30,18 @@
       <!-- <label for="password">Повторите пароль</label> -->
       <v-text-field v-model="password_confirmation" :rules="confirmRules" type="password" id="password_confirmation" label="Повторите пароль"></v-text-field>
     </div>
-    <v-btn type="submit" class="btn btn-primary my-3">Отправить</v-btn>
+    
     <div>
 
-{{ex7}}
-<v-radio-group  v-model="ex7">
-  <v-radio label="Radio 1" value="1" ></v-radio>
-  <v-radio label="Radio 2" value="2"></v-radio>
-  <v-radio label="Radio 3" value="3"></v-radio>
-</v-radio-group>
- <v-slider></v-slider>
     </div>
   </v-form>
+  <v-card-actions class="pa-7 pt-0">
+      <v-spacer></v-spacer>
+<v-btn size="large" type="submit" class="btn btn-primary ">Отправить</v-btn>
+    </v-card-actions>
+            </v-card>
+        <!-- </template> -->
+      </v-dialog>
 </template>
 
 <script setup lang="ts">
