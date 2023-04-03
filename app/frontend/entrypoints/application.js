@@ -33,7 +33,9 @@ import router from '../router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { securedAxiosInstance, plainAxiosInstance } from '../backend/axios'
-
+// import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+// import { aliases, mdi } from 'vuetify/iconsets/mdi'
+ import '@mdi/font/css/materialdesignicons.css'
 
 import ls from 'localstorage-slim';
 import encUTF8 from 'crypto-js/enc-utf8';
@@ -95,8 +97,6 @@ const customDarkTheme = {
 };
 
 
-const pinia = createPinia()
-const app = createApp(App);
 
 
 // app.provide('securedAxiosInstance', securedAxiosInstance)
@@ -109,6 +109,13 @@ const app = createApp(App);
 // })
 
 const vuetify = createVuetify({
+  // icons: {
+  //   defaultSet: 'mdi',
+  //   aliases,
+  //   sets: {
+  //     mdi,
+  //   }
+  // },  
 theme: {
     defaultTheme: 'customDarkTheme',
     themes: {
@@ -117,9 +124,13 @@ theme: {
     }  	
   }	
 });
+const pinia = createPinia()
+// pinia.use(piniaPluginPersistedstate)
+const app = createApp(App);
 
-document.addEventListener('DOMContentLoaded', () => {
 app.use(pinia)
+document.addEventListener('DOMContentLoaded', () => {
+
 app.use(router);
 // app.use(VueAxios, axios)
 app.use(VueAxios, {

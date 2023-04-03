@@ -6,7 +6,7 @@
           <div 
           class="align-top float-left mr-1 px-3 py-md-1 mx-md-1">
           <!-- v-bind:style="{backgroundImage: 'url('+ item.pic}" -->
-            <div class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}">
+            <div class ="pic px-0 align-center my-2">
               <!-- {{pos}} --> 
             </div>
           </div >
@@ -41,7 +41,7 @@
                   v-bind="props"
                   @click="handleClick(item.id, item.head)"
                   :disabled="isButtonDisabled" 
-                  small>
+                  size="small">
                   открыть
                   </v-btn>                    
             

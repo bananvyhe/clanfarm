@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@mdi/font": "^7.2.96",
     "rollup-plugin-visualizer": "^5.9.0",
     "sass": "^1.58.3",
     "unplugin-auto-import": "^0.14.2",

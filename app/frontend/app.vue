@@ -11,7 +11,7 @@
             <div class=" subs" >
             <span class=" pr-1 text-body-2 mmo"> {{ tl }}</span> 
             <span class="text-caption my-0 subt">
-              Yandex ai translator API 
+              <!-- Yandex ai translator API  -->
             </span>
             </div>
           </div>
@@ -43,8 +43,8 @@ onMounted(() => {
 })
 
 const m1 = gsap.timeline();
-const message = ref("Clan Farm Gang")
-const tl = ref("MMORPG")
+const message = ref("Farm Spot")
+const tl = ref("Clan recruit")
 let isFirstUpdate = true
 const showmenutop = reactive({ status: true});
 

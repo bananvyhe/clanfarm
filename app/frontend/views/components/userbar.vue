@@ -12,28 +12,30 @@
         @click="signOut">выйти
       </v-btn>  
     </div>   -->
-<!--     <div v-if="this.signedIn == false">
+    <div v-if="signedIn == false">
+      {{trock}}<v-btn @click="store.setrock">rock</v-btn>
       <v-dialog
         transition="dialog-top-transition"
         max-width="600">
-        <template v-slot:activator="{ on, attrs }">
+        <template v-slot:activator="{ props }">
           <v-btn
-          small
+          size="small"
             color="secondary"
-            v-bind="attrs"
-            v-on="on"
+            v-bind="props"
+            
           >Регистрация</v-btn>
         </template>
-        <template v-slot:default="dialog">
+      
+<!--         <template v-slot:default="dialog"> -->
           
           <v-card class="sign">
             <signup></signup>
-            </v-card-actions>
+ 
           </v-card>
-        </template>
+        <!-- </template> -->
       </v-dialog>
 
-      <v-dialog
+<!--       <v-dialog
         transition="dialog-top-transition"
         max-width="600">
         <template v-slot:activator="{ on, attrs }">
@@ -52,8 +54,8 @@
             </v-card-actions>
           </v-card>
         </template>
-      </v-dialog>
-    </div> -->
+      </v-dialog> -->
+    </div>
 <!--   v-else  -->
  
     <div class="useraction d-flex">  
@@ -68,15 +70,17 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
   import { useLogStore } from '../../store.js'  
   const store = useLogStore()
 
   // import Inv from './packs/components/inventory.vue';  
  
   // import { useLogStore } from 'store.js'
-  // import Signup from './packs/components/Signup.vue';
+  import Signup from './sign_up.vue';
   // import Signin from './packs/components/Signin.vue';
+  const signedIn = computed(() => store.tsignedIn)
+const trock = computed(() => store.trock)
   const loa = ref()
 // export default {
   // data: function () {
