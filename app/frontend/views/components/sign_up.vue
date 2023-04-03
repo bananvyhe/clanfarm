@@ -35,7 +35,7 @@
 
     </div>
   </v-form>
-  <v-card-actions class="pa-7 pt-0">
+  <v-card-actions class="pa-6 pt-0">
       <v-spacer></v-spacer>
 <v-btn size="large" type="submit" class="btn btn-primary ">Отправить</v-btn>
     </v-card-actions>

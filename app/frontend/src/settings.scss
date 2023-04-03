@@ -4,7 +4,7 @@
   // $utilities: false,
   // $button-height: global.$sizew,
   $body-font-family: 'Roboto Slab',
-  // $title-font-family: 'Play',
+  $heading-font-family: 'Play',
   $grid-breakpoints:  (
     'xs': 0,
     'sm': 760px,
@@ -18,8 +18,15 @@
   // $v-theme-primary: global.$primary-color
  // $v-primary: global.$primary-color !default
 );
+.v-btn {
+  font-family: 'Sofia Sans Condensed';
+}
+
+.v-card-title{
+   font-family: 'Sofia Sans Condensed';
+}
   .v-tooltip{
-    font-family: 'Play';
+    font-family: 'Sofia Sans Condensed';
   }   
 	a{
 		color: global.$link-color !important;

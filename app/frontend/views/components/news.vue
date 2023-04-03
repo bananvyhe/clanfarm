@@ -180,7 +180,8 @@
 }
 .colr{
   /*color: #60845b;*/
-  color: #657d62;
+  /*color: #657d62;*/
+  color: #96ab94;
 }
 .date{
   color: #9d9681; 
