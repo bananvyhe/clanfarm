@@ -9,7 +9,7 @@
                 {{message}}
               </h3>
             <div class=" subs" >
-            <span class=" pr-1 text-body-2 mmo"> {{ tl }}</span> 
+            <span class=" pr-1 text-body-2 mmod d-flex float-right"> {{ tl }}</span> 
             <span class="text-caption my-0 subt">
               <!-- Yandex ai translator API  -->
             </span>
@@ -43,8 +43,10 @@ onMounted(() => {
 })
 
 const m1 = gsap.timeline();
-const message = ref("Farm Spot")
+
+const message = ref("Gang Farm")
 const tl = ref("Clan recruit")
+
 let isFirstUpdate = true
 const showmenutop = reactive({ status: true});
 

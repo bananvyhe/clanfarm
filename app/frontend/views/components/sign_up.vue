@@ -7,13 +7,13 @@
           size="small"
             color="secondary"
             v-bind="props"
-            
+            variant="tonal"
           >Регистрация</v-btn>
         </template>
       
 <!--         <template v-slot:default="dialog"> -->
           
-          <v-card class="sign" title="Создать аккаунт" subtitle="для получения доступа">
+          <v-card class="sign" title="Создать аккаунт" subtitle="после регистрации откроется доступ к системе кланов">
             <!-- <v-card-title>создать аккаунт</v-card-title> -->
 
   <v-form class="form-signup pt-9 pb-5" @submit.prevent="signup">
@@ -37,7 +37,7 @@
   </v-form>
   <v-card-actions class="pa-6 pt-0">
       <v-spacer></v-spacer>
-<v-btn size="large" type="submit" class="btn btn-primary ">Отправить</v-btn>
+<v-btn size="large" type="submit" class="btn btn-primary " variant="tonal">Отправить</v-btn>
     </v-card-actions>
             </v-card>
         <!-- </template> -->
@@ -86,7 +86,7 @@ const ex7 = ref()
         v => !!v || 'нужно ввести пароль',
         v => v.length >= 5 || 'Пароль должен содержать более 6 символов',
                     // v => (v || '').indexOf(' ') < 0 ||  'Пробелов не должно быть'
-        v => v == this.password || "Пароли не совпадают"
+        v => v ==  password.value || "Пароли не совпадают"
       ])
  
   // created () {

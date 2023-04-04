@@ -45,9 +45,9 @@
     <div class="useraction d-flex">  
       <!-- <inv  v-if="this.signedIn == true">666</inv> -->
       <!-- v-else -->
-      <div class="loa px-2" >{{store.tloa}}</div>
+      <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
       
-      <div class="skull"></div>
+      <div class="skull align-self-center"></div>
     </div>
   
   </div>
