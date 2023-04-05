@@ -30,7 +30,7 @@ gem 'ed25519'
 gem 'bcrypt_pbkdf'
 gem "jwt_sessions"
 gem 'rack-cors'
-
+gem 'bcrypt', '~> 3.1.7'
 
 group :development, :test do
   gem 'capistrano-passenger'

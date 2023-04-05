@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get :news, to: "news#index" 
   post :fullnews, to: "news#fullnews"
   post :news, to: "news#create"
+  get 'me', controller: :users, action: :me 
+  
   resources :my_items  do 
     member do
       # post :use_item

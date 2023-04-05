@@ -9,8 +9,7 @@ export const useLogStore = defineStore(
     const trock = computed(() => rock.value)
     const tloa = computed(() => loa.value)
 
-    const signedIn = ref(false)
-    const tsignedIn = computed(() => signedIn.value)
+
 
     const pumpkdead = ref()
     const tpumpkdead = computed(() => pumpkdead.value)
@@ -38,6 +37,19 @@ export const useLogStore = defineStore(
       loa.value -= val
       ls.set('load', loa.value)     
     }  
-
-  return { trock, tloa, tpumpkdead, increments, decrements, setPumpkAlive, setPumpkDead, tsignedIn, setrock }
+    const currentUser = ref()
+    const signedIn = ref(false)
+    const tsignedIn = computed(() => signedIn.value)
+    const ctsrf = ref()
+    function setCurrentUser (currentUser, csrf) {
+       currentUser.value = currentUser
+       signedIn.value = true
+       ctsrf.value = csrf
+    } 
+    function unsetCurrentUser () {
+      currentUser.value = {}
+      signedIn.value = false
+      ctsrf.value = null
+    }    
+  return { trock, tloa, tpumpkdead, increments, decrements, setPumpkAlive, setPumpkDead, tsignedIn, setrock, setCurrentUser, unsetCurrentUser }
 })

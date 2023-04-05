@@ -90,7 +90,7 @@
   const skull = new URL("../images/skull.png", import.meta.url).href;
   import { ref, reactive, inject, onMounted, watch, computed  } from 'vue'
   const plain: any = inject('plain')
-  const secured: any = inject('secured') 
+  const secured: any = inject('secured')
   const axios: any = inject('axios')
   import { useLogStore } from '../../store.js'
   const store = useLogStore()

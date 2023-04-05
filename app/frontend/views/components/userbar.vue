@@ -4,14 +4,14 @@
 <!--     <router-link  to="/admin/all" v-if="this.currentUser.role == 'admin'">
       Admin
     </router-link> -->
-<!--     <div v-if="this.signedIn == true">
+    <div v-if="signedIn == true">
       <v-btn
-        x-small 
-        text
+         
+         
         color="primary"  
         @click="signOut">выйти
       </v-btn>  
-    </div>   -->
+    </div>  
     <div v-if="signedIn == false"> 
       <!-- {{trock}}<v-btn @click="store.setrock">rock</v-btn> -->
 
@@ -54,10 +54,11 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, computed } from 'vue';
+  import { ref, computed, inject } from 'vue';
   import { useLogStore } from '../../store.js'  
   const store = useLogStore()
-
+  const plain: any = inject('plain')
+  const secured: any = inject('secured')
   // import Inv from './packs/components/inventory.vue';  
  
   // import { useLogStore } from 'store.js'
@@ -77,18 +78,19 @@
   //   ...mapActions(useLogStore, ["unsetLoa"]),     
   //   ...mapActions(useLogStore, ["unsetCurrentUser"]), 
  
-  //   signOut () {
+    function signOut(){
  
-  //     this.$http.secured.delete('/signin')
-  //     .then(response => {
+      secured
+      .delete('/signin')
+      .then(response => {
  
 
-  //       this.unsetLoa()
-  //       this.unsetCurrentUser()
-  //       this.$router.replace('/')
-  //     })
-  //     .catch(error => this.setError(error, 'Cannot sign out'))
-  //   },  
+        // this.unsetLoa()
+        store.unsetCurrentUser()
+        // this.$router.replace('/')
+      })
+      // .catch(error => setError(error, 'Cannot sign out'))
+    }
   // },
  
 //   computed: {
