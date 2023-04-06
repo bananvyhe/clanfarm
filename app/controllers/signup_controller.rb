@@ -7,15 +7,16 @@ class SignupController < ApplicationController
       loa = params[:loa]
       if  params[:loa] == nil
       loa = 0
-      elsif  params[:loa] > 1000
-      loa = 1000
+      elsif  params[:loa] > 500
+      loa = 500
       end
 
-      user = User.new({:email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation], :loa => loa})
+      user = User.new({:role => 0, :email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation], :loa => loa})
 
       if user.save
         payload  = { user_id: user.id, aud: [user.role]}
-        session = JWTSessions::Session.new(payload: payload, refresh_by_access_allowed: true)
+        session = JWTSessions::Session.new(payload: payload, refresh_by_access_allowed: true, 
+          namespace: "user_#{user.id}")
         tokens = session.login
 
         response.set_cookie(JWTSessions.access_cookie,

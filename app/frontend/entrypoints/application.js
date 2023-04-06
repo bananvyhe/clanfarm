@@ -55,6 +55,10 @@ ls.config.decrypter = (data, secret) => {
     ls.set('load', 0)  
     console.log("0")
   }
+  if (!ls.get('signedIn')){
+    ls.set('signedIn', false)  
+ 
+  }  
 // const app = createApp({
 // data() {
 //     return {

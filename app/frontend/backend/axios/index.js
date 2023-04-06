@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useLogStore } from '../../store.js'
- 
+import ls from 'localstorage-slim';  
 // const logStore = useLogStore();
 // const API_URL = window.location.href 
 const API_URL = 'http://localhost:3000'
@@ -31,10 +31,10 @@ securedAxiosInstance.interceptors.request.use(config => {
   if (method !== 'OPTIONS' && method !== 'GET') { 
     console.log("interceptors.request")
     const logStore = useLogStore()
-    console.log(logStore.thiscsrf)
+    console.log(ls.get('ctsrf'))
     config.headers = {
       ...config.headers,
-      'X-CSRF-TOKEN': logStore.thiscsrf
+      'X-CSRF-TOKEN': logStore.tctsrf
     }
   }
   return config
@@ -44,9 +44,9 @@ securedAxiosInstance.interceptors.response.use(null, error => {
 
   if (error.response && error.response.config && error.response.status === 401) {
       const logStore = useLogStore()
-  console.log(logStore.thiscsrf)
+  console.log(ls.get('ctsrf'))
     // In case 401 is caused by expired access cookie - we'll do refresh request
-    return plainAxiosInstance.post('/refresh', {}, { headers: { 'X-CSRF-TOKEN': logStore.thiscsrf } })
+    return plainAxiosInstance.post('/refresh', {}, { headers: { 'X-CSRF-TOKEN': ls.get('ctsrf') } })
       .then(response => {
         logStore.refresh(response.data.csrf) 
         // ...mapActions(useLogStore, ["refresh"])
@@ -57,15 +57,14 @@ securedAxiosInstance.interceptors.response.use(null, error => {
         // localStorage.signedIn = true
         // And after successful refresh - repeat the original request
         let retryConfig = error.response.config
-        retryConfig.headers['X-CSRF-TOKEN'] = logStore.thiscsrf
+        retryConfig.headers['X-CSRF-TOKEN'] = ls.get('ctsrf')
         return plainAxiosInstance.request(retryConfig)
       }).catch(error => {
         const logStore = useLogStore();
         logStore.unsetCurrentUser()
-        // delete localStorage.csrf
-        // delete localStorage.signedIn
+ 
         // redirect to signin in case refresh request fails
-        location.replace('/')
+        // location.replace('/')
         return Promise.reject(error)
       })
   } else {

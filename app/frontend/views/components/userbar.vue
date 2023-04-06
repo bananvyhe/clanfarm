@@ -1,10 +1,10 @@
 <template>
-  <div class="d-flex "> 
+  <div class="d-flex "> {{store.tsignedIn}} {{store.tctsrf}}
 
 <!--     <router-link  to="/admin/all" v-if="this.currentUser.role == 'admin'">
       Admin
     </router-link> -->
-    <div v-if="signedIn == true">
+    <div v-if="store.tsignedIn == true">
       <v-btn
          
          
@@ -12,7 +12,7 @@
         @click="signOut">выйти
       </v-btn>  
     </div>  
-    <div v-if="signedIn == false"> 
+    <div v-if="store.tsignedIn == false"> 
       <!-- {{trock}}<v-btn @click="store.setrock">rock</v-btn> -->
 
             <signup></signup>
@@ -64,7 +64,7 @@
   // import { useLogStore } from 'store.js'
   import Signup from './sign_up.vue';
   // import Signin from './packs/components/Signin.vue';
-  const signedIn = computed(() => store.tsignedIn)
+  // const signedIn = computed(() => store.tsignedIn)
 // const trock = computed(() => store.trock)
   const loa = ref()
 // export default {

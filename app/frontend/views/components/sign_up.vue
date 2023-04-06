@@ -116,7 +116,7 @@
   }
 
   function signupSuccessful (response) {
-    // this.unsetLoa()
+    store.unsetLoa 
     if (!response.data.csrf) {
       signupFailed(response)
       return
