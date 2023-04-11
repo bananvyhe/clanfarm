@@ -10,6 +10,11 @@ export const useLogStore = defineStore(
     const trock = computed(() => rock.value)
     const tloa = computed(() => loa.value)
 
+    const role = ref(ls.get('role'))
+    const trole = computed(() => role.value)
+
+    const email = ref(ls.get('email'))
+    const temail = computed(() => email.value)
 
 
     const pumpkdead = ref()
@@ -47,12 +52,17 @@ export const useLogStore = defineStore(
     const ctsrf = ref(ls.get('ctsrf'))
     const tctsrf = computed(() => ctsrf.value)
     function setCurrentUser (currentUser, csrf) {
-      currentUser.value = currentUser
-      ls.set('currentUser', currentUser) 
+      console.log(currentUser)
+      // currentUser.value = currentUser.id
+      ls.set('currentUser', currentUser.id)
       signedIn.value = true
-      ls.set('signedIn', true) 
+      ls.set('signedIn', true)
       ctsrf.value = csrf
-      ls.set('ctsrf', csrf) 
+      ls.set('ctsrf', csrf)
+      // loa.value = loa
+      ls.set('load', currentUser.loa)
+
+      ls.set('role', currentUser.role)
     }
     function unsetLoa () {
       loa.value = null
@@ -61,8 +71,11 @@ export const useLogStore = defineStore(
 
     function unsetCurrentUser () {
       ls.set('currentUser', 0) 
+      currentUser.value = ""
       ls.set('signedIn', false) 
+      signedIn.value = false
       ls.set('ctsrf', 0) 
+      ctsrf.value = ""
     }
 
     function refresh (csrf) {
@@ -70,5 +83,18 @@ export const useLogStore = defineStore(
       ctsrf.value = csrf
     }
 
-  return { trock, tloa, tpumpkdead, increments, decrements, setPumpkAlive, setPumpkDead, tsignedIn, setrock, setCurrentUser, unsetCurrentUser, tctsrf }
+  return { trock, 
+    tloa, 
+    tpumpkdead, 
+    increments, 
+    decrements, 
+    setPumpkAlive, 
+    setPumpkDead, 
+    tsignedIn, 
+    setrock, 
+    setCurrentUser, 
+    unsetCurrentUser, 
+    tctsrf, 
+    trole,
+    temail }
 })

@@ -37,7 +37,7 @@
   </v-form>
   <v-card-actions class="pa-6 pt-0">
       <v-spacer></v-spacer>
-<v-btn size="large" type="submit" class="btn btn-primary " variant="tonal" @click="signup">Отправить</v-btn>
+<v-btn size="large" class="btn btn-primary " variant="tonal" @click="signup">Отправить</v-btn>
     </v-card-actions>
             </v-card>
         <!-- </template> -->
@@ -49,7 +49,7 @@
   const store = useLogStore()
   import { ref, reactive, computed, inject } from 'vue';
   const plain: any = inject('plain')
-
+  const secured: any = inject('secured')
   // import { mapState } from 'pinia'
   // import { mapActions } from 'pinia' 
   // import { useLogStore } from 'store.js'
@@ -110,8 +110,12 @@
     console.log("3423442342343")
       plain
         .post('/signup', { email: email.value, password: password.value, password_confirmation: password_confirmation.value, loa: store.tloa })
-        .then(response => signupSuccessful(response))
-        .catch(error => signupFailed(error))    
+        // .then(response => signupSuccessful(response))
+        // .catch(error => signupFailed(error))  
+          .then((response: { data: any }) => {
+            console.log(response)
+            signupSuccessful(response)
+          });
 
   }
 
@@ -121,14 +125,15 @@
       signupFailed(response)
       return
     }
-    plain
+    secured
     .get('/me')
       .then(meResponse => {
+        console.log(meResponse.data)
         store.setCurrentUser(meResponse.data, response.data.csrf)
         // this.error = ''
         // this.$router.replace('/')
       })
-      .catch(error => signinFailed(error))
+      .catch(error => console.log(error))
     // this.$router.replace('/')
   }
 

@@ -57,8 +57,13 @@ ls.config.decrypter = (data, secret) => {
   }
   if (!ls.get('signedIn')){
     ls.set('signedIn', false)  
- 
   }  
+  // if (!ls.get('role')){
+  //   ls.set('role', false)  
+  // }
+  // if (!ls.get('email')){
+  //   ls.set('email', false)  
+  // }  
 // const app = createApp({
 // data() {
 //     return {
@@ -133,7 +138,7 @@ const pinia = createPinia()
 const app = createApp(App);
 
 app.use(pinia)
-document.addEventListener('DOMContentLoaded', () => {
+// document.addEventListener('DOMContentLoaded', () => {
 
 app.use(router);
 // app.use(VueAxios, axios)
@@ -149,4 +154,4 @@ app.use(vuetify);
 app.mount('#app');
 // createApp(App).mount('#app') 
 // console.log("app", app);
-})
+// })

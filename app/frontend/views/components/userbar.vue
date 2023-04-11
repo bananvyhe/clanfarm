@@ -1,44 +1,20 @@
 <template>
   <div class="d-flex "> {{store.tsignedIn}} {{store.tctsrf}}
-
 <!--     <router-link  to="/admin/all" v-if="this.currentUser.role == 'admin'">
       Admin
     </router-link> -->
     <div v-if="store.tsignedIn == true">
       <v-btn
-         
-         
         color="primary"  
         @click="signOut">выйти
       </v-btn>  
     </div>  
     <div v-if="store.tsignedIn == false"> 
       <!-- {{trock}}<v-btn @click="store.setrock">rock</v-btn> -->
-
             <signup></signup>
- 
 
-
-<!--       <v-dialog
-        transition="dialog-top-transition"
-        max-width="600">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-          small
-            color="primary"
-            v-bind="attrs"
-            v-on="on"
-          >Войти
-          </v-btn>
-        </template>
-        <template v-slot:default="dialog">
-          
-          <v-card class="sign">
             <signin></signin>
-            </v-card-actions>
-          </v-card>
-        </template>
-      </v-dialog> -->
+
     </div>
 <!--   v-else  -->
  
@@ -63,6 +39,7 @@
  
   // import { useLogStore } from 'store.js'
   import Signup from './sign_up.vue';
+  import Signin from './sign_in.vue';
   // import Signin from './packs/components/Signin.vue';
   // const signedIn = computed(() => store.tsignedIn)
 // const trock = computed(() => store.trock)
@@ -79,12 +56,9 @@
   //   ...mapActions(useLogStore, ["unsetCurrentUser"]), 
  
     function signOut(){
- 
       secured
       .delete('/signin')
       .then(response => {
- 
-
         // this.unsetLoa()
         store.unsetCurrentUser()
         // this.$router.replace('/')
@@ -92,7 +66,6 @@
       // .catch(error => setError(error, 'Cannot sign out'))
     }
   // },
- 
 //   computed: {
 //     ...mapState(useLogStore, {
 //       currentUser: "thiscurrentUser",

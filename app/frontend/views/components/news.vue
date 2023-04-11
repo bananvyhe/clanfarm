@@ -143,7 +143,7 @@
     store.decrements(5)
     console.log(val)
     showModal.value = true
-    axios
+    plain
       .post("/fullnews", {  id: val  })
       .then((response: { data: any }) => {
       // console.log(response.data.fullarticle)
