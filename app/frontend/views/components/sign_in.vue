@@ -89,7 +89,7 @@
     }
 
     function signinSuccessful (response) {
-      store.unsetLoa 
+      store.unsetLoa()
       if (!response.data.csrf) {
         signupFailed(response)
         return

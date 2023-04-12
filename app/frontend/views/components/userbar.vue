@@ -1,5 +1,6 @@
 <template>
-  <div class="d-flex "> {{store.tsignedIn}} {{store.tctsrf}}
+  <div class="d-flex "> 
+    <!-- {{store.tsignedIn}} {{store.tctsrf}} -->
 <!--     <router-link  to="/admin/all" v-if="this.currentUser.role == 'admin'">
       Admin
     </router-link> -->
@@ -59,8 +60,9 @@
       secured
       .delete('/signin')
       .then(response => {
-        // this.unsetLoa()
+        store.unsetLoa()
         store.unsetCurrentUser()
+        // store.unsetLoa
         // this.$router.replace('/')
       })
       // .catch(error => setError(error, 'Cannot sign out'))

@@ -113,14 +113,14 @@
         // .then(response => signupSuccessful(response))
         // .catch(error => signupFailed(error))  
           .then((response: { data: any }) => {
-            console.log(response)
+            // console.log(response)
+            // store.unsetLoa
             signupSuccessful(response)
           });
-
   }
 
   function signupSuccessful (response) {
-    store.unsetLoa 
+    store.unsetLoa()
     if (!response.data.csrf) {
       signupFailed(response)
       return

@@ -51,12 +51,17 @@ ls.config.decrypter = (data, secret) => {
     return data;
   }
 };
-  if (!ls.get('load')){
-    ls.set('load', 0)  
-    console.log("0")
+  if (!ls.get('account.loa')){
+    ls.set('account.loa', 0)  
+    // console.log("0")
   }
-  if (!ls.get('signedIn')){
-    ls.set('signedIn', false)  
+
+
+
+
+
+  if (!ls.get('account.signedIn')){
+    ls.set('account.signedIn', false)  
   }  
   // if (!ls.get('role')){
   //   ls.set('role', false)  

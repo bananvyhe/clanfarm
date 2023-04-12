@@ -5,12 +5,12 @@ export const useLogStore = defineStore(
   () => {
 
     const rock = ref()
-    const loa = ref(ls.get('load'))
+    const loa = ref(ls.get('account.loa'))
 
     const trock = computed(() => rock.value)
     const tloa = computed(() => loa.value)
 
-    const role = ref(ls.get('role'))
+    const role = ref(ls.get('account.role'))
     const trole = computed(() => role.value)
 
     const email = ref(ls.get('email'))
@@ -37,36 +37,35 @@ export const useLogStore = defineStore(
     function increments(val) {
     	console.log(val)
       loa.value += val
-      ls.set('load', loa.value)     
+      ls.set('account.loa', loa.value)     
     }
 
     function decrements(val) {
     	console.log(val)
       loa.value -= val
-      ls.set('load', loa.value)     
+      ls.set('account.loa', loa.value)     
     }
 
-    const currentUser = ref(ls.get('currentUser'))
-    const signedIn = ref(ls.get('signedIn'))
+    const currentUser = ref(ls.get('account.currentUser'))
+    const signedIn = ref(ls.get('account.signedIn'))
     const tsignedIn = computed(() => signedIn.value)
-    const ctsrf = ref(ls.get('ctsrf'))
+    const ctsrf = ref(ls.get('account.ctsrf'))
     const tctsrf = computed(() => ctsrf.value)
-    function setCurrentUser (currentUser, csrf) {
-      console.log(currentUser)
-      // currentUser.value = currentUser.id
-      ls.set('currentUser', currentUser.id)
-      signedIn.value = true
-      ls.set('signedIn', true)
-      ctsrf.value = csrf
-      ls.set('ctsrf', csrf)
-      // loa.value = loa
-      ls.set('load', currentUser.loa)
 
-      ls.set('role', currentUser.role)
+      // ls.set("data", {superman: "Clark Kent", power: 100})
+      // ls.set("data.power", 150);
+
+    function setCurrentUser (currentUser, csrf) {
+      currentUser.value = currentUser.id
+      signedIn.value = true
+      ctsrf.value = csrf
+      loa.value = currentUser.loa
+      ls.set('account', {signedIn: true, ctsrf: csrf, currentUser: currentUser.id, loa: currentUser.loa, role: currentUser.role})
     }
+
     function unsetLoa () {
-      loa.value = null
-      ls.set('load', "") 
+      loa.value = 0
+      ls.set('account.loa', 0) 
     }
 
     function unsetCurrentUser () {
@@ -94,6 +93,7 @@ export const useLogStore = defineStore(
     setrock, 
     setCurrentUser, 
     unsetCurrentUser, 
+    unsetLoa,
     tctsrf, 
     trole,
     temail }
