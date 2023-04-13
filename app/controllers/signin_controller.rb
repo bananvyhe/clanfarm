@@ -17,7 +17,7 @@ class SigninController < ApplicationController
         render json: { csrf: tokens[:csrf] }
       else
         # not_authorized
-        render json: { error: 'Неправильный пароль' }, status: :unprocessable_entity
+        render json: { message: 'Неправильный пароль' }, status: :unprocessable_entity
       end
     else
       puts 'user.email'
