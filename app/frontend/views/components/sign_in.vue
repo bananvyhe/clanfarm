@@ -85,15 +85,22 @@
         // .then(response => signinSuccessful(response))
         // .catch(error => signinFailed(error))
         .then((response: { data: any }) => {
+          // console.log(response.data.message)  
           signinSuccessful(response)
+       
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+          notify({
+            title: error.response.data.message,
+          });
+          // console.log(error.response.data.message)          
+        })
     }
 
     function signinSuccessful (response) {
-notify({
-  title: "Vue 3 notification 🎉",
-});
+// notify({
+//   title: "Vue 3 notification 🎉",
+// });
       store.unsetLoa()
       if (!response.data.csrf) {
         signupFailed(response)
