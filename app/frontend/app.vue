@@ -24,7 +24,7 @@
         <v-container class="pt-0 cont" > 
 
           <router-view></router-view>
-
+          <notifications />
         </v-container>
       </v-main>
 		</v-layout>

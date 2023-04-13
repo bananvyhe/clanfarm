@@ -36,6 +36,8 @@
 </template>
 
 <script setup lang="ts">
+  import { useNotification } from "@kyvg/vue3-notification";
+  const { notify}  = useNotification()
   import { ref, computed, inject } from 'vue';
   import { useLogStore } from '../../store.js' 
   const plain: any = inject('plain')
@@ -89,6 +91,9 @@
     }
 
     function signinSuccessful (response) {
+notify({
+  title: "Vue 3 notification 🎉",
+});
       store.unsetLoa()
       if (!response.data.csrf) {
         signupFailed(response)

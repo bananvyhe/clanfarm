@@ -36,7 +36,7 @@ import { securedAxiosInstance, plainAxiosInstance } from '../backend/axios'
 // import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 // import { aliases, mdi } from 'vuetify/iconsets/mdi'
  import '@mdi/font/css/materialdesignicons.css'
-
+import Notifications from '@kyvg/vue3-notification'
 import ls from 'localstorage-slim';
 import encUTF8 from 'crypto-js/enc-utf8';
 import AES from 'crypto-js/aes';
@@ -51,14 +51,12 @@ ls.config.decrypter = (data, secret) => {
     return data;
   }
 };
+
+
   if (!ls.get('account.loa')){
     ls.set('account.loa', 0)  
     // console.log("0")
   }
-
-
-
-
 
   if (!ls.get('account.signedIn')){
     ls.set('account.signedIn', false)  
@@ -151,11 +149,13 @@ app.use(VueAxios, {
   secured: securedAxiosInstance,
   plain: plainAxiosInstance
 })
+
 app.provide('plain', app.config.globalProperties.plain) 
 app.provide('secured', app.config.globalProperties.secured) 
 app.provide('axios', app.config.globalProperties.axios)
 
 app.use(vuetify);
+app.use(Notifications)
 app.mount('#app');
 // createApp(App).mount('#app') 
 // console.log("app", app);
