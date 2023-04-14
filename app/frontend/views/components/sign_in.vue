@@ -90,15 +90,14 @@
        
         })
         .catch(error => {
-          notify({ title: "Ошибка авторизации", type: 'error', text: error.response.data.message, data: '123456'});
+          notify({ title: "Ошибка авторизации", type: 'error', text: error.response.data.message});
           // console.log(error.response.data.message)          
         })
     }
 
     function signinSuccessful (response) {
-      notify({
-        title: "Успешная авторизация",
-      });
+      notify({ title: "Успешная авторизация", type: 'success'});
+  
       store.unsetLoa()
       if (!response.data.csrf) {
         signupFailed(response)

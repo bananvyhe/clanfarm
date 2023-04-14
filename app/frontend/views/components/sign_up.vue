@@ -47,6 +47,8 @@
 <script setup lang="ts">
   import { useLogStore } from '../../store.js'
   const store = useLogStore()
+  import { useNotification } from "@kyvg/vue3-notification";
+  const { notify}  = useNotification()
   import { ref, reactive, computed, inject } from 'vue';
   const plain: any = inject('plain')
   const secured: any = inject('secured')
@@ -120,6 +122,7 @@
   }
 
   function signupSuccessful (response) {
+    notify({ title: "Успешная регистрация", type: 'success'});
     store.unsetLoa()
     if (!response.data.csrf) {
       signupFailed(response)
