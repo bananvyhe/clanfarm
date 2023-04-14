@@ -16,15 +16,32 @@
     font-weight: 300;
     // font-style: italic;
   }
-  // $sizew: 20px;
- // 'h1': (
- //      'size': 6rem,
- //      'weight': 300,
- //      'line-height': 6rem,
- //      'letter-spacing': -.015625em,
- //      'font-family': $heading-font-family,
- //      'text-transform': none
- //    ),
+
+// // style of the notification itself
+// .my-notification {
+//   /*...*/
+
+//   // style for title line
+//   .notification-title {
+//     /*...*/
+//   }
+
+//   // style for content
+//   .notification-content {
+//     /*...*/
+//   }
+
+//   // additional styling hook when using`type` parameter, i.e. this.$notify({ type: 'success', message: 'Yay!' })
+//   &.success {
+//     /*...*/
+//   }
+//   &.info {
+//     /*...*/
+//   }
+//   &.error {
+//     /*...*/
+//   }
+// }
  
     // 'h3': (
     //   'size': 3rem,

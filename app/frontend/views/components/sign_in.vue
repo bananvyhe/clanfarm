@@ -90,17 +90,15 @@
        
         })
         .catch(error => {
-          notify({
-            title: error.response.data.message,
-          });
+          notify({ title: "Ошибка авторизации", type: 'error', text: error.response.data.message, data: '123456'});
           // console.log(error.response.data.message)          
         })
     }
 
     function signinSuccessful (response) {
-// notify({
-//   title: "Vue 3 notification 🎉",
-// });
+      notify({
+        title: "Успешная авторизация",
+      });
       store.unsetLoa()
       if (!response.data.csrf) {
         signupFailed(response)

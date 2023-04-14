@@ -24,7 +24,20 @@
         <v-container class="pt-0 cont" > 
 
           <router-view></router-view>
-          <notifications />
+          <!-- <notifications /> -->
+<notifications position="bottom left" classes="my-notification" >
+<!--     <template #body="props">
+    <div class="my-notification">
+      <p class="title">
+        {{ props.item.title }}
+      </p>
+      <button class="close" @click="close">
+        <i class="fa fa-fw fa-close"></i>
+      </button>
+      <div v-html="props.item.text"/>
+    </div>
+  </template> -->
+</notifications>          
         </v-container>
       </v-main>
 		</v-layout>
