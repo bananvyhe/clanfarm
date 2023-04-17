@@ -1,7 +1,9 @@
 <template>
   <div class="d-flex "> 
     <!-- {{store.tsignedIn}} {{store.tctsrf}} -->
-<!--     <router-link  to="/admin/all" v-if="this.currentUser.role == 'admin'">
+    {{ls.get('account').signedIn}}
+    <!-- {{ls.get('account').ctsrf}} -->
+    <!-- <router-link  to="/admin/all" v-if="this.currentUser.role == 'admin'">
       Admin
     </router-link> -->
     <div v-if="store.tsignedIn == true">
@@ -12,18 +14,15 @@
     </div>  
     <div v-if="store.tsignedIn == false"> 
       <!-- {{trock}}<v-btn @click="store.setrock">rock</v-btn> -->
-            <signup></signup>
-
-            <signin></signin>
-
+      <signup></signup>
+      <signin></signin>
     </div>
 <!--   v-else  -->
- 
     <div class="useraction d-flex">  
       <!-- <inv  v-if="this.signedIn == true">666</inv> -->
       <!-- v-else -->
+      <inventory  v-if="store.tsignedIn == true">666</inventory>
       <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
-      
       <div class="skull align-self-center"></div>
     </div>
   
@@ -31,12 +30,13 @@
 </template>
 
 <script setup lang="ts">
+import ls from 'localstorage-slim'; 
   import { ref, computed, inject } from 'vue';
   import { useLogStore } from '../../store.js'  
   const store = useLogStore()
   const plain: any = inject('plain')
   const secured: any = inject('secured')
-  // import Inv from './packs/components/inventory.vue';  
+  import inventory from './inventory.vue';  
  
   // import { useLogStore } from 'store.js'
   import Signup from './sign_up.vue';
@@ -60,7 +60,7 @@
       secured
       .delete('/signin')
       .then(response => {
-        store.unsetLoa()
+        // store.unsetLoa()
         store.unsetCurrentUser()
         // store.unsetLoa
         // this.$router.replace('/')

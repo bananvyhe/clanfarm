@@ -109,7 +109,7 @@
   // },   
 
   function signup(){
-    console.log("3423442342343")
+    console.log("signing up...")
       plain
         .post('/signup', { email: email.value, password: password.value, password_confirmation: password_confirmation.value, loa: store.tloa })
         // .then(response => signupSuccessful(response))
@@ -118,16 +118,15 @@
             // console.log(response)
             // store.unsetLoa
             signupSuccessful(response)
-          });
+          })
+          .catch(error => {
+           signupFailed(error)
+        });
   }
 
   function signupSuccessful (response) {
     notify({ title: "Успешная регистрация", type: 'success'});
     store.unsetLoa()
-    if (!response.data.csrf) {
-      signupFailed(response)
-      return
-    }
     secured
     .get('/me')
       .then(meResponse => {
@@ -141,7 +140,9 @@
   }
 
   function signupFailed (error) {
+    notify({ title: "Ошибка при регистрации", type: 'error', text: error.response.data.message});
     console.log(error)
+    console.log("filed")
     store.unsetCurrentUser 
     // this.error = (error.response && error.response.data && error.response.data.error) || error.data.errors
     // delete localStorage.csrf

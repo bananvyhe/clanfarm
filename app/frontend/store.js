@@ -5,16 +5,8 @@ export const useLogStore = defineStore(
   () => {
 
     const rock = ref()
-    const loa = ref(ls.get('account.loa'))
-
     const trock = computed(() => rock.value)
-    const tloa = computed(() => loa.value)
 
-    const role = ref(ls.get('account.role'))
-    const trole = computed(() => role.value)
-
-    const email = ref(ls.get('email'))
-    const temail = computed(() => email.value)
 
 
     const pumpkdead = ref()
@@ -46,21 +38,33 @@ export const useLogStore = defineStore(
       ls.set('account.loa', loa.value)     
     }
 
-    const currentUser = ref(ls.get('account.currentUser'))
-    const signedIn = ref(ls.get('account.signedIn'))
+    const currentUser = ref(ls.get('account').currentUser)
+    const signedIn = ref(ls.get('account').signedIn)
     const tsignedIn = computed(() => signedIn.value)
-    const ctsrf = ref(ls.get('account.ctsrf'))
+    const ctsrf = ref(ls.get('account').ctsrf)
     const tctsrf = computed(() => ctsrf.value)
-
+    const loa = ref(ls.get('account').loa)
+    const tloa = computed(() => loa.value)
+    const role = ref(ls.get('account').role)
+    const trole = computed(() => role.value)
+    const email = ref(ls.get('email'))
+    const temail = computed(() => email.value)
       // ls.set("data", {superman: "Clark Kent", power: 100})
       // ls.set("data.power", 150);
 
     function setCurrentUser (currentUser, csrf) {
+      const value = {
+        signedIn: true,
+        ctsrf: csrf,
+        currentUser: currentUser.id,
+        loa: currentUser.loa,
+        role: currentUser.role
+      }
       currentUser.value = currentUser.id
       signedIn.value = true
       ctsrf.value = csrf
       loa.value = currentUser.loa
-      ls.set('account', {signedIn: true, ctsrf: csrf, currentUser: currentUser.id, loa: currentUser.loa, role: currentUser.role})
+      ls.set('account', value)
     }
 
     function unsetLoa () {
@@ -69,12 +73,21 @@ export const useLogStore = defineStore(
     }
 
     function unsetCurrentUser () {
-      ls.set('currentUser', 0) 
+      const value = {
+        signedIn: false,
+        ctsrf: "",
+        currentUser: "",
+        loa: "",
+        role: ""
+      }
+      loa.value = 0
+      // ls.set('currentUser', 0) 
       currentUser.value = ""
-      ls.set('signedIn', false) 
+      // ls.set('signedIn', false) 
       signedIn.value = false
-      ls.set('ctsrf', 0) 
+      // ls.set('ctsrf', 0) 
       ctsrf.value = ""
+      ls.set('account', value)
     }
 
     function refresh (csrf) {

@@ -2,7 +2,7 @@ class SignupController < ApplicationController
   def create
     puts params
     if user_find 
-       render json: { errors: "Емайл уже зарегистрирован." }
+       render json: { message: "такой емайл уже зарегистрирован." }, status: :unprocessable_entity
     else
       loa = params[:loa]
       if  params[:loa] == nil
