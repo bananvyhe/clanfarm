@@ -54,7 +54,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, computed, inject } from 'vue';
+import { ref, computed, inject, onMounted } from 'vue';
 import { useLogStore } from '../../store.js' 
   const store = useLogStore()
   const plain: any = inject('plain')
@@ -121,16 +121,22 @@ import draggable from "vuedraggable"
   //     })
   //     .catch(error => { this.setError(error, 'Something went wrong') })
   //   }, 
-  //   menuget(){
-  //     console.log("menuget")
-  //     this.$http.secured.get('/my_items/menuget')
-  //     .then(response => { 
- 
-  //       this.setinv(response.data)
-  //       this.items = this.thisinv
-  //     })
-  //     .catch(error => { this.setError(error, 'Something went wrong') })            
-  //   },   
+  onMounted(() => {
+    console.log("menuget")
+    menuget()
+  })
+  function menuget(){
+    
+    secured
+    .get('/my_items/menuget')
+    .then(response => { 
+
+      store.setinv(response.data)
+      console.log(response.data)
+      // this.items = this.thisinv
+    })
+    .catch(error => { this.setError(error, 'Something went wrong') })            
+  }
   //   oneClick: function(event, id) {
   //     this.clicks++
   //       if (this.clicks === 1) {

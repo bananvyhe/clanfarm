@@ -57,8 +57,8 @@ onMounted(() => {
 
 const m1 = gsap.timeline();
 
-const message = ref("Farm Spot")
-const tl = ref("Clan Forum")
+const message = ref("Конст пати")
+const tl = ref("сбор пачки")
 
 let isFirstUpdate = true
 const showmenutop = reactive({ status: true});

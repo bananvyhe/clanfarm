@@ -13,6 +13,11 @@ export const useLogStore = defineStore(
     const pumpkdead = ref()
     const tpumpkdead = computed(() => pumpkdead.value)
 
+    function setinv(val) {
+      // console.log(val)
+      inventory.value = val
+
+    } 
     function setrock() {
       if (!rock.value){
         rock.value = 1
@@ -111,5 +116,6 @@ export const useLogStore = defineStore(
     tctsrf, 
     trole,
     temail,
-    tinventory }
+    tinventory,
+    setinv }
 })

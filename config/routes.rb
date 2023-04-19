@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       # patch :move
     end
     collection do
-      # get :menuget
+      get :menuget
       get :getdrop
       post :pickdrop
     end

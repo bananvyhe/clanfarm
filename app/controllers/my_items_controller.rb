@@ -2,7 +2,33 @@ class MyItemsController < ApplicationController
 	skip_before_action :verify_authenticity_token
 	before_action :authorize_access_request!, only: [:index, :incloareg, :decloareg, :pickdrop, :menuget, :move]
 	before_action :set_my_item, only: [ :show, :edit, :update, :destroy, :move]
+  
+  def menuget
+    puts "==----menuget---=="
 
+    @invfind = MyItem.where('user_id = ?', payload['user_id'])
+      .joins(:listitem)
+      .select('my_items.id', 'qty', 'position', 'listitems.title', 'listitems.desc', 'listitems.item', 'listitems.rate', 'listitems.id as listid' )
+
+  #   user = User.find(payload['user_id'])
+
+    # my_items = user.myItems.includes(:listitem).group(:listitem_id) 
+ 
+    @invfind = @invfind.sorted
+      # @invfind = @invfind
+    # @invfind = MyItem.where('listitem_id = ?', params[:id]).joins(:user).where('users.id = ?', payload['user_id']) 
+      # .select(' qty, listitems.title')
+      # .joins(:listitem)
+      # .joins(:user)
+      # .where('user_id = ?', payload['user_id'])
+    puts @invfind.inspect
+
+    # @invfind.each do |item| 
+    #   puts item.listitem.inspect
+    # end
+    puts "==----menuget---==" 
+    render json: @invfind
+  end
   def pickdrop
   	# puts "---====pickdrop=====----"
   	# puts params[:id]

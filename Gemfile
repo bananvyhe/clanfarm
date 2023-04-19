@@ -31,6 +31,7 @@ gem 'bcrypt_pbkdf'
 gem "jwt_sessions"
 gem 'rack-cors'
 gem 'bcrypt', '~> 3.1.7'
+gem 'acts_as_list'
 
 group :development, :test do
   gem 'capistrano-passenger'
