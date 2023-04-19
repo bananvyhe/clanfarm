@@ -1,4 +1,43 @@
 class MyItemsController < ApplicationController
+	skip_before_action :verify_authenticity_token
+	before_action :authorize_access_request!, only: [:index, :incloareg, :decloareg, :pickdrop, :menuget, :move]
+	before_action :set_my_item, only: [ :show, :edit, :update, :destroy, :move]
+
+  def pickdrop
+  	# puts "---====pickdrop=====----"
+  	# puts params[:id]
+  	usfind = User.find(payload['user_id'])
+  	@invfind = MyItem.where('listitem_id = ?', params[:id]).joins(:user).where('users.id = ?', payload['user_id']).first 
+  	@@drop.each do |item| 
+  		puts item.inspect
+  		if item.fetch("id") == params[:id]
+
+  			# usfind = User.find(payload['user_id'])
+  			
+  			if !@invfind 
+  				itfind = Listitem.find(params[:id])
+  				usfind.listitem << itfind
+  				# puts "---------"
+  				# puts @invfind.inspect 
+  				addit = usfind.my_items.where('listitem_id = ?', params[:id]).first
+  				# puts addit.inspect 
+  				addit.qty += 1
+  				addit.save
+  				# puts usfind.myItems.inspect 
+  				puts "item added"
+  			elsif 
+  				@invfind.qty += 1 
+  				# puts @invfind.inspect 
+  				@invfind.save
+  				# puts item
+  				# puts "item already exist"
+  			end
+  			@@drop.delete(item)
+  		elsif 
+  		puts 	"false"
+  		end
+  	end
+  end
 
   def getdrop
   	@items = Dropitem.joins(:mob).where('mobs.name = ?', 'pumpkin').includes(:listitem) 
@@ -26,7 +65,10 @@ class MyItemsController < ApplicationController
 
 
 	private
- 
+  def set_my_item
+    # binding.pry
+     @item = MyItem.find_by_user_id(payload['user_id'])
+  end	 
 	def my_item_params
     params.require(:my_item).permit( :id, :my_item_id, :position, :qty, :listid )
   end		 	

@@ -7,7 +7,8 @@ export const useLogStore = defineStore(
     const rock = ref()
     const trock = computed(() => rock.value)
 
-
+    const inventory = ref([]) 
+    const tinventory = computed(() => inventory.value)
 
     const pumpkdead = ref()
     const tpumpkdead = computed(() => pumpkdead.value)
@@ -109,5 +110,6 @@ export const useLogStore = defineStore(
     unsetLoa,
     tctsrf, 
     trole,
-    temail }
+    temail,
+    tinventory }
 })

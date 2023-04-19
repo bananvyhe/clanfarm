@@ -10,14 +10,14 @@ Rails.application.routes.draw do
     member do
       # post :use_item
       # patch :move
-
     end
     collection do
       # get :menuget
       get :getdrop
-      # post :pickdrop
+      post :pickdrop
     end
   end 
+  get '/my_items', to: 'my_items#index' 
 
   post 'refresh', controller: :refresh, action: :create
   post 'signin', controller: :signin, action: :create

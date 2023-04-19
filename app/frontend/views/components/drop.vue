@@ -12,7 +12,7 @@
             <template   v-slot:activator="{ props}" :name="''+item.id" class="d-flex justify-end">
 
               <div 
-              :style="[ signedIn == true ?  {cursor: 'pointer'}:{cursor: 'not-allowed'} ]" 
+              :style="[ store.tsignedIn == true ?  {cursor: 'pointer'}:{cursor: 'not-allowed'} ]" 
               v-on:click="pickdrop(item.id)" >
                 <div  v-bind="props" class="ore"  v-bind:style="{backgroundImage: 'url(/images/'+item.item+'.png'}">
                 </div>
@@ -159,7 +159,20 @@ gsap.to(elements, {
   //   })   
 
 }
-
+function pickdrop(val){
+      console.log("pickdrop")
+      if (store.tsignedIn == true){
+        secured
+        .post('/my_items/pickdrop',{id: val})
+        .then(response => { 
+          console.log(response.data)
+ 
+          // this.upinv(val)
+ 
+        })
+        .catch(error => { this.setError(error, 'Something went wrong') })   
+      }     
+}
 //     pickdrop(val){
 //       console.log("pickdrop")
 //       if (this.signedIn == true){

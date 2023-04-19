@@ -20,14 +20,15 @@
       </template>
       <v-card
         elevation="2"
-        min-height="200">
-        <!-- <div v-if="thisinv == 0" ><h4>пустой инвентарь</h4></div> -->
-<!--         <draggable 
+        min-height="200"
+        min-width="300">
+        <div v-if="thisinv == 0" ><h4>пустой инвентарь</h4></div>
+        <draggable 
  
           class="inv"
           :list="Array.from(thisinv)"
           @change="itemMoved">
-          <div v-for="(item, index) in thisinv" class="one-item" v-on:click="oneClick(item.item_name, item.listid)" :key="item.id">
+<!--           <div v-for="(item, index) in thisinv" class="one-item" v-on:click="oneClick(item.item_name, item.listid)" :key="item.id">
             <v-tooltip  top>
                <template v-slot:activator="{ on, attrs}">
                 <div v-on="on" v-bind="attrs" class="item-inv px-1 py-0 d-flex justify-end align-end" v-bind:style="{backgroundImage: 'url(/images/'+item.item+'.png'}">
@@ -39,17 +40,17 @@
                   <br><span class="caption">{{item.desc}}</span></span>
  
             </v-tooltip>
-          </div>          
-        </draggable> -->
+          </div>  -->         
+        </draggable>
 
 
       </v-card>
     </v-menu>
-  <div style="width: 500px; font-size: 0.8em">
+  <!-- <div style="width: 500px; font-size: 0.8em"> -->
     <!-- {{thisinv}} -->
-    <br>
+    <!-- <br> -->
     <!-- {{items}} -->
-  </div>
+  <!-- </div> -->
   </div>
 </template>
 <script setup lang="ts">
@@ -60,10 +61,12 @@ import { useLogStore } from '../../store.js'
   const secured: any = inject('secured')
 
   const menu = ref(false)
+ 
+    const thisinv = computed(() => store.tinventory)
 // import { mapState, mapActions } from 'pinia' 
 // import { useLogStore } from 'store.js'
 // import axios from 'axios'  
-// import draggable from "vuedraggable"
+import draggable from "vuedraggable"
 // export default {
   // components: { draggable },
  

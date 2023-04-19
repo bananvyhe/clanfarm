@@ -44,7 +44,8 @@ import ls from 'localstorage-slim';
   // import Signin from './packs/components/Signin.vue';
   // const signedIn = computed(() => store.tsignedIn)
 // const trock = computed(() => store.trock)
-  const loa = ref()
+  // const loa = ref()
+
 // export default {
   // data: function () {
   //   return {
