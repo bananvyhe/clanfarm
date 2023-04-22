@@ -58,12 +58,12 @@ ls.config.decrypter = (data, secret) => {
   //   ls.remove('load'); 
   //   console.log("0")
   // }
-    var loacheck = ls.get('account').loa
+    var loacheck = ls.get('account')
   if (!loacheck){
     ls.set('account', { loa: 0 })  
     // console.log("0")
   }
-    var signcheck = ls.get('account').signedIn
+    var signcheck = ls.get('account')
   if (!signcheck){
     ls.set('account', {signedIn: false})  
   }  
