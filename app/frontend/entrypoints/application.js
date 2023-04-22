@@ -60,12 +60,12 @@ ls.config.decrypter = (data, secret) => {
   // }
 
   if (!ls.get('account').loa){
-    ls.set('account.loa', 0)  
+    ls.set('account', { loa: 0 })  
     // console.log("0")
   }
 
   if (!ls.get('account').signedIn){
-    ls.set('account.signedIn', false)  
+    ls.set('account', {signedIn: false})  
   }  
   // if (!ls.get('role')){
   //   ls.set('role', false)  
