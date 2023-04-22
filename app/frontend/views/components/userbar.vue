@@ -1,26 +1,22 @@
 <template>
   <div class="d-flex "> 
-    <!-- {{store.tsignedIn}} {{store.tctsrf}} -->
-    {{ls.get('account').signedIn}}
-    <!-- {{ls.get('account').ctsrf}} -->
-    <!-- <router-link  to="/admin/all" v-if="this.currentUser.role == 'admin'">
-      Admin
-    </router-link> -->
+
+    <!-- {{ls.get('account').loa}} -->
+
     <div v-if="store.tsignedIn == true">
       <v-btn
         color="primary"  
         @click="signOut">выйти
       </v-btn>  
     </div>  
-    <div v-if="store.tsignedIn == false"> 
-      <!-- {{trock}}<v-btn @click="store.setrock">rock</v-btn> -->
+<!--     <div v-if="store.tsignedIn == false"> 
+ 
       <signup></signup>
       <signin></signin>
-    </div>
-<!--   v-else  -->
+    </div> -->
+ 
     <div class="useraction d-flex">  
-      <!-- <inv  v-if="this.signedIn == true">666</inv> -->
-      <!-- v-else -->
+ 
       <inventory  v-if="store.tsignedIn == true">666</inventory>
       <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
       <div class="skull align-self-center"></div>

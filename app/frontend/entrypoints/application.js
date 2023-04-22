@@ -52,12 +52,12 @@ ls.config.decrypter = (data, secret) => {
   }
 };
 
-  if (ls.get('load')){
-    var loaf = ls.get('load')
-    ls.set('account.loa', loaf)
-    ls.remove('load'); 
-    console.log("0")
-  }
+  // if (ls.get('load')){
+  //   var loaf = ls.get('load')
+  //   ls.set('account.loa', loaf)
+  //   ls.remove('load'); 
+  //   console.log("0")
+  // }
 
   if (!ls.get('account').loa){
     ls.set('account.loa', 0)  
