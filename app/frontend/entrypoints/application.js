@@ -52,21 +52,18 @@ ls.config.decrypter = (data, secret) => {
   }
 };
 
-  // if (ls.get('load')){
-  //   var loaf = ls.get('load')
-  //   ls.set('account.loa', loaf)
-  //   ls.remove('load'); 
-  //   console.log("0")
-  // }
-    var loacheck = ls.get('account')
+  if (ls.get('load')){
+    var loaf = ls.get('load')
+    ls.set('account', { loa: loaf }) 
+    ls.remove('load'); 
+  }
+  var acccheck = ls.get('account')
   if (!loacheck){
     ls.set('account', { loa: 0 })  
+    ls.set('account', {signedIn: false})
     // console.log("0")
   }
-    var signcheck = ls.get('account')
-  if (!signcheck){
-    ls.set('account', {signedIn: false})  
-  }  
+
   // if (!ls.get('role')){
   //   ls.set('role', false)  
   // }
