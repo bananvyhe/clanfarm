@@ -21,10 +21,10 @@
             </template>
             <span>
               <span style="color:#286020;" class="font-weight-bold" >
-                <b  >{{item.title}}</b> 
+                <h4 >{{item.title}}</h4> 
                 <!-- <b  ></b> -->
               </span> 
-              <br>
+ 
               <span >
                 <!-- {{item.desc}} -->
                 {{item.desc}}

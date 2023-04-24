@@ -104,7 +104,7 @@ const customDarkTheme = {
   colors: {
     background: "#15202b",
     // surface: "#15202b",
-    'surface-variant': '#ccc1b3',
+    'surface-variant': '#f7f9e5',
     primary: "#3f51b5",
     secondary: "#03dac6",
     error: "#ff5722",
