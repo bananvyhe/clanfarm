@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex "> 
 
-    <!-- {{ls.get('account').loa}} -->
+    <!-- {{ls.get('account').signedIn}} -->
 
     <div v-if="store.tsignedIn == true">
       <v-btn
@@ -9,15 +9,15 @@
         @click="signOut">выйти
       </v-btn>  
     </div>  
-<!--     <div v-if="store.tsignedIn == false"> 
+    <div v-if="store.tsignedIn == false"> 
  
       <signup></signup>
       <signin></signin>
-    </div> -->
+    </div>
  
     <div class="useraction d-flex">  
  
-      <inventory  v-if="store.tsignedIn == true">666</inventory>
+      <inventory  v-if="store.tsignedIn == true"> </inventory>
       <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
       <div class="skull align-self-center"></div>
     </div>

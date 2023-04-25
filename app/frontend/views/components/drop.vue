@@ -20,10 +20,10 @@
               <div class="energy"></div>
             </template>
             <span>
-              <span style="color:#286020;" class="font-weight-bold" >
+              <!-- <span style="color:#286020;" class="font-weight-bold" > -->
                 <h4 >{{item.title}}</h4> 
                 <!-- <b  ></b> -->
-              </span> 
+              <!-- </span>  -->
  
               <span >
                 <!-- {{item.desc}} -->
