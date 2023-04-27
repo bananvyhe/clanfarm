@@ -110,6 +110,7 @@ export const useLogStore = defineStore(
     setPumpkDead, 
     tsignedIn, 
     setrock, 
+    setinv,
     setCurrentUser, 
     unsetCurrentUser, 
     unsetLoa,

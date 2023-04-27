@@ -9,11 +9,10 @@
             <!-- {{item.id}} -->
 
           <v-tooltip top >
-            <template   v-slot:activator="{ props}" :name="''+item.id" class="d-flex justify-end">
-
+            <template v-slot:activator="{ props}" :name="''+item.id" class="d-flex justify-end">
               <div 
               :style="[ store.tsignedIn == true ?  {cursor: 'pointer'}:{cursor: 'not-allowed'} ]" 
-              v-on:click="pickdrop(item.id)" >
+              v-on:click="pickdrop(item.id)">
                 <div  v-bind="props" class="ore"  v-bind:style="{backgroundImage: 'url(/images/'+item.item+'.png'}">
                 </div>
               </div>
