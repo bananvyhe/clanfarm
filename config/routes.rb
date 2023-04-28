@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   
   resources :my_items  do 
     member do
-      # post :use_item
-      # patch :move
+      post :use_item
+      patch :move
     end
     collection do
       get :menuget

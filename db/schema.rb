@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_22_183730) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_27_184723) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_22_183730) do
     t.bigint "user_id", null: false
     t.bigint "listitem_id", null: false
     t.bigint "qty", default: 0
-    t.integer "position"
+    t.integer "position", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["listitem_id"], name: "index_my_items_on_listitem_id"

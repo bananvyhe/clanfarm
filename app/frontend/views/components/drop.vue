@@ -19,13 +19,8 @@
               <div class="energy"></div>
             </template>
             <span>
-              <!-- <span style="color:#286020;" class="font-weight-bold" > -->
-                <h4 >{{item.title}}</h4> 
-                <!-- <b  ></b> -->
-              <!-- </span>  -->
- 
+              <h4 >{{item.title}}</h4>
               <span >
-                <!-- {{item.desc}} -->
                 {{item.desc}}
               </span>
             </span>

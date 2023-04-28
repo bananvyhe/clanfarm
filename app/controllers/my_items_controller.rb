@@ -2,7 +2,20 @@ class MyItemsController < ApplicationController
 	skip_before_action :verify_authenticity_token
 	before_action :authorize_access_request!, only: [:index, :incloareg, :decloareg, :pickdrop, :menuget, :move]
 	before_action :set_my_item, only: [ :show, :edit, :update, :destroy, :move]
-  
+ 
+
+
+
+  def move
+    @user = MyItem.find(my_item_params[:my_item_id].to_i).insert_at(my_item_params[:position].to_i) 
+     # @user = MyItem.update(my_item_params)
+    puts "==----move---=="
+    puts my_item_params[:my_item_id]
+    puts my_item_params.inspect
+    # puts my_item_params.id
+    puts @user.inspect
+    puts "==----move---=="
+  end    
   def menuget
     puts "==----menuget---=="
 
