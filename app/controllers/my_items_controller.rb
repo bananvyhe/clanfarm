@@ -21,7 +21,7 @@ class MyItemsController < ApplicationController
 
     @invfind = MyItem.where('user_id = ?', payload['user_id'])
       .joins(:listitem)
-      .select('listitems.id', 'qty', 'position', 'listitems.title', 'listitems.desc', 'listitems.item', 'listitems.rate', 'listitems.id as listid' )
+      .select('my_items.id', 'qty', 'position', 'listitems.title', 'listitems.desc', 'listitems.item', 'listitems.rate', 'listitems.id as listid' )
 
   #   user = User.find(payload['user_id'])
 

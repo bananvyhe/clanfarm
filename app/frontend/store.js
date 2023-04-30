@@ -18,7 +18,7 @@ export const useLogStore = defineStore(
  
       const newArray = inventory.value.map(item => {
         console.log(item)
-    if (item.id === val) {
+    if (item.listid === val) {
       return {...item, qty: item.qty++};
     }
     return item;
