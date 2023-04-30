@@ -13,10 +13,22 @@ export const useLogStore = defineStore(
     const pumpkdead = ref()
     const tpumpkdead = computed(() => pumpkdead.value)
 
+    function upinv(val) {
+      console.log(val)
+ 
+      const newArray = inventory.value.map(item => {
+        console.log(item)
+    if (item.id === val) {
+      return {...item, qty: item.qty++};
+    }
+    return item;
+  });
+    } 
+
     function setinv(val) {
       // console.log(val)
       inventory.value = val
-
+ 
     } 
     function setrock() {
       if (!rock.value){
@@ -118,5 +130,6 @@ export const useLogStore = defineStore(
     trole,
     temail,
     tinventory,
-    setinv }
+    setinv,
+    upinv }
 })

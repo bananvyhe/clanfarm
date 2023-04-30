@@ -155,13 +155,14 @@ gsap.to(elements, {
 }
 function pickdrop(val){
   console.log("pickdrop")
+  console.log(val)
   if (store.tsignedIn == true){
     secured
     .post('/my_items/pickdrop',{id: val})
     .then(response => { 
       console.log(response.data)
 
-      // this.upinv(val)
+      store.upinv(val)
 
     })
     .catch(error => { this.setError(error, 'Something went wrong') })   

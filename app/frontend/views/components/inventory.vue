@@ -8,40 +8,66 @@
       location="bottom">
       <template v-slot:activator="{ props }">
         <div
-          class="inventory d-flex "
+          class="inventory d-flex"
           color="indigo"
           dark
           v-bind="props"
            >
         </div>
-        <div class="px-2">
- 
-        </div>
       </template>
-      <v-card
+
+      <v-card 
         elevation="2"
         min-height="200"
         min-width="300">
-        <div v-if="thisinv == 0" ><h4>пустой инвентарь</h4></div>
-        <draggable 
+        <div v-if="store.tinventory == 0" ><h4>пустой инвентарь</h4></div>
+        <draggable class=" d-flex " v-model="invarray" item-key="id" @change="itemMoved">{{element}}
+          <template class="inv  align-self-stretch" #item="{element}">
+            <div class="">
+              <div v-on:click="oneClick(element.item, element.listid)"  class="item-inv px-1 py-0" v-bind:style="{backgroundImage: 'url(/images/'+element.item+'.png'}">
+
+                <v-tooltip top>
+                  <template  v-slot:activator="{ props}"  class=" ">
+                    <div v-bind="props" class=" hovbut">
+                     {{element.qty}}
+                    </div>
+
+                  </template>
+                  <span>
+                    <h4 > {{element.title}}</h4>
+                    {{element.desc}}
+                  </span>                
+                </v-tooltip>
+
+              </div>
+            </div>
+          </template>
+        </draggable>
+
+        <!-- {{store.tinventory}} -->
+<!--         <draggable 
  
           class="inv"
-          :list="Array.from(thisinv)"
-          @change="itemMoved">
-<!--           <div v-for="(item, index) in thisinv" class="one-item" v-on:click="oneClick(item.item_name, item.listid)" :key="item.id">
+          :list="Array.from(store.tinventory)"
+          @change="itemMoved"> -->
+
+<!--           <div v-for="(item, index) in store.tinventory" 
+            class="one-item" 
+            v-on:click="oneClick(item.item_name, item.listid)" 
+            :key="item.id">
             <v-tooltip  top>
-               <template v-slot:activator="{ on, attrs}">
-                <div v-on="on" v-bind="attrs" class="item-inv px-1 py-0 d-flex justify-end align-end" v-bind:style="{backgroundImage: 'url(/images/'+item.item+'.png'}">
+               <template v-slot:activator="{props}">
+                <div v-bind="props" class="item-inv px-1 py-0 d-flex justify-end align-end" v-bind:style="{backgroundImage: 'url(/images/'+item.item+'.png'}">
                 {{item.qty}}              
                 </div>
               </template>
                 <span>
-                  <span style="color:#ffe79f;">{{item.title}}</span> 
-                  <br><span class="caption">{{item.desc}}</span></span>
+                  <h4>{{item.title}}</h4> 
+                  <span class="caption">{{item.desc}}</span></span>
  
             </v-tooltip>
-          </div>  -->         
-        </draggable>
+          </div>    -->       
+        <!-- </draggable> -->
 
 
       </v-card>
@@ -56,13 +82,23 @@
 <script setup lang="ts">
 import { ref, computed, inject, onMounted } from 'vue';
 import { useLogStore } from '../../store.js' 
+ const invarray = computed({
+  get(){
+    return store.tinventory
+  },
+  set(val){
+    store.setinv(val)
+  }
+  
+ })
+// const invarray = computed(() => store.tinventory)
   const store = useLogStore()
   const plain: any = inject('plain')
   const secured: any = inject('secured')
 
   const menu = ref(false)
  
-    const thisinv = computed(() => store.tinventory)
+    // const thisinv = computed(() => store.tinventory)
 // import { mapState, mapActions } from 'pinia' 
 // import { useLogStore } from 'store.js'
 // import axios from 'axios'  
@@ -88,7 +124,28 @@ import draggable from "vuedraggable"
   //     isOpen: false,
   //   }
   // },
+    function itemMoved(event) {
+      
+      const evt = event.added || event.moved
+      if (evt == undefined) {return}
+      const element = evt.element
+      console.log(event)
 
+      var data = new FormData
+        
+ 
+      data.append("my_item[position]", event.moved.newIndex  + 1)
+      data.append("my_item[my_item_id]", event.moved.element.id  )
+      console.log(data.my_item)
+        secured
+        .patch(`/my_items/${element.id}/move`, data)
+          .then(response => { 
+    
+        menuget()
+        })
+        .catch(error => { this.setError(error, 'Something went wrong') })
+      
+    }
   // watch: {
   
   //   isOpen(){
@@ -137,22 +194,24 @@ import draggable from "vuedraggable"
     })
     .catch(error => { this.setError(error, 'Something went wrong') })            
   }
-  //   oneClick: function(event, id) {
-  //     this.clicks++
-  //       if (this.clicks === 1) {
-  //         var self = this
-  //         this.timer = setTimeout(function() {
-  //           self.result.push(event.type);
-  //           self.clicks = 0
-  //         }, this.delay);
-  //       } else {
+  function oneClick(el, id) {
+    console.log(el)
+    console.log(id)
+      // this.clicks++
+      //   if (this.clicks === 1) {
+      //     var self = this
+      //     this.timer = setTimeout(function() {
+      //       self.result.push(event.type);
+      //       self.clicks = 0
+      //     }, this.delay);
+      //   } else {
  
-  //         clearTimeout(this.timer);
-  //         this.result.push('dblclick');
-  //         this.clicks = 0;
-  //         this.itemUse(event, id)
-  //       }
-  //   },  
+      //     clearTimeout(this.timer);
+      //     this.result.push('dblclick');
+      //     this.clicks = 0;
+      //     this.itemUse(event, id)
+      //   }
+    }  
   //   itemUse(name, id){
  
   //     if (name == 'Права лидера'){
@@ -172,33 +231,16 @@ import draggable from "vuedraggable"
          
   //     })
   //   },
-  //   itemMoved: function(event) {
-  //     console.log(event)
-  //     const evt = event.added || event.moved
-  //     if (evt == undefined) {return}
-  //     const element = evt.element
- 
 
-  //     var data = new FormData
-        
- 
-  //     data.append("my_item[position]", event.moved.newIndex  + 1)
-  //     data.append("my_item[my_item_id]", event.moved.element.id  )
-  //     console.log(data.my_item)
-  //       this.$http.secured.patch(`/my_items/${element.id}/move`, data)
-  //         .then(response => { 
-    
-  //       this.menuget()
-  //       })
-  //       .catch(error => { this.setError(error, 'Something went wrong') })
-      
-  //   },
  
         
   // }
 // }
 </script>
 <style scoped>
+.hovbut{
+  height: 100%;
+}
 .item-inv {
   border: 1px solid color( $screenbg shade(56%));; 
   text-shadow: 0px 1px #222, 1px 0px #222;
@@ -234,8 +276,8 @@ import draggable from "vuedraggable"
 .inv {
   /*background-color: #dad;*/
   padding: 0.3em 0 0;
-  display: flex;
-  flex-direction: row;
+/*  display: flex;
+  flex-direction: row;*/
 }
 .rock{
   display: flex;
