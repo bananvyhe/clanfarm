@@ -36,8 +36,8 @@
 // const rock = new URL("../images/sprites/monsters/ore.png", import.meta.url).href;
 import { gsap } from "gsap";
 import { ref, onMounted, watch, nextTick, inject } from 'vue';
-  const plain: any = inject('plain')
-  const secured: any = inject('secured') 
+const plain: any = inject('plain')
+const secured: any = inject('secured') 
 import { useLogStore } from '../../store.js'
 const props = defineProps(['makeDrop'])
 const store = useLogStore()

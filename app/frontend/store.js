@@ -46,14 +46,19 @@ export const useLogStore = defineStore(
 
     function increments(val) {
     	console.log(val)
-      let res = loa.value += val
-      ls.set('account', { loa: res})     
+      const account = ls.get('account');
+      account.loa = loa.value += val
+      ls.set('account', account);
+      // ls.set('account', { loa: reg})     
     }
 
     function decrements(val) {
     	console.log(val)
-      let res = loa.value -= val
-      ls.set('account', { loa: res })     
+      const account = ls.get('account');
+      account.loa = loa.value -= val
+      // let res = loa.value -= val
+      ls.set('account', account);
+      // ls.set('account', { loa: res })     
     }
 
     const currentUser = ref(ls.get('account').currentUser)
