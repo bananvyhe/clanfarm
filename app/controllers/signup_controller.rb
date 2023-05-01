@@ -7,8 +7,8 @@ class SignupController < ApplicationController
       loa = params[:loa]
       if  params[:loa] == nil
       loa = 0
-      elsif  params[:loa] > 500
-      loa = 500
+      elsif  params[:loa] > 100
+      loa = 100
       end
 
       user = User.new({:role => 0, :email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation], :loa => loa})
