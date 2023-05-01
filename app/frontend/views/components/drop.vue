@@ -100,59 +100,25 @@ function newdropanim(){
 }
 
 function oreswing(){
-console.log('oreswing')
+  console.log('oreswing')
 
-const elements = gsap.utils.toArray('.ore'); // select all elements with class "ore"
-const duration = 1.5; // set the duration of each shake animation
-const delay = 0.2; // set the delay between each element animation
+  const elements = gsap.utils.toArray('.ore'); // select all elements with class "ore"
+  const duration = 1.5; // set the duration of each shake animation
+  const delay = 0.2; // set the delay between each element animation
 
-gsap.to(elements, {
-  y: "+=2", // move elements 2px down
-  duration: duration, // set the duration of the animation
-  ease: "power1.inOut", // set the easing function
-  yoyo: true, // animate back to original position after completing the animation
-  repeat: -1, // repeat the animation continuously
-  stagger: {
-    each: delay, // set the delay between each element animation
-    from: "random", // set the starting position of the staggered delay to a random element
-  },
-});
-
-// loop through each element and create a shake animation with a delay
-// elements.forEach((element, index) => {
-//   const randomDelay = gsap.utils.random(0, 1, true); // generate a random delay between 0 and 1 second
-//   gsap.to(element, {
-//     y: "+=3", // move element 10px down
-//     duration: duration, // set the duration of the animation
-//     ease: "elastic.in", // set the easing function
-//     yoyo: true, // animate back to original position after completing the animation
-//     repeat: -1, // repeat the animation continuously
-//     delay: randomDelay, // set the delay to the random delay generated
-//   });
-// });
-
-    // var m8 = gsap.timeline({repeat: -1});
-    // const sw = document.querySelectorAll('.ore');
-    // m8.staggerFromTo([...sw].reverse(), 2, {y: 0, ease: "elastic.in" }, {y: -3, ease: "elastic.out" }, 0.3)
-    // .staggerFromTo([...sw].reverse(), 2, {y: -3, ease: "elastic.in" }, {y: -0, ease: "elastic.out" }, 0.3);
- 
- 
-    // m8.play()
-
-
-  //   m8.to(".ore",{
-  //     stagger: 0.6,
-  //     y: -3,
-  //     duration: 3,
-  //     ease: "elastic.in",
-  //   })
-  //   .to(".ore",{
-  //     ease: "elastic.out", 
-  //     y: 0,
-  //     duration: 3,
-  //   })   
-
+  gsap.to(elements, {
+    y: "+=2", // move elements 2px down
+    duration: duration, // set the duration of the animation
+    ease: "power1.inOut", // set the easing function
+    yoyo: true, // animate back to original position after completing the animation
+    repeat: -1, // repeat the animation continuously
+    stagger: {
+      each: delay, // set the delay between each element animation
+      from: "random", // set the starting position of the staggered delay to a random element
+    },
+  });
 }
+
 function pickdrop(val){
   console.log("pickdrop")
   console.log(val)
@@ -163,6 +129,15 @@ function pickdrop(val){
       console.log(response.data)
 
       store.upinv(val)
+      const newArray = drop.value.filter(item => item.id !== val);
+      drop.value = newArray;
+      // drop.value.map(item => {
+      //   console.log(item)
+      //   if (item.listid === val) {
+      //     return {...item, qty: item.qty++};
+      //   }
+      //   return item;
+      // });
 
     })
     .catch(error => { this.setError(error, 'Something went wrong') })   

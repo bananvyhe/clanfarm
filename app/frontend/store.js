@@ -15,14 +15,13 @@ export const useLogStore = defineStore(
 
     function upinv(val) {
       console.log(val)
- 
       const newArray = inventory.value.map(item => {
         console.log(item)
-    if (item.listid === val) {
-      return {...item, qty: item.qty++};
-    }
-    return item;
-  });
+        if (item.listid === val) {
+          return {...item, qty: item.qty++};
+        }
+        return item;
+      });
     } 
 
     function setinv(val) {
