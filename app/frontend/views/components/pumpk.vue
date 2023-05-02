@@ -92,8 +92,8 @@
   } 
 
   function hitpumpk(){
-       // var interval = 15000000;
-    var interval = 26500;
+       var interval = 15000000;
+    // var interval = 26500;
     // var interval = 7000;
     hitcalc()
     dmg.value =  damageData.hit 
@@ -159,7 +159,10 @@
 
     window.addEventListener('load', () => {
       // var self = this
-      setInterval(function(){
+      let intervalId = setInterval(function(){
+        if (store.tsignedIn == true) {
+          clearInterval(intervalId);
+        }        
         if( ls.get('hey') == "death" ){
           // занесение в переменную оставшиеся милисекунды до окончания(обратный отсчет)
           var getendt = ls.get('endTimer')
@@ -172,7 +175,7 @@
           ls.set('hey', "death") 
           console.log("dead")
           console.log(remaining)
-        }else if ( remaining < 0 ){
+        }else if ( remaining < 0 && store.tsignedIn != true ){
           vis.value = true
           console.log(remaining)
           console.log("remaining < 0 ")
