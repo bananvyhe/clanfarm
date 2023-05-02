@@ -101,7 +101,24 @@ class MyItemsController < ApplicationController
   	# @items = Listitem.find(4)
   	render json: @@drop
   end
+  
+  def incloareg
+    loain = params[:loa].to_i
+    @loa = User.find(payload['user_id'])
+    @loa.loa += loain
+    puts @loa.loa
+    @loa.save
+    render json: @loa
+  end
 
+  def decloareg
+    loain = params[:loa].to_i
+    @loa = User.find(payload['user_id'])
+    @loa.loa -= loain
+    puts @loa.loa
+    @loa.save
+    render json: @loa
+  end
 
 	private
   def set_my_item
