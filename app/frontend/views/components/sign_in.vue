@@ -36,6 +36,10 @@
 </template>
 
 <script setup lang="ts">
+  import { useRouter, useRoute } from 'vue-router'
+  const router = useRouter()
+  const route = useRoute()  
+  
   import { useNotification } from "@kyvg/vue3-notification";
   const { notify}  = useNotification()
   import { ref, computed, inject } from 'vue';
@@ -97,7 +101,7 @@
 
     function signinSuccessful (response) {
       notify({ title: "Успешная авторизация", type: 'success'});
-  
+      router.push({ name: "lobby" });
       store.unsetLoa()
       if (!response.data.csrf) {
         signupFailed(response)

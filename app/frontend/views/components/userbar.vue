@@ -1,8 +1,7 @@
 <template>
   <div class="d-flex "> 
-
-    <!-- {{ls.get('account').signedIn}} -->
-
+<!--     {{ls.get('account').signedIn}}
+{{ls.get('account').loa}} -->
     <div v-if="store.tsignedIn == true">
       <v-btn
         color="primary"  
@@ -26,6 +25,9 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter, useRoute } from 'vue-router'
+const router = useRouter()
+const route = useRoute()  
 import ls from 'localstorage-slim'; 
   import { ref, computed, inject } from 'vue';
   import { useLogStore } from '../../store.js'  
@@ -59,6 +61,7 @@ import ls from 'localstorage-slim';
       .then(response => {
         // store.unsetLoa()
         store.unsetCurrentUser()
+        router.push({ name: "hat" });
         // store.unsetLoa
         // this.$router.replace('/')
       })

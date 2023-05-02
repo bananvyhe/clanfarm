@@ -27,7 +27,8 @@
   import { ref, reactive, onMounted, watch, nextTick } from 'vue';
   import { useLogStore } from '../../store.js'
   import { promiseTimeout, useTimeout } from '@vueuse/core'
- 
+  const plain: any = inject('plain')
+  const secured: any = inject('secured') 
   const store = useLogStore()
   import Drop from './drop.vue'
   // import { mapState, mapActions } from 'pinia'  
@@ -91,8 +92,8 @@
   } 
 
   function hitpumpk(){
-       var interval = 15000000;
-    // var interval = 26500;
+       // var interval = 15000000;
+    var interval = 26500;
     // var interval = 7000;
     hitcalc()
     dmg.value =  damageData.hit 
@@ -115,20 +116,32 @@
       var loa = Math.random() * (max - min) + min;
       loa =  Math.round(loa)
       loa = Number(loa)
-      store.increments(loa)            
-      }else{
-        console.log("else hitpumpk ")
-      }  
-      function reset(){
-         // занесение в локалсторадж даты окончания таймера
-        var endt =  +new Date + interval
-        ls.set('endTimer', endt)  
+      store.increments(loa)  
+          if (store.tsignedIn == true){
+            secured
+            .post('/incloareg', {loa: loa})
+            .then(response => { 
+               console.log(response)
+               this.increments(loa)   
+            })
+            .catch(error => { this.setError(error, 'Something went wrong') })
+          }else{
+                
+          }       
+    }else{
+      console.log("else hitpumpk ")
+    }  
+
+    function reset(){
+      // занесение в локалсторадж даты окончания таймера
+      var endt =  +new Date + interval
+      ls.set('endTimer', endt)  
          // console.log("endt")
          // console.log(endt)
-      }          
-    }
+    }          
+  }
 
-    onMounted(() => {
+  onMounted(() => {
     if (ls.get('hey') != "death"){
       vis.value = true
       loc.value = "alive"

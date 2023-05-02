@@ -24,7 +24,7 @@
         <v-container class="pt-0 cont" > 
 
           <router-view></router-view>
-          <!-- <notifications /> -->
+<!-- <notifications /> -->
 <notifications position="bottom left" classes="my-notification" >
 <!--     <template #body="props">
     <div class="my-notification">
