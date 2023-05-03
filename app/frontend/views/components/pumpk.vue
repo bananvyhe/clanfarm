@@ -142,66 +142,72 @@
   }
 
   onMounted(() => {
-    if (ls.get('hey') != "death"){
-      vis.value = true
-      loc.value = "alive"
-      console.log("666")
-      store.setPumpkAlive()
-    }else{
-      store.setPumpkDead()
-    }
-    if(ls.get('endTimer') == "death"){
-       ls.set('hey', "alive") 
-    } 
-    if (ls.get('hey')){
-       loc.value = ls.get('hey')
-    }
 
-    window.addEventListener('load', () => {
-      // var self = this
-      let intervalId = setInterval(function(){
-        if (store.tsignedIn == true) {
-          clearInterval(intervalId);
-        }        
-        if( ls.get('hey') == "death" ){
-          // занесение в переменную оставшиеся милисекунды до окончания(обратный отсчет)
-          var getendt = ls.get('endTimer')
-          var remaining = getendt - new Date;
-          console.log(getendt)
-        }
-        // если отсчет не завершился то присваиваем статус "мертвый" в локалсорадж
-        if( remaining >= 0 ){
-          store.setPumpkDead()
-          ls.set('hey', "death") 
-          console.log("dead")
-          console.log(remaining)
-        }else if ( remaining < 0 && store.tsignedIn != true ){
-          vis.value = true
-          console.log(remaining)
-          console.log("remaining < 0 ")
-          nextTick(() => {
-              ressurect()
-          })
-          
-          // var alive = gsap.timeline();        
-          // var m1 = gsap.timeline();
-          // m1.to(".character",{
-          //   delay: 2,
-          //   // className: "+=character",
-          //   onComplete: ressurect
-          // })
-          console.log("alive")
-        }
-      }, 1000);   
 
+      if (ls.get('hey') != "death"){
+        vis.value = true
+        loc.value = "alive"
+        console.log("666")
+        store.setPumpkAlive()
+      }else{
+        store.setPumpkDead()
+      }
+      if(ls.get('endTimer') == "death"){
+         ls.set('hey', "alive") 
+      } 
+      if (ls.get('hey')){
+         loc.value = ls.get('hey')
+      }
+nextTick(() => {
+    // window.addEventListener('load', () => {
       // var self = this
+      function startInterval() {    
+        let intervalId = setInterval(function(){
+      if (store.tsignedIn == true) {
+        clearInterval(intervalId)
+      }          
+          if( ls.get('hey') == "death" ){
+            // занесение в переменную оставшиеся милисекунды до окончания(обратный отсчет)
+            var getendt = ls.get('endTimer')
+            var remaining = getendt - new Date;
+            console.log(getendt)
+          }
+          // если отсчет не завершился то присваиваем статус "мертвый" в локалсорадж
+          if( remaining >= 0 ){
+            store.setPumpkDead()
+            ls.set('hey', "death") 
+            console.log("dead")
+            console.log(remaining)
+          }else if ( remaining < 0 && store.tsignedIn != true ){
+            vis.value = true
+            console.log(remaining)
+            console.log("remaining < 0 ")
+
+            ressurect()
+            console.log("alive")
+          }
+        }, 1000);   
+      }     
+
+      if (store.tsignedIn == true) {
+        
+      }else{
+        startInterval()
+        // pumpk()
+      }   
+        // if (store.tsignedIn == false) {
+        //   startInterval();
+        // }     
+ 
       function ressurect() {  
         hp.value = 100
         hpoints.value = 124
         store.setPumpkAlive()
         mdrop.value = false
         ls.set('hey', "alive")
+        nextTick(() => {
         pumpk()
+      })
       }
 
       function pumpk() {
@@ -265,7 +271,7 @@
       if (ls.get('hey') == "alive" || !ls.get('hey')){
         master.add(pumpk())
       }
-    })
+})
   })
  
 </script>
