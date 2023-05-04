@@ -2,21 +2,15 @@
 
   	<div class="hat">	
 	  	<div class="container">
-<!-- 		  	<div class="flash"></div>
-		  	<div class="clouds2"></div>
-		  	<div class="bgshad"></div>
-		  	<div class="clouds"></div>
-		  	<div class="voodoo fonta">FREE PVP ZONE</div>
-		  	<div class="warriors"></div>
-		  	<div class="warriors brightness"></div>
-		  	<div class="bgshad2"></div>
-				<pumpk></pumpk> -->
+
+			<summoner></summoner>
 			</div>
   	</div>
-		<news></news>
+		<!-- <news></news> -->
 
 </template>
 <script setup lang="ts">
+import Summoner from './boss.vue'
 import News from './news.vue'
 import pumpk from './pumpk.vue'
 import { gsap } from "gsap";
