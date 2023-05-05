@@ -11,8 +11,8 @@
 </template>
 <script setup lang="ts">
 import Summoner from './boss.vue'
-import News from './news.vue'
-import pumpk from './pumpk.vue'
+// import News from './news.vue'
+ 
 import { gsap } from "gsap";
 import { SlowMo } from "gsap/EasePack";
 import { ref, onMounted, nextTick } from 'vue';
@@ -21,137 +21,11 @@ gsap.registerPlugin(SlowMo);
 const repDelay = ref()
 
 onMounted(() => {
-    	console.log("mounted1")
+    	// console.log("mounted1")
 			nextTick(() => {
-console.log("mounted2")
-	    function voodoo() {
-
-				gsap.set(".voodoo", {
-
-					opacity: 0,	
-					scale: 0,
-					color: "#9f0000",	
-				});
-
-				var tl =	gsap.timeline();
-					tl.to(".voodoo", {
-
-		  		scale: 0.35,
-					opacity: 0.8,	
-		  		duration: 0.5,  
-		  		delay: 0.1,
-		  		 ease: "sine.in",
-		  		  
-		  	}).to(".voodoo", {
-
-		  		y:+5,
-		  		scale: 0.55,
-					opacity: 0,	
-		  		duration: 2.5,  
-
-		  		ease: "my-wiggle",
-		  	})
-	  	}
+// console.log("mounted2")
  
-	  	function warriors() {
-	  		gsap.set(".warriors", {
-					backgroundPositionY: 165,
-				});
-
-				var tl =	gsap.timeline();
-				tl.to('.warriors', {
-					delay: 0.0,
-					duration: 1.1,
-					ease: "sine.in",
-					backgroundPositionY: 0,
-				});
-	  	}
-
-	  	function cloud() {
-	    	gsap.set(".clouds", {
-
-					scale: 1.2,
-				});
-
-	    	var tl =	gsap.timeline();
-				tl.to('.clouds', {
-					repeat: -1,
-			 		duration: 18,
-					backgroundPositionX: -1, 
-					ease: "none",
-				});
-	  	}
-	  	function cloud2() {
-	  		var tl =	gsap.timeline();
-	  		tl.to('.clouds2', {
-	  			repeat: -1,
-	  			duration: 18,
-	  			backgroundPositionX: -1, 
-	  			ease: "none",
-	  		});
-	  	}
-	  	function brightness() {
-	  		var tl =	gsap.timeline({repeat:-1});
-				tl.set('.brightness', {opacity: "0"})
-				.to('.brightness', {
-					duration: 0.05,
-					ease: "sine.in",
-					delay: 0.5, 
-					opacity: "1"}, 1.1)
-				.to('.brightness', {
-					delay: 0.3,
-					duration: 1.4, 
-					opacity: "0", 
-					ease: "sine.out"}, '+=0.0')
-				.to('.brightness', {
-					delay: 1.4,
-					duration: 0.05,
-						ease: "sine.in",
-					opacity: "1"}, '-=0.0')
-				.to('.brightness',{
-					delay: 0.3,
-					duration: 2, 
-					opacity: "0", 
-					ease: "sine.out",})
-				.to('.brightness',{
-					delay: 3});		  		
-	  	}
-
-	  	function flash() {
-				var tl =	gsap.timeline({repeat:-1});
-				tl.set('.flash', {
-					opacity: "0"})
-				.to('.flash', {
-					duration: 0.05,
-					ease: "sine.in",
-					delay: 0.5, 
-					opacity: "1"}, 1.1)
-				.to('.flash', {
-					delay: 0.3,
-					duration: 1.4, 
-					opacity: "0", 
-					ease: "sine.out"}, '-=0.0')
-				.to('.flash', {
-					delay: 1.4,
-					duration: 0.05,
-					ease: "sine.in",
-					opacity: "1"}, '-=0.0')
-				.to('.flash', {
-					delay: 0.3,
-					duration: 2,
-					opacity: "0", 
-					ease: "sine.out"})
-				.to('.brightness',{
-					delay: 3});		  		  		
-	  	}
-			var master = gsap.timeline();
-
-			master.add(voodoo())
-      .add(warriors())     //with a gap of 2 seconds
-      .add(cloud()) 
-      .add(cloud2()) 
- 			.add(brightness() ) 
- 			.add(flash() ) 
+ 
 })
 })
 
