@@ -1,9 +1,9 @@
 <template>
 
   	<div class="hat">	
-	  	<div class="container">
-
-			<summoner></summoner>
+	  	<div class="container" ref="el">
+ 
+			<summoner :width = "width"></summoner>
 			</div>
   	</div>
 		<!-- <news></news> -->
@@ -16,8 +16,11 @@ import Summoner from './boss.vue'
 import { gsap } from "gsap";
 import { SlowMo } from "gsap/EasePack";
 import { ref, onMounted, nextTick } from 'vue';
-gsap.registerPlugin(SlowMo);
+import { useElementBounding } from '@vueuse/core'
+ 
 
+const el = ref(null)
+const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
 const repDelay = ref()
 
 onMounted(() => {

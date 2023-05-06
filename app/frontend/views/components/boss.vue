@@ -1,12 +1,16 @@
 <template>
-  <div class="d-flex flex-grow-1 flex-shrink-0">
-
-
-  <div class="boss d-flex align-self-end mb-2" :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]"></div>
+  <div class="info"> 
+    {{props.width}} <br>{{right}}<br>{{left}}
+  </div>
+  <div class="d-flex flex-grow-1 flex-shrink-0 mx-4 pl-9"> 
+      <div ref="el" class="boss d-flex align-self-end mb-2" :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]">
+        
+      </div>
   </div>
 </template>
 
 <script setup lang="ts">
+const props = defineProps(['width'])
 import { gsap } from "gsap";
 const idle = new URL("../images/sprites/monsters/summoner/idle.png", import.meta.url).href;
 const move = new URL("../images/sprites/monsters/summoner/move.png", import.meta.url).href;
@@ -14,8 +18,12 @@ const hit = new URL("../images/sprites/monsters/summoner/hit.png", import.meta.u
 const death = new URL("../images/sprites/monsters/summoner/death.png", import.meta.url).href;
 const summon = new URL("../images/sprites/monsters/summoner/summon.png", import.meta.url).href;
 import { ref, computed, inject } from 'vue';
-import { promiseTimeout, useTimeout } from '@vueuse/core'
+import { promiseTimeout, useTimeout,  useElementBounding } from '@vueuse/core'
 const { ready, start } = useTimeout(1000, { controls: true })
+const el = ref(null)
+const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
+const repDelay = ref()
+
 const plain: any = inject('plain')
 const secured: any = inject('secured')
 
@@ -26,6 +34,9 @@ onMounted(() => {
   })
 })
 
+function walk() {
+
+}
 function bossidle() {
   gsap.set(".boss", {
     scale: 2.4,
@@ -107,6 +118,10 @@ function bosssummon() {
 </script>
 
 <style scoped>
+.info{
+  position: absolute;
+  right: 0;
+}
 .boss {
   /*z-index: 2;*/
   position: relative;
