@@ -9,7 +9,7 @@ job_type :sidekiq,  "cd :path && RAILS_ENV=:environment bundle exec sidekiq-clie
 set :output, "#{path}/log/sidekiq.log"
 set :environment, :production
 # set :environment, :development
-every 3.hours do
+every 3.minutes do
   sidekiq 'push HardWorker'
 end
 # Example:
