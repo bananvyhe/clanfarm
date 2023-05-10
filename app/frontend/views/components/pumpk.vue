@@ -92,8 +92,8 @@
   } 
 
   function hitpumpk(){
-       // var interval = 15000000;
-    var interval = 26500;
+       var interval = 15000000;
+    // var interval = 26500;
     // var interval = 7000;
     hitcalc()
     dmg.value =  damageData.hit 
