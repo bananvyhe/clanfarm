@@ -17,6 +17,7 @@
     "crypto-js": "^4.1.1",
     "gsap": "^3.11.4",
     "localstorage-slim": "^2.4.0",
+    "lodash": "^4.17.21",
     "pinia": "^2.0.32",
     "vite-bundle-visualizer": "^0.4.2",
     "vite-plugin-vuetify": "^1.0.2",
