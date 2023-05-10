@@ -107,7 +107,12 @@
     popupHit()
 
     if (hpoints.value <= 0){
-      ls.set('hey', "death") 
+
+      // ls.set('hey', "death") 
+      const account = ls.get('account');
+      account.hey = "death"
+      ls.set('account', account);   
+
       store.setPumpkDead()
       
       reset();
@@ -135,16 +140,19 @@
     function reset(){
       // занесение в локалсторадж даты окончания таймера
       var endt =  +new Date + interval
-      ls.set('endTimer', endt)  
-         // console.log("endt")
-         // console.log(endt)
+
+      // ls.set('endTimer', endt)  
+      const account = ls.get('account');
+      account.endTimer = endt
+      ls.set('account', account);    
+
     }          
   }
 
   onMounted(() => {
 
 
-      if (ls.get('hey') != "death"){
+      if (ls.get('account').hey != "death"){
         vis.value = true
         loc.value = "alive"
         console.log("666")
@@ -152,11 +160,14 @@
       }else{
         store.setPumpkDead()
       }
-      if(ls.get('endTimer') == "death"){
-         ls.set('hey', "alive") 
+      if(ls.get('account').endTimer == "death"){
+         // ls.set('hey', "alive") 
+      const account = ls.get('account');
+      account.hey = "alive"
+      ls.set('account', account);          
       } 
-      if (ls.get('hey')){
-         loc.value = ls.get('hey')
+      if (ls.get('account').hey){
+         loc.value = ls.get('account').hey
       }
 nextTick(() => {
     // window.addEventListener('load', () => {
@@ -166,16 +177,19 @@ nextTick(() => {
       if (store.tsignedIn == true) {
         clearInterval(intervalId)
       }          
-          if( ls.get('hey') == "death" ){
+          if( ls.get('account').hey == "death" ){
             // занесение в переменную оставшиеся милисекунды до окончания(обратный отсчет)
-            var getendt = ls.get('endTimer')
+            var getendt = ls.get('account').endTimer
             var remaining = getendt - new Date;
             console.log(getendt)
           }
           // если отсчет не завершился то присваиваем статус "мертвый" в локалсорадж
           if( remaining >= 0 ){
             store.setPumpkDead()
-            ls.set('hey', "death") 
+            // ls.set('hey', "death") 
+            const account = ls.get('account');
+            account.hey = "death"
+            ls.set('account', account);             
             console.log("dead")
             console.log(remaining)
           }else if ( remaining < 0 && store.tsignedIn != true ){
@@ -204,7 +218,10 @@ nextTick(() => {
         hpoints.value = 124
         store.setPumpkAlive()
         mdrop.value = false
-        ls.set('hey', "alive")
+        // ls.set('hey', "alive")
+            const account = ls.get('account');
+            account.hey = "alive"
+            ls.set('account', account);           
         nextTick(() => {
         pumpk()
       })
@@ -268,7 +285,7 @@ nextTick(() => {
       }
 
       var master = gsap.timeline();
-      if (ls.get('hey') == "alive" || !ls.get('hey')){
+      if (ls.get('account').hey == "alive" || !ls.get('account').hey){
         master.add(pumpk())
       }
 })
