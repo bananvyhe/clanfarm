@@ -54,18 +54,30 @@ ls.config.decrypter = (data, secret) => {
 
   if (ls.get('load')){
     var loaf = ls.get('load')
-    ls.set('account', { loa: loaf }) 
-    ls.remove('load'); 
+      const value = {
+        loa: loaf
+      }
+      // const account = ls.get('account');
+      // account.loa = loa.value += val
+      ls.set('account', value);  
+    // ls.set('account', { loa: loaf }) 
+    // ls.remove('load'); 
   }
   var acccheck = ls.get('account')
   if (!acccheck){
-    ls.set('account', { loa: 0 })  
+    const value = {
+      loa: 0
+    }    
+    ls.set('account', value); 
+    // ls.set('account', { loa: 0 })  
     // console.log("0")
   }
-  // if (!acccheck.signedIn){
-  //   ls.set('account', {signedIn: false})
-  //   // console.log("0")
-  // }
+  if (!ls.get('account').signedIn){
+    const account = ls.get('account');
+    account.signedIn = false
+    ls.set('account', {signedIn: false})
+    ls.set('account', account);
+  }
 
 
   // if (!ls.get('role')){
