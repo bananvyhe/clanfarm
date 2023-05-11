@@ -299,12 +299,12 @@ import draggable from "vuedraggable"
   width: 15em;
   margin: -0.3em -0.1em;
   font-size: 0.9em;
-  h5{
+/*  :is(h5){
     padding-left: 0.5em;
   }
   p{
     text-align: center;
-  }
+  }*/
 }
 .slots{
   box-shadow: inset 0px 0px 8px rgba(0,0,0,0.3);
