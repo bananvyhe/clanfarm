@@ -128,7 +128,7 @@ function pickdrop(val){
     .then(response => { 
       console.log(response.data)
 
-      store.upinv(val)
+      store.upinv(response.data)
       const newArray = drop.value.filter(item => item.id !== val);
       drop.value = newArray;
       // drop.value.map(item => {

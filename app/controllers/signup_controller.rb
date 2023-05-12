@@ -5,9 +5,9 @@ class SignupController < ApplicationController
        render json: { message: "такой емайл уже зарегистрирован." }, status: :unprocessable_entity
     else
       loa = params[:loa]
-      if  params[:loa] == nil
+      if  params[:loa] == ""
       loa = 0
-      elsif  params[:loa] > 100
+      elsif  loa.to_i > 100
       loa = 100
       end
 

@@ -64,6 +64,13 @@ class MyItemsController < ApplicationController
   				addit.save
   				# puts usfind.myItems.inspect 
   				puts "item added"
+          puts addit.inspect
+          puts itfind.inspect
+
+          addit =  addit
+          puts addit.inspect
+          # render json: addit
+          render json: {my_item: addit, listitem: itfind}
   			elsif 
   				@invfind.qty += 1 
   				# puts @invfind.inspect 
@@ -79,6 +86,7 @@ class MyItemsController < ApplicationController
   end
 
   def getdrop
+    puts params.inspect
   	@items = Dropitem.joins(:mob).where('mobs.name = ?', 'pumpkin').includes(:listitem) 
   	# @items = Dropitem.includes(:listitem) 
   	# @items = Dropitem.joins(:mob).joins(:listitem).where('mobs.name = ?', 'pumpkin')  
@@ -93,7 +101,7 @@ class MyItemsController < ApplicationController
 		  # puts item.listitem
 		  puts calc
 		  if calc == 1
-		  	@@drop << item.listitem.as_json(only: [:id, :title, :desc, :item, :rate])
+		  	@@drop << item.listitem.as_json(only: [:id, :title, :desc, :item, :rate,])
 		  end
 		end
 
