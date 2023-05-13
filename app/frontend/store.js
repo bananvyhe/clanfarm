@@ -15,25 +15,23 @@ export const useLogStore = defineStore(
 
     function upinv(val) {
       console.log(val)
-      // if (inventory.value.length === 0) {
-      //   const newItem = {listid: val.id, qty: 1, title: val.title, desc: val.desc, item: val.item};
-      //   inventory.value.push(newItem);
-      // } else {
+ 
         const itemIndex = inventory.value.findIndex(item => item.listid === val.id);  
         if (itemIndex === -1) {
-          const newItem = {id: val.my_item.id, listid: val.listitem.id, qty: 1, title: val.listitem.title, desc: val.listitem.desc, item: val.listitem.item, position: val.my_item.position};
-          inventory.value.push(newItem);          
+          const newItem = {id: val.id, listid: val.listid, qty: 1, title: val.title, desc: val.desc, item: val.item, position: val.position};
+          inventory.value.push(newItem);   
+          // }       
         } else {
-          inventory.value[itemIndex] = {...inventory.value[itemIndex], qty: inventory.value[itemIndex].qty + 1};
+          // inventory.value[itemIndex] = {...inventory.value[itemIndex], qty: inventory.value[itemIndex].qty + 1};
         // const newArray = inventory.value.map(item => {
         //   console.log("inventory.value.map")
-        //   if (item.listid === val.id) {
+        //   if (item.listid === val.listitem.id) {
         //     return {...item, qty: item.qty++};
         //   } 
         //   return item;
         // });
         }      
-      // }
+ 
     } 
 
     function setinv(val) {

@@ -70,7 +70,18 @@ class MyItemsController < ApplicationController
           addit =  addit
           puts addit.inspect
           # render json: addit
-          render json: {my_item: addit, listitem: itfind}
+          combined_object = {
+            id: addit.id,
+            listid: itfind.id,
+            title: itfind.title,
+            desc: itfind.desc,
+            item: itfind.item,
+            qty: addit.qty,
+            position: addit.position
+          }
+
+
+          render json: combined_object
   			elsif 
   				@invfind.qty += 1 
   				# puts @invfind.inspect 

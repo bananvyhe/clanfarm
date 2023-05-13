@@ -45,6 +45,10 @@
 </template>
 
 <script setup lang="ts">
+  import { useRouter, useRoute } from 'vue-router'
+  const router = useRouter()
+  const route = useRoute()  
+  
   import { useLogStore } from '../../store.js'
   const store = useLogStore()
   import { useNotification } from "@kyvg/vue3-notification";
@@ -126,6 +130,7 @@
 
   function signupSuccessful (response) {
     notify({ title: "Успешная регистрация", type: 'success'});
+    // router.push({ name: "lobby" });
     store.unsetLoa()
     secured
     .get('/me')
