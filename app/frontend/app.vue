@@ -44,6 +44,12 @@
   </div>
 </template>
 <script setup lang="ts">
+import { useRouter, useRoute } from 'vue-router'
+const router = useRouter()
+const route = useRoute()    
+import { useLogStore } from './store.js'  
+const store = useLogStore()
+
 import userbar from './views/components/userbar.vue'
 import { gsap } from "gsap";
 import { ref, computed, watch, reactive, onMounted, onBeforeMount, toRefs } from 'vue'
@@ -52,7 +58,7 @@ import { debounce } from 'lodash'
 const { x, y, isScrolling, arrivedState, directions } = useScroll(document)
 const { left: toLeft, right: toRight, top: toTop, bottom: toBottom } = toRefs(directions)
 onMounted(() => {
-
+ 
 })
 
 const m1 = gsap.timeline();
@@ -92,6 +98,17 @@ watch(() => toTop.value,
   },
 	{deep: true}
 )
+watch(() => store.tsignedIn, 
+  (newVal, oldVal) =>{
+    // console.log(oldVal)
+    // console.log(newVal)
+    if (newVal == false)
+      router.push({ name: "hat" });
+ 
+    },
+  {deep: true}
+)
+
 
 // const debouncedFuncbot = debounce(() => {
 //   m1.to(".topmenu",{

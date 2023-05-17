@@ -130,7 +130,7 @@
 
   function signupSuccessful (response) {
     notify({ title: "Успешная регистрация", type: 'success'});
-    // router.push({ name: "lobby" });
+    router.push({ name: "lobby" });
     store.unsetLoa()
     secured
     .get('/me')

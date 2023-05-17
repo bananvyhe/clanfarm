@@ -10,13 +10,18 @@
 		  	<div class="warriors"></div>
 		  	<div class="warriors brightness"></div>
 		  	<div class="bgshad2"></div>
-				<pumpk></pumpk>
+
+		  	<div v-if="store.tsignedIn != true">
+					<pumpk></pumpk>
+				</div>
 			</div>
   	</div>
 		<news></news>
 
 </template>
 <script setup lang="ts">
+  import { useLogStore } from '../../store.js'  
+  const store = useLogStore()
 import News from './news.vue'
 import pumpk from './pumpk.vue'
 import { gsap } from "gsap";

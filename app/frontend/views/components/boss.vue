@@ -46,7 +46,7 @@ function bossidle() {
   });  
   var b1 = gsap.timeline();  
   b1.to(".boss",{
-    duration: 1,
+    duration: 2,
     repeat:-1,    
     ease: "steps(5)",
     backgroundPosition: "-230px",

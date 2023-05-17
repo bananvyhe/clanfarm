@@ -6,12 +6,12 @@
 			<summoner :width = "width"></summoner>
 			</div>
   	</div>
-		<!-- <news></news> -->
+		<news></news>
 
 </template>
 <script setup lang="ts">
 import Summoner from './boss.vue'
-// import News from './news.vue'
+import News from './news.vue'
  
 import { gsap } from "gsap";
 import { SlowMo } from "gsap/EasePack";

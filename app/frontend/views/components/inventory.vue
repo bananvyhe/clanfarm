@@ -20,7 +20,7 @@
         elevation="2"
         min-height="200"
         min-width="300">
-        <div v-if="store.tinventory == 0" ><h4>пустой инвентарь</h4></div>
+        <div v-if="store.tinventory == 0" class="d-flex justify-center"><h4>пустой инвентарь</h4></div>
         <draggable class=" d-flex " v-model="invarray" item-key="id" @change="itemMoved">{{element}}
           <template class="inv  align-self-stretch" #item="{element}">
             <div class="">
@@ -125,7 +125,7 @@ import draggable from "vuedraggable"
   //   }
   // },
     function itemMoved(event) {
-      
+
       const evt = event.added || event.moved
       if (evt == undefined) {return}
       const element = evt.element

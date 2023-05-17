@@ -101,7 +101,7 @@
 
     function signinSuccessful (response) {
       notify({ title: "Успешная авторизация", type: 'success'});
-      // router.push({ name: "lobby" });
+      router.push({ name: "lobby" });
       store.unsetLoa()
       if (!response.data.csrf) {
         signupFailed(response)
