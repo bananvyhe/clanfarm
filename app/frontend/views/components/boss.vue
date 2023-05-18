@@ -1,6 +1,7 @@
 <template>
   <div class="info"> 
     {{props.width}} <br>{{right}}<br>{{left}}
+    <br>{{segment}}  
   </div>
   <div class="d-flex flex-grow-1 flex-shrink-0 mx-4 pl-9"> 
       <div ref="el" class="boss d-flex align-self-end mb-2" :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]">
@@ -23,13 +24,28 @@ const { ready, start } = useTimeout(1000, { controls: true })
 const el = ref(null)
 const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
 const repDelay = ref()
-
 const plain: any = inject('plain')
 const secured: any = inject('secured')
 
+const segment = ref()
+
+
+
 onMounted(() => {
   nextTick(() => {
+    const direction = Math.random() < 0.5 ? -1 : 1; // Randomly choose left or right direction    
+    const startpos =  Math.floor(Math.random() * (props.width - 110) ); // start position on page load
+    segment.value = startpos
+  gsap.set(".boss", {
+    scale: 2.4,
+    transformOrigin: "bottom",
+    x: segment.value,
+    backgroundPosition: "0px",
+  });  
+
+
     var master = gsap.timeline();
+
     master.add(bossmove())
   })
 })
