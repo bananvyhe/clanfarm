@@ -1,7 +1,7 @@
 <template>
   <div class="info"> 
-    {{props.width}} <br>{{right}}<br>{{left}}
-    <br>{{segment}}  
+    {{props.width}} 
+ 
   </div>
   <div class="d-flex flex-grow-1 flex-shrink-0 mx-4 pl-9"> 
       <div ref="el" class="boss d-flex align-self-end mb-2" :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]">
@@ -18,35 +18,61 @@ const move = new URL("../images/sprites/monsters/summoner/move.png", import.meta
 const hit = new URL("../images/sprites/monsters/summoner/hit.png", import.meta.url).href;
 const death = new URL("../images/sprites/monsters/summoner/death.png", import.meta.url).href;
 const summon = new URL("../images/sprites/monsters/summoner/summon.png", import.meta.url).href;
-import { ref, computed, inject } from 'vue';
-import { promiseTimeout, useTimeout,  useElementBounding } from '@vueuse/core'
+import { ref, computed, inject, nextTick } from 'vue';
+import { promiseTimeout, useTimeout} from '@vueuse/core'
 const { ready, start } = useTimeout(1000, { controls: true })
-const el = ref(null)
-const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
+// const el = ref(null)
+// const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
 const repDelay = ref()
 const plain: any = inject('plain')
 const secured: any = inject('secured')
 
-const segment = ref()
-
+ 
+ 
 
 
 onMounted(() => {
   nextTick(() => {
-    const direction = Math.random() < 0.5 ? -1 : 1; // Randomly choose left or right direction    
+ 
     const startpos =  Math.floor(Math.random() * (props.width - 110) ); // start position on page load
-    segment.value = startpos
+ 
+    // const direction = Math.random() < 0.5 ? (-1 * props.left) : (1 * props.right); // Randomly choose left or right direction
+   
+      
   gsap.set(".boss", {
     scale: 2.4,
     transformOrigin: "bottom",
-    x: segment.value,
+    x: startpos,
     backgroundPosition: "0px",
   });  
+  function bossmove() {
+    gsap.set(".boss", {
+      scale: 2.4,
+      transformOrigin: "bottom",
+      backgroundImage: 'url('+move+')',
+      // backgroundPosition: "0px",
+    });  
+    var b1 = gsap.timeline();  
+    b1.to(".boss",{
+      duration: 1,
+      repeat:-1,    
+      ease: "steps(5)",
+      backgroundPosition: "-230px",
+    })
+  } 
 
+  // if (direction == -1){
+
+
+  // }else{
+
+  // }
 
     var master = gsap.timeline();
-
     master.add(bossmove())
+     nextTick(() => {
+
+});
   })
 })
 
@@ -69,21 +95,7 @@ function bossidle() {
   })
 } 
 
-function bossmove() {
-  gsap.set(".boss", {
-    scale: 2.4,
-    transformOrigin: "bottom",
-    backgroundImage: 'url('+move+')',
-    backgroundPosition: "0px",
-  });  
-  var b1 = gsap.timeline();  
-  b1.to(".boss",{
-    duration: 1,
-    repeat:-1,    
-    ease: "steps(5)",
-    backgroundPosition: "-230px",
-  })
-} 
+
 
 function bosshit() {
   gsap.set(".boss", {

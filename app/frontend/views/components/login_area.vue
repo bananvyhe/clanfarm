@@ -20,7 +20,7 @@ import { useElementBounding } from '@vueuse/core'
  
 
 const el = ref(null)
-const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
+const {  width } = useElementBounding(el)
 const repDelay = ref()
 
 onMounted(() => {
