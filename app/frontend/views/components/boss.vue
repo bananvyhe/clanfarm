@@ -26,40 +26,31 @@ const { ready, start } = useTimeout(1000, { controls: true })
 const repDelay = ref()
 const plain: any = inject('plain')
 const secured: any = inject('secured')
-
  
- 
-
-
 onMounted(() => {
   nextTick(() => {
- 
+
     const startpos =  Math.floor(Math.random() * (props.width - 110) ); // start position on page load
- 
-    // const direction = Math.random() < 0.5 ? (-1 * props.left) : (1 * props.right); // Randomly choose left or right direction
-   
-      
-  gsap.set(".boss", {
-    scale: 2.4,
-    transformOrigin: "bottom",
-    x: startpos,
-    backgroundPosition: "0px",
-  });  
-  function bossmove() {
+    const direction = Math.random() < 0.5 ? -1 : 1 ; // Randomly choose left or right direction
+
     gsap.set(".boss", {
       scale: 2.4,
       transformOrigin: "bottom",
       backgroundImage: 'url('+move+')',
+      x: startpos,
+      backgroundPosition: "0px",      
       // backgroundPosition: "0px",
-    });  
-    var b1 = gsap.timeline();  
-    b1.to(".boss",{
-      duration: 1,
-      repeat:-1,    
-      ease: "steps(5)",
-      backgroundPosition: "-230px",
-    })
-  } 
+    });   
+    function bossmove() {
+
+      var b1 = gsap.timeline();  
+      b1.to(".boss",{
+        duration: 1,
+        repeat:-1,    
+        ease: "steps(5)",
+        backgroundPosition: "-230px",
+      })
+    } 
 
   // if (direction == -1){
 
@@ -70,9 +61,7 @@ onMounted(() => {
 
     var master = gsap.timeline();
     master.add(bossmove())
-     nextTick(() => {
-
-});
+ 
   })
 })
 
@@ -94,8 +83,6 @@ function bossidle() {
     backgroundPosition: "-230px",
   })
 } 
-
-
 
 function bosshit() {
   gsap.set(".boss", {
