@@ -29,15 +29,18 @@ const secured: any = inject('secured')
  
 onMounted(() => {
   nextTick(() => {
-
-    const startpos =  Math.floor(Math.random() * (props.width - 110) ); // start position on page load
+    function startpos() {
+      const res = Math.floor(Math.random() * (props.width - 110) ); // start position on page load
+      return res
+    }
+    
     const direction = Math.random() < 0.5 ? -1 : 1 ; // Randomly choose left or right direction
 
     gsap.set(".boss", {
       scale: 2.4,
       transformOrigin: "bottom",
       backgroundImage: 'url('+move+')',
-      x: startpos,
+      x: startpos(),
       backgroundPosition: "0px",      
       // backgroundPosition: "0px",
     });   
