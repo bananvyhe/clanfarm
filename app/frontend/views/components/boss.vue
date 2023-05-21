@@ -29,23 +29,20 @@ const secured: any = inject('secured')
  
 onMounted(() => {
   nextTick(() => {
-    function startpos() {
+    function randpos() {
       const res = Math.floor(Math.random() * (props.width - 110) ); // start position on page load
       return res
     }
-    
-    const direction = Math.random() < 0.5 ? -1 : 1 ; // Randomly choose left or right direction
 
     gsap.set(".boss", {
       scale: 2.4,
       transformOrigin: "bottom",
       backgroundImage: 'url('+move+')',
-      x: startpos(),
+      x: randpos(),
       backgroundPosition: "0px",      
       // backgroundPosition: "0px",
     });   
-    function bossmove() {
-
+    function bossstay() {
       var b1 = gsap.timeline();  
       b1.to(".boss",{
         duration: 1,
@@ -54,16 +51,23 @@ onMounted(() => {
         backgroundPosition: "-230px",
       })
     } 
-
-  // if (direction == -1){
-
-
-  // }else{
-
-  // }
-
-    var master = gsap.timeline();
-    master.add(bossmove())
+    function bossmove() {
+      // var b2 = gsap.timeline({ repeat: -1, onRepeat: updateRandomX  });  
+      // function updateRandomX() {
+        gsap.to(".boss",{
+          repeatDelay: 2,
+          // repeat:-1, 
+          duration: 2,
+          x: function () {
+            return Math.floor(Math.random() * (props.width - 110) );
+          },
+          onComplete: bossmove,
+        })
+      // }
+    }    
+    bossmove();
+    // var master = gsap.timeline();
+    // master.add(bossstay()).add(bossmove()) 
  
   })
 })
