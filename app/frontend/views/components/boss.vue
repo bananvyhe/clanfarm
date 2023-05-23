@@ -1,7 +1,7 @@
 <template>
   <div class="info"> 
     {{props.width}} 
- 
+    <br>{{bossdirection}}
   </div>
   <div class="d-flex flex-grow-1 flex-shrink-0 mx-4 pl-9"> 
       <div ref="el" class="boss d-flex align-self-end mb-2" :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]">
@@ -18,7 +18,7 @@ const move = new URL("../images/sprites/monsters/summoner/move.png", import.meta
 const hit = new URL("../images/sprites/monsters/summoner/hit.png", import.meta.url).href;
 const death = new URL("../images/sprites/monsters/summoner/death.png", import.meta.url).href;
 const summon = new URL("../images/sprites/monsters/summoner/summon.png", import.meta.url).href;
-import { ref, computed, inject, nextTick } from 'vue';
+import { ref, computed, inject, nextTick, watch } from 'vue';
 import { promiseTimeout, useTimeout} from '@vueuse/core'
 const { ready, start } = useTimeout(1000, { controls: true })
 // const el = ref(null)
@@ -26,32 +26,33 @@ const { ready, start } = useTimeout(1000, { controls: true })
 const repDelay = ref()
 const plain: any = inject('plain')
 const secured: any = inject('secured')
- 
+const bossdirection = ref(2.4)
 onMounted(() => {
   nextTick(() => {
     function randpos() {
       const res = Math.floor(Math.random() * (props.width - 110) ); // start position on page load
       return res
     }
-
-    gsap.set(".boss", {
-      scale: 2.4,
-      transformOrigin: "bottom",
-      backgroundImage: 'url('+move+')',
-      x: randpos(),
-      backgroundPosition: "0px",      
-      // backgroundPosition: "0px",
-    });   
     function bossstay() {
+      gsap.set(".boss", {
+        // scale: 2.4,
+        transformOrigin: "bottom",
+        backgroundImage: 'url('+move+')',
+        // x: randpos(), 
+        // backgroundPosition: "0px",      
+         scaleX: bossdirection.value
+        // backgroundPosition: "0px",
+      });   
+
+    } 
       var b1 = gsap.timeline();  
       b1.to(".boss",{
         duration: 1,
         repeat:-1,    
         ease: "steps(5)",
         backgroundPosition: "-230px",
+        // scaleX: bossdirection.value
       })
-    } 
-
     function bossmove(val) {
       // var b2 = gsap.timeline({ repeat: -1, onRepeat: updateRandomX  });  
       // function updateRandomX() {
@@ -61,23 +62,37 @@ onMounted(() => {
         }    
         var moveResult = calcmove(); 
         function dur () {
-           var res = (moveResult - val)/80
-           return Math.abs(res)
-        }    
-        console.log( dur ())
+          var res = (moveResult - val)/80
+          return Math.abs(res)  
+        }  
+        function bosdir () {
+          if (moveResult > val){
+           return bossdirection.value = 2.4
+          }else{
+            return bossdirection.value = -2.4
+          }
+ 
+        }       
+        bosdir();
+        // console.log(bosdir ()) 
+
+        // console.log( dur ())
         gsap.to(".boss",{
-          ease: "sine.out",
+          ease: "sine.inOut",
           // repeat:-1, 
           duration: dur,
           x: moveResult,
           onComplete: function () {
-             gsap.delayedCall(2, function () {
+            gsap.delayedCall(2, function () {
             bossmove(moveResult); // Pass moveResult as an argument to bossmove()
           });
           },
         })
       // }
     }
+watch(bossdirection, () => {
+  bossstay();
+}); 
     bossstay();
     bossmove();
     // var master = gsap.timeline();
@@ -159,6 +174,7 @@ function bosssummon() {
 }
 .boss {
   /*z-index: 2;*/
+  scale: 2.4;
   position: relative;
   background-repeat: repeat-x;
   /*background: url(../images/sprites/monsters/pumpkina.png);*/
