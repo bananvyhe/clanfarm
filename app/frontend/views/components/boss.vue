@@ -1,7 +1,7 @@
 <template>
   <div class="info"> 
-    {{props.width}} 
-    <br>{{bossdirection}}
+    <!-- {{props.width}}  -->
+    <!-- <br>{{bossdirection}} -->
   </div>
   <div class="d-flex flex-grow-1 flex-shrink-0 mx-4 pl-9"> 
       <div ref="el" class="boss d-flex align-self-end mb-2" :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]">
@@ -63,7 +63,7 @@ onMounted(() => {
         var moveResult = calcmove(); 
         function dur () {
           var res = (moveResult - val)/80
-          return Math.abs(res)  
+          return Math.abs(res)+2 
         }  
         function bosdir () {
           if (moveResult > val){
