@@ -54,18 +54,26 @@ onMounted(() => {
     function bossmove(val) {
       // var b2 = gsap.timeline({ repeat: -1, onRepeat: updateRandomX  });  
       // function updateRandomX() {
-        console.log(val)
+        // console.log(val)
         function calcmove () {
           return Math.floor(Math.random() * (props.width - 110) );
         }    
-        var moveResult = calcmove();    
+        var moveResult = calcmove(); 
+        function dur () {
+           var res = (moveResult - val)/100
+           return Math.abs(res)
+        }    
+        console.log( dur ())
         gsap.to(".boss",{
-          repeatDelay: 2,
+ 
+          ease: "none",
           // repeat:-1, 
-          duration: 2,
+          duration: dur,
           x: moveResult,
           onComplete: function () {
+             gsap.delayedCall(2, function () {
             bossmove(moveResult); // Pass moveResult as an argument to bossmove()
+          });
           },
         })
       // }
