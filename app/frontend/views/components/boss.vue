@@ -51,6 +51,7 @@ onMounted(() => {
         backgroundPosition: "-230px",
       })
     } 
+
     function bossmove(val) {
       // var b2 = gsap.timeline({ repeat: -1, onRepeat: updateRandomX  });  
       // function updateRandomX() {
@@ -60,13 +61,12 @@ onMounted(() => {
         }    
         var moveResult = calcmove(); 
         function dur () {
-           var res = (moveResult - val)/100
+           var res = (moveResult - val)/80
            return Math.abs(res)
         }    
         console.log( dur ())
         gsap.to(".boss",{
- 
-          ease: "none",
+          ease: "sine.out",
           // repeat:-1, 
           duration: dur,
           x: moveResult,
@@ -82,7 +82,6 @@ onMounted(() => {
     bossmove();
     // var master = gsap.timeline();
     // master.add(bossstay()).add(bossmove()) 
- 
   })
 })
 
