@@ -51,20 +51,26 @@ onMounted(() => {
         backgroundPosition: "-230px",
       })
     } 
-    function bossmove() {
+    function bossmove(val) {
       // var b2 = gsap.timeline({ repeat: -1, onRepeat: updateRandomX  });  
       // function updateRandomX() {
+        console.log(val)
+        function calcmove () {
+          return Math.floor(Math.random() * (props.width - 110) );
+        }    
+        var moveResult = calcmove();    
         gsap.to(".boss",{
           repeatDelay: 2,
           // repeat:-1, 
           duration: 2,
-          x: function () {
-            return Math.floor(Math.random() * (props.width - 110) );
+          x: moveResult,
+          onComplete: function () {
+            bossmove(moveResult); // Pass moveResult as an argument to bossmove()
           },
-          onComplete: bossmove,
         })
       // }
-    }    
+    }
+    bossstay();
     bossmove();
     // var master = gsap.timeline();
     // master.add(bossstay()).add(bossmove()) 
