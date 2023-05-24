@@ -36,7 +36,7 @@ onMounted(() => {
     function bossstay() {
       gsap.set(".boss", {
         // scale: 2.4,
-        transformOrigin: "bottom",
+        transformOrigin: "bottom 70%",
         backgroundImage: 'url('+move+')',
         // x: randpos(), 
         // backgroundPosition: "0px",      
