@@ -8,7 +8,7 @@
     <div class="hpbar pb-15">
       <v-progress-linear :model-value="hp" color="success"></v-progress-linear>
     </div> 
-    <div  class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]"  v-on:click="handler()" >
+    <div  class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]" v-on:click="handler()" >
     </div>
   </div>
 
@@ -20,13 +20,12 @@
 const hp = ref(60)
 function handler(){
   if (ready.value == true ) {
+    
     start()
-      if (b1) {
-        b1.kill(); 
-      }    
-    bosshit()
+   bosshit()
+    
   }
-  console.log(ready.value)
+ 
 }
 
 
@@ -99,6 +98,7 @@ onMounted(() => {
 function bossstay() {
   if (b1) {
     b1.kill(); 
+    // console.log("kill")
   }  
   gsap.set(".boss", {
     // scale: 2.4,
@@ -119,19 +119,25 @@ function bossstay() {
   })
 } 
 function bosshit() {
+
+  if (b1) {
+    b1.kill(); 
+    console.log("kill")
+  }   
+
   gsap.set(".boss", {
-    scale: 2.4,
-    transformOrigin: "bottom",
+    transformOrigin: "bottom 65%",
     backgroundImage: 'url('+hit+')',
     backgroundPosition: "0px",
+    scaleX: bossdirection.value,
   });  
-  var b1 = gsap.timeline();  
+  b1 = gsap.timeline();  
   b1.to(".boss",{
-    duration: 0.5,
-    repeat:1,    
-    ease: "steps(4)",
-    backgroundPosition: "-184px",
-    onComplete: bossstay() 
+    duration: 1,
+    // repeat:1,    
+    ease: "steps(3)",
+    backgroundPosition: "-138px",
+    onComplete: bossstay
   })
 }  
 
