@@ -8,7 +8,7 @@
     <div class="hpbar pb-15">
       <v-progress-linear :model-value="hp" color="success"></v-progress-linear>
     </div> 
-    <div  class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]">
+    <div  class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]"  v-on:click="handler()" >
     </div>
   </div>
 
@@ -16,6 +16,13 @@
 
 <script setup lang="ts">
 const hp = ref(60)
+function handler(){
+  if (ready.value == true ) {
+    start()
+  }
+  console.log(ready.value)
+}
+
 
 const props = defineProps(['width'])
 import { gsap } from "gsap";
