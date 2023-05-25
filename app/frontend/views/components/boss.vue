@@ -3,14 +3,20 @@
     <!-- {{props.width}}  -->
     <!-- <br>{{bossdirection}} -->
   </div>
-  <div class="d-flex flex-grow-1 flex-shrink-0 mx-4 pl-9"> 
-      <div ref="el" class="boss d-flex align-self-end mb-2" :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]">
-        
-      </div>
+ 
+  <div class="d-flex flex-column align-self-end"> 
+    <div class="hpbar pb-15">
+      <v-progress-linear :model-value="hp" color="success"></v-progress-linear>
+    </div> 
+    <div  class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]">
+    </div>
   </div>
+
 </template>
 
 <script setup lang="ts">
+const hp = ref(60)
+
 const props = defineProps(['width'])
 import { gsap } from "gsap";
 const idle = new URL("../images/sprites/monsters/summoner/idle.png", import.meta.url).href;
@@ -36,14 +42,14 @@ onMounted(() => {
     function bossstay() {
       gsap.set(".boss", {
         // scale: 2.4,
-        transformOrigin: "bottom 70%",
+        transformOrigin: "bottom 65%",
         backgroundImage: 'url('+move+')',
         // x: randpos(), 
         // backgroundPosition: "0px",      
          scaleX: bossdirection.value
         // backgroundPosition: "0px",
       });   
-
+   
     } 
       var b1 = gsap.timeline();  
       b1.to(".boss",{
@@ -77,15 +83,16 @@ onMounted(() => {
         // console.log(bosdir ()) 
 
         // console.log( dur ())
-        gsap.to(".boss",{
+
+        gsap.to([".hpbar",".boss"],{
           ease: "sine.inOut",
           // repeat:-1, 
           duration: dur,
           x: moveResult,
           onComplete: function () {
             gsap.delayedCall(2, function () {
-            bossmove(moveResult); // Pass moveResult as an argument to bossmove()
-          });
+              bossmove(moveResult); // Pass moveResult as an argument to bossmove()
+            });
           },
         })
       // }
@@ -168,6 +175,12 @@ function bosssummon() {
 </script>
 
 <style scoped>
+/*.pers{
+  position: relative;
+}*/
+.hpbar{
+  width: 60px;
+}
 .info{
   position: absolute;
   right: 0;
