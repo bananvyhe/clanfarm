@@ -15,10 +15,16 @@
 </template>
 
 <script setup lang="ts">
+ 
+
 const hp = ref(60)
 function handler(){
   if (ready.value == true ) {
     start()
+      if (b1) {
+        b1.kill(); 
+      }    
+    bosshit()
   }
   console.log(ready.value)
 }
@@ -40,83 +46,95 @@ const repDelay = ref()
 const plain: any = inject('plain')
 const secured: any = inject('secured')
 const bossdirection = ref(2.4)
+let b1 = null;
 onMounted(() => {
   nextTick(() => {
     function randpos() {
       const res = Math.floor(Math.random() * (props.width - 110) ); // start position on page load
       return res
     }
-    function bossstay() {
-      gsap.set(".boss", {
-        // scale: 2.4,
-        transformOrigin: "bottom 65%",
-        backgroundImage: 'url('+move+')',
-        // x: randpos(), 
-        // backgroundPosition: "0px",      
-         scaleX: bossdirection.value
-        // backgroundPosition: "0px",
-      });   
-   
-    } 
-      var b1 = gsap.timeline();  
-      b1.to(".boss",{
-        duration: 1,
-        repeat:-1,    
-        ease: "steps(5)",
-        backgroundPosition: "-230px",
-        // scaleX: bossdirection.value
-      })
+
     function bossmove(val) {
       // var b2 = gsap.timeline({ repeat: -1, onRepeat: updateRandomX  });  
       // function updateRandomX() {
         // console.log(val)
-        function calcmove () {
-          return Math.floor(Math.random() * (props.width - 110) );
-        }    
-        var moveResult = calcmove(); 
-        function dur () {
-          var res = (moveResult - val)/80
-          return Math.abs(res)+2 
-        }  
-        function bosdir () {
-          if (moveResult > val){
-           return bossdirection.value = 2.4
-          }else{
-            return bossdirection.value = -2.4
-          }
- 
-        }       
-        bosdir();
-        // console.log(bosdir ()) 
-
-        // console.log( dur ())
-
-        gsap.to([".hpbar",".boss"],{
-          ease: "sine.inOut",
-          // repeat:-1, 
-          duration: dur,
-          x: moveResult,
-          onComplete: function () {
-            gsap.delayedCall(2, function () {
-              bossmove(moveResult); // Pass moveResult as an argument to bossmove()
-            });
-          },
-        })
-      // }
+      function calcmove () {
+        return Math.floor(Math.random() * (props.width - 110) );
+      }    
+      var moveResult = calcmove(); 
+      function dur () {
+        var res = (moveResult - val)/80
+        return Math.abs(res)+2 
+      }  
+      function bosdir () {
+        if (moveResult > val){
+         return bossdirection.value = 2.4
+        }else{
+          return bossdirection.value = -2.4
+        }
+      }       
+      bosdir();
+      gsap.to([".hpbar",".boss"],{
+        ease: "sine.inOut",
+        // repeat:-1, 
+        duration: dur,
+        x: moveResult,
+        onComplete: function () {
+          gsap.delayedCall(2, function () {
+            bossmove(moveResult); // Pass moveResult as an argument to bossmove()
+          });
+        },
+      })
     }
-watch(bossdirection, () => {
-  bossstay();
-}); 
-    bossstay();
+    watch(bossdirection, () => {
+      bossstay();
+    }); 
+    // bossstay();
     bossmove();
     // var master = gsap.timeline();
     // master.add(bossstay()).add(bossmove()) 
   })
 })
 
-function walk() {
+function bossstay() {
+  if (b1) {
+    b1.kill(); 
+  }  
+  gsap.set(".boss", {
+    // scale: 2.4,
+    transformOrigin: "bottom 65%",
+    backgroundImage: 'url('+move+')',
+    // x: randpos(), 
+    backgroundPosition: "0px",      
+    scaleX: bossdirection.value
+  });   
 
-}
+   b1 = gsap.timeline();  
+  b1.to(".boss",{
+    duration: 1,
+    repeat:-1,    
+    ease: "steps(5)",
+    backgroundPosition: "-230px",
+    // scaleX: bossdirection.value
+  })
+} 
+function bosshit() {
+  gsap.set(".boss", {
+    scale: 2.4,
+    transformOrigin: "bottom",
+    backgroundImage: 'url('+hit+')',
+    backgroundPosition: "0px",
+  });  
+  var b1 = gsap.timeline();  
+  b1.to(".boss",{
+    duration: 0.5,
+    repeat:1,    
+    ease: "steps(4)",
+    backgroundPosition: "-184px",
+    onComplete: bossstay() 
+  })
+}  
+
 function bossidle() {
   gsap.set(".boss", {
     scale: 2.4,
@@ -133,21 +151,7 @@ function bossidle() {
   })
 } 
 
-function bosshit() {
-  gsap.set(".boss", {
-    scale: 2.4,
-    transformOrigin: "bottom",
-    backgroundImage: 'url('+hit+')',
-    backgroundPosition: "0px",
-  });  
-  var b1 = gsap.timeline();  
-  b1.to(".boss",{
-    duration: 0.5,
-    repeat:-1,    
-    ease: "steps(4)",
-    backgroundPosition: "-184px",
-  })
-} 
+
 
 function bossdeath() {
   gsap.set(".boss", {
