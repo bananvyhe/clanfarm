@@ -88,7 +88,7 @@ onMounted(() => {
     watch(bossdirection, () => {
       bossstay();
     }); 
-    // bossstay();
+    bossstay();
     bossmove();
     // var master = gsap.timeline();
     // master.add(bossstay()).add(bossmove()) 
@@ -133,7 +133,7 @@ function bosshit() {
   });  
   b1 = gsap.timeline();  
   b1.to(".boss",{
-    duration: 1,
+    duration: 0.5,
     // repeat:1,    
     ease: "steps(3)",
     backgroundPosition: "-138px",
