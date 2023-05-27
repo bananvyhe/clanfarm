@@ -77,7 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_27_093909) do
     t.boolean "dead", default: false, null: false
     t.integer "pk", default: 0, null: false
     t.integer "cry", default: 0, null: false
-    t.integer "cpoints", default: 0, null: false
+    t.integer "cpoints", default: 5, null: false
   end
 
   add_foreign_key "dropitems", "listitems"

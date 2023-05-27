@@ -10,9 +10,9 @@
     </div> 
     <div  class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]" v-on:click="handler()" >
     </div>
-    <div class="familiar mb-1" :style="[  !ghoul ?  {display: 'none'}:{} ]">
+<!--     <div class="familiar mb-1" :style="[  !ghoul ?  {display: 'none'}:{} ]">
       
-    </div>
+    </div> -->
   </div>
 
 </template>
@@ -25,21 +25,25 @@ const ghoul = ref(true)
 const hp = ref(60)
 function handler(){
   if (ready.value == true ) {
-    start()
-    bosshit()
-    if (familiar == true){
-        ghoul.value = true
+    
+    
+    if (familiar.value == true){
+      ghoul.value = true
+      bosssummon()
+    }else{
+      bosshit()
     }
+    start()
   }
 }
 function famspawn() {
   gsap.set(".familiar", {
-    scale: 2.4,
+    // scale: 2.4,
     transformOrigin: "bottom ",
     backgroundImage: 'url('+spawn+')',
     // x: randpos(), 
     backgroundPosition: "0px",      
-    // scaleX: bossdirection.value
+    scaleX: bossdirection.value
   }); 
    let b2 = gsap.timeline();  
   b2.to(".familiar",{
@@ -119,16 +123,56 @@ onMounted(() => {
     }); 
     bossstay();
     bossmove();
-    famspawn()
+ 
     // var master = gsap.timeline();
     // master.add(bossstay()).add(bossmove()) 
   })
 })
+function bosssummon() {
+ 
+  if (b1) {
+    b1.kill(); 
+  }    
+  gsap.set(".boss", {
+    // scale: 2.4,
+    transformOrigin: "bottom 65%",
+    backgroundImage: 'url('+summon+')',
+    backgroundPosition: "0px",
+    scaleX: bossdirection.value,
+  });  
+  var b1 = gsap.timeline();  
+  b1.to(".boss",{
+    duration: 1,
+    // repeat:-1,    
+    ease: "steps(8)",
+    backgroundPosition: "-368px",
+    onComplete: bossstay
+  })
+} 
+
+function bosshit() {
+  if (b1) {
+    b1.kill(); 
+  }   
+  gsap.set(".boss", {
+    transformOrigin: "bottom 65%",
+    backgroundImage: 'url('+hit+')',
+    backgroundPosition: "0px",
+    scaleX: bossdirection.value,
+  });  
+  b1 = gsap.timeline();  
+  b1.to(".boss",{
+    duration: 0.5,
+    // repeat:1,    
+    ease: "steps(3)",
+    backgroundPosition: "-138px",
+    onComplete: bossstay
+  })
+}
 
 function bossstay() {
   if (b1) {
     b1.kill(); 
-    // console.log("kill")
   }  
   gsap.set(".boss", {
     // scale: 2.4,
@@ -148,28 +192,7 @@ function bossstay() {
     // scaleX: bossdirection.value
   })
 } 
-function bosshit() {
 
-  if (b1) {
-    b1.kill(); 
-    console.log("kill")
-  }   
-
-  gsap.set(".boss", {
-    transformOrigin: "bottom 65%",
-    backgroundImage: 'url('+hit+')',
-    backgroundPosition: "0px",
-    scaleX: bossdirection.value,
-  });  
-  b1 = gsap.timeline();  
-  b1.to(".boss",{
-    duration: 0.5,
-    // repeat:1,    
-    ease: "steps(3)",
-    backgroundPosition: "-138px",
-    onComplete: bossstay
-  })
-}  
 
 function bossidle() {
   gsap.set(".boss", {
@@ -204,21 +227,7 @@ function bossdeath() {
     backgroundPosition: "-460px",
   })
 } 
-function bosssummon() {
-  gsap.set(".boss", {
-    scale: 2.4,
-    transformOrigin: "bottom",
-    backgroundImage: 'url('+summon+')',
-    backgroundPosition: "0px",
-  });  
-  var b1 = gsap.timeline();  
-  b1.to(".boss",{
-    duration: 1.4,
-    repeat:-1,    
-    ease: "steps(9)",
-    backgroundPosition: "-414px",
-  })
-} 
+
 </script>
 
 <style scoped>
