@@ -42,11 +42,12 @@ function handler(){
 
 }
 function famspawn() {
+  // var moveResult = randpos(); 
   gsap.set(".familiar", {
     scale: 2.4,
     transformOrigin: "bottom ",
     backgroundImage: 'url('+spawn+')',
-    // x: randpos(), 
+    x: randpos, 
     backgroundPosition: "0px",      
     scaleX: bossdirection.value
   }); 
@@ -89,7 +90,7 @@ function ghouldeath() {
     scale: 2.4,
     transformOrigin: "bottom ",
     backgroundImage: 'url('+ghouldead+')',
-    // x: randpos(), 
+    // x: moveResult, 
     backgroundPosition: "0px",      
     // scaleX: bossdirection.value
   }); 
@@ -123,26 +124,22 @@ const plain: any = inject('plain')
 const secured: any = inject('secured')
 const bossdirection = ref(2.4)
 let b1 = null;
-nextTick(() => {
-  function randpos() {
-    const res = Math.floor(Math.random() * (props.width - 110) ); // start position on page load
-    return res
-  }
-})
 
+function randpos() {
+  return Math.floor(Math.random() * (props.width - 110) ); // start position on page load
+}
 
 onMounted(() => {
   nextTick(() => {
-
-
+ 
     function bossmove(val) {
       // var b2 = gsap.timeline({ repeat: -1, onRepeat: updateRandomX  });  
       // function updateRandomX() {
         // console.log(val)
-      function calcmove () {
-        return Math.floor(Math.random() * (props.width - 110) );
-      }    
-      var moveResult = calcmove(); 
+      // function calcmove () {
+      //   return Math.floor(Math.random() * (props.width - 110) );
+      // }    
+      var moveResult = randpos(); 
       function dur () {
         var res = (moveResult - val)/80
         return Math.abs(res)+2 
