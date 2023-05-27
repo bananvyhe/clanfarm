@@ -57,7 +57,7 @@ function famspawn() {
     ease: "steps(10)",
     backgroundPosition: "-620px",
     // scaleX: bossdirection.value
-    onComplete: ghoulwalk
+    onComplete: ghouldeath
   })     
 }
 function ghoulwalk() {
@@ -81,10 +81,32 @@ function ghoulwalk() {
     // scaleX: bossdirection.value
   })     
 }
+function ghouldeath() {
+  if (b2) {
+    b2.kill(); 
+  }   
+  gsap.set(".familiar", {
+    scale: 2.4,
+    transformOrigin: "bottom ",
+    backgroundImage: 'url('+ghouldead+')',
+    // x: randpos(), 
+    backgroundPosition: "0px",      
+    // scaleX: bossdirection.value
+  }); 
+  b2 = gsap.timeline();  
+  b2.to(".familiar",{
+    duration: 1.4,
+    repeat:-1,    
+    ease: "steps(7)",
+    backgroundPosition: "-434px",
+    // scaleX: bossdirection.value
+  })     
+}
 const props = defineProps(['width'])
 import { gsap } from "gsap";
 const spawn = new URL("../images/sprites/monsters/Ghoul/spawn.png", import.meta.url).href;
 const walk = new URL("../images/sprites/monsters/Ghoul/Walk.png", import.meta.url).href;
+const ghouldead = new URL("../images/sprites/monsters/Ghoul/death.png", import.meta.url).href;
 
 const idle = new URL("../images/sprites/monsters/summoner/idle.png", import.meta.url).href;
 const move = new URL("../images/sprites/monsters/summoner/move.png", import.meta.url).href;
@@ -101,16 +123,17 @@ const plain: any = inject('plain')
 const secured: any = inject('secured')
 const bossdirection = ref(2.4)
 let b1 = null;
-
-
+nextTick(() => {
+  function randpos() {
+    const res = Math.floor(Math.random() * (props.width - 110) ); // start position on page load
+    return res
+  }
+})
 
 
 onMounted(() => {
   nextTick(() => {
-    function randpos() {
-      const res = Math.floor(Math.random() * (props.width - 110) ); // start position on page load
-      return res
-    }
+
 
     function bossmove(val) {
       // var b2 = gsap.timeline({ repeat: -1, onRepeat: updateRandomX  });  
