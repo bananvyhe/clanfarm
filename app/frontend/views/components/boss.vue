@@ -4,11 +4,14 @@
     <!-- <br>{{bossdirection}} -->
   </div>
  
-  <div class="d-flex flex-column align-self-end"> 
+  <div class="d-flex flex-column align-self-end mainframe"> 
     <div class="hpbar pb-15">
       <v-progress-linear :model-value="hp" color="success"></v-progress-linear>
     </div> 
     <div  class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]" v-on:click="handler()" >
+    </div>
+    <div class="familiar mb-1" :style="[  !ghoul ?  {display: 'none'}:{} ]">
+      
     </div>
   </div>
 
@@ -16,21 +19,43 @@
 
 <script setup lang="ts">
  
+const familiar = ref(true)
+const ghoul = ref(true)
 
 const hp = ref(60)
 function handler(){
   if (ready.value == true ) {
-    
     start()
-   bosshit()
-    
+    bosshit()
+    if (familiar == true){
+        ghoul.value = true
+    }
   }
- 
 }
-
+function famspawn() {
+  gsap.set(".familiar", {
+    scale: 2.4,
+    transformOrigin: "bottom ",
+    backgroundImage: 'url('+spawn+')',
+    // x: randpos(), 
+    backgroundPosition: "0px",      
+    // scaleX: bossdirection.value
+  }); 
+   let b2 = gsap.timeline();  
+  b2.to(".familiar",{
+    duration: 1,
+    repeat:-1,    
+    ease: "steps(10)",
+    backgroundPosition: "-620px",
+    // scaleX: bossdirection.value
+  })     
+}
 
 const props = defineProps(['width'])
 import { gsap } from "gsap";
+const spawn = new URL("../images/sprites/monsters/Ghoul/spawn.png", import.meta.url).href;
+
+
 const idle = new URL("../images/sprites/monsters/summoner/idle.png", import.meta.url).href;
 const move = new URL("../images/sprites/monsters/summoner/move.png", import.meta.url).href;
 const hit = new URL("../images/sprites/monsters/summoner/hit.png", import.meta.url).href;
@@ -46,6 +71,10 @@ const plain: any = inject('plain')
 const secured: any = inject('secured')
 const bossdirection = ref(2.4)
 let b1 = null;
+
+
+
+
 onMounted(() => {
   nextTick(() => {
     function randpos() {
@@ -90,6 +119,7 @@ onMounted(() => {
     }); 
     bossstay();
     bossmove();
+    famspawn()
     // var master = gsap.timeline();
     // master.add(bossstay()).add(bossmove()) 
   })
@@ -192,6 +222,9 @@ function bosssummon() {
 </script>
 
 <style scoped>
+.mainframe{
+  position: relative;
+}
 /*.pers{
   position: relative;
 }*/
@@ -202,6 +235,19 @@ function bosssummon() {
   position: absolute;
   right: 0;
 }
+.familiar {
+  /*background-color: #dad;*/
+  position: absolute;
+  bottom: 0;
+  /*z-index: 2;*/
+  scale: 2.4;
+ 
+  background-repeat: repeat-x;
+  /*background: url(../images/sprites/monsters/pumpkina.png);*/
+  image-rendering: pixelated;
+  width: 62px;  height:33px; 
+/*  cursor: url("../images/sword.png"), pointer;*/
+} 
 .boss {
   /*z-index: 2;*/
   scale: 2.4;
