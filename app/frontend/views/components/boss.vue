@@ -4,62 +4,87 @@
     <!-- <br>{{bossdirection}} -->
   </div>
  
-  <div class="d-flex flex-column align-self-end mainframe"> 
+  <div class="d-flex flex-column align-self-end mainframe" v-if="boss == true"> 
     <div class="hpbar pb-15">
-      <v-progress-linear :model-value="hp" color="success"></v-progress-linear>
+      <v-progress-linear :model-value="hp" color="success" v-if="hp > 0"></v-progress-linear>
     </div> 
     <div  class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]" v-on:click="handler()" >
     </div>
-<!--     <div class="familiar mb-1" :style="[  !ghoul ?  {display: 'none'}:{} ]">
+    <div class="familiar mb-1" :style="[  !ghoul ?  {display: 'none'}:{} ]">
       
-    </div> -->
+    </div>
   </div>
 
 </template>
 
 <script setup lang="ts">
- 
+const boss = ref(true)
 const familiar = ref(true)
 const ghoul = ref(true)
-
+let b2 = ref(null)
 const hp = ref(60)
 function handler(){
-  if (ready.value == true ) {
-    
-    
-    if (familiar.value == true){
-      ghoul.value = true
-      bosssummon()
-      console.log("hadl sum")
-    }else{
-      bosshit()
-    }
-    start()
+  if (hp.value <= 0){
+    bossdeath()
+     
+  }else{
+    if (ready.value == true ) {
+      if (familiar.value == true){
+        ghoul.value = true
+        bosssummon()
+        famspawn() 
+      }else{
+        bosshit()
+      }
+      start()
+    }    
   }
+
 }
 function famspawn() {
   gsap.set(".familiar", {
-    // scale: 2.4,
+    scale: 2.4,
     transformOrigin: "bottom ",
     backgroundImage: 'url('+spawn+')',
     // x: randpos(), 
     backgroundPosition: "0px",      
     scaleX: bossdirection.value
   }); 
-   let b2 = gsap.timeline();  
+  b2 = gsap.timeline();  
   b2.to(".familiar",{
     duration: 1,
-    repeat:-1,    
+    // repeat:-1,    
     ease: "steps(10)",
     backgroundPosition: "-620px",
     // scaleX: bossdirection.value
+    onComplete: ghoulwalk
   })     
 }
-
+function ghoulwalk() {
+  if (b2) {
+    b2.kill(); 
+  }   
+  gsap.set(".familiar", {
+    scale: 2.4,
+    transformOrigin: "bottom ",
+    backgroundImage: 'url('+walk+')',
+    // x: randpos(), 
+    backgroundPosition: "0px",      
+    // scaleX: bossdirection.value
+  }); 
+  b2 = gsap.timeline();  
+  b2.to(".familiar",{
+    duration: 1.4,
+    repeat:-1,    
+    ease: "steps(8)",
+    backgroundPosition: "-496px",
+    // scaleX: bossdirection.value
+  })     
+}
 const props = defineProps(['width'])
 import { gsap } from "gsap";
 const spawn = new URL("../images/sprites/monsters/Ghoul/spawn.png", import.meta.url).href;
-
+const walk = new URL("../images/sprites/monsters/Ghoul/Walk.png", import.meta.url).href;
 
 const idle = new URL("../images/sprites/monsters/summoner/idle.png", import.meta.url).href;
 const move = new URL("../images/sprites/monsters/summoner/move.png", import.meta.url).href;
@@ -129,8 +154,31 @@ onMounted(() => {
     // master.add(bossstay()).add(bossmove()) 
   })
 })
+function bossdeath() {
+  if (b1) {
+    b1.kill(); 
+  }     
+  gsap.set(".boss", {
+    // scale: 2.4,
+    transformOrigin: "bottom 65%",
+    backgroundImage: 'url('+death+')',
+    backgroundPosition: "0px",
+    scaleX: bossdirection.value,
+  });  
+  b1 = gsap.timeline();  
+  b1.to(".boss",{
+    duration: 1.4,
+    // repeat:-1,    
+    ease: "steps(9)",
+    backgroundPosition: "-414px",
+    onComplete: bossdead
+  })
+} 
+function bossdead() {
+  b1.kill(); 
+  boss.value = false
+}
 function bosssummon() {
-
   if (b1) {
     b1.kill(); 
   }    
@@ -143,7 +191,7 @@ function bosssummon() {
   });  
    b1 = gsap.timeline();  
   b1.to(".boss",{
-    duration: 1,
+    duration: 0.7,
     // repeat:-1,    
     ease: "steps(8)",
     backgroundPosition: "-368px",
@@ -213,21 +261,7 @@ function bossidle() {
 
 
 
-function bossdeath() {
-  gsap.set(".boss", {
-    scale: 2.4,
-    transformOrigin: "bottom",
-    backgroundImage: 'url('+death+')',
-    backgroundPosition: "0px",
-  });  
-  var b1 = gsap.timeline();  
-  b1.to(".boss",{
-    duration: 1.4,
-    repeat:-1,    
-    ease: "steps(11)",
-    backgroundPosition: "-460px",
-  })
-} 
+
 
 </script>
 
