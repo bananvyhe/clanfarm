@@ -30,6 +30,7 @@ function handler(){
     if (familiar.value == true){
       ghoul.value = true
       bosssummon()
+      console.log("hadl sum")
     }else{
       bosshit()
     }
@@ -129,7 +130,7 @@ onMounted(() => {
   })
 })
 function bosssummon() {
- 
+
   if (b1) {
     b1.kill(); 
   }    
@@ -140,7 +141,7 @@ function bosssummon() {
     backgroundPosition: "0px",
     scaleX: bossdirection.value,
   });  
-  var b1 = gsap.timeline();  
+   b1 = gsap.timeline();  
   b1.to(".boss",{
     duration: 1,
     // repeat:-1,    
