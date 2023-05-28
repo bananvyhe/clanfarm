@@ -6,11 +6,11 @@
  
   <div class="d-flex flex-column align-self-end mainframe" v-if="boss == true"> 
     <div class="hpbar pb-15">
-      <v-progress-linear :model-value="hp" color="success" v-if="hp > 0"></v-progress-linear>
+      <v-progress-linear :model-value="hpboss" color="success" v-if="hpboss > 0"></v-progress-linear>
     </div> 
     <div ref="bossref" class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]" v-on:click="handler()" >
     </div>
-    <div ref="ghoul" class="familiar mb-1"   v-on:click="handlerghoul()">
+    <div ref="ghoul" class="familiar mb-1" :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]"  v-on:click="handlerghoul()">
       
     </div>
   </div>
@@ -23,11 +23,12 @@ const familiar = ref(true)
 
 const ghoul = ref(null)
 let b2 = ref(null)
-const hp = ref(60)
+const hpboss = ref(60)
+const hpghoul = ref(60)
+
 function handler(){
-  if (hp.value <= 0){
+  if (hpboss.value <= 0){
     bossdeath()
-     
   }else{
     if (ready.value == true ) {
       if (familiar.value == true){
@@ -40,10 +41,15 @@ function handler(){
       start()
     }    
   }
-
 }
 function handlerghoul() {
-
+  if (hpghoul.value <= 0){
+    ghouldeath()
+  }else{
+    if (ready.value == true ) {
+      ghoulhit()
+    }
+  }
 }
 function famspawn() {
   // var moveResult = randpos(); 
@@ -81,9 +87,10 @@ function ghoulhit() {
   b2 = gsap.timeline();  
   b2.to(".familiar",{
     duration: 0.5,
-    repeat:-1,    
+    // repeat:-1,    
     ease: "steps(3)",
     backgroundPosition: "-186px",
+    onComplete: ghoulwalk
     // scaleX: bossdirection.value
   })     
 }
@@ -350,6 +357,9 @@ function bossidle() {
   width: 62px;  height:33px; 
 /*  cursor: url("../images/sword.png"), pointer;*/
 } 
+.familiar:hover{
+  cursor: url("../images/sword.png"), pointer;
+}
 .boss {
   /*z-index: 2;*/
   scale: 2.4;
