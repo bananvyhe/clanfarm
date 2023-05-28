@@ -10,7 +10,7 @@
     </div> 
     <div ref="bossref" class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]" v-on:click="handler()" >
     </div>
-    <div class="familiar mb-1" :style="[  !ghoul ?  {display: 'none'}:{} ]">
+    <div ref="ghoul" class="familiar mb-1"   v-on:click="handlerghoul()">
       
     </div>
   </div>
@@ -20,7 +20,8 @@
 <script setup lang="ts">
 const boss = ref(true)
 const familiar = ref(true)
-const ghoul = ref(true)
+
+const ghoul = ref(null)
 let b2 = ref(null)
 const hp = ref(60)
 function handler(){
@@ -41,6 +42,9 @@ function handler(){
   }
 
 }
+function handlerghoul() {
+
+}
 function famspawn() {
   // var moveResult = randpos(); 
   gsap.set(".familiar", {
@@ -51,6 +55,7 @@ function famspawn() {
     backgroundPosition: "0px",      
     scaleX: bossdirection.value
   }); 
+  ghoul.value = true
   b2 = gsap.timeline();  
   b2.to(".familiar",{
     duration: 1,
@@ -58,7 +63,28 @@ function famspawn() {
     ease: "steps(10)",
     backgroundPosition: "-620px",
     // scaleX: bossdirection.value
-    onComplete: ghouldeath
+    onComplete: ghoulwalk
+  })     
+}
+function ghoulhit() {
+  if (b2) {
+    b2.kill(); 
+  }   
+  gsap.set(".familiar", {
+    scale: 2.4,
+    transformOrigin: "bottom ",
+    backgroundImage: 'url('+ghoulhitimg+')',
+    // x: randpos(), 
+    backgroundPosition: "0px",      
+    // scaleX: bossdirection.value
+  }); 
+  b2 = gsap.timeline();  
+  b2.to(".familiar",{
+    duration: 0.5,
+    repeat:-1,    
+    ease: "steps(3)",
+    backgroundPosition: "-186px",
+    // scaleX: bossdirection.value
   })     
 }
 function ghoulwalk() {
@@ -108,6 +134,7 @@ import { gsap } from "gsap";
 const spawn = new URL("../images/sprites/monsters/Ghoul/spawn.png", import.meta.url).href;
 const walk = new URL("../images/sprites/monsters/Ghoul/Walk.png", import.meta.url).href;
 const ghouldead = new URL("../images/sprites/monsters/Ghoul/death.png", import.meta.url).href;
+const ghoulhitimg = new URL("../images/sprites/monsters/Ghoul/hit.png", import.meta.url).href;
 
 const idle = new URL("../images/sprites/monsters/summoner/idle.png", import.meta.url).href;
 const move = new URL("../images/sprites/monsters/summoner/move.png", import.meta.url).href;
