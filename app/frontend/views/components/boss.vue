@@ -8,7 +8,7 @@
     <div class="hpbar pb-15">
       <v-progress-linear :model-value="hp" color="success" v-if="hp > 0"></v-progress-linear>
     </div> 
-    <div  class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]" v-on:click="handler()" >
+    <div ref="bossref" class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]" v-on:click="handler()" >
     </div>
     <div class="familiar mb-1" :style="[  !ghoul ?  {display: 'none'}:{} ]">
       
@@ -124,7 +124,7 @@ const plain: any = inject('plain')
 const secured: any = inject('secured')
 const bossdirection = ref(2.4)
 let b1 = null;
-
+const bossref = ref(null)
 function randpos() {
   return Math.floor(Math.random() * (props.width - 110) ); // start position on page load
 }
@@ -133,6 +133,7 @@ onMounted(() => {
   nextTick(() => {
  
     function bossmove(val) {
+      console.log(val)
       // var b2 = gsap.timeline({ repeat: -1, onRepeat: updateRandomX  });  
       // function updateRandomX() {
         // console.log(val)
@@ -140,6 +141,10 @@ onMounted(() => {
       //   return Math.floor(Math.random() * (props.width - 110) );
       // }    
       var moveResult = randpos(); 
+      if( val == "undefined"){
+          b1.kill()
+      }
+      console.log(val)
       function dur () {
         var res = (moveResult - val)/80
         return Math.abs(res)+2 
@@ -158,8 +163,11 @@ onMounted(() => {
         duration: dur,
         x: moveResult,
         onComplete: function () {
+
           gsap.delayedCall(2, function () {
-            bossmove(moveResult); // Pass moveResult as an argument to bossmove()
+            if(bossref.value){
+              bossmove(moveResult); // Pass moveResult as an argument to bossmove()
+            }
           });
         },
       })
@@ -167,8 +175,11 @@ onMounted(() => {
     watch(bossdirection, () => {
       bossstay();
     }); 
-    bossstay();
-    bossmove();
+    if(bossref.value){
+      bossstay();
+      bossmove();     
+    }
+
  
     // var master = gsap.timeline();
     // master.add(bossstay()).add(bossmove()) 
