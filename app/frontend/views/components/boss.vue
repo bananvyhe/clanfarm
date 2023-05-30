@@ -35,6 +35,7 @@ function handler(){
         ghoul.value = true
         bosssummon()
         famspawn() 
+        // ghoulstay()
       }else{
         bosshit()
       }
@@ -51,13 +52,72 @@ function handlerghoul() {
     }
   }
 }
+
+const ghouldirection = ref(2.4)
+watch(ghouldirection, () => {
+  ghoulstay();
+})
+
+function ghoulmove(val) {
+  console.log(val)
+  var moveResult = randpos(); 
+
+  function dur () {
+    var res = (moveResult - val)/60
+    return Math.abs(res)+2 
+  }  
+  function ghodir () {
+    if (moveResult > val){
+     return ghouldirection.value = 2.4
+    }else{
+      return ghouldirection.value = -2.4
+    }
+  }       
+  ghodir();
+  gsap.to([ ".familiar"],{
+    ease: "sine.inOut",
+    // repeat:-1, 
+    duration: dur,
+    x: moveResult,
+    onComplete: function () {
+
+      gsap.delayedCall(2, function () {
+        if(ghoul.value){
+          ghoulmove(moveResult); // Pass moveResult as an argument to bossmove()
+        }
+      });
+    },
+  })
+}
+function ghoulstay() {
+  if (b2) {
+    b2.kill(); 
+  }   
+  gsap.set(".familiar", {
+    // scale: 2.4,
+    transformOrigin: "bottom ",
+    backgroundImage: 'url('+walk+')',
+    // x: randpos(), 
+    backgroundPosition: "0px",      
+    scaleX: ghouldirection.value
+  }); 
+  b2 = gsap.timeline();  
+  b2.to(".familiar",{
+    duration: 1.4,
+    repeat:-1,    
+    ease: "steps(8)",
+    backgroundPosition: "-496px",
+    // scaleX: bossdirection.value
+  })     
+}
 function famspawn() {
+  var moveResult = randpos(); 
   // var moveResult = randpos(); 
   gsap.set(".familiar", {
-    scale: 2.4,
+    // scale: 2.4,
     transformOrigin: "bottom ",
     backgroundImage: 'url('+spawn+')',
-    x: randpos, 
+    x: moveResult, 
     backgroundPosition: "0px",      
     scaleX: bossdirection.value
   }); 
@@ -69,7 +129,10 @@ function famspawn() {
     ease: "steps(10)",
     backgroundPosition: "-620px",
     // scaleX: bossdirection.value
-    onComplete: ghoulwalk
+    onComplete: function () {
+      ghoulstay()
+      ghoulmove(moveResult)
+    }
   })     
 }
 function ghoulhit() {
@@ -90,31 +153,11 @@ function ghoulhit() {
     // repeat:-1,    
     ease: "steps(3)",
     backgroundPosition: "-186px",
-    onComplete: ghoulwalk
+    onComplete: ghoulstay
     // scaleX: bossdirection.value
   })     
 }
-function ghoulwalk() {
-  if (b2) {
-    b2.kill(); 
-  }   
-  gsap.set(".familiar", {
-    scale: 2.4,
-    transformOrigin: "bottom ",
-    backgroundImage: 'url('+walk+')',
-    // x: randpos(), 
-    backgroundPosition: "0px",      
-    // scaleX: bossdirection.value
-  }); 
-  b2 = gsap.timeline();  
-  b2.to(".familiar",{
-    duration: 1.4,
-    repeat:-1,    
-    ease: "steps(8)",
-    backgroundPosition: "-496px",
-    // scaleX: bossdirection.value
-  })     
-}
+
 function ghouldeath() {
   if (b2) {
     b2.kill(); 
@@ -142,6 +185,7 @@ const spawn = new URL("../images/sprites/monsters/Ghoul/spawn.png", import.meta.
 const walk = new URL("../images/sprites/monsters/Ghoul/Walk.png", import.meta.url).href;
 const ghouldead = new URL("../images/sprites/monsters/Ghoul/death.png", import.meta.url).href;
 const ghoulhitimg = new URL("../images/sprites/monsters/Ghoul/hit.png", import.meta.url).href;
+const ghoulstatic = new URL("../images/sprites/monsters/Ghoul/static.png", import.meta.url).href;
 
 const idle = new URL("../images/sprites/monsters/summoner/idle.png", import.meta.url).href;
 const move = new URL("../images/sprites/monsters/summoner/move.png", import.meta.url).href;
@@ -219,6 +263,30 @@ onMounted(() => {
     // master.add(bossstay()).add(bossmove()) 
   })
 })
+
+function bossstay() {
+  if (b1) {
+    b1.kill(); 
+  }  
+  gsap.set(".boss", {
+    // scale: 2.4,
+    transformOrigin: "bottom 65%",
+    backgroundImage: 'url('+move+')',
+    // x: randpos(), 
+    backgroundPosition: "0px",      
+    scaleX: bossdirection.value
+  });   
+
+   b1 = gsap.timeline();  
+  b1.to(".boss",{
+    duration: 1,
+    repeat:-1,    
+    ease: "steps(5)",
+    backgroundPosition: "-230px",
+    // scaleX: bossdirection.value
+  })
+} 
+
 function bossdeath() {
   if (b1) {
     b1.kill(); 
@@ -284,28 +352,6 @@ function bosshit() {
   })
 }
 
-function bossstay() {
-  if (b1) {
-    b1.kill(); 
-  }  
-  gsap.set(".boss", {
-    // scale: 2.4,
-    transformOrigin: "bottom 65%",
-    backgroundImage: 'url('+move+')',
-    // x: randpos(), 
-    backgroundPosition: "0px",      
-    scaleX: bossdirection.value
-  });   
-
-   b1 = gsap.timeline();  
-  b1.to(".boss",{
-    duration: 1,
-    repeat:-1,    
-    ease: "steps(5)",
-    backgroundPosition: "-230px",
-    // scaleX: bossdirection.value
-  })
-} 
 
 
 function bossidle() {
