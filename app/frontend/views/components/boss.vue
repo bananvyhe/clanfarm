@@ -1,28 +1,36 @@
 <template>
   <div class="info"> 
     <!-- {{props.width}}  -->
-    <!-- <br>{{bossdirection}} -->
+    <!-- <br>{{bossdirection}} --> 
   </div>
  
-  <div class="d-flex flex-column align-self-end mainframe" v-if="boss == true"> 
-    <div class="hpbar pb-15">
+  <div class="d-flex flex-column align-self-end mainframe" v-if="boss == true" > 
+    <div class="hpbar pb-15" >
       <v-progress-linear :model-value="hpboss" color="success" v-if="hpboss > 0"></v-progress-linear>
     </div> 
     <div ref="bossref" class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]" v-on:click="handler()" >
     </div>
+
+    <div ref="gho" class="ghohpbar pb-16" >
+      <v-progress-linear :model-value="hpghoul" color="success" v-if="hpghoul > 0"></v-progress-linear>
+    </div>     
     <div ref="ghoul" class="familiar mb-1" :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]"  v-on:click="handlerghoul()">
-      
+ 
     </div>
   </div>
 
 </template>
 
 <script setup lang="ts">
+ 
 const boss = ref(true)
 const familiar = ref(true)
 
 const ghoul = ref(null)
-let b2 = ref(null)
+let b5 =  null
+let b4 =  null 
+let b2 =  null 
+let b3 =  null 
 const hpboss = ref(60)
 const hpghoul = ref(60)
 
@@ -59,11 +67,12 @@ watch(ghouldirection, () => {
 })
 
 function ghoulmove(val) {
-  console.log(val)
+  ghoulstay()
+  // console.log(val)
   var moveResult = randpos(); 
 
   function dur () {
-    var res = (moveResult - val)/60
+    var res = (moveResult - val)/80
     return Math.abs(res)+2 
   }  
   function ghodir () {
@@ -74,21 +83,94 @@ function ghoulmove(val) {
     }
   }       
   ghodir();
-  gsap.to([ ".familiar"],{
-    ease: "sine.inOut",
+  b5 = gsap.timeline();  
+  b5.to([ ".familiar", ".ghohpbar"],{
+    ease: "none",
     // repeat:-1, 
     duration: dur,
     x: moveResult,
     onComplete: function () {
 
-      gsap.delayedCall(2, function () {
+      // gsap.delayedCall(2, function () {
         if(ghoul.value){
-          ghoulmove(moveResult); // Pass moveResult as an argument to bossmove()
+          ghostatic(moveResult)
+          // ghoulmove(moveResult) 
         }
-      });
+      // });
     },
   })
 }
+function ghoulhit() {
+  // const myObject = document.getElementById('myObject');
+  const currentX = Math.round(gsap.getProperty(ghoul.value, 'x'));
+  console.log(currentX )
+
+  if (b1) {
+    b1.kill(); 
+  }  
+  if (b2) {
+    b2.kill(); 
+  }  
+  if (b5) {
+    b5.kill(); 
+  }  
+  b3 = gsap.timeline();   
+  b3.from(".familiar", {
+    // scale: 2.4,
+    transformOrigin: "bottom",
+    backgroundImage: 'url('+ghoulhitimg+')',
+    // x: randpos(), 
+    backgroundPosition: "0px",      
+    scaleX: ghouldirection.value
+  })
+  .to(".familiar",{
+    duration: 0.5,
+    // repeat:-1,
+    ease: "steps(3)",
+    backgroundPosition: "-186px",
+    // onComplete: 
+    onComplete: function () {
+      hitoff(currentX)
+     // hitkill()
+      // ghoulstay()
+      // ghoulmove(randpos)
+    }
+    // scaleX: bossdirection.value
+  }) 
+   // b2.add(b3);    
+}
+function  hitoff(val) {
+b3.kill(); 
+// ghoulstay()
+ 
+ghoulmove(val)
+}
+function ghostatic(val) {
+  if (b2) {
+    b2.kill(); 
+  }   
+  gsap.set(".familiar", {
+    // scale: 2.4,
+    transformOrigin: "bottom ",
+    backgroundImage: 'url('+ghoulstatic+')',
+    x: val, 
+    backgroundPosition: "0px",      
+    scaleX: ghouldirection.value
+  }); 
+  b2 = gsap.timeline();  
+  b2.to(".familiar",{
+    duration: 2,
+    // repeat:-1,    
+    // ease: "steps(8)",
+    // backgroundPosition: "-496px",
+    // scaleX: bossdirection.value
+    onComplete: function () {
+      // ghoulstay()
+      ghoulmove(val)
+    }
+  })     
+}
+
 function ghoulstay() {
   if (b2) {
     b2.kill(); 
@@ -113,6 +195,10 @@ function ghoulstay() {
 function famspawn() {
   var moveResult = randpos(); 
   // var moveResult = randpos(); 
+  gsap.set(".ghohpbar", {
+    x: moveResult, 
+    display: "block"
+  })
   gsap.set(".familiar", {
     // scale: 2.4,
     transformOrigin: "bottom ",
@@ -130,31 +216,9 @@ function famspawn() {
     backgroundPosition: "-620px",
     // scaleX: bossdirection.value
     onComplete: function () {
-      ghoulstay()
+      // ghoulstay()
       ghoulmove(moveResult)
     }
-  })     
-}
-function ghoulhit() {
-  if (b2) {
-    b2.kill(); 
-  }   
-  gsap.set(".familiar", {
-    scale: 2.4,
-    transformOrigin: "bottom ",
-    backgroundImage: 'url('+ghoulhitimg+')',
-    // x: randpos(), 
-    backgroundPosition: "0px",      
-    // scaleX: bossdirection.value
-  }); 
-  b2 = gsap.timeline();  
-  b2.to(".familiar",{
-    duration: 0.5,
-    // repeat:-1,    
-    ease: "steps(3)",
-    backgroundPosition: "-186px",
-    onComplete: ghoulstay
-    // scaleX: bossdirection.value
   })     
 }
 
@@ -211,7 +275,7 @@ onMounted(() => {
   nextTick(() => {
  
     function bossmove(val) {
-      console.log(val)
+      // console.log(val)
       // var b2 = gsap.timeline({ repeat: -1, onRepeat: updateRandomX  });  
       // function updateRandomX() {
         // console.log(val)
@@ -220,9 +284,9 @@ onMounted(() => {
       // }    
       var moveResult = randpos(); 
       if( val == "undefined"){
-          b1.kill()
+          b4.kill()
       }
-      console.log(val)
+      // console.log(val)
       function dur () {
         var res = (moveResult - val)/80
         return Math.abs(res)+2 
@@ -235,7 +299,8 @@ onMounted(() => {
         }
       }       
       bosdir();
-      gsap.to([".hpbar",".boss"],{
+      b4 = gsap.timeline();
+      b4.to([".hpbar",".boss"],{
         ease: "sine.inOut",
         // repeat:-1, 
         duration: dur,
@@ -385,6 +450,12 @@ function bossidle() {
 }*/
 .hpbar{
   width: 60px;
+}
+.ghohpbar{
+  bottom: 0;
+  display: none;
+  position: absolute;
+  width: 35px;
 }
 .info{
   position: absolute;
