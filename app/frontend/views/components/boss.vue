@@ -1,7 +1,7 @@
 <template>
   <div class="info"> 
     <!-- {{props.width}}  -->
-    <!-- <br>{{bossdirection}} --> 
+    <!-- <br>{{bossdirection}} --> {{familiarup}}
   </div>
  
   <div class="d-flex flex-column align-self-end mainframe" v-if="boss == true" > 
@@ -11,10 +11,10 @@
     <div ref="bossref" class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]" v-on:click="handler()" >
     </div>
 
-    <div ref="gho" class="ghohpbar pb-16" >
+    <div ref="gho" class="ghohpbar pb-16" v-if="familiarup == true">
       <v-progress-linear :model-value="hpghoul" color="success" v-if="hpghoul > 0"></v-progress-linear>
     </div>     
-    <div ref="ghoul" class="familiar mb-1" :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]"  v-on:click="handlerghoul()">
+    <div ref="ghoul" class="familiar mb-1" :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]"  v-on:click="handlerghoul()" v-if="familiarup == true">
  
     </div>
   </div>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
- 
+const familiarup = ref(null)
 const boss = ref(true)
 const familiar = ref(true)
 
@@ -193,33 +193,37 @@ function ghoulstay() {
   })     
 }
 function famspawn() {
-  var moveResult = randpos(); 
-  // var moveResult = randpos(); 
-  gsap.set(".ghohpbar", {
-    x: moveResult, 
-    display: "block"
-  })
-  gsap.set(".familiar", {
-    // scale: 2.4,
-    transformOrigin: "bottom ",
-    backgroundImage: 'url('+spawn+')',
-    x: moveResult, 
-    backgroundPosition: "0px",      
-    scaleX: bossdirection.value
-  }); 
-  ghoul.value = true
-  b2 = gsap.timeline();  
-  b2.to(".familiar",{
-    duration: 1,
-    // repeat:-1,    
-    ease: "steps(10)",
-    backgroundPosition: "-620px",
-    // scaleX: bossdirection.value
-    onComplete: function () {
-      // ghoulstay()
-      ghoulmove(moveResult)
-    }
-  })     
+  familiarup.value = true
+  nextTick(() => {
+    var moveResult = randpos(); 
+    // var moveResult = randpos(); 
+    gsap.set(".ghohpbar", {
+      x: moveResult, 
+      display: "block"
+    })
+
+    gsap.set(".familiar", {
+      // scale: 2.4,
+      transformOrigin: "bottom ",
+      backgroundImage: 'url('+spawn+')',
+      x: moveResult, 
+      backgroundPosition: "0px",      
+      scaleX: bossdirection.value
+    }); 
+
+    b2 = gsap.timeline();  
+    b2.to(".familiar",{
+      duration: 1,
+      // repeat:-1,    
+      ease: "steps(10)",
+      backgroundPosition: "-620px",
+      // scaleX: bossdirection.value
+      onComplete: function () {
+        // ghoulstay()
+        ghoulmove(moveResult)
+      }
+    })  
+  })   
 }
 
 function ghouldeath() {
