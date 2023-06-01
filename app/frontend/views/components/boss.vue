@@ -1,7 +1,7 @@
 <template>
   <div class="info"> 
     <!-- {{props.width}}  -->
-    <!-- <br>{{bossdirection}} --> {{familiarup}}
+    <!-- <br>{{bossdirection}} -->  
   </div>
  
   <div class="d-flex flex-column align-self-end mainframe" v-if="boss == true" > 
@@ -14,7 +14,7 @@
     <div ref="gho" class="ghohpbar pb-16" v-if="familiarup == true">
       <v-progress-linear :model-value="hpghoul" color="success" v-if="hpghoul > 0"></v-progress-linear>
     </div>     
-    <div ref="ghoul" class="familiar mb-1" :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]"  v-on:click="handlerghoul()" v-if="familiarup == true">
+    <div ref="ghoul" class="familiar " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]"  v-on:click="handlerghoul()" v-if="familiarup == true">
  
     </div>
   </div>
@@ -39,7 +39,7 @@ function handler(){
     bossdeath()
   }else{
     if (ready.value == true ) {
-      if (familiar.value == true){
+      if (familiar.value == true && familiarup.value != true){
         ghoul.value = true
         bosssummon()
         famspawn() 
@@ -326,8 +326,6 @@ onMounted(() => {
       bossstay();
       bossmove();     
     }
-
- 
     // var master = gsap.timeline();
     // master.add(bossstay()).add(bossmove()) 
   })
@@ -421,8 +419,6 @@ function bosshit() {
   })
 }
 
-
-
 function bossidle() {
   gsap.set(".boss", {
     scale: 2.4,
@@ -439,10 +435,6 @@ function bossidle() {
   })
 } 
 
-
-
-
-
 </script>
 
 <style scoped>
@@ -456,6 +448,8 @@ function bossidle() {
   width: 60px;
 }
 .ghohpbar{
+  right: 8px;
+  /*background-color: #dad;*/
   bottom: 0;
   display: none;
   position: absolute;
