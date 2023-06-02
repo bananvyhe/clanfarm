@@ -2,11 +2,14 @@
   <div class="d-flex "> 
 <!--     {{ls.get('account').signedIn}}
 {{ls.get('account').loa}} -->
-    <div v-if="store.tsignedIn == true">
+    <div v-if="store.tsignedIn == true" class="d-flex align-center">
       <v-btn
         color="primary"  
         @click="signOut">выйти
-      </v-btn>  
+      </v-btn> 
+ 
+      <div  v-for="(item, index) in cp" class="cp ml-1" v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}">
+      </div>
     </div>  
     <div v-if="store.tsignedIn == false"> 
  
@@ -25,6 +28,22 @@
 </template>
 
 <script setup lang="ts">
+const cp = ref(5)
+const avcp = ref(3)
+const coverp = ref(2)
+
+const getImageUrl = (number) => {
+  console.log(number)
+  if ((number+1) <= avcp.value) {
+    return greenimg;
+  } else {
+    return cpimg;
+  }
+};
+
+const greenimg = new URL("../images/cp/green.png", import.meta.url).href;
+const overcpimg = new URL("../images/cp/overcp.png", import.meta.url).href;
+const cpimg = new URL("../images/cp/cp.png", import.meta.url).href;
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()  
@@ -87,6 +106,10 @@ import ls from 'localstorage-slim';
 </script>
 
 <style scoped>
+.cp{
+  height: 8px;
+  width: 8px;
+}
 .inve{
   background-color: #dad;
   /*position: relative;*/
