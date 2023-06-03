@@ -6,10 +6,25 @@
       <v-btn
         color="primary"  
         @click="signOut">выйти
-      </v-btn> 
+      </v-btn>    
+      <div  class="d-flex flex-column">
+        <div class="interface px-1">{{lvl}}</div>
+        <div class="interface px-1 d-flex justify-end">к:{{karma}}</div>        
+      </div>   
+
+      <div class="d-flex flex-column">
  
-      <div  v-for="(item, index) in cp" class="cp ml-1" v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}">
-      </div>
+           <v-progress-linear :height="8" class="mb-1" :model-value="userhp" color="success" ></v-progress-linear>
+           <v-progress-linear :height="2" class="mb-1" :model-value="exp" color="success" ></v-progress-linear>
+
+ 
+        
+        <div class="d-flex flex-row-reverse pt-1">
+          <div v-for="(item, index) in cp" class="cp ml-1" v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}"></div>
+          </div>          
+        </div>
+
+
     </div>  
     <div v-if="store.tsignedIn == false"> 
  
@@ -28,6 +43,11 @@
 </template>
 
 <script setup lang="ts">
+  const karma = ref(0)
+const userhp = ref(80)
+const lvl = ref(13)
+const exp = ref(50)
+
 const cp = ref(5)
 const avcp = ref(3)
 const coverp = ref(2)

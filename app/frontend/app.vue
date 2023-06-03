@@ -141,7 +141,8 @@ watch(() => toBottom.value,
 )
 </script>
 
-<style scoped>
+<style scoped >
+ 
 .mmo {
   line-height: 1em;
 }
@@ -149,7 +150,8 @@ watch(() => toBottom.value,
   color: #65627d;
   }
   .wel{
-    color: #9694ab;
+    color:  $welgrey1;
+    /*color: #9694ab;*/
     line-height: 1em;
     /*margin-top: -8px;*/
     white-space: nowrap;
