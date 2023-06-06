@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-  const karma = ref(0)
+const karma = ref(0)
 const userhp = ref(80)
 const lvl = ref(13)
 const exp = ref(50)

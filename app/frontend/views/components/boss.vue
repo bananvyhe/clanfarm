@@ -5,6 +5,7 @@
   </div>
  
   <div class="d-flex flex-column align-self-end mainframe" v-if="boss == true" > 
+    <div class="hpbosspoints d-flex justify-center text-caption" v-if="hpbosspoints != 0">{{hpbosspoints}}</div> 
     <div class="hpbar pb-15" >
       <v-progress-linear :model-value="hpboss" color="success" v-if="hpboss > 0"></v-progress-linear>
     </div> 
@@ -31,6 +32,10 @@ let b5 =  null
 let b4 =  null 
 let b2 =  null 
 let b3 =  null 
+
+const hpbosspoints = ref(1240000)
+const hpghoulpoints = ref(124)
+
 const hpboss = ref(60)
 const hpghoul = ref(60)
 
@@ -304,7 +309,7 @@ onMounted(() => {
       }       
       bosdir();
       b4 = gsap.timeline();
-      b4.to([".hpbar",".boss"],{
+      b4.to([".hpbar",".boss",".hpbosspoints"],{
         ease: "sine.inOut",
         // repeat:-1, 
         duration: dur,
