@@ -7,9 +7,14 @@
         color="primary"  
         @click="signOut">выйти
       </v-btn>    
-      <div  class="d-flex flex-column">
-        <div class="interface px-1">{{lvl}}</div>
-        <div class="interface px-1 d-flex justify-end">к:{{karma}}</div>        
+      <div  class="d-flex flex-column align-self-start ">
+        <div class="interface px-1 d-flex align-self-end mt-1 ">{{lvl}}</div>
+        <div class="interface px-1 d-flex justify-end" style="color: red;" v-if="karma > 0">
+<!--           <div class="karma mx-1" v-bind:style="{backgroundImage: 'url('+ karmaimg}"> 
+          </div> -->
+          карма:
+          {{karma}}
+        </div>        
       </div>   
 
       <div class="d-flex flex-column">
@@ -60,7 +65,7 @@ const getImageUrl = (number) => {
     return cpimg;
   }
 };
-
+const karmaimg = new URL("../images/karma.png", import.meta.url).href;
 const greenimg = new URL("../images/cp/green.png", import.meta.url).href;
 const overcpimg = new URL("../images/cp/overcp.png", import.meta.url).href;
 const cpimg = new URL("../images/cp/cp.png", import.meta.url).href;
@@ -126,6 +131,11 @@ import ls from 'localstorage-slim';
 </script>
 
 <style scoped>
+.karma {
+  height: 19px;
+  width: 20px;
+
+}
 .cp{
   height: 8px;
   width: 8px;
