@@ -1,14 +1,13 @@
 <template>
   <div class="d-flex "> 
-<!--     {{ls.get('account').signedIn}}
-{{ls.get('account').loa}} -->
+ 
     <div v-if="store.tsignedIn == true" class="d-flex align-center">
       <v-btn
         color="primary"  
         @click="signOut">выйти
       </v-btn>    
       <div  class="d-flex flex-column align-self-start ">
-        <div class="interface px-1 d-flex align-self-end mt-1 ">{{lvl}}</div>
+        <div class="interface px-1 d-flex align-self-end ">{{lvl}}</div>
         <div class="interface px-1 d-flex justify-end" style="color: red;" v-if="karma > 0">
 <!--           <div class="karma mx-1" v-bind:style="{backgroundImage: 'url('+ karmaimg}"> 
           </div> -->
@@ -17,22 +16,20 @@
         </div>        
       </div>   
 
-      <div class="d-flex flex-column">
+      <div class="d-flex flex-column bars">
  
-           <v-progress-linear :height="8" class="mb-1" :model-value="userhp" color="success" ></v-progress-linear>
-           <v-progress-linear :height="2" class="mb-1" :model-value="exp" color="success" ></v-progress-linear>
-
- 
-        
-        <div class="d-flex flex-row-reverse pt-1">
-          <div v-for="(item, index) in cp" class="cp ml-1" v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}"></div>
+        <v-progress-linear :height="6" class="mb-1" :model-value="userhp" color="success" ></v-progress-linear>
+        <v-progress-linear :height="2" class="mb-1" :model-value="exp" color="secondary"  >
+         
+        </v-progress-linear>
+        <div class="interface " style="font-size: 0.8em"  >{{ Math.ceil(exp) }}%</div>
+        <div class="d-flex flex-row-reverse ">
+          <div v-for="(item, index) in cp" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}"></div>
           </div>          
         </div>
+      </div>  
 
-
-    </div>  
     <div v-if="store.tsignedIn == false"> 
- 
       <signup></signup>
       <signin></signin>
     </div>
@@ -131,6 +128,9 @@ import ls from 'localstorage-slim';
 </script>
 
 <style scoped>
+.bars {
+  width: 120px;
+}
 .karma {
   height: 19px;
   width: 20px;
