@@ -141,8 +141,8 @@ watch(() => toBottom.value,
 )
 </script>
 
-<style scoped >
- 
+<style scoped  lang="scss" >
+ @import './src/global.scss';
 .mmo {
   line-height: 1em;
 }
@@ -150,7 +150,7 @@ watch(() => toBottom.value,
   color: #65627d;
   }
   .wel{
-    color:  $welgrey1;
+    color: $welgrey1;
     /*color: #9694ab;*/
     line-height: 1em;
     /*margin-top: -8px;*/

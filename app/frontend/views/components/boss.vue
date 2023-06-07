@@ -34,7 +34,7 @@ let b4 =  null
 let b2 =  null 
 let b3 =  null 
 
-const hpbosspoints = ref(1240000)
+const hpbosspoints = ref(1320500)
 const hpghoulpoints = ref(124)
 
 
