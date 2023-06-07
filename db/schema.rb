@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_27_093909) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_07_150315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,6 +32,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_27_093909) do
     t.string "pic"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "mob_users", force: :cascade do |t|
+    t.boolean "death"
+    t.integer "damagedeal", default: 0
+    t.bigint "mob_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mob_id"], name: "index_mob_users_on_mob_id"
+    t.index ["user_id"], name: "index_mob_users_on_user_id"
   end
 
   create_table "mobs", force: :cascade do |t|
@@ -82,6 +93,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_27_093909) do
 
   add_foreign_key "dropitems", "listitems"
   add_foreign_key "dropitems", "mobs"
+  add_foreign_key "mob_users", "mobs"
+  add_foreign_key "mob_users", "users"
   add_foreign_key "my_items", "listitems"
   add_foreign_key "my_items", "users"
 end
