@@ -12,7 +12,8 @@
     <div ref="bossref" class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]" v-on:click="handler()" >
     </div>
 
-    <div ref="gho" class="ghohpbar pb-16" v-if="familiarup == true">
+    
+    <div ref="gho" class="ghohpbar pb-16" v-if="familiarup == true"><div class="hpghoulpoints d-flex justify-center text-caption" v-if="hpghoulpoints != 0">{{hpghoulpoints}}</div> 
       <v-progress-linear :model-value="hpghoul" color="success" v-if="hpghoul > 0"></v-progress-linear>
     </div>     
     <div ref="ghoul" class="familiar " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]"  v-on:click="handlerghoul()" v-if="familiarup == true">
@@ -35,6 +36,7 @@ let b3 =  null
 
 const hpbosspoints = ref(1240000)
 const hpghoulpoints = ref(124)
+
 
 const hpboss = ref(60)
 const hpghoul = ref(60)
@@ -89,7 +91,7 @@ function ghoulmove(val) {
   }       
   ghodir();
   b5 = gsap.timeline();  
-  b5.to([ ".familiar", ".ghohpbar"],{
+  b5.to([ ".familiar", ".ghohpbar", "hpghoulpoints"],{
     ease: "none",
     // repeat:-1, 
     duration: dur,
