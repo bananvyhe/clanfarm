@@ -46,6 +46,21 @@ function handler(){
     bossdeath()
   }else{
     if (ready.value == true ) {
+
+      secured
+      .post('/hitboss')
+        .then(meResponse => {
+          console.log(meResponse.data)
+          // store.setCurrentUser(meResponse.data, response.data.csrf)
+          // this.error = ''
+          // this.$router.replace('/')
+        })
+        .catch(error => console.log(error))
+      // this.$router.replace('/')        
+     
+
+
+
       if (familiar.value == true && familiarup.value != true){
         ghoul.value = true
         bosssummon()
