@@ -101,7 +101,6 @@
 
     function signinSuccessful (response) {
       notify({ title: "Успешная авторизация", type: 'success'});
-      router.push({ name: "lobby" });
       store.unsetLoa()
       if (!response.data.csrf) {
         signupFailed(response)
@@ -115,6 +114,7 @@
           store.setCurrentUser(meResponse.data, response.data.csrf)
           // this.error = ''
           // this.$router.replace('/')
+          router.push({ name: "lobby" });
         })
         .catch(error => console.log(error))
       // this.$router.replace('/')        

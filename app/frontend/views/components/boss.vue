@@ -24,6 +24,23 @@
 </template>
 
 <script setup lang="ts">
+import { useLogStore } from '../../store.js'
+const store = useLogStore()
+onMounted(() => {
+ 
+    console.log(store.tctsrf)
+
+  
+  // secured
+  // .post('/user/ghoulstat')
+  //   .then(response => {
+  //     console.log(response.data)
+  //     // store.setCurrentUser(meResponse.data, response.data.csrf)
+  //     // this.error = ''
+  //     // this.$router.replace('/')
+  //   })
+  //   .catch(error => console.log(error))
+})
 const familiarup = ref(null)
 const boss = ref(true)
 const familiar = ref(true)
@@ -49,14 +66,14 @@ function handler(){
 
       secured
       .post('/hitboss')
-        .then(meResponse => {
-          console.log(meResponse.data)
+        .then(response => {
+          console.log(response.data)
           // store.setCurrentUser(meResponse.data, response.data.csrf)
           // this.error = ''
           // this.$router.replace('/')
         })
         .catch(error => console.log(error))
-      // this.$router.replace('/')        
+      
      
 
 

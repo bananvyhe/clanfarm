@@ -130,7 +130,6 @@
 
   function signupSuccessful (response) {
     notify({ title: "Успешная регистрация", type: 'success'});
-    router.push({ name: "lobby" });
     store.unsetLoa()
     secured
     .get('/me')
@@ -139,6 +138,7 @@
         store.setCurrentUser(meResponse.data, response.data.csrf)
         // this.error = ''
         // this.$router.replace('/')
+        router.push({ name: "lobby" });
       })
       .catch(error => console.log(error))
     // this.$router.replace('/')
