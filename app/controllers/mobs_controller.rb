@@ -15,17 +15,16 @@ class MobsController < ApplicationController
 		if @gho.damagedeal.to_i > @gho.hp.to_i
 			@gho.damagedeal = 0
 			@gho.death = true
-			min = 2
-			max = 5
+			min = (@gho.mob.loa.to_i * 0.7).round
+			max = (@gho.mob.loa.to_i * 1.3).round
 			loa = rand(min..max)
 			loa = loa.round
 			loa = loa.to_i	
-			 
 		end
 
 		@gho.save
-response = @gho.as_json
-response['loa'] = loa
+		response = @gho.as_json
+		response['loa'] = loa
 
 		 
 		# puts @gho.inspect
