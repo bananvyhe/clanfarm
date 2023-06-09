@@ -8,14 +8,28 @@ class MobsController < ApplicationController
 		puts hit
 		@gho = MobUser.where('user_id = ?', payload['user_id'])
 	      .joins(:mob).where('name = ?', 'ghoul' )
-	      .select('mob_id', 'id', "user_id",'damagedeal', 'mobs.name')
+	      .select('mob_id', 'id', "user_id",'damagedeal', 'mobs.name', 'mobs.hp','mobs.loa', 'death')
 	      .first
-
+ 
 		@gho.damagedeal += hit
-		@gho.save
-		# puts @gho.inspect
+		if @gho.damagedeal.to_i > @gho.hp.to_i
+			@gho.damagedeal = 0
+			@gho.death = true
+			min = 2
+			max = 5
+			loa = rand(min..max)
+			loa = loa.round
+			loa = loa.to_i	
+			 
+		end
 
-		render json: @gho
+		@gho.save
+response = @gho.as_json
+response['loa'] = loa
+
+		 
+		# puts @gho.inspect
+		render json: response
 	end
 
 	def hitboss
