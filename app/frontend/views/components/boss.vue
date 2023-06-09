@@ -26,19 +26,6 @@
 <script setup lang="ts">
 import { useLogStore } from '../../store.js'
 const store = useLogStore()
-onMounted(() => {
-  // console.log(store.tctsrf)
-
-  secured
-  .post('/user/ghoulstat')
-    .then(response => {
-      console.log(response.data)
-      // store.setCurrentUser(meResponse.data, response.data.csrf)
-      // this.error = ''
-      // this.$router.replace('/')
-    })
-    .catch(error => console.log(error))
-})
 const familiarup = ref(null)
 const boss = ref(true)
 const familiar = ref(true)
@@ -54,7 +41,29 @@ const hpghoulpoints = ref(124)
 
 
 const hpboss = ref(60)
-const hpghoul = ref(60)
+const hpghoul = ref(100)
+onMounted(() => {
+  // console.log(store.tctsrf)
+
+  secured
+  .post('/user/ghoulstat')
+    .then(response => {
+      console.log(response.data)
+      hpghoulpoints.value = response.data.fullhp - response.data.hpweak
+
+      if (response.data.death == false && response.data.hpweak != 0 ){
+        var percentcut = hpghoulpoints.value * 100 / response.data.fullhp
+         
+        hpghoul.value = percentcut
+        famspawn()
+      }
+      // store.setCurrentUser(meResponse.data, response.data.csrf)
+      // this.error = ''
+      // this.$router.replace('/')
+    })
+    .catch(error => console.log(error))
+})
+
 
 function handler(){
   if (hpboss.value <= 0){
@@ -71,10 +80,6 @@ function handler(){
           // this.$router.replace('/')
         })
         .catch(error => console.log(error))
-      
-     
-
-
 
       if (familiar.value == true && familiarup.value != true){
         ghoul.value = true

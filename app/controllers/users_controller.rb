@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 		rel = userfind.mob_users.includes(:mob).all
 		@hashdata = {}
 		rel.each do |relation|
-			hashadd  = {death: relation.death, hpweak: relation.damagedeal, mobname: relation.mob.name, fullhp: relation.mob.hp, loa: relation.mob.loa }
+			hashadd  = {death: relation.death, hpweak: relation.damagedeal, mobname: relation.mob.name, fullhp: relation.mob.hp}
 			@hashdata.merge!(hashadd)
 		end
     render json: @hashdata
