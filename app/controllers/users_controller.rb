@@ -4,20 +4,22 @@ class UsersController < ApplicationController
 
 	def ghoulstat
 		puts "ghoulstat"
-		# userfind = User.find(payload['user_id'])
-		# ghoulstat = Mob.find_by!(name: "ghoul")
-		# if userfind.mobs.include?(ghoulstat)
-		#   ghoul = true 
-		# else
-		#   ghoul = userfind.ghoulstats << ghoulstat
-
-		#   puts "A connection has been created between the user and the object."
-		# end		
-  #   # combined_object = {
-  #   #   userfind: @userfind,
-  #   #   ghoulstat: @ghoulstat
-  #   # }
-  #   render json: ghoul
+		userfind = User.find(payload['user_id'])
+		ghoulstat = Mob.find_by!(name: "ghoul")
+		#проверка на наличие ада, если нет то создаем
+		if userfind.mobs.include?(ghoulstat)
+		  ghoul = ghoulstat
+		else
+		  userfind.mobs << ghoulstat
+		  ghoul = ghoulstat
+		end		
+		rel = userfind.mob_users.includes(:mob).all
+		@hashdata = {}
+		rel.each do |relation|
+			hashadd  = {death: relation.death, hpweak: relation.damagedeal, mobname: relation.mob.name, fullhp: relation.mob.hp, loa: relation.mob.loa }
+			@hashdata.merge!(hashadd)
+		end
+    render json: @hashdata
 	end	
 
   def me
