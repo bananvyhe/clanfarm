@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get '/lobby', to: 'welcome#index' 
   post '/hitboss', to: 'mobs#hitboss' 
   post '/user/ghoulstat', to: 'users#ghoulstat' 
+  post '/hitghoul', to: 'mobs#hitghoul' 
 
   require "sidekiq/web"
   Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]

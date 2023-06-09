@@ -99,6 +99,16 @@ function handlerghoul() {
   }else{
     if (ready.value == true ) {
       ghoulhit()
+  secured
+  .post('/hitghoul')
+    .then(response => {
+      console.log(response.data)
+   
+      // store.setCurrentUser(meResponse.data, response.data.csrf)
+      // this.error = ''
+      // this.$router.replace('/')
+    })
+    .catch(error => console.log(error))      
     }
   }
 }
