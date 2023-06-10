@@ -120,23 +120,29 @@ class MyItemsController < ApplicationController
   	# @items = Listitem.find(4)
   	render json: @@drop
   end
-  
+   include LoaCalculator 
   def incloareg
-    loain = params[:loa].to_i
-    @loa = User.find(payload['user_id'])
-    @loa.loa += loain
-    puts @loa.loa
-    @loa.save
-    render json: @loa
+    loain = params[:loa]
+    @loa = calculate_loa_inc(loain)
+    render json: @loa  
+    # loain = params[:loa].to_i
+    # @loa = User.find(payload['user_id'])
+    # @loa.loa += loain
+    # puts @loa.loa
+    # @loa.save
+    # render json: @loa
   end
 
   def decloareg
-    loain = params[:loa].to_i
-    @loa = User.find(payload['user_id'])
-    @loa.loa -= loain
-    puts @loa.loa
-    @loa.save
-    render json: @loa
+    loain = params[:loa]
+    @loa = calculate_loa_dec(loain)
+    render json: @loa      
+    # loain = params[:loa].to_i
+    # @loa = User.find(payload['user_id'])
+    # @loa.loa -= loain
+    # puts @loa.loa
+    # @loa.save
+    # render json: @loa
   end
 
 	private
