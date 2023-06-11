@@ -14,6 +14,7 @@ export const useLogStore = defineStore(
     const tpumpkdead = computed(() => pumpkdead.value)
 
     function upinv(val) {
+      console.log("upinv")
       console.log(val)
  
         const itemIndex = inventory.value.findIndex(item => item.listid === val.id);  
@@ -22,7 +23,8 @@ export const useLogStore = defineStore(
           inventory.value.push(newItem);   
           // }       
         } else {
-          // inventory.value[itemIndex] = {...inventory.value[itemIndex], qty: inventory.value[itemIndex].qty + 1};
+          // console.log(itemIndex)
+          inventory.value[itemIndex] = {...inventory.value[itemIndex], qty: inventory.value[itemIndex].qty + 1};
         // const newArray = inventory.value.map(item => {
         //   console.log("inventory.value.map")
         //   if (item.listid === val.listitem.id) {

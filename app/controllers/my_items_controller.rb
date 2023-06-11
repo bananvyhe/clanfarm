@@ -2,7 +2,7 @@ class MyItemsController < ApplicationController
 	skip_before_action :verify_authenticity_token
 	before_action :authorize_access_request!, only: [:index, :incloareg, :decloareg, :pickdrop, :menuget, :move]
 	before_action :set_my_item, only: [ :show, :edit, :update, :destroy, :move]
- 
+  include LoaCalculator 
 
 
 
@@ -86,6 +86,7 @@ class MyItemsController < ApplicationController
   				@invfind.qty += 1 
   				# puts @invfind.inspect 
   				@invfind.save
+          render json: params
   				# puts item
   				# puts "item already exist"
   			end
@@ -104,7 +105,7 @@ class MyItemsController < ApplicationController
   	# @items.inspect
   	@@drop = []
 		@items.each do |item| 
-		  puts item.listitem.inspect
+		  # puts item.listitem.inspect
 		  rate = item.listitem.rate
 		  puts rate
 		  allchance = 100/rate
@@ -120,29 +121,17 @@ class MyItemsController < ApplicationController
   	# @items = Listitem.find(4)
   	render json: @@drop
   end
-   include LoaCalculator 
+
   def incloareg
     loain = params[:loa]
     @loa = calculate_loa_inc(loain)
     render json: @loa  
-    # loain = params[:loa].to_i
-    # @loa = User.find(payload['user_id'])
-    # @loa.loa += loain
-    # puts @loa.loa
-    # @loa.save
-    # render json: @loa
   end
 
   def decloareg
     loain = params[:loa]
     @loa = calculate_loa_dec(loain)
     render json: @loa      
-    # loain = params[:loa].to_i
-    # @loa = User.find(payload['user_id'])
-    # @loa.loa -= loain
-    # puts @loa.loa
-    # @loa.save
-    # render json: @loa
   end
 
 	private
