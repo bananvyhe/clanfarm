@@ -25,7 +25,7 @@ class MobsController < ApplicationController
 		@gho.save
 		response = @gho.as_json
 		response['loa'] = loa
-
+		response['hit'] = hit
 		 
 		# puts @gho.inspect
 		render json: response

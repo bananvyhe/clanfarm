@@ -126,7 +126,7 @@ function pickdrop(val){
     secured
     .post('/my_items/pickdrop',{id: val})
     .then(response => { 
-      console.log(response.data)
+      // console.log(response.data)
 
       store.upinv(response.data)
       const newArray = drop.value.filter(item => item.id !== val);

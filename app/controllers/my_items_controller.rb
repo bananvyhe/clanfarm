@@ -122,17 +122,17 @@ class MyItemsController < ApplicationController
   	render json: @@drop
   end
 
-  def incloareg
-    loain = params[:loa]
-    @loa = calculate_loa_inc(loain)
-    render json: @loa  
-  end
+  # def incloareg
+  #   loain = params[:loa]
+  #   @loa = calculate_loa_inc(loain)
+  #   render json: @loa  
+  # end
 
-  def decloareg
-    loain = params[:loa]
-    @loa = calculate_loa_dec(loain)
-    render json: @loa      
-  end
+  # def decloareg
+  #   loain = params[:loa]
+  #   @loa = calculate_loa_dec(loain)
+  #   render json: @loa      
+  # end
 
 	private
   def set_my_item

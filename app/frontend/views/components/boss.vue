@@ -53,8 +53,9 @@ onMounted(() => {
 
       if (response.data.death == false && response.data.hpweak != 0 ){
         var percentcut = hpghoulpoints.value * 100 / response.data.fullhp
-         
         hpghoul.value = percentcut
+
+
         famspawn()
       }
       // store.setCurrentUser(meResponse.data, response.data.csrf)
@@ -63,7 +64,31 @@ onMounted(() => {
     })
     .catch(error => console.log(error))
 })
-
+function handlerghoul() {
+  if (hpghoul.value <= 0){
+    ghouldeath()
+  }else{
+    if (ready.value == true ) {
+      ghoulhit()
+  secured
+  .post('/hitghoul')
+    .then(response => {
+      console.log(response.data)
+      hpghoulpoints.value -= response.data.hit
+      var percentcut = hpghoulpoints.value * 100 / response.data.hp
+      hpghoul.value = percentcut
+      
+      if (response.data.damagedeal >= response.data.hp){
+        console.log('dead')
+      }
+      // store.setCurrentUser(meResponse.data, response.data.csrf)
+      // this.error = ''
+      // this.$router.replace('/')
+    })
+    .catch(error => console.log(error))      
+    }
+  }
+}
 
 function handler(){
   if (hpboss.value <= 0){
@@ -93,25 +118,7 @@ function handler(){
     }    
   }
 }
-function handlerghoul() {
-  if (hpghoul.value <= 0){
-    ghouldeath()
-  }else{
-    if (ready.value == true ) {
-      ghoulhit()
-  secured
-  .post('/hitghoul')
-    .then(response => {
-      console.log(response.data)
-   
-      // store.setCurrentUser(meResponse.data, response.data.csrf)
-      // this.error = ''
-      // this.$router.replace('/')
-    })
-    .catch(error => console.log(error))      
-    }
-  }
-}
+
 
 const ghouldirection = ref(2.4)
 watch(ghouldirection, () => {
