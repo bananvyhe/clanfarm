@@ -2,6 +2,7 @@
   <div class="info"> 
     <!-- {{props.width}}  -->
     <!-- <br>{{bossdirection}} -->  
+    {{familiarup}}
   </div>
  
   <div class="d-flex flex-column align-self-end mainframe" v-if="boss == true" > 
@@ -27,7 +28,7 @@
 <script setup lang="ts">
 import { useLogStore } from '../../store.js'
 const store = useLogStore()
-const familiarup = ref(null)
+const familiarup = ref(false)
 const boss = ref(true)
 const familiar = ref(true)
 
@@ -101,12 +102,12 @@ function handler(){
       .post('/hitboss')
         .then(response => {
           console.log(response.data)
-          familiarup.value = response.data.death
+          // familiarup.value = response.data.death
           console.log( response.data.death)
           // store.setCurrentUser(meResponse.data, response.data.csrf)
           // this.error = ''
           // this.$router.replace('/')
-          if (familiar.value == true && familiarup.value != true && response.data.death == false){
+          if (familiar.value == true && familiarup.value == false && response.data.death == false){
             hpghoulpoints.value = response.data.ghohp
             hpghoul.value = 100
             ghoul.value = true
@@ -180,6 +181,9 @@ function ghoulhit() {
   }  
   if (b5) {
     b5.kill(); 
+  }
+  if (b3) {
+    b3.kill(); 
   }  
   b3 = gsap.timeline();   
   b3.from(".familiar", {
@@ -326,14 +330,13 @@ function ghouldeath() {
     }    
     // scaleX: bossdirection.value
   })  
-  function end(){
- 
+  function end(){ 
     familiarup.value = false   
-    b2.kill() 
-    console.log("end")
+    twooff() 
   }  
   function twooff() {  
-   
+    b2.kill() 
+    console.log("end")
   }      
 }
 const props = defineProps(['width'])
