@@ -12,8 +12,8 @@ class MobsController < ApplicationController
 	      .first
  
 		@gho.damagedeal += hit
-		if @gho.damagedeal.to_i > @gho.hp.to_i
-			@gho.damagedeal = 0
+		if @gho.damagedeal.to_i >= @gho.hp.to_i
+			@gho.damagedeal = @gho.mob.hp
 			@gho.death = true
 			min = (@gho.mob.loa.to_i * 0.7).round
 			max = (@gho.mob.loa.to_i * 1.3).round
@@ -33,7 +33,14 @@ class MobsController < ApplicationController
 
 	def hitboss
 		@bosshit = Mob.find_by!(name: "boss")
-		 
-		render json: @bosshit
+		#проверка на жив ли моб
+		@ghochek = MobUser.where('user_id = ?', payload['user_id'])
+	      .joins(:mob).where('name = ?', 'ghoul' )
+	      .select( 'death', 'mob_id')
+	      .first
+		response =  @bosshit.as_json
+		response['death'] = @ghochek.death
+		response['ghohp'] = @ghochek.mob.hp
+		render json: response
 	end
 end

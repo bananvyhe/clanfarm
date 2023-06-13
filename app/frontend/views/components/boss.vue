@@ -13,8 +13,9 @@
     </div>
 
     
-    <div ref="gho" class="ghohpbar pb-16" v-if="familiarup == true"><div class="hpghoulpoints d-flex justify-center text-caption" v-if="hpghoulpoints != 0">{{hpghoulpoints}}</div> 
-      <v-progress-linear :model-value="hpghoul" color="success" v-if="hpghoul > 0"></v-progress-linear>
+    <div ref="gho" class="ghohpbar pb-16" v-if="hpghoulpoints > 0">
+      <div class="hpghoulpoints d-flex justify-center text-caption" >{{hpghoulpoints}}</div> 
+      <v-progress-linear :model-value="hpghoul" color="success" ></v-progress-linear>
     </div>     
     <div ref="ghoul" class="familiar " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]"  v-on:click="handlerghoul()" v-if="familiarup == true">
  
@@ -49,13 +50,14 @@ onMounted(() => {
   .post('/user/ghoulstat')
     .then(response => {
       console.log(response.data)
+      if (response.data.death == true){
+        familiarup.value = false
+      }
       hpghoulpoints.value = response.data.fullhp - response.data.hpweak
 
       if (response.data.death == false && response.data.hpweak != 0 ){
         var percentcut = hpghoulpoints.value * 100 / response.data.fullhp
-        hpghoul.value = percentcut
-
-
+        hpghoul.value = percentcut 
         famspawn()
       }
       // store.setCurrentUser(meResponse.data, response.data.csrf)
@@ -65,29 +67,28 @@ onMounted(() => {
     .catch(error => console.log(error))
 })
 function handlerghoul() {
-  if (hpghoul.value <= 0){
-    ghouldeath()
-  }else{
-    if (ready.value == true ) {
-      ghoulhit()
-  secured
-  .post('/hitghoul')
+ 
+  if (ready.value == true ) {
+    ghoulhit()
+    secured
+    .post('/hitghoul')
     .then(response => {
       console.log(response.data)
-      hpghoulpoints.value -= response.data.hit
+      var sum = response.data.hp - response.data.damagedeal
+      hpghoulpoints.value = sum
       var percentcut = hpghoulpoints.value * 100 / response.data.hp
       hpghoul.value = percentcut
-      
-      if (response.data.damagedeal >= response.data.hp){
+
+      if (response.data.death == true){
         console.log('dead')
+        ghouldeath()
       }
       // store.setCurrentUser(meResponse.data, response.data.csrf)
       // this.error = ''
       // this.$router.replace('/')
     })
-    .catch(error => console.log(error))      
-    }
-  }
+  .catch(error => console.log(error))      
+  } 
 }
 
 function handler(){
@@ -100,20 +101,27 @@ function handler(){
       .post('/hitboss')
         .then(response => {
           console.log(response.data)
+          familiarup.value = response.data.death
+          console.log( response.data.death)
           // store.setCurrentUser(meResponse.data, response.data.csrf)
           // this.error = ''
           // this.$router.replace('/')
+          if (familiar.value == true && familiarup.value != true && response.data.death == false){
+            hpghoulpoints.value = response.data.ghohp
+            hpghoul.value = 100
+            ghoul.value = true
+            bosssummon()
+            nextTick(() => {
+              famspawn() 
+            })
+            // ghoulstay()
+          }else{
+            bosshit()
+          }          
         })
         .catch(error => console.log(error))
 
-      if (familiar.value == true && familiarup.value != true){
-        ghoul.value = true
-        bosssummon()
-        famspawn() 
-        // ghoulstay()
-      }else{
-        bosshit()
-      }
+
       start()
     }    
   }
@@ -286,8 +294,17 @@ function famspawn() {
 }
 
 function ghouldeath() {
+  if (b1) {
+    b1.kill(); 
+  }  
   if (b2) {
     b2.kill(); 
+  }  
+  if (b3) {
+    b3.kill(); 
+  }  
+  if (b5) {
+    b5.kill(); 
   }   
   gsap.set(".familiar", {
     scale: 2.4,
@@ -300,11 +317,24 @@ function ghouldeath() {
   b2 = gsap.timeline();  
   b2.to(".familiar",{
     duration: 1.4,
-    repeat:-1,    
+    // repeat:-1,    
     ease: "steps(7)",
     backgroundPosition: "-434px",
+    onComplete: function () {
+      // ghoulstay()
+      end()
+    }    
     // scaleX: bossdirection.value
-  })     
+  })  
+  function end(){
+ 
+    familiarup.value = false   
+    b2.kill() 
+    console.log("end")
+  }  
+  function twooff() {  
+   
+  }      
 }
 const props = defineProps(['width'])
 import { gsap } from "gsap";
