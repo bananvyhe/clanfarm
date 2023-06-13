@@ -26,6 +26,9 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed, inject, nextTick, watch } from 'vue';
+import { promiseTimeout, useTimeout} from '@vueuse/core'
+const { ready, start } = useTimeout(1000, { controls: true })
 import { useLogStore } from '../../store.js'
 const store = useLogStore()
 const familiarup = ref(false)
@@ -88,7 +91,8 @@ function handlerghoul() {
       // this.error = ''
       // this.$router.replace('/')
     })
-  .catch(error => console.log(error))      
+  .catch(error => console.log(error))
+  start()
   } 
 }
 
@@ -120,9 +124,7 @@ function handler(){
             bosshit()
           }          
         })
-        .catch(error => console.log(error))
-
-
+        .catch(error => console.log(error)) 
       start()
     }    
   }
@@ -185,8 +187,8 @@ function ghoulhit() {
   if (b3) {
     b3.kill(); 
   }  
-  b3 = gsap.timeline();   
-  b3.from(".familiar", {
+  // b3 = gsap.timeline();   
+  gsap.set(".familiar", {
     // scale: 2.4,
     transformOrigin: "bottom",
     backgroundImage: 'url('+ghoulhitimg+')',
@@ -194,7 +196,8 @@ function ghoulhit() {
     backgroundPosition: "0px",      
     scaleX: ghouldirection.value
   })
-  .to(".familiar",{
+  b3 = gsap.timeline();  
+  b3.to(".familiar",{
     duration: 0.5,
     // repeat:-1,
     ease: "steps(3)",
@@ -311,16 +314,16 @@ function ghouldeath() {
     b5.kill(); 
   }   
   gsap.set(".familiar", {
-    scale: 2.4,
+    // scale: 2.4,
     transformOrigin: "bottom ",
     backgroundImage: 'url('+ghouldead+')',
     // x: moveResult, 
     backgroundPosition: "0px",      
-    // scaleX: bossdirection.value
+    scaleX: bossdirection.value
   }); 
   b2 = gsap.timeline();  
   b2.to(".familiar",{
-    duration: 1.4,
+    duration: 0.8,
     // repeat:-1,    
     ease: "steps(7)",
     backgroundPosition: "-434px",
@@ -352,9 +355,7 @@ const move = new URL("../images/sprites/monsters/summoner/move.png", import.meta
 const hit = new URL("../images/sprites/monsters/summoner/hit.png", import.meta.url).href;
 const death = new URL("../images/sprites/monsters/summoner/death.png", import.meta.url).href;
 const summon = new URL("../images/sprites/monsters/summoner/summon.png", import.meta.url).href;
-import { ref, computed, inject, nextTick, watch } from 'vue';
-import { promiseTimeout, useTimeout} from '@vueuse/core'
-const { ready, start } = useTimeout(1000, { controls: true })
+
 // const el = ref(null)
 // const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
 const repDelay = ref()
