@@ -4,7 +4,7 @@ class Mob < ApplicationRecord
 	has_many :mob_users
 	has_many :users, through: :mob_users
 	def hitcalcul(dmg, lvl )
- 		hit = ((((dmg * (lvl.to_f / 5))) * (rand(0.08..0.12)) + 0.3) * 10).to_i
+ 		hit = ((((dmg * (lvl.to_f / 10))) * (rand(0.08..0.12)) + 0.3) * 10).to_i
 		puts hit
 		return hit
 	end

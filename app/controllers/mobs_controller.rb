@@ -4,7 +4,7 @@ class MobsController < ApplicationController
 	def hitghoul
 		# hitghoul = Mob.find_by!(name: "ghoul")
 		mob = Mob.new
-		hit = mob.hitcalcul(110, 1)
+		hit = mob.hitcalcul(150, 1)
 		puts hit
 		@gho = MobUser.where('user_id = ?', payload['user_id'])
 	      .joins(:mob).where('name = ?', 'ghoul' )
@@ -21,11 +21,18 @@ class MobsController < ApplicationController
 			loa = loa.round
 			loa = loa.to_i	
 
-
+			exp = calculate_experience(@gho.mob.hp.to_i)	
+			# puts exp
+			userfind = User.find(payload['user_id'])
+			userfind.expirience += exp
+			userfind.save
 		end
 
 		@gho.save
 		response = @gho.as_json
+		if  exp
+			response['exp'] = exp
+		end
 		response['loa'] = loa
 		response['hit'] = hit
 		 
@@ -43,10 +50,6 @@ class MobsController < ApplicationController
 	end
 
 	def hitboss
-
-		exp = calculate_experience(780  )
-		puts exp
-
 		@bosshit = Mob.find_by!(name: "boss")
 		#проверка на жив ли моб
 		@ghochek = MobUser.where('user_id = ?', payload['user_id'])
