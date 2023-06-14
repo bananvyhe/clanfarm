@@ -20,6 +20,8 @@ class MobsController < ApplicationController
 			loa = rand(min..max)
 			loa = loa.round
 			loa = loa.to_i	
+
+
 		end
 
 		@gho.save
@@ -31,7 +33,20 @@ class MobsController < ApplicationController
 		render json: response
 	end
 
+	def calculate_experience(health)
+	  min_health = 100 
+	  max_health = 5_000_000 
+	  min_experience = 50 
+	  max_experience = 100_000 
+	  
+	  scaled_experience = min_experience + (health - min_health) * (max_experience - min_experience) / (max_health - min_health)
+	end
+
 	def hitboss
+
+		exp = calculate_experience(780  )
+		puts exp
+
 		@bosshit = Mob.find_by!(name: "boss")
 		#проверка на жив ли моб
 		@ghochek = MobUser.where('user_id = ?', payload['user_id'])
