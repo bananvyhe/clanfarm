@@ -22,7 +22,7 @@
         <v-progress-linear :height="2" class="mb-1" :model-value="exp" color="secondary"  >
          
         </v-progress-linear>
-        <div class="interface " style="font-size: 0.8em"  >{{ Math.ceil(exp) }}%</div>
+        <div class="interface " style="font-size: 0.8em"  >{{ (exp) }}%</div>
         <div class="d-flex flex-row-reverse ">
           <div v-for="(item, index) in cp" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}"></div>
           </div>          
@@ -91,7 +91,7 @@ onMounted(() => {
       const level = levelInfo[0];
       const progress = levelInfo[1];
       lvl.value = level
-      exp.value = progress
+      exp.value = progress.toFixed(2)
 
       // console.log("Player Experience:", playerExperience);
       console.log("Player Level:", level);
