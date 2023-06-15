@@ -2,6 +2,7 @@
   <div class="d-flex "> 
  
     <div v-if="store.tsignedIn == true" class="d-flex align-center">
+      {{store.texpirience}} 
       <v-btn
         color="primary"  
         @click="signOut">выйти

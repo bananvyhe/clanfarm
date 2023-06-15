@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 	end	
 
   def me
-    render json: current_user.as_json(only: [:id, :email, :role, :loa])
+    render json: current_user.as_json(only: [:id, :email, :role, :loa, :expirience, :health, :cpoints, :avcpoints, :karma, :cry, :pk, :dead ])
   end	
 
 	def deluser

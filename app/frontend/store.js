@@ -83,21 +83,23 @@ export const useLogStore = defineStore(
     const trole = computed(() => role.value)
     const email = ref(ls.get('email'))
     const temail = computed(() => email.value)
-      // ls.set("data", {superman: "Clark Kent", power: 100})
-      // ls.set("data.power", 150);
-
+    const expirience = ref(ls.get('account').expirience)
+    const texpirience = computed(() => expirience.value)    
+ 
     function setCurrentUser (currentUser, csrf) {
       const value = {
         signedIn: true,
         ctsrf: csrf,
         currentUser: currentUser.id,
         loa: currentUser.loa,
-        role: currentUser.role
+        role: currentUser.role,
+        expirience: currentUser.expirience
       }
       currentUser.value = currentUser.id
       signedIn.value = true
       ctsrf.value = csrf
       loa.value = currentUser.loa
+      expirience.value = currentUser.expirience
       ls.set('account', value)
     }
 
@@ -112,7 +114,8 @@ export const useLogStore = defineStore(
         ctsrf: "",
         currentUser: "",
         loa: "",
-        role: ""
+        role: "",
+        expirience: ""
       }
       loa.value = 0
       // ls.set('currentUser', 0) 
@@ -147,5 +150,6 @@ export const useLogStore = defineStore(
     temail,
     tinventory,
     setinv,
-    upinv }
+    upinv,
+    texpirience }
 })
