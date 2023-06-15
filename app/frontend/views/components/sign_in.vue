@@ -114,7 +114,9 @@
           store.setCurrentUser(meResponse.data, response.data.csrf)
           // this.error = ''
           // this.$router.replace('/')
-          router.push({ name: "lobby" });
+          nextTick(() => {
+            router.push({ name: "lobby" });
+          })
         })
         .catch(error => console.log(error))
       // this.$router.replace('/')        

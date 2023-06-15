@@ -21,9 +21,24 @@ class UsersController < ApplicationController
 		end
     render json: @hashdata
 	end	
-
+	include ExpCalcul 
   def me
-    render json: current_user.as_json(only: [:id, :email, :role, :loa, :expirience, :health, :cpoints, :avcpoints, :karma, :cry, :pk, :dead ])
+  	us = current_user.expirience.to_i
+  	level_info = calcul_getexp(us)
+		if level_info
+		  level = level_info[0]
+		  progress = level_info[1] 
+		  puts "Player Level: #{level}"
+		  puts "Level Progress: #{progress.round(2)}%"
+		else
+		  puts "Experience exceeds maximum level"
+		end
+ 
+		response = current_user.as_json(only: [:id, :email, :role, :loa, :expirience, :health, :cpoints, :avcpoints, :karma, :cry, :pk, :dead])
+    response['lvl'] = level
+    response['progress'] = progress.round(2)
+
+    render json: response
   end	
 
 	def deluser

@@ -70,8 +70,8 @@ onMounted(() => {
     })
     .catch(error => console.log(error))
 })
+// хэндлер удара по миньону
 function handlerghoul() {
- 
   if (ready.value == true ) {
     ghoulhit()
     secured
@@ -83,7 +83,9 @@ function handlerghoul() {
       var percentcut = hpghoulpoints.value * 100 / response.data.hp
       hpghoul.value = percentcut
 
+
       if (response.data.death == true){
+        store.regincrements(response.data.loa)
         console.log('dead')
         ghouldeath()
       }
@@ -95,7 +97,7 @@ function handlerghoul() {
   start()
   } 
 }
-
+//хэндлер удара по боссу
 function handler(){
   if (hpboss.value <= 0){
     bossdeath()

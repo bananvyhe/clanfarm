@@ -84,22 +84,46 @@ export const useLogStore = defineStore(
     const email = ref(ls.get('email'))
     const temail = computed(() => email.value)
     const expirience = ref(ls.get('account').expirience)
-    const texpirience = computed(() => expirience.value)    
+    const texpirience = computed(() => expirience.value)
+    const lvl = ref(ls.get('account').lvl)
+    const tlvl = computed(() => lvl.value)
+    const progress = ref(ls.get('account').progress)
+    const tprogress = computed(() => progress.value)        
  
     function setCurrentUser (currentUser, csrf) {
+      console.log(currentUser)
+      currentUser.value = currentUser.id
+      signedIn.value = true
+      ctsrf.value = csrf
+      loa.value = currentUser.loa
+      expirience.value = currentUser.expirience
+      progress.value = currentUser.progress
+      lvl.value = currentUser.lvl
       const value = {
         signedIn: true,
         ctsrf: csrf,
         currentUser: currentUser.id,
         loa: currentUser.loa,
         role: currentUser.role,
-        expirience: currentUser.expirience
+        expirience: currentUser.expirience,
+        lvl: currentUser.lvl,
+        progress: currentUser.progress,
       }
-      currentUser.value = currentUser.id
-      signedIn.value = true
-      ctsrf.value = csrf
-      loa.value = currentUser.loa
-      expirience.value = currentUser.expirience
+
+      ls.set('account', value)
+    }
+
+    function regincrements(val) {
+      const loainc = loa.value += val
+      const value = {
+        signedIn: true,
+        ctsrf: ctsrf.value,
+        currentUser: currentUser.value,
+        loa: loainc,
+        role: role.value,
+        expirience: expirience.value
+      }
+       
       ls.set('account', value)
     }
 
@@ -151,5 +175,8 @@ export const useLogStore = defineStore(
     tinventory,
     setinv,
     upinv,
-    texpirience }
+    texpirience,
+    regincrements,
+    tlvl,
+    tprogress }
 })

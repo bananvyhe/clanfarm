@@ -14,8 +14,9 @@ class MobsController < ApplicationController
 		else
 		  puts "Experience exceeds maximum level"
 		end
+
 		mob = Mob.new
-		hit = mob.hitcalcul(150, 1)
+		hit = mob.hitcalcul(150, level)
 		puts hit
 		@gho = MobUser.where('user_id = ?', payload['user_id'])
 	      .joins(:mob).where('name = ?', 'ghoul' )
@@ -48,7 +49,9 @@ class MobsController < ApplicationController
 
 		response['loa'] = loa
 		response['hit'] = hit
-		 
+		response['lvl'] = level
+		response['progress'] = progress.round(2)
+		
 		# puts @gho.inspect
 		render json: response
 	end
