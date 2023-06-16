@@ -19,7 +19,7 @@
       <div class="d-flex flex-column bars">
  
         <v-progress-linear :height="6" class="mb-1" :model-value="userhp" color="success" ></v-progress-linear>
-        <v-progress-linear :height="2" class="mb-1" :model-value="exp" color="secondary"  >
+        <v-progress-linear :height="2" class="mb-1" :model-value="store.tprogress" color="secondary"  >
          
         </v-progress-linear>
         <div class="interface " style="font-size: 0.8em"  >{{ store.tprogress }}%</div>
