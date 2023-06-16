@@ -86,6 +86,8 @@ function handlerghoul() {
 
       if (response.data.death == true){
         store.regincrements(response.data.loa)
+        store.setprogress(response.data.progress)
+        store.setlvl(response.data.lvl)
         console.log('dead')
         ghouldeath()
       }
