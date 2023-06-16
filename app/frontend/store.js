@@ -90,6 +90,17 @@ export const useLogStore = defineStore(
     const progress = ref(ls.get('account').progress)
     const tprogress = computed(() => progress.value)
 
+    const valueall = {
+      signedIn: signedIn.value,
+      ctsrf: ctsrf.value,
+      currentUser: currentUser.value,
+      loa: loa.value,
+      role: role.value,
+      expirience: expirience.value,
+      lvl: lvl.value,
+      progress:progress.value,
+    }
+
     function setCurrentUser (currentUser, csrf) {
       console.log(currentUser)
       currentUser.value = currentUser.id
@@ -99,30 +110,9 @@ export const useLogStore = defineStore(
       expirience.value = currentUser.expirience
       progress.value = currentUser.progress
       lvl.value = currentUser.lvl
-      const value = {
-        signedIn: true,
-        ctsrf: csrf,
-        currentUser: currentUser.id,
-        loa: currentUser.loa,
-        role: currentUser.role,
-        expirience: currentUser.expirience,
-        lvl: currentUser.lvl,
-        progress: currentUser.progress,
-      }
-
-      ls.set('account', value)
+      ls.set('account', valueall)
     }
-
-
-    const valueall = {
-      signedIn: signedIn.value,
-      ctsrf: ctsrf.value,
-      currentUser: currentUser.value,
-      loa: loa.value,
-      role: role.value,
-      expirience: expirience.value
-    }
-
+ 
     function regincrements(val) {
       const loainc = loa.value += val
       valueall.loa = loainc
@@ -152,7 +142,9 @@ export const useLogStore = defineStore(
         currentUser: "",
         loa: "",
         role: "",
-        expirience: ""
+        expirience: "",
+        lvl: "",
+        progress: "",
       }
       loa.value = 0
       // ls.set('currentUser', 0) 
