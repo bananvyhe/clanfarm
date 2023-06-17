@@ -90,29 +90,38 @@ export const useLogStore = defineStore(
     const progress = ref(ls.get('account').progress)
     const tprogress = computed(() => progress.value)
 
-    const valueall = {
-      signedIn: signedIn.value,
-      ctsrf: ctsrf.value,
-      currentUser: currentUser.value,
-      loa: loa.value,
-      role: role.value,
-      expirience: expirience.value,
-      lvl: lvl.value,
-      progress:progress.value,
+
+    let valueall;
+    function makevalues() {
+      valueall = {
+        signedIn: signedIn.value,
+        ctsrf: ctsrf.value,
+        currentUser: currentUser.value,
+        loa: loa.value,
+        role: role.value,
+        expirience: expirience.value,
+        lvl: lvl.value,
+        progress:progress.value,
+      }     
     }
 
-    function setCurrentUser (currentUser, csrf) {
-      console.log(currentUser)
+    function setCurrentUser (currentUser, csrf) { 
       currentUser.value = currentUser.id
       signedIn.value = true
       ctsrf.value = csrf
       loa.value = currentUser.loa
       expirience.value = currentUser.expirience
-      progress.value = currentUser.progress
       lvl.value = currentUser.lvl
-      ls.set('account', valueall)
+      progress.value = currentUser.progress
+      makevalues()
+      savesign()
     }
- 
+
+    function savesign(val) {
+      ls.set('account', valueall)
+
+    }
+
     function regincrements(val) {
       const loainc = loa.value += val
       valueall.loa = loainc
