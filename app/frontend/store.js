@@ -91,6 +91,8 @@ export const useLogStore = defineStore(
     const tprogress = computed(() => progress.value)
     const health = ref(ls.get('account').health)
     const thealth = computed(() => health.value)
+    const maxhealth = ref(ls.get('account').maxhealth)
+    const tmaxhealth = computed(() => maxhealth.value)
 
     let valueall;
     function makevalues() {
@@ -103,7 +105,8 @@ export const useLogStore = defineStore(
         expirience: expirience.value,
         lvl: lvl.value,
         progress: progress.value,
-        health: health.value
+        health: health.value,
+        maxhealth: maxhealth.value
       }     
     }
 
@@ -116,6 +119,7 @@ export const useLogStore = defineStore(
       lvl.value = currentUser.lvl
       progress.value = currentUser.progress
       health.value = currentUser.health
+      maxhealth.value = currentUser.maxhealth
       makevalues()
       savesign()
     }
@@ -162,8 +166,9 @@ export const useLogStore = defineStore(
         expirience: "",
         lvl: "",
         progress: "",
+ 
       }
-      loa.value = 0
+       loa.value = 0
       // ls.set('currentUser', 0) 
       currentUser.value = ""
       // ls.set('signedIn', false) 
@@ -204,5 +209,6 @@ export const useLogStore = defineStore(
     setlvl,
     setprogress,
     thealth,
-    sethealth }
+    sethealth,
+    tmaxhealth }
 })

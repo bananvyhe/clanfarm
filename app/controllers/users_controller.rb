@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	before_action :authorize_access_request! 
-	
+	include HealthCalc 
 
 	def ghoulstat
 		puts "ghoulstat"
@@ -37,7 +37,8 @@ class UsersController < ApplicationController
 		response = current_user.as_json(only: [:id, :email, :role, :loa, :expirience, :health, :cpoints, :avcpoints, :karma, :cry, :pk, :dead])
     response['lvl'] = level
     response['progress'] = progress.round(2)
-
+    mhp = calculate_health_points(level)
+    response['maxhealth'] = mhp.round
     render json: response
   end	
 

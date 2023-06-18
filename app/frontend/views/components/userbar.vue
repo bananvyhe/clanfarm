@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex "> 
- 
+ <!-- {{userhp}}  -->
     <div v-if="store.tsignedIn == true" class="d-flex align-center">
       <v-btn
         color="primary"  
@@ -18,7 +18,7 @@
 
       <div class="d-flex flex-column bars" >
  
-        <v-progress-linear :height="10" class="mb-1 " :model-value="store.thealth" color="success" >  <div class="health play">{{store.thealth}}</div> </v-progress-linear>
+        <v-progress-linear :height="10" class="mb-1 " :model-value="userhp" color="success" >  <div class="health play">{{store.thealth}}</div> </v-progress-linear>
         <v-progress-linear :height="2" class="mb-1" :model-value="store.tprogress" color="secondary"  >
          
         </v-progress-linear>
@@ -48,7 +48,7 @@
 
 <script setup lang="ts">
 const karma = ref(0)
-const userhp = ref(80)
+const userhp = ref()
  
 
 
@@ -86,6 +86,11 @@ import ls from 'localstorage-slim';
   const exp = ref()
 //вычисление уровня
 onMounted(() => {
+  nextTick(() => {
+    console.log(store.tmaxhealth)
+    console.log(store.thealth)
+    userhp.value = (store.thealth / store.tmaxhealth)*100
+  })
   // nextTick(() => {
   //   const levelInfo = calculateLevel(store.texpirience);
 
