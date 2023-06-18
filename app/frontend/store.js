@@ -89,7 +89,8 @@ export const useLogStore = defineStore(
     const tlvl = computed(() => lvl.value)
     const progress = ref(ls.get('account').progress)
     const tprogress = computed(() => progress.value)
-
+    const health = ref(ls.get('account').health)
+    const thealth = computed(() => health.value)
 
     let valueall;
     function makevalues() {
@@ -101,7 +102,8 @@ export const useLogStore = defineStore(
         role: role.value,
         expirience: expirience.value,
         lvl: lvl.value,
-        progress:progress.value,
+        progress: progress.value,
+        health: health.value
       }     
     }
 
@@ -113,13 +115,13 @@ export const useLogStore = defineStore(
       expirience.value = currentUser.expirience
       lvl.value = currentUser.lvl
       progress.value = currentUser.progress
+      health.value = currentUser.health
       makevalues()
       savesign()
     }
 
     function savesign(val) {
       ls.set('account', valueall)
-
     }
 
     function regincrements(val) {
@@ -194,5 +196,6 @@ export const useLogStore = defineStore(
     tlvl,
     tprogress,
     setlvl,
-    setprogress }
+    setprogress,
+    thealth }
 })

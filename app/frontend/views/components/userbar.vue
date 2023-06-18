@@ -16,18 +16,20 @@
         </div>        
       </div>   
 
-      <div class="d-flex flex-column bars">
+      <div class="d-flex flex-column bars" >
  
-        <v-progress-linear :height="6" class="mb-1" :model-value="userhp" color="success" ></v-progress-linear>
+        <v-progress-linear :height="10" class="mb-1 " :model-value="store.thealth" color="success" >  <div class="health play">{{store.thealth}}</div> </v-progress-linear>
         <v-progress-linear :height="2" class="mb-1" :model-value="store.tprogress" color="secondary"  >
          
         </v-progress-linear>
         <div class="interface " style="font-size: 0.8em"  >{{ store.tprogress }}%</div>
-        <div class="d-flex flex-row-reverse ">
-          <div v-for="(item, index) in cp" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}"></div>
-          </div>          
-        </div>
-      </div>  
+        <div class="d-flex flex-row-reverse " style="position: absolute; right: 0; bottom: 0;">
+          <div v-for="(item, index) in cp" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}">
+          </div>
+        </div>          
+      </div>
+
+    </div>  
 
     <div v-if="store.tsignedIn == false"> 
       <signup></signup>
@@ -182,8 +184,16 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.health{
+  line-height: 1em;
+  font-size: 0.6em;
+  color: #222;
+ 
+
+}
 .bars {
   width: 120px;
+  position: relative;
 }
 .karma {
   height: 19px;
