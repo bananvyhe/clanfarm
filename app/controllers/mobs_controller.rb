@@ -75,11 +75,12 @@ class MobsController < ApplicationController
 		response =  @bosshit.as_json
 		response['death'] = @ghochek.death
 		response['ghohp'] = @ghochek.mob.hp
-		
+
 		# if  rand(5) == 0
 			mob = Mob.new
 			hit = mob.hitcalcul(350, 5)
 			health = current_user.health -= hit
+			current_user.save
 			response['health'] = health
 		# end
 

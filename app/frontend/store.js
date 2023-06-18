@@ -120,6 +120,12 @@ export const useLogStore = defineStore(
       savesign()
     }
 
+    function sethealth(val) {
+      const healthmod = health.value = val
+      valueall.health = healthmod
+      ls.set('account', valueall)
+    }
+
     function savesign(val) {
       ls.set('account', valueall)
     }
@@ -197,5 +203,6 @@ export const useLogStore = defineStore(
     tprogress,
     setlvl,
     setprogress,
-    thealth }
+    thealth,
+    sethealth }
 })

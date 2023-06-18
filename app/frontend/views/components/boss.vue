@@ -126,6 +126,9 @@ function handler(){
             // ghoulstay()
           }else{
             bosshit()
+            if (response.data.health){
+              store.sethealth(response.data.health)
+            }
           }          
         })
         .catch(error => console.log(error)) 
