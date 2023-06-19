@@ -125,8 +125,10 @@ export const useLogStore = defineStore(
     }
 
     function sethealth(val) {
-      const healthmod = health.value = val
-      valueall.health = healthmod
+      makevalues()
+      console.log(val)
+      health.value = val
+      valueall.health = val
       ls.set('account', valueall)
     }
 
@@ -140,17 +142,17 @@ export const useLogStore = defineStore(
       ls.set('account', valueall)
     }
 
-    function setlvl(val) {
-      lvl.value = val
-      valueall.lvl = val
-      ls.set('account', valueall)
-    }
+    // function setlvl(val) {
+    //   lvl.value = val
+    //   valueall.lvl = val
+    //   ls.set('account', valueall)
+    // }
 
-    function setprogress(val) {
-      progress.value = val
-      valueall.progress = val
-      ls.set('account', valueall)
-    }
+    // function setprogress(val) {
+    //   progress.value = val
+    //   valueall.progress = val
+    //   ls.set('account', valueall)
+    // }
     function unsetLoa () {
       loa.value = 0
       ls.set('account.loa', 0) 
@@ -206,8 +208,8 @@ export const useLogStore = defineStore(
     regincrements,
     tlvl,
     tprogress,
-    setlvl,
-    setprogress,
+    // setlvl,
+    // setprogress,
     thealth,
     sethealth,
     tmaxhealth }
