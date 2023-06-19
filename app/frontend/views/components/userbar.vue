@@ -72,7 +72,7 @@ import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()  
 import ls from 'localstorage-slim'; 
-  import { ref, computed, inject } from 'vue';
+  import { ref, computed, inject, watch } from 'vue';
   import { useLogStore } from '../../store.js'  
   const store = useLogStore()
   const plain: any = inject('plain')
@@ -87,8 +87,8 @@ import ls from 'localstorage-slim';
 //вычисление уровня
 onMounted(() => {
   nextTick(() => {
-    console.log(store.tmaxhealth)
-    console.log(store.thealth)
+    // console.log(store.tmaxhealth)
+    // console.log(store.thealth)
     userhp.value = (store.thealth / store.tmaxhealth)*100
   })
   // nextTick(() => {
@@ -108,7 +108,10 @@ onMounted(() => {
   //   }
   // })
 })
- 
+watch(() => store.thealth, ( ) => {
+  console.log('store health')
+  userhp.value = (store.thealth / store.tmaxhealth)*100
+})
   // function calculateLevel(exp) {
   //   const levelData = [
   //     [68, 1],
