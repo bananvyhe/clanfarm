@@ -145,22 +145,25 @@ const thitanim = computed(() => hitanim.value)
     }
 
     function regincrements(val) {
+      makevalues()
       const loainc = loa.value += val
       valueall.loa = loainc
       ls.set('account', valueall)
     }
 
-    // function setlvl(val) {
-    //   lvl.value = val
-    //   valueall.lvl = val
-    //   ls.set('account', valueall)
-    // }
+    function setlvl(val) {
+      makevalues()
+      lvl.value = val
+      valueall.lvl = val
+      ls.set('account', valueall)
+    }
 
-    // function setprogress(val) {
-    //   progress.value = val
-    //   valueall.progress = val
-    //   ls.set('account', valueall)
-    // }
+    function setprogress(val) {
+      makevalues()
+      progress.value = val
+      valueall.progress = val
+      ls.set('account', valueall)
+    }
     function unsetLoa () {
       loa.value = 0
       ls.set('account.loa', 0) 
@@ -216,8 +219,8 @@ const thitanim = computed(() => hitanim.value)
     regincrements,
     tlvl,
     tprogress,
-    // setlvl,
-    // setprogress,
+    setlvl,
+    setprogress,
     thealth,
     sethealth,
     tmaxhealth,
