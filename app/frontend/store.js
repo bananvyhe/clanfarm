@@ -71,7 +71,14 @@ export const useLogStore = defineStore(
       ls.set('account', account);
       // ls.set('account', { loa: res })     
     }
-
+const hitanim = ref(false)
+const thitanim = computed(() => hitanim.value)
+    function hitme() {
+      hitanim.value = true 
+      setTimeout(() => {
+      hitanim.value = false
+    }, 500);
+    }
     const currentUser = ref(ls.get('account').currentUser)
     const signedIn = ref(ls.get('account').signedIn)
     const tsignedIn = computed(() => signedIn.value)
@@ -93,6 +100,7 @@ export const useLogStore = defineStore(
     const thealth = computed(() => health.value)
     const maxhealth = ref(ls.get('account').maxhealth)
     const tmaxhealth = computed(() => maxhealth.value)
+
 
     let valueall;
     function makevalues() {
@@ -212,5 +220,7 @@ export const useLogStore = defineStore(
     // setprogress,
     thealth,
     sethealth,
-    tmaxhealth }
+    tmaxhealth,
+    thitanim,
+    hitme }
 })

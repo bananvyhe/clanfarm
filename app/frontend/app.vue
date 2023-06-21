@@ -1,12 +1,13 @@
 <template>
-  <div>
+  <div :class="{ hit: store.thitanim }">
+
 		<v-layout >
 			<v-app-bar density="compact" class="topmenu py-0">
         <v-container  class="d-flex align-center py-0 my-0" >
 
           <div class=" wel "  >
               <h3 class=" pr-1">
-                {{message}}
+                {{message}} 
               </h3>
             <div class=" subs" >
             <span class=" pr-1 text-body-2 mmod d-flex float-right"> {{ tl }}</span> 
@@ -57,6 +58,11 @@ import { useScroll } from '@vueuse/core'
 import { debounce } from 'lodash'
 const { x, y, isScrolling, arrivedState, directions } = useScroll(document)
 const { left: toLeft, right: toRight, top: toTop, bottom: toBottom } = toRefs(directions)
+
+// import { useTheme } from "vuetify";
+// const theme = useTheme();
+//  theme.global.name.value = "customDarkTheme";
+ 
 onMounted(() => {
  
 })
@@ -143,6 +149,9 @@ watch(() => toBottom.value,
 
 <style scoped  lang="scss" >
  @import './src/global.scss';
+.hit{
+  background-color: red;
+}
 .mmo {
   line-height: 1em;
 }

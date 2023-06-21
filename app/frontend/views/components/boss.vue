@@ -26,6 +26,8 @@
 </template>
 
 <script setup lang="ts">
+const props = defineProps(['width'])
+import { gsap } from "gsap";
 import { ref, computed, inject, nextTick, watch } from 'vue';
 import { promiseTimeout, useTimeout} from '@vueuse/core'
 const { ready, start } = useTimeout(1000, { controls: true })
@@ -128,6 +130,7 @@ function handler(){
             bosshit()
             if (response.data.health){
               store.sethealth(response.data.health)
+              store.hitme()
             }
           }          
         })
@@ -349,8 +352,7 @@ function ghouldeath() {
     console.log("end")
   }      
 }
-const props = defineProps(['width'])
-import { gsap } from "gsap";
+
 const spawn = new URL("../images/sprites/monsters/Ghoul/spawn.png", import.meta.url).href;
 const walk = new URL("../images/sprites/monsters/Ghoul/Walk.png", import.meta.url).href;
 const ghouldead = new URL("../images/sprites/monsters/Ghoul/death.png", import.meta.url).href;
