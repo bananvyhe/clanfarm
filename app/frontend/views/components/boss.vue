@@ -56,6 +56,9 @@ onMounted(() => {
   .post('/user/ghoulstat')
     .then(response => {
       console.log(response.data)
+      hpbosspoints.value = response.data.bosshp
+      var percentcutboss = hpbosspoints.value * 100 / response.data.bossfullhp
+      hpboss.value = percentcutboss
       if (response.data.death == true){
         familiarup.value = false
       }
@@ -128,6 +131,7 @@ function handler(){
             // ghoulstay()
           }else{
             bosshit()
+            hpbosspoints.value = response.data.hp
             if (response.data.health){
               store.sethealth(response.data.health)
               store.hitme()

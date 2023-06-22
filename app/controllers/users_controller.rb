@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 		puts "ghoulstat"
 		userfind = User.find(payload['user_id'])
 		ghoulstat = Mob.find_by!(name: "ghoul")
+		bossstat = Mob.find_by!(name: "boss")
 		#проверка на наличие ада, если нет то создаем
 		if userfind.mobs.include?(ghoulstat)
 		  ghoul = ghoulstat
@@ -19,8 +20,12 @@ class UsersController < ApplicationController
 			hashadd  = {death: relation.death, hpweak: relation.damagedeal, mobname: relation.mob.name, fullhp: relation.mob.hp}
 			@hashdata.merge!(hashadd)
 		end
-    render json: @hashdata
+		response = @hashdata.as_json
+		response['bosshp'] = bossstat.hp
+		response['bossfullhp'] = 1320500
+    render json: response
 	end	
+
 	include ExpCalcul 
   def me
   	us = current_user.expirience.to_i

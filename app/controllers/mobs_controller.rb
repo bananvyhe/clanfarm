@@ -1,7 +1,7 @@
 class MobsController < ApplicationController
 	before_action :authorize_access_request!
 	include ExpCalcul 
-
+	
 	def hitghoul
 		userfind = User.find(payload['user_id'])
 		expa = userfind.expirience.to_i
