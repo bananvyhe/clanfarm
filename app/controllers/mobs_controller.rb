@@ -1,7 +1,7 @@
 class MobsController < ApplicationController
 	before_action :authorize_access_request!
 	include ExpCalcul 
-	
+
 	def hitghoul
 		userfind = User.find(payload['user_id'])
 		expa = userfind.expirience.to_i
@@ -66,7 +66,7 @@ class MobsController < ApplicationController
 	end
 
 	def hitboss
-		 
+		 #расчет удара по боссу
 		expa = current_user.expirience.to_i
 		level_info = calcul_getexp(expa)
 		if level_info
@@ -78,9 +78,10 @@ class MobsController < ApplicationController
 		  puts "Experience exceeds maximum level"
 		end
 		mob = Mob.new
-		hit = mob.hitcalcul(150, level)
+		hit = mob.hitcalcul(23150, level)
 
 		@bosshit = Mob.find_by!(name: "boss")
+
 		#проверка на жив ли моб
 		@ghochek = MobUser.where('user_id = ?', payload['user_id'])
 	      .joins(:mob).where('name = ?', 'ghoul' )

@@ -49,6 +49,7 @@ const hpghoulpoints = ref(124)
 
 const hpboss = ref(60)
 const hpghoul = ref(100)
+
 onMounted(() => {
   // console.log(store.tctsrf)
 
@@ -76,6 +77,7 @@ onMounted(() => {
     .catch(error => console.log(error))
 })
 // хэндлер удара по миньону
+
 function handlerghoul() {
   if (ready.value == true ) {
     ghoulhit()
@@ -132,6 +134,8 @@ function handler(){
           }else{
             bosshit()
             hpbosspoints.value = response.data.hp
+ 
+            // hpboss.value = hpbosspoints.value * 100 / response.data.bossfullhp
             if (response.data.health){
               store.sethealth(response.data.health)
               store.hitme()

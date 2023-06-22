@@ -86,6 +86,20 @@ import ls from 'localstorage-slim';
   const exp = ref()
 //вычисление уровня
 onMounted(() => {
+  if (store.tsignedIn){
+      secured
+      .get('/me')
+        .then(meResponse => {
+          console.log(meResponse.data)
+          store.setCurrentUser(meResponse.data, store.tctsrf)
+          // this.error = ''
+          // this.$router.replace('/')
+ 
+        })
+        .catch(error => console.log(error)) 
+  }
+
+
   nextTick(() => {
     // console.log(store.tmaxhealth)
     // console.log(store.thealth)
