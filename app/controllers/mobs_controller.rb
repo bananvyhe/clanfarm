@@ -66,13 +66,30 @@ class MobsController < ApplicationController
 	end
 
 	def hitboss
+		 
+		expa = current_user.expirience.to_i
+		level_info = calcul_getexp(expa)
+		if level_info
+		  level = level_info[0]
+		  progress = level_info[1]
+		  puts "Player Level: #{level}"
+		  puts "Level Progress: #{progress.round(2)}%"
+		else
+		  puts "Experience exceeds maximum level"
+		end
+		mob = Mob.new
+		hit = mob.hitcalcul(150, level)
+
 		@bosshit = Mob.find_by!(name: "boss")
 		#проверка на жив ли моб
 		@ghochek = MobUser.where('user_id = ?', payload['user_id'])
 	      .joins(:mob).where('name = ?', 'ghoul' )
 	      .select( 'death', 'mob_id')
 	      .first
+		@bosshit.hp -= hit
+		@bosshit.save
 		response =  @bosshit.as_json
+
 		response['death'] = @ghochek.death
 		response['ghohp'] = @ghochek.mob.hp
 
