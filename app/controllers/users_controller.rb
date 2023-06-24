@@ -22,7 +22,11 @@ class UsersController < ApplicationController
 		end
 		response = @hashdata.as_json
 		response['bosshp'] = bossstat.hp
-		response['bossfullhp'] = 1320500
+
+    mhp = calculate_health_points(99, 120)
+    response['bossfullhp'] = mhp.round
+
+		# response['bossfullhp'] = 1320500
     render json: response
 	end	
 
@@ -42,7 +46,7 @@ class UsersController < ApplicationController
 		response = current_user.as_json(only: [:id, :email, :role, :loa, :expirience, :health, :cpoints, :avcpoints, :karma, :cry, :pk, :dead])
     response['lvl'] = level
     response['progress'] = progress.round(2)
-    mhp = calculate_health_points(level)
+    mhp = calculate_health_points(level, 1)
     response['maxhealth'] = mhp.round
     render json: response
   end	
