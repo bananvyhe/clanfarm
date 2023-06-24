@@ -92,7 +92,8 @@ class MobsController < ApplicationController
 			@bosshit.hp -= hit
 			@bosshit.save
 			response =  @bosshit.as_json
-
+			response['avcpoints'] = cpav
+			response['cpoints'] = current_user.cpoints
 			response['death'] = @ghochek.death
 			response['ghohp'] = @ghochek.mob.hp
 

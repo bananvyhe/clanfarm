@@ -43,11 +43,11 @@ let b4 =  null
 let b2 =  null 
 let b3 =  null 
 
-const hpbosspoints = ref(1320500)
+const hpbosspoints = ref()
 const hpghoulpoints = ref(124)
 
 
-const hpboss = ref(60)
+const hpboss = ref()
 const hpghoul = ref(100)
 
 onMounted(() => {
@@ -117,6 +117,7 @@ function handler(){
       .post('/hitboss')
         .then(response => {
           if (response.data ){
+            store.setcp(response.data.avcpoints)
             console.log(response.data)
             // familiarup.value = response.data.death
             console.log( response.data.death)

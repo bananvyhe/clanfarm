@@ -139,9 +139,17 @@ const thitanim = computed(() => hitanim.value)
       savesign()
     }
 
-    function sethealth(val) {
+    function setcp(val) {
       makevalues()
       console.log(val)
+      avcpoints.value = val
+      valueall.avcpoints = val
+      ls.set('account', valueall)
+    }
+
+    function sethealth(val) {
+      makevalues()
+      // console.log(val)
       health.value = val
       valueall.health = val
       ls.set('account', valueall)
@@ -232,5 +240,8 @@ const thitanim = computed(() => hitanim.value)
     sethealth,
     tmaxhealth,
     thitanim,
-    hitme }
+    hitme,
+    tavcpoints,
+    tcpoints,
+    setcp }
 })
