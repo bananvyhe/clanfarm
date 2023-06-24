@@ -116,31 +116,35 @@ function handler(){
       secured
       .post('/hitboss')
         .then(response => {
-          console.log(response.data)
-          // familiarup.value = response.data.death
-          console.log( response.data.death)
-          // store.setCurrentUser(meResponse.data, response.data.csrf)
-          // this.error = ''
-          // this.$router.replace('/')
-          if (familiar.value == true && familiarup.value == false && response.data.death == false){
-            hpghoulpoints.value = response.data.ghohp
-            hpghoul.value = 100
-            ghoul.value = true
-            bosssummon()
-            nextTick(() => {
-              famspawn() 
-            })
-            // ghoulstay()
-          }else{
-            bosshit()
-            hpbosspoints.value = response.data.hp
- 
-            // hpboss.value = hpbosspoints.value * 100 / response.data.bossfullhp
-            if (response.data.health){
-              store.sethealth(response.data.health)
-              store.hitme()
-            }
-          }          
+          if (response.data ){
+            console.log(response.data)
+            // familiarup.value = response.data.death
+            console.log( response.data.death)
+            // store.setCurrentUser(meResponse.data, response.data.csrf)
+            // this.error = ''
+            // this.$router.replace('/')
+            if (familiar.value == true && familiarup.value == false && response.data.death == false){
+              hpghoulpoints.value = response.data.ghohp
+              hpghoul.value = 100
+              ghoul.value = true
+              bosssummon()
+              nextTick(() => {
+                famspawn() 
+              })
+              // ghoulstay()
+            }else{
+              bosshit()
+              hpbosspoints.value = response.data.hp
+   
+              // hpboss.value = hpbosspoints.value * 100 / response.data.bossfullhp
+              if (response.data.health){
+                store.sethealth(response.data.health)
+                store.hitme()
+              }
+            }               
+          }
+
+
         })
         .catch(error => console.log(error)) 
       start()

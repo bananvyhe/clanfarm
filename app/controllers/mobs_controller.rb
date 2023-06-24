@@ -1,7 +1,7 @@
 class MobsController < ApplicationController
 	before_action :authorize_access_request!
 	include ExpCalcul 
-
+	include CpCalcul
 	def hitghoul
 		userfind = User.find(payload['user_id'])
 		expa = userfind.expirience.to_i
@@ -66,42 +66,46 @@ class MobsController < ApplicationController
 	end
 
 	def hitboss
-		 #расчет удара по боссу
-		expa = current_user.expirience.to_i
-		level_info = calcul_getexp(expa)
-		if level_info
-		  level = level_info[0]
-		  progress = level_info[1]
-		  puts "Player Level: #{level}"
-		  puts "Level Progress: #{progress.round(2)}%"
-		else
-		  puts "Experience exceeds maximum level"
-		end
-		mob = Mob.new
-		hit = mob.hitcalcul(23150, level)
-
-		@bosshit = Mob.find_by!(name: "boss")
-
-		#проверка на жив ли моб
-		@ghochek = MobUser.where('user_id = ?', payload['user_id'])
-	      .joins(:mob).where('name = ?', 'ghoul' )
-	      .select( 'death', 'mob_id')
-	      .first
-		@bosshit.hp -= hit
-		@bosshit.save
-		response =  @bosshit.as_json
-
-		response['death'] = @ghochek.death
-		response['ghohp'] = @ghochek.mob.hp
-
-		# if  rand(5) == 0
+		cpav = calcul_cp(1)
+		#расчет удара по боссу
+		if cpav != false 
+			expa = current_user.expirience.to_i
+			level_info = calcul_getexp(expa)
+			if level_info
+			  level = level_info[0]
+			  progress = level_info[1]
+			  puts "Player Level: #{level}"
+			  puts "Level Progress: #{progress.round(2)}%"
+			else
+			  puts "Experience exceeds maximum level"
+			end
 			mob = Mob.new
-			hit = mob.hitcalcul(350, 5)
-			health = current_user.health -= hit
-			current_user.save
-			response['health'] = health
-		# end
+			hit = mob.hitcalcul(150, level)
 
-		render json: response
+			@bosshit = Mob.find_by!(name: "boss")
+
+			#проверка на жив ли моб
+			@ghochek = MobUser.where('user_id = ?', payload['user_id'])
+		      .joins(:mob).where('name = ?', 'ghoul' )
+		      .select( 'death', 'mob_id')
+		      .first
+			@bosshit.hp -= hit
+			@bosshit.save
+			response =  @bosshit.as_json
+
+			response['death'] = @ghochek.death
+			response['ghohp'] = @ghochek.mob.hp
+
+			# if  rand(5) == 0
+				mob = Mob.new
+				# hit = mob.hitcalcul(350, 5)
+				hit = mob.hitcalcul(350, 5)
+				health = current_user.health -= hit
+				current_user.save
+				response['health'] = health
+			# end
+			render json: response
+		end
+		
 	end
 end
