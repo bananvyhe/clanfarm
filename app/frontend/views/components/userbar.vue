@@ -26,6 +26,8 @@
         <div class="d-flex flex-row-reverse " style="position: absolute; right: 0; bottom: 0;">
           <div v-for="(item, index) in store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}">
           </div>
+          <div v-if="store.tavcpoints > store.tcpoints" v-for="(item, index) in store.tavcpoints-store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ overcpimg}">
+          </div>
         </div>          
       </div>
 
