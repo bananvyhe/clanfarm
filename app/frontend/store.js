@@ -100,7 +100,10 @@ const thitanim = computed(() => hitanim.value)
     const thealth = computed(() => health.value)
     const maxhealth = ref(ls.get('account').maxhealth)
     const tmaxhealth = computed(() => maxhealth.value)
-
+    const cpoints = ref(ls.get('account').cpoints)
+    const tcpoints = computed(() => cpoints.value)
+    const avcpoints = ref(ls.get('account').avcpoints)
+    const tavcpoints = computed(() => avcpoints.value)
 
     let valueall;
     function makevalues() {
@@ -114,7 +117,9 @@ const thitanim = computed(() => hitanim.value)
         lvl: lvl.value,
         progress: progress.value,
         health: health.value,
-        maxhealth: maxhealth.value
+        maxhealth: maxhealth.value,
+        cpoints: cpoints.value,
+        avcpoints: avcpoints.value,
       }     
     }
 
@@ -128,6 +133,8 @@ const thitanim = computed(() => hitanim.value)
       progress.value = currentUser.progress
       health.value = currentUser.health
       maxhealth.value = currentUser.maxhealth
+      cpoints.value = currentUser.cpoints
+      avcpoints.value = currentUser.avcpoints
       makevalues()
       savesign()
     }
