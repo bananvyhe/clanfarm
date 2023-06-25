@@ -366,7 +366,12 @@ function ghouldeath() {
   function end(){ 
 
     mdrop.value = true
- 
+    setTimeout(() => {
+      mdrop.value = false
+        if (b5) {
+        b5.kill(); 
+      }  
+    }, "40000");
     familiarup.value = false
     twooff() 
   }  
