@@ -1,5 +1,5 @@
 <template>
-  <drop class="drops mx-2 pr-3" :makeDrop="mdrop"></drop>
+  <drop class="drops mx-2 pr-3" :makeDrop="mdrop"  ></drop>
   <div class="info"> 
     <!-- {{props.width}}  -->
     <!-- <br>{{bossdirection}} -->  
@@ -181,7 +181,7 @@ function ghoulmove(val) {
   }       
   ghodir();
   b5 = gsap.timeline();  
-  b5.to([ ".familiar", ".ghohpbar", "hpghoulpoints"],{
+  b5.to([ ".familiar", ".ghohpbar", "hpghoulpoints", ".drops"],{
     ease: "none",
     // repeat:-1, 
     duration: dur,
@@ -197,10 +197,11 @@ function ghoulmove(val) {
     },
   })
 }
+ 
 function ghoulhit() {
   // const myObject = document.getElementById('myObject');
   const currentX = Math.round(gsap.getProperty(ghoul.value, 'x'));
-  console.log(currentX )
+  
 
   if (b1) {
     b1.kill(); 
@@ -221,7 +222,8 @@ function ghoulhit() {
     backgroundImage: 'url('+ghoulhitimg+')',
     // x: randpos(), 
     backgroundPosition: "0px",      
-    scaleX: ghouldirection.value
+    scaleX: ghouldirection.value,
+
   })
   b3 = gsap.timeline();  
   b3.to(".familiar",{
@@ -230,6 +232,7 @@ function ghoulhit() {
     ease: "steps(3)",
     backgroundPosition: "-186px",
     // onComplete: 
+ 
     onComplete: function () {
       hitoff(currentX)
      // hitkill()
@@ -337,9 +340,9 @@ function ghouldeath() {
   if (b3) {
     b3.kill(); 
   }  
-  if (b5) {
-    b5.kill(); 
-  }   
+  // if (b5) {
+  //   b5.kill(); 
+  // }   
   gsap.set(".familiar", {
     // scale: 2.4,
     transformOrigin: "bottom ",
@@ -361,16 +364,18 @@ function ghouldeath() {
     // scaleX: bossdirection.value
   })  
   function end(){ 
-    familiarup.value = false   
+
+    mdrop.value = true
+ 
+    familiarup.value = false
     twooff() 
   }  
   function twooff() {  
     b2.kill() 
-    mdrop.value = true
-    console.log("end")
+
   }      
 }
-
+import { useElementBounding } from '@vueuse/core'
 const spawn = new URL("../images/sprites/monsters/Ghoul/spawn.png", import.meta.url).href;
 const walk = new URL("../images/sprites/monsters/Ghoul/Walk.png", import.meta.url).href;
 const ghouldead = new URL("../images/sprites/monsters/Ghoul/death.png", import.meta.url).href;
@@ -383,8 +388,8 @@ const hit = new URL("../images/sprites/monsters/summoner/hit.png", import.meta.u
 const death = new URL("../images/sprites/monsters/summoner/death.png", import.meta.url).href;
 const summon = new URL("../images/sprites/monsters/summoner/summon.png", import.meta.url).href;
 
-// const el = ref(null)
-// const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
+// const dropmove = ref(null)
+// const { x, y, top, right, bottom, left, width, height } = useElementBounding(ghoul)
 const repDelay = ref()
 const plain: any = inject('plain')
 const secured: any = inject('secured')
@@ -561,7 +566,7 @@ function bossidle() {
 .drops{
   position: absolute;
   bottom: 0px;
-  right: 0px;
+ 
 }
 .mainframe{
   position: relative;
