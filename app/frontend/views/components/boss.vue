@@ -1,4 +1,5 @@
 <template>
+  <drop class="drops mx-2 pr-3" :makeDrop="mdrop"></drop>
   <div class="info"> 
     <!-- {{props.width}}  -->
     <!-- <br>{{bossdirection}} -->  
@@ -26,6 +27,9 @@
 </template>
 
 <script setup lang="ts">
+import Drop from './drop.vue'
+const mdrop = ref()
+
 const props = defineProps(['width'])
 import { gsap } from "gsap";
 import { ref, computed, inject, nextTick, watch } from 'vue';
@@ -362,6 +366,7 @@ function ghouldeath() {
   }  
   function twooff() {  
     b2.kill() 
+    mdrop.value = true
     console.log("end")
   }      
 }
@@ -553,6 +558,11 @@ function bossidle() {
 </script>
 
 <style scoped>
+.drops{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
 .mainframe{
   position: relative;
 }
