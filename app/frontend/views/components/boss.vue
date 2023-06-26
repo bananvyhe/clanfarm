@@ -3,7 +3,7 @@
   <div class="info"> 
     <!-- {{props.width}}  -->
     <!-- <br>{{bossdirection}} -->  
-    {{familiarup}}
+    <!-- {{familiarup}} -->
   </div>
  
   <div class="d-flex flex-column align-self-end mainframe" v-if="boss == true" > 

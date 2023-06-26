@@ -38,11 +38,17 @@
       <signin></signin>
     </div>
  
-    <div class="useraction d-flex">  
+    <div class="useraction d-flex  flex-column">  
  
       <inventory  v-if="store.tsignedIn == true"> </inventory>
-      <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
-      <div class="skull align-self-center"></div>
+      <div class="d-flex" >
+        <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
+        <div class="skull align-self-center"></div>        
+      </div>
+      <div>
+        <div class=" bag"></div>
+      </div>
+
     </div>
   
   </div>
@@ -130,6 +136,14 @@ watch(() => store.thealth, ( ) => {
 </script>
 
 <style scoped>
+.bag{
+  /*background-color: #dad;*/
+  height: 20px;
+  width: 62px;
+  background-image: url('../images/bag.png');
+  background-size: contain;
+  background-position: center;
+}
 .health{
   line-height: 1em;
   font-size: 0.6em;
@@ -151,7 +165,7 @@ watch(() => store.thealth, ( ) => {
   width: 8px;
 }
 .inve{
-  background-color: #dad;
+  /*background-color: #dad;*/
   /*position: relative;*/
   z-index: 100;
   margin-top: -11px;
