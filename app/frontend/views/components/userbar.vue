@@ -45,7 +45,7 @@
         <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
         <div class="skull align-self-center"></div>        
       </div>
-      <div>
+      <div v-if="store.tsignedIn == true">
         <div class=" bag"></div>
       </div>
 
