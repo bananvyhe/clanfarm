@@ -84,27 +84,31 @@ onMounted(() => {
 
 function handlerghoul() {
   if (ready.value == true ) {
-    ghoulhit()
+
     secured
     .post('/hitghoul')
     .then(response => {
-      console.log(response.data)
-      var sum = response.data.hp - response.data.damagedeal
-      hpghoulpoints.value = sum
-      var percentcut = hpghoulpoints.value * 100 / response.data.hp
-      hpghoul.value = percentcut
+      if (response.data ){
+        ghoulhit()
+        store.setcp(response.data.avcpoints)
+        console.log(response.data)
+        var sum = response.data.hp - response.data.damagedeal
+        hpghoulpoints.value = sum
+        var percentcut = hpghoulpoints.value * 100 / response.data.hp
+        hpghoul.value = percentcut
 
 
-      if (response.data.death == true){
-        store.regincrements(response.data.loa)
-        store.setprogress(response.data.progress)
-        store.setlvl(response.data.lvl)
-        console.log('dead')
-        ghouldeath()
+        if (response.data.death == true){
+          store.regincrements(response.data.loa)
+          store.setprogress(response.data.progress)
+          store.setlvl(response.data.lvl)
+          console.log('dead')
+          ghouldeath()
+        }
+        // store.setCurrentUser(meResponse.data, response.data.csrf)
+        // this.error = ''
+        // this.$router.replace('/')
       }
-      // store.setCurrentUser(meResponse.data, response.data.csrf)
-      // this.error = ''
-      // this.$router.replace('/')
     })
   .catch(error => console.log(error))
   start()

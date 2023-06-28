@@ -3,57 +3,61 @@ class MobsController < ApplicationController
 	include ExpCalcul 
 	include CpCalcul
 	def hitghoul
-		userfind = User.find(payload['user_id'])
-		expa = userfind.expirience.to_i
-		level_info = calcul_getexp(expa)
-		if level_info
-		  level = level_info[0]
-		  progress = level_info[1]
-		  puts "Player Level: #{level}"
-		  puts "Level Progress: #{progress.round(2)}%"
-		else
-		  puts "Experience exceeds maximum level"
+		cpav = calcul_cp(1)
+		if cpav != false 
+			userfind = User.find(payload['user_id'])
+			expa = userfind.expirience.to_i
+			level_info = calcul_getexp(expa)
+			if level_info
+			  level = level_info[0]
+			  progress = level_info[1]
+			  puts "Player Level: #{level}"
+			  puts "Level Progress: #{progress.round(2)}%"
+			else
+			  puts "Experience exceeds maximum level"
+			end
+
+			mob = Mob.new
+			hit = mob.hitcalcul(150, level)
+			puts hit
+			@gho = MobUser.where('user_id = ?', payload['user_id'])
+		      .joins(:mob).where('name = ?', 'ghoul' )
+		      .select('mob_id', 'id', "user_id",'damagedeal', 'mobs.name', 'mobs.hp','mobs.loa', 'death')
+		      .first
+	 
+			@gho.damagedeal += hit
+			if @gho.damagedeal.to_i >= @gho.hp.to_i
+				@gho.damagedeal = @gho.mob.hp
+				@gho.death = true
+				min = (@gho.mob.loa.to_i * 0.7).round
+				max = (@gho.mob.loa.to_i * 1.3).round
+				loa = rand(min..max)
+				loa = loa.round
+				loa = loa.to_i	
+
+				exp = calculate_experience(@gho.mob.hp.to_i)	
+				# puts exp
+				
+				userfind.expirience += exp
+				userfind.loa += loa
+				userfind.save
+			end
+
+			@gho.save
+			response = @gho.as_json
+			if  exp
+				response['exp'] = exp
+			end
+
+			response['loa'] = loa
+			response['hit'] = hit
+			response['lvl'] = level
+			response['progress'] = progress.round(2)
+			response['avcpoints'] = cpav
+			response['cpoints'] = current_user.cpoints			
+			# puts @gho.inspect
+			render json: response
 		end
-
-		mob = Mob.new
-		hit = mob.hitcalcul(150, level)
-		puts hit
-		@gho = MobUser.where('user_id = ?', payload['user_id'])
-	      .joins(:mob).where('name = ?', 'ghoul' )
-	      .select('mob_id', 'id', "user_id",'damagedeal', 'mobs.name', 'mobs.hp','mobs.loa', 'death')
-	      .first
- 
-		@gho.damagedeal += hit
-		if @gho.damagedeal.to_i >= @gho.hp.to_i
-			@gho.damagedeal = @gho.mob.hp
-			@gho.death = true
-			min = (@gho.mob.loa.to_i * 0.7).round
-			max = (@gho.mob.loa.to_i * 1.3).round
-			loa = rand(min..max)
-			loa = loa.round
-			loa = loa.to_i	
-
-			exp = calculate_experience(@gho.mob.hp.to_i)	
-			# puts exp
-			
-			userfind.expirience += exp
-			userfind.loa += loa
-			userfind.save
-		end
-
-		@gho.save
-		response = @gho.as_json
-		if  exp
-			response['exp'] = exp
-		end
-
-		response['loa'] = loa
-		response['hit'] = hit
-		response['lvl'] = level
-		response['progress'] = progress.round(2)
-		
-		# puts @gho.inspect
-		render json: response
 	end
  
 	def calculate_experience(health)
