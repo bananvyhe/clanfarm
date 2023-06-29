@@ -6,7 +6,7 @@ class HealthpWorker < ApplicationController
 		users = User.all
 		users.each do |c|
 	  	us = c.expirience.to_i
-	  	level_info = calcul_getexp(us)
+	  	level_info = calcul_getexp(us, false)
 			if level_info
 			  level = level_info[0]
 			  progress = level_info[1] 
