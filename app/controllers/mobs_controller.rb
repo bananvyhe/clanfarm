@@ -7,7 +7,7 @@ class MobsController < ApplicationController
 		if cpav != false 
 			userfind = User.find(payload['user_id'])
 			expa = userfind.expirience.to_i
-			level_info = calcul_getexp(expa)
+			level_info = calcul_getexp(expa, false)
 			if level_info
 			  level = level_info[0]
 			  progress = level_info[1]
@@ -41,9 +41,9 @@ class MobsController < ApplicationController
 				userfind.expirience += exp
 				userfind.loa += loa
 				userfind.save
-				
+
 				expa = userfind.expirience.to_i
-				level_info = calcul_getexp(expa)
+				level_info = calcul_getexp(expa, false)
 				if level_info
 				  level = level_info[0]
 				  progress = level_info[1]
@@ -85,7 +85,7 @@ class MobsController < ApplicationController
 		#расчет удара по боссу
 		if cpav != false 
 			expa = current_user.expirience.to_i
-			level_info = calcul_getexp(expa)
+			level_info = calcul_getexp(expa, false)
 			if level_info
 			  level = level_info[0]
 			  progress = level_info[1]
@@ -117,6 +117,8 @@ class MobsController < ApplicationController
 				# hit = mob.hitcalcul(350, 5)
 				hit = mob.hitcalcul(350, 5)
 				health = current_user.health -= hit
+
+
 				current_user.save
 				response['health'] = health
 			# end

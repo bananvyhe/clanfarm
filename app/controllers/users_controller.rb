@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 	include ExpCalcul 
   def me
   	us = current_user.expirience.to_i
-  	level_info = calcul_getexp(us)
+  	level_info = calcul_getexp(us, false)
 		if level_info
 		  level = level_info[0]
 		  progress = level_info[1] 

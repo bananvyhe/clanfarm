@@ -1,6 +1,6 @@
 module ExpCalcul
 
-  def calcul_getexp(exp)
+  def calcul_getexp(exp, kill)
   level_data = [
     [68, 1],
     [369, 2],
