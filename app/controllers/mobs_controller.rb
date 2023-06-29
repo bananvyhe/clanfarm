@@ -41,6 +41,17 @@ class MobsController < ApplicationController
 				userfind.expirience += exp
 				userfind.loa += loa
 				userfind.save
+				
+				expa = userfind.expirience.to_i
+				level_info = calcul_getexp(expa)
+				if level_info
+				  level = level_info[0]
+				  progress = level_info[1]
+				  puts "Player Level: #{level}"
+				  puts "Level Progress: #{progress.round(2)}%"
+				else
+				  puts "Experience exceeds maximum level"
+				end
 			end
 
 			@gho.save
