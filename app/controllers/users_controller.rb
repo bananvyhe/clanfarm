@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 		response = @hashdata.as_json
 		response['bosshp'] = bossstat.hp
 
-    mhp = calculate_health_points(99, 120)
+    mhp = calculate_health_points("boss", "boss")
     response['bossfullhp'] = mhp.round
 
 		# response['bossfullhp'] = 1320500
