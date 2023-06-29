@@ -148,7 +148,12 @@ function handler(){
               // hpboss.value = hpbosspoints.value * 100 / response.data.bossfullhp
               if (response.data.health){
                 store.sethealth(response.data.health)
-                store.hitme()
+              }
+              if (response.data.lvl){
+                store.setlvl(response.data.lvl)
+              }
+              if(response.data.progress){
+                store.setprogress(response.data.progress)
               }
             }               
           }

@@ -102,8 +102,9 @@ class MobsController < ApplicationController
 			#проверка на жив ли моб
 			@ghochek = MobUser.where('user_id = ?', payload['user_id'])
 		      .joins(:mob).where('name = ?', 'ghoul' )
-		      .select( 'death', 'mob_id')
+		      .select("id", 'death', 'mob_id', 'damagedeal',' user_id')
 		      .first
+		      puts @ghochek.inspect
 			@bosshit.hp -= hit
 			@bosshit.save
 			response =  @bosshit.as_json
@@ -111,16 +112,37 @@ class MobsController < ApplicationController
 			response['cpoints'] = current_user.cpoints
 			response['death'] = @ghochek.death
 			response['ghohp'] = @ghochek.mob.hp
-
 			# if  rand(5) == 0
+			if @ghochek.damagedeal != 0
 				mob = Mob.new
 				# hit = mob.hitcalcul(350, 5)
 				hit = mob.hitcalcul(350, 5)
 				health = current_user.health -= hit
+				response['health'] = current_user.health
+				if current_user.health <= 0
+					current_user.health = 0
+					response['health'] = 0
+					current_user.dead = true
+					level_info = calcul_getexp(expa, true)
+					if level_info
+					  level = level_info[0]
+					  progress = level_info[1]
+					  current_user.expirience = level_info[2]
+					  puts "Player Level: #{level}"
+					  puts "Level Progress: #{progress.round(2)}%"
+						response['lvl'] = level
+						response['progress'] = progress.round(2)
+						
 
+					else
+					  puts "Experience exceeds maximum level"
+					end					
+				end
 
 				current_user.save
-				response['health'] = health
+			end
+					      @ghochek.damagedeal += 1
+		      @ghochek.save
 			# end
 			render json: response
 		end

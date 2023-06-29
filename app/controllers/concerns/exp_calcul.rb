@@ -42,9 +42,28 @@ module ExpCalcul
         previous_exp = i > 0 ? level_data[i - 1][0] : 0
         current_exp = data[0]
         progress = (exp - previous_exp).to_f / (current_exp - previous_exp) * 100
-        return [i + 1, progress]
+        if kill == false
+          return [i + 1, progress]
+        elsif kill == true
+          procent = 30
+          missing_progress = procent - progress
+          # remaining_exp = ((current_exp - previous_exp) * missing_progress / 100).round
+          remaining_exp = ((current_exp - previous_exp) * missing_progress / 100).round
+          remaining_exp += previous_exp - exp # Subtract remaining experience from previous level
+          if progress < procent
+            previous_level = i > 0 ? i : 1
+            return [previous_level, 100 - missing_progress, remaining_exp]
+          else
+            return [i + 1, progress - procent, remaining_exp]
+          end
+        end
+          
+
+
+      
       end
     end
+
 
   nil # Experience exceeds maximum level 
   end
