@@ -44,15 +44,19 @@ module ExpCalcul
         if kill == false
           return [i + 1, progress]
         elsif kill == true
-          procent = 30
+          procent = 4
           cuts_progress = progress - procent 
 
           if cuts_progress < 0
             previous_level = i > 0 ? i : 1
-            explvl = current_exp - previous_exp 
-            
-            remaining_exp = ((current_exp - previous_exp) * explvl / 100).round
-            return [previous_level, progress, remaining_exp]
+            if previous_level  > 1
+              preprelvlexp = level_data[i - 2][0]
+            end
+            explvl =  previous_exp - preprelvlexp
+            cutprog = 100 + cuts_progress
+            remaining_exp = (explvl * cutprog / 100).round
+            remaining_exp += preprelvlexp
+            return [previous_level, cutprog, remaining_exp]
           else
             remaining_exp = ((current_exp - previous_exp) * cuts_progress / 100).round
             remaining_exp += previous_exp
