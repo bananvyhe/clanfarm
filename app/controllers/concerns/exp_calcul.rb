@@ -35,7 +35,6 @@ module ExpCalcul
     [3093068, 31],
     [3389496, 32],
     [3744042, 33],
-    [3744042, 33]
   ]
     level_data.each_with_index do |data, i|
       if exp <= data[0]
@@ -46,15 +45,18 @@ module ExpCalcul
           return [i + 1, progress]
         elsif kill == true
           procent = 30
-          missing_progress = procent - progress
-          # remaining_exp = ((current_exp - previous_exp) * missing_progress / 100).round
-          remaining_exp = ((current_exp - previous_exp) * missing_progress / 100).round
-          remaining_exp += previous_exp - exp # Subtract remaining experience from previous level
-          if progress < procent
+          cuts_progress = progress - procent 
+
+          if cuts_progress < 0
             previous_level = i > 0 ? i : 1
-            return [previous_level, 100 - missing_progress, remaining_exp]
+            explvl = current_exp - previous_exp 
+            
+            remaining_exp = ((current_exp - previous_exp) * explvl / 100).round
+            return [previous_level, progress, remaining_exp]
           else
-            return [i + 1, progress - procent, remaining_exp]
+            remaining_exp = ((current_exp - previous_exp) * cuts_progress / 100).round
+            remaining_exp += previous_exp
+            return [i + 1, cuts_progress, remaining_exp]
           end
         end
           
