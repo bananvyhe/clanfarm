@@ -22,7 +22,7 @@
         <v-progress-linear :height="2" class="mb-1" :model-value="store.tprogress" color="secondary"  >
          
         </v-progress-linear>
-        <div class="interface " style="font-size: 0.8em"  >{{ store.tprogress }}%</div>
+        <div class="interface " style="font-size: 0.8em" v-html="reducedNumber" > </div>
         <div class="d-flex flex-row-reverse " style="position: absolute; right: 0; bottom: 0;">
           <div v-for="(item, index) in store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}">
           </div>
@@ -55,15 +55,21 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed, inject, watch } from 'vue';
 const karma = ref(0)
 const userhp = ref()
  
-
-
 const cp = ref(5)
 const avcp = ref(0)
 const coverp = ref(2)
 
+const reducedNumber = computed(() => {
+  // var rep = store.tprogress
+  var rep = 13.43.toString()
+  const regex = /\.\d+/g;
+  const modifiedNumber = rep.replace(regex, ".<span style=\"font-size: smaller;\">$&</span>");
+  return modifiedNumber;
+});
 const getImageUrl = (number) => {
   console.log(number)
   if ((number+1) <= store.tavcpoints) {
@@ -80,7 +86,7 @@ import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()  
 import ls from 'localstorage-slim'; 
-  import { ref, computed, inject, watch } from 'vue';
+
   import { useLogStore } from '../../store.js'  
   const store = useLogStore()
   const plain: any = inject('plain')
