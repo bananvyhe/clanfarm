@@ -71,14 +71,17 @@ export const useLogStore = defineStore(
       ls.set('account', account);
       // ls.set('account', { loa: res })     
     }
-const hitanim = ref(false)
-const thitanim = computed(() => hitanim.value)
+
+    const hitanim = ref(false)
+    const thitanim = computed(() => hitanim.value)
+    
     function hitme() {
       hitanim.value = true 
       setTimeout(() => {
-      hitanim.value = false
-    }, 500);
+        hitanim.value = false
+      }, 500);
     }
+
     const currentUser = ref(ls.get('account').currentUser)
     const signedIn = ref(ls.get('account').signedIn)
     const tsignedIn = computed(() => signedIn.value)

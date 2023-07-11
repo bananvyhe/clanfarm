@@ -115,7 +115,7 @@ class MobsController < ApplicationController
 			response['cpoints'] = current_user.cpoints
 			response['death'] = @ghochek.death
 			response['ghohp'] = @ghochek.mob.hp
-			# if  rand(5) == 0
+			if  rand(2) == 0
 			if @ghochek.damagedeal != 0
 				mob = Mob.new
 				# hit = mob.hitcalcul(350, 5)
@@ -144,9 +144,9 @@ class MobsController < ApplicationController
 
 				current_user.save
 			end
-					      @ghochek.damagedeal += 1
-		      @ghochek.save
-			# end
+			@ghochek.damagedeal += 1
+			@ghochek.save
+			end
 			render json: response
 		end
 		

@@ -4,7 +4,6 @@
 		<v-layout >
 			<v-app-bar density="compact" class="topmenu py-0">
         <v-container  class="d-flex align-center py-0 my-0" >
-
           <div class=" wel "  >
               <h3 class=" pr-1">
                 {{message}} 
