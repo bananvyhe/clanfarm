@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex "> 
+  <div class="d-flex " :class="{ deathfilther: store.tdead }"> 
  <!-- {{userhp}}  -->
     <div v-if="store.tsignedIn == true" class="d-flex align-center">
       <v-btn
@@ -142,6 +142,10 @@ watch(() => store.thealth, ( ) => {
 </script>
 
 <style scoped>
+  .deathfilther{
+      filter: grayscale(80%);
+  }
+
 .bag{
   /*background-color: #dad;*/
   height: 20px;

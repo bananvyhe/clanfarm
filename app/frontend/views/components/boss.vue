@@ -250,11 +250,12 @@ function handler(){
               if (response.data.health >= 0){
                 store.sethealth(response.data.health)
                 store.hitme()
-const firstPhrase = phrases.value[Math.floor(Math.random() * 16)]; // First phrase object
-const originalFirstPhrase = firstPhrase.original; // Original English phrase
-const translatedFirstPhrase = firstPhrase.translation; 
-bossphrase.value = firstPhrase.translation 
-bosstalk()
+                const firstPhrase = phrases.value[Math.floor(Math.random() * 16)]; // First phrase object
+                const originalFirstPhrase = firstPhrase.original; // Original English phrase
+                const translatedFirstPhrase = firstPhrase.translation; 
+                bossphrase.value = firstPhrase.translation 
+                bosstalk()
+                store.setdead(response.data.dead)
               }
               if (response.data.lvl){
                 store.setlvl(response.data.lvl)

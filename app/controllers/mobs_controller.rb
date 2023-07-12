@@ -138,6 +138,7 @@ class MobsController < ApplicationController
 					  puts "Level Progress: #{progress.round(2)}%"
 						response['lvl'] = level
 						response['progress'] = progress.round(2)
+						response['dead'] = true
 						
 					end					
 				end

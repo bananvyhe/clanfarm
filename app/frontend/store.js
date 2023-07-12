@@ -35,7 +35,11 @@ export const useLogStore = defineStore(
         }      
  
     } 
-
+    function setdead(val) {
+      // console.log(val)
+      dead.value = val
+ 
+    } 
     function setinv(val) {
       // console.log(val)
       inventory.value = val
@@ -74,7 +78,7 @@ export const useLogStore = defineStore(
 
     const hitanim = ref(false)
     const thitanim = computed(() => hitanim.value)
-    
+
     function hitme() {
       hitanim.value = true 
       setTimeout(() => {
@@ -107,6 +111,8 @@ export const useLogStore = defineStore(
     const tcpoints = computed(() => cpoints.value)
     const avcpoints = ref(ls.get('account').avcpoints)
     const tavcpoints = computed(() => avcpoints.value)
+    const dead = ref(ls.get('account').dead)
+    const tdead = computed(() => dead.value)
 
     let valueall;
     function makevalues() {
@@ -123,6 +129,7 @@ export const useLogStore = defineStore(
         maxhealth: maxhealth.value,
         cpoints: cpoints.value,
         avcpoints: avcpoints.value,
+        dead: dead.value,
       }     
     }
 
@@ -138,6 +145,7 @@ export const useLogStore = defineStore(
       maxhealth.value = currentUser.maxhealth
       cpoints.value = currentUser.cpoints
       avcpoints.value = currentUser.avcpoints
+      dead.value = currentUser.dead
       makevalues()
       savesign()
     }
@@ -246,5 +254,7 @@ export const useLogStore = defineStore(
     hitme,
     tavcpoints,
     tcpoints,
-    setcp }
+    setcp,
+    tdead,
+    setdead }
 })
