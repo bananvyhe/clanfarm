@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   post '/hitboss', to: 'mobs#hitboss' 
   post '/user/ghoulstat', to: 'users#ghoulstat' 
   post '/hitghoul', to: 'mobs#hitghoul' 
+  post '/user/ressurect', to: 'users#ressurect' 
 
   require "sidekiq/web"
   Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]

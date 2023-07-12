@@ -35,11 +35,7 @@ export const useLogStore = defineStore(
         }      
  
     } 
-    function setdead(val) {
-      // console.log(val)
-      dead.value = val
- 
-    } 
+
     function setinv(val) {
       // console.log(val)
       inventory.value = val
@@ -149,10 +145,14 @@ export const useLogStore = defineStore(
       makevalues()
       savesign()
     }
-
+    function setdead(val) {
+      makevalues()
+      dead.value = val
+      valueall.dead = val
+      ls.set('account', valueall)
+    } 
     function setcp(val) {
       makevalues()
-      console.log(val)
       avcpoints.value = val
       valueall.avcpoints = val
       ls.set('account', valueall)

@@ -2,6 +2,27 @@ class UsersController < ApplicationController
 	before_action :authorize_access_request! 
 	include HealthCalc 
 
+	def ressurect
+		expa = current_user.expirience.to_i
+			level_info = calcul_getexp(expa, false)
+			if level_info
+			  level = level_info[0]
+			  progress = level_info[1]
+			  puts "Player Level: #{level}"
+			  puts "Level Progress: #{progress.round(2)}%"
+				health = calculate_health_points(level, 1)* 0.2
+ 				req = {}.as_json
+ 				req['health'] = health
+ 				current_user.dead = false
+ 				current_user.health = health
+ 				current_user.save
+				render json: req
+
+			else
+			  puts "Experience exceeds maximum level"
+			end		 
+	end
+
 	def ghoulstat
 		puts "ghoulstat"
 		userfind = User.find(payload['user_id'])

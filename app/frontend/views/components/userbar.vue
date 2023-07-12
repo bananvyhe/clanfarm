@@ -2,6 +2,12 @@
   <div class="d-flex " :class="{ deathfilther: store.tdead }"> 
  <!-- {{userhp}}  -->
     <div v-if="store.tsignedIn == true" class="d-flex align-center">
+      <div v-if="store.tdead">
+        <v-btn
+          color="secondary"  
+          @click="ressurect"> воскреснуть
+        </v-btn>    
+      </div>
       <v-btn
         color="primary"  
         @click="signOut">выйти
@@ -70,6 +76,19 @@ const reducedNumber = computed(() => {
   const modifiedNumber = rep.replace(regex, ".<span style=\"font-size: smaller;\">$&</span>");
   return modifiedNumber;
 });
+const ressurect = () => {
+    secured
+    .post('/user/ressurect')
+    .then(response => {
+      console.log(response.data.health)
+      if (response.data.health > 0){
+        store.setdead( false)
+        store.sethealth(response.data.health)
+      }
+    })
+  .catch(error => console.log(error))
+ 
+};
 const getImageUrl = (number) => {
   console.log(number)
   if ((number+1) <= store.tavcpoints) {
