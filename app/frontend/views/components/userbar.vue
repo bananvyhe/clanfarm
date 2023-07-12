@@ -65,7 +65,7 @@ const coverp = ref(2)
 
 const reducedNumber = computed(() => {
   // var rep = store.tprogress
-  var rep = 13.43.toString()
+  var rep = store.tprogress.toString()
   const regex = /\.\d+/g;
   const modifiedNumber = rep.replace(regex, ".<span style=\"font-size: smaller;\">$&</span>");
   return modifiedNumber;
