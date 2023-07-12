@@ -5,16 +5,19 @@
     <!-- <br>{{bossdirection}} -->  
     <!-- {{familiarup}} -->
   </div>
- 
+     <div class="hpbosspoints phrase interface"  >
+  {{bossphrase}}
+</div>
   <div class="d-flex flex-column align-self-end mainframe" v-if="boss == true" > 
     <div class="hpbosspoints d-flex justify-center text-caption" v-if="hpbosspoints != 0">{{hpbosspoints}}</div> 
     <div class="hpbar pb-15" >
       <v-progress-linear :model-value="hpboss" color="success" v-if="hpboss > 0"></v-progress-linear>
     </div> 
+
     <div ref="bossref" class="boss " :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]" v-on:click="handler()" >
     </div>
 
-    
+
     <div ref="gho" class="ghohpbar pb-16" v-if="hpghoulpoints > 0">
       <div class="hpghoulpoints d-flex justify-center text-caption" >{{hpghoulpoints}}</div> 
       <v-progress-linear :model-value="hpghoul" color="success" ></v-progress-linear>
@@ -40,6 +43,103 @@ const store = useLogStore()
 const familiarup = ref(false)
 const boss = ref(true)
 const familiar = ref(true)
+ 
+function bosstalk(val) {
+  
+  gsap.set(".phrase", {
+opacity: 0,
+  }); 
+  var n1 = gsap.timeline();  
+  n1.to(".phrase",{
+    duration: 2,
+    opacity: 1,
+
+
+  })
+  .to(".phrase",{
+    duration: 5,
+    opacity: 1,
+  })
+  .to(".phrase",{
+    duration: 2,
+    opacity: 0,
+        onComplete: function () {
+        bossphrase.value = 0
+    }
+  })  
+}
+
+const phrases = ref([
+  {
+    original: "Mere mortals, your destiny lies in the palm of my hands. Resistance is futile, for the Reaper's touch is inescapable.",
+    translation: "Смертные, ваша судьба лежит в моих руках. Сопротивление бесполезно, ведь прикосновение Пожинателя неизбежно."
+  },
+  {
+    original: "Behold, fragile beings, your futile struggle against the cosmic tide. The cycle of extinction beckons, and we, the Reapers, shall orchestrate its harmonious symphony.",
+    translation: "Взгляните, хрупкие существа, на ваше бесполезное противостояние космическому потоку. Цикл истребления наступает, и мы, Пожинатели, будем оркестровать его гармоничную симфонию."
+  },
+  {
+    original: "Pathetic creatures, you cling to your fleeting existence, blind to the inevitable. The Reaper's scythe shall reap what you have sown.",
+    translation: "Ничтожные создания, вы цепляетесь за ваше мимолетное существование, не видя неизбежности. Коса Пожинателя пожнет то, что вы посеяли."
+  },
+  {
+    original: "Delusions of grandeur shatter against the might of the Reapers. Your feeble attempts at defiance merely fuel our insatiable hunger for oblivion.",
+    translation: "Блеф иллюзий рушится перед мощью Пожинателей. Ваши слабые попытки сопротивления лишь питают нашу ненасытную жажду бездны."
+  },
+  {
+    original: "Through the abyss of time, we emerge, unstoppable and remorseless. Your existence holds no significance in the grand tapestry of the Reapers' design.",
+    translation: "Через бездну времени мы восходим, непреодолимые и беспощадные. Ваше существование не имеет значения в великой ткани дизайна Пожинателей."
+  },
+  {
+    original: "Like insects trapped in a spider's web, your struggles only entangle you further. Accept your fate, for the Reapers' embrace is inescapable.",
+    translation: "Подобно насекомым, увязшим в паутине, ваши страдания лишь запутывают вас еще больше. Примите свою судьбу, ведь объятия Пожинателей неизбежны."
+  },
+  {
+    original: "You insignificant vermin, your existence is but a stain upon the cosmos. Prepare to be eradicated.",
+    translation: "Ты ничтожная гнусь, твоё существование всего лишь пятно на космосе. Готовься быть уничтоженным."
+  },
+  {
+    original: "Feeble mortal, your futile resistance only adds to the amusement of your impending demise.",
+    translation: "Жалкий смертный, твоё бесполезное сопротивление только добавляет веселья твоему неизбежному концу."
+  },
+  {
+    original: "You're a pitiful speck of dust in the face of our cosmic might. Your annihilation is inevitable.",
+    translation: "Ты жалкий крошечный песчинка перед нашей космической мощью. Твоё уничтожение неизбежно."
+  },
+  {
+    original: "Pathetic creature, your feeble attempts at defiance are laughable. You are nothing but prey to us.",
+    translation: "Жалкое существо, твои слабые попытки противостоять вызывают смех. Ты для нас всего лишь добыча."
+  },
+  {
+    original: "Behold the true power of the Reapers, as we crush your hopes and dreams into cosmic dust.",
+    translation: "Смотри на истинную мощь Пожинателей, пока мы раздавливаем твои надежды и мечты в космическую пыль."
+  },
+  {
+    original: "Your pathetic existence is a blight upon the galaxy. It's time to cleanse the universe of your insignificance.",
+    translation: "Твоё жалкое существование — это болезнь на галактике. Пришло время очистить вселенную от твоей ничтожности."
+  },
+  {
+    original: "Resistance is futile, as your feeble spirit crumbles before the unstoppable force of the Reapers.",
+    translation: "Сопротивление бесполезно, так как твой слабый дух разрушается перед непреодолимой силой Пожинателей."
+  },
+  {
+    original: "Your futile struggle is an entertaining spectacle for us, as we watch your hope wither and die.",
+    translation: "Твоя бесполезная борьба — зрелище для нас, пока мы наблюдаем, как твоя надежда увядает и умирает."
+  },
+  {
+    original: "Your defiance is an amusing diversion, but it changes nothing. Prepare for your inevitable demise.",
+    translation: "Твоё противодействие — забавное отвлечение, но оно ничего не меняет. Готовься к неизбежной смерти."
+  },
+  {
+    original: "You dare to challenge the Reapers? How amusing. We will revel in your despair as we harvest your existence.",
+    translation: "Ты осмеливаешься бросить вызов Пожинателям? Как забавно. Мы будем наслаждаться твоим отчаянием, пока собираем твоё существование."
+  },
+]);
+
+const bossphrase= ref()
+// Accessing the phrases
+
+
 
 const ghoul = ref(null)
 let b5 =  null
@@ -119,7 +219,7 @@ function handler(){
   if (hpboss.value <= 0){
     bossdeath()
   }else{
-    if (ready.value == true ) {
+    if (ready.value == true && store.thealth != 0 ) {
 
       secured
       .post('/hitboss')
@@ -146,8 +246,15 @@ function handler(){
               hpbosspoints.value = response.data.hp
    
               // hpboss.value = hpbosspoints.value * 100 / response.data.bossfullhp
+
               if (response.data.health >= 0){
                 store.sethealth(response.data.health)
+                store.hitme()
+const firstPhrase = phrases.value[Math.floor(Math.random() * 16)]; // First phrase object
+const originalFirstPhrase = firstPhrase.original; // Original English phrase
+const translatedFirstPhrase = firstPhrase.translation; 
+bossphrase.value = firstPhrase.translation 
+bosstalk()
               }
               if (response.data.lvl){
                 store.setlvl(response.data.lvl)
@@ -577,6 +684,13 @@ function bossidle() {
 </script>
 
 <style scoped>
+.phrase{
+  opacity: 0;
+  width: 30%;
+    position: absolute;
+    padding-left: 4em;
+    padding-top: 1em;
+}
 .drops{
   position: absolute;
   bottom: 0px;
