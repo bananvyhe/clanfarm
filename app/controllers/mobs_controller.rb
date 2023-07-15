@@ -149,6 +149,8 @@ class MobsController < ApplicationController
 			@ghochek.save
 			end
 			render json: response
+		else
+			render json: { error: "недостаточно очков боя" }
 		end
 		
 	end

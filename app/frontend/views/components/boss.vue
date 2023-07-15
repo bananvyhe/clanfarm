@@ -30,6 +30,8 @@
 </template>
 
 <script setup lang="ts">
+import { useNotification } from "@kyvg/vue3-notification";
+const { notify}  = useNotification()
 import Drop from './drop.vue'
 const mdrop = ref()
 
@@ -268,7 +270,9 @@ function handler(){
 
 
         })
-        .catch(error => console.log(error)) 
+        .catch(error => {
+          notify({ title: error, type: 'error'});
+        }) 
       start()
     }    
   }
