@@ -28,7 +28,7 @@
         <v-progress-linear :height="2" class="mb-1" :model-value="store.tprogress" color="secondary"  >
          
         </v-progress-linear>
-        <div class="interface " style="font-size: 0.8em" v-html="reducedNumber" > </div>
+        <div class="interface " style="font-size: 0.8em" v-html="reducedNumber+' ' + '%'"> </div>
         <div class="d-flex flex-row-reverse " style="position: absolute; right: 0; bottom: 0;">
           <div v-for="(item, index) in store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}">
           </div>
