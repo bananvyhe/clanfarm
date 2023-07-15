@@ -2,7 +2,7 @@
 
   	<div class="hat">	
 	  	<div class="container" ref="el">
- 
+ <!-- <pumpk></pumpk> -->
 			<summoner :width = "width"></summoner>
 			</div>
   	</div>
@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import Summoner from './boss.vue'
 import News from './news.vue'
- 
+ // import pumpk from './pumpk.vue'
 import { gsap } from "gsap";
 import { SlowMo } from "gsap/EasePack";
 import { ref, onMounted, nextTick } from 'vue';
@@ -53,7 +53,7 @@ onMounted(() => {
 }
 .container {
 	height: 100%;
-	overflow: hidden;	
+	/*overflow: hidden;	*/
 	padding: 0;
  z-index: 10;
 	display: flex;
