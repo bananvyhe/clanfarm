@@ -116,35 +116,35 @@ class MobsController < ApplicationController
 			response['death'] = @ghochek.death
 			response['ghohp'] = @ghochek.mob.hp
 			if  rand(2) == 0
-			if @ghochek.damagedeal != 0
-				mob = Mob.new
-				# hit = mob.hitcalcul(350, 5)
-				hit = mob.hitcalcul(350, 5)
-				puts hit
-				health = current_user.health -= hit
-				response['health'] = current_user.health
+				if @ghochek.damagedeal != 0
+					mob = Mob.new
+					# hit = mob.hitcalcul(350, 5)
+					hit = mob.hitcalcul(350, 5)
+					puts hit
+					health = current_user.health -= hit
+					response['health'] = current_user.health
 
-				if current_user.health <= 0
-					current_user.health = 0
-					response['health'] = 0
-					current_user.dead = true
-					level_info = calcul_getexp(expa, true)
-					if level_info
-					  level = level_info[0]
-					  progress = level_info[1]
-					  current_user.expirience = level_info[2]
-					  puts "Player remaining_exp: #{level_info[2]}"
-					  puts "Player Level: #{level}"
-					  puts "Level Progress: #{progress.round(2)}%"
-						response['lvl'] = level
-						response['progress'] = progress.round(2)
-						response['dead'] = true
-						
-					end					
+					if current_user.health <= 0
+						current_user.health = 0
+						response['health'] = 0
+						current_user.dead = true
+						level_info = calcul_getexp(expa, true)
+						if level_info
+						  level = level_info[0]
+						  progress = level_info[1]
+						  current_user.expirience = level_info[2]
+						  puts "Player remaining_exp: #{level_info[2]}"
+						  puts "Player Level: #{level}"
+						  puts "Level Progress: #{progress.round(2)}%"
+							response['lvl'] = level
+							response['progress'] = progress.round(2)
+							response['dead'] = true
+							
+						end					
+					end
+
+					current_user.save
 				end
-
-				current_user.save
-			end
 			@ghochek.damagedeal += 1
 			@ghochek.save
 			end

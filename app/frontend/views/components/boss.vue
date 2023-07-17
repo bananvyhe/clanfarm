@@ -47,9 +47,9 @@ const boss = ref(true)
 const familiar = ref(true)
  
 function bosstalk(val) {
-  
+ 
   gsap.set(".phrase", {
-opacity: 0,
+  opacity: 0,
   }); 
   var n1 = gsap.timeline();  
   n1.to(".phrase",{
@@ -59,17 +59,24 @@ opacity: 0,
 
   })
   .to(".phrase",{
-    duration: 5,
+    duration: 6,
     opacity: 1,
   })
   .to(".phrase",{
     duration: 2,
     opacity: 0,
-        onComplete: function () {
-        bossphrase.value = 0
+    onComplete: function () {
+      phoff()
     }
   })  
+  function phoff(val) {
+    if (n1) {
+      n1.kill(); 
+      bossphrase.value = 0
+    }  
+  }
 }
+
 
 const phrases = ref([
   {
@@ -138,7 +145,7 @@ const phrases = ref([
   },
 ]);
 
-const bossphrase= ref()
+const bossphrase= ref(0)
 // Accessing the phrases
 
 
@@ -255,8 +262,12 @@ function handler(){
                 const firstPhrase = phrases.value[Math.floor(Math.random() * 16)]; // First phrase object
                 const originalFirstPhrase = firstPhrase.original; // Original English phrase
                 const translatedFirstPhrase = firstPhrase.translation; 
+                if ( bossphrase.value == 0 ){
+
+
                 bossphrase.value = firstPhrase.translation 
                 bosstalk()
+                                }
                 store.setdead(response.data.dead)
               }
               if (response.data.lvl){
