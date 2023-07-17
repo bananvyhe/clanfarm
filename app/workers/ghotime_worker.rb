@@ -2,7 +2,7 @@ class GhotimeWorker < ApplicationController
 	include Sidekiq::Worker
 	require 'time'
 	def perform
-		eight_hours_ago = Time.now - (180)
+		eight_hours_ago = Time.now - (28800000)
 	 	gho = MobUser.all
 	 	.joins(:mob).where('name = ?', 'ghoul' )
  		gho.each do |c|

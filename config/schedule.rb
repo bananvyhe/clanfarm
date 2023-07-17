@@ -17,6 +17,19 @@ end
 every :hour do
   sidekiq 'push CpWorker'
 end
+
+every :hour do
+  sidekiq 'push GhotimeWorker'
+end
+
+every :hour do
+  sidekiq 'push HealthpWorker'
+end
+
+every :hour do
+  sidekiq 'push HealthbWorker'
+end
+
 # Example:
 #
 # set :output, "/path/to/my/cron_log.log"
