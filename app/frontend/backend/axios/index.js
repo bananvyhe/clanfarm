@@ -28,13 +28,15 @@ const plainAxiosInstance = axios.create({
  
 securedAxiosInstance.interceptors.request.use(config => {
   const method = config.method.toUpperCase()
+  // const logStore = useLogStore()
+  const logStore =  ls.get('account').ctsrf
   if (method !== 'OPTIONS' && method !== 'GET') { 
     console.log("interceptors.request")
-    const logStore = useLogStore()
-    console.log(ls.get('ctsrf'))
+
+    console.log( logStore )
     config.headers = {
       ...config.headers,
-      'X-CSRF-TOKEN': logStore.tctsrf
+      'X-CSRF-TOKEN': logStore 
     }
   }
   return config
@@ -43,19 +45,15 @@ securedAxiosInstance.interceptors.request.use(config => {
 securedAxiosInstance.interceptors.response.use(null, error => {
 
   if (error.response && error.response.config && error.response.status === 401) {
-      const logStore = useLogStore()
+      const logStore = ls.get('account').ctsrf
   // console.log(ls.get('ctsrf'))
     // In case 401 is caused by expired access cookie - we'll do refresh request
-    return plainAxiosInstance.post('/refresh', {}, { headers: { 'X-CSRF-TOKEN': logStore.tctsrf } })
+    return plainAxiosInstance.post('/refresh', {}, { headers: { 'X-CSRF-TOKEN': logStore } })
       .then(response => {
-        logStore.refresh(response.data.csrf) 
-        // ...mapActions(useLogStore, ["refresh"])
-        // const logStore = useLogStore();
+        // logStore.refresh(response.data.csrf) 
+
           console.log("interceptors.response11")
-        // logStore.refresh(response.data.csrf)  
-        // localStorage.csrf = response.data.csrf
-        // localStorage.signedIn = true
-        // And after successful refresh - repeat the original request
+
         let retryConfig = error.response.config
         retryConfig.headers['X-CSRF-TOKEN'] = logStore.tctsrf
         return plainAxiosInstance.request(retryConfig)
