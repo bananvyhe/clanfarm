@@ -179,8 +179,10 @@ import draggable from "vuedraggable"
   //     .catch(error => { this.setError(error, 'Something went wrong') })
   //   }, 
   onMounted(() => {
+    if (store.tsignedIn){
     console.log("menuget")
-    menuget()
+      menuget()
+    }
   })
   function menuget(){
     
