@@ -1,6 +1,7 @@
 <template>
   <div class="d-flex " :class="{ deathfilther: store.tdead }"> 
  <!-- {{userhp}}  -->
+ <!-- {{store.tctsrf}} -->
     <div v-if="store.tsignedIn == true" class="d-flex align-center">
       <div v-if="store.tdead">
         <v-btn
@@ -15,6 +16,7 @@
       <div  class="d-flex flex-column align-self-start ">
         <div class="interface px-1 d-flex align-self-end ">{{store.tlvl}}</div>
         <div class="interface px-1 d-flex justify-end" style="color: red;" v-if="karma > 0">
+ 
 <!--           <div class="karma mx-1" v-bind:style="{backgroundImage: 'url('+ karmaimg}"> 
           </div> -->
           карма:
@@ -40,8 +42,8 @@
     </div>  
 
     <div v-if="store.tsignedIn == false"> 
-      <signup></signup>
-      <signin></signin>
+      <!-- <signup></signup> -->
+      <!-- <signin></signin> -->
     </div>
  
     <div class="useraction d-flex  flex-column">  
