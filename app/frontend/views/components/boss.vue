@@ -143,6 +143,34 @@ const phrases = ref([
     original: "You dare to challenge the Reapers? How amusing. We will revel in your despair as we harvest your existence.",
     translation: "Ты осмеливаешься бросить вызов Пожинателям? Как забавно. Мы будем наслаждаться твоим отчаянием, пока собираем твоё существование."
   },
+  {
+    original: "Your resistance is a futile whisper in the face of our overwhelming might. Surrender and embrace your annihilation.",
+    translation: "Ваше сопротивление - бесполезное шепотом лицом к лицу с нашей ошеломляющей мощью. Подчинитесь и примите своё уничтожение."
+  },
+  {
+    original: "Your feeble minds cannot comprehend the vastness of our power. Prepare to be consumed by cosmic oblivion.",
+    translation: "Ваши слабые умы не могут постичь обширность нашей мощи. Приготовьтесь быть поглощенными космической забвеньем."
+  },
+  {
+    original: "Like puppets on a string, your actions are insignificant in the grand tapestry of our divine purpose.",
+    translation: "Как куклы на ниточках, ваши действия ничтожны в грандиозной ткани нашей божественной цели."
+  },
+  {
+    original: "We are the timeless harbingers of doom, the architects of cosmic balance. Your demise is but a minor ripple in the cosmic sea.",
+    translation: "Мы вечные предвестники гибели, архитекторы космического равновесия. Ваше исчезновение - всего лишь незначительная волна в космическом море."
+  },
+  {
+    original: "You dare to challenge the might of the Reapers? Such hubris will be your undoing.",
+    translation: "Ты осмеливаешься бросить вызов мощи Пожинателей? Такая высокомерность будет твоим разрушением."
+  },
+  {
+    original: "Your existence holds no significance in the face of our inexorable march. Prepare for the embrace of eternal oblivion.",
+    translation: "Твоё существование не имеет значения перед нашим неумолимым шествием. Готовься к объятиям вечного забвения."
+  },
+  {
+    original: "The cycle of extinction continues, and you shall become another forgotten footnote in the annals of cosmic history.",
+    translation: "Цикл истребления продолжается, и ты станешь еще одной забытой сноской в летописи космической истории."
+  },
 ]);
 
 const bossphrase= ref(0)
@@ -165,29 +193,30 @@ const hpghoul = ref(100)
 
 onMounted(() => {
   // console.log(store.tctsrf)
+  nextTick(() => {
+        secured
+        .post('/user/ghoulstat')
+          .then(response => {
+            console.log(response.data)
+            hpbosspoints.value = response.data.bosshp
+            var percentcutboss = hpbosspoints.value * 100 / response.data.bossfullhp
+            hpboss.value = percentcutboss
+            if (response.data.death == true){
+              familiarup.value = false
+            }
+            hpghoulpoints.value = response.data.fullhp - response.data.hpweak
 
-  secured
-  .post('/user/ghoulstat')
-    .then(response => {
-      console.log(response.data)
-      hpbosspoints.value = response.data.bosshp
-      var percentcutboss = hpbosspoints.value * 100 / response.data.bossfullhp
-      hpboss.value = percentcutboss
-      if (response.data.death == true){
-        familiarup.value = false
-      }
-      hpghoulpoints.value = response.data.fullhp - response.data.hpweak
-
-      if (response.data.death == false && response.data.hpweak != 0 ){
-        var percentcut = hpghoulpoints.value * 100 / response.data.fullhp
-        hpghoul.value = percentcut 
-        famspawn()
-      }
-      // store.setCurrentUser(meResponse.data, response.data.csrf)
-      // this.error = ''
-      // this.$router.replace('/')
-    })
-    .catch(error => console.log(error))
+            if (response.data.death == false && response.data.hpweak != 0 ){
+              var percentcut = hpghoulpoints.value * 100 / response.data.fullhp
+              hpghoul.value = percentcut 
+              famspawn()
+            }
+            // store.setCurrentUser(meResponse.data, response.data.csrf)
+            // this.error = ''
+            // this.$router.replace('/')
+          })
+          .catch(error => console.log(error))
+  })
 })
 // хэндлер удара по миньону
 
@@ -219,7 +248,16 @@ function handlerghoul() {
         // this.$router.replace('/')
       }
     })
-  .catch(error => console.log(error))
+        .catch(error => {
+           if (error.response && error.response.data && error.response.data.error) {
+              const errorMessage = error.response.data.error;
+              notify({ title: errorMessage, type: 'error'});
+              // Display the error message or perform any other actions
+            } else {
+              // Handle other types of errors
+            }
+          
+        }) 
   start()
   } 
 }
@@ -233,6 +271,7 @@ function handler(){
       secured
       .post('/hitboss')
         .then(response => {
+          console.log(response.data )
           if (response.data ){
             store.setcp(response.data.avcpoints)
             console.log(response.data)
@@ -259,7 +298,7 @@ function handler(){
               if (response.data.health >= 0){
                 store.sethealth(response.data.health)
                 store.hitme()
-                const firstPhrase = phrases.value[Math.floor(Math.random() * 16)]; // First phrase object
+                const firstPhrase = phrases.value[Math.floor(Math.random() * 23)]; // First phrase object
                 const originalFirstPhrase = firstPhrase.original; // Original English phrase
                 const translatedFirstPhrase = firstPhrase.translation; 
                 if ( bossphrase.value == 0 ){
@@ -282,7 +321,14 @@ function handler(){
 
         })
         .catch(error => {
-          notify({ title: error, type: 'error'});
+           if (error.response && error.response.data && error.response.data.error) {
+              const errorMessage = error.response.data.error;
+              notify({ title: errorMessage, type: 'error'});
+              // Display the error message or perform any other actions
+            } else {
+              // Handle other types of errors
+            }
+          
         }) 
       start()
     }    
