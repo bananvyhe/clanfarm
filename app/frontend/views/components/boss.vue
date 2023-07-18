@@ -193,7 +193,7 @@ const hpghoul = ref(100)
 
 onMounted(() => {
   // console.log(store.tctsrf)
-
+if (store.tsignedIn){
   secured
   .post('/user/ghoulstat')
     .then(response => {
@@ -216,6 +216,7 @@ onMounted(() => {
       // this.$router.replace('/')
     })
     .catch(error => console.log(error))
+  }
 })
 // хэндлер удара по миньону
 
