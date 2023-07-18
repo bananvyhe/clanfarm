@@ -120,6 +120,7 @@ import ls from 'localstorage-slim';
 //вычисление уровня
 onMounted(() => {
   if (store.tsignedIn){
+    console.log(store.tctsrf)
       secured
       .get('/me')
         .then(meResponse => {
