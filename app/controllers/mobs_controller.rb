@@ -78,6 +78,8 @@ class MobsController < ApplicationController
 			response['cpoints'] = current_user.cpoints			
 			# puts @gho.inspect
 			render json: response
+		else
+			render json: { error: "недостаточно очков боя" }, status: :unprocessable_entity
 		end
 	end
  
