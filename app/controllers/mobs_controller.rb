@@ -150,7 +150,7 @@ class MobsController < ApplicationController
 			end
 			render json: response
 		else
-			render json: { error: "недостаточно очков боя" }
+			render json: { error: "недостаточно очков боя" }, status: :unprocessable_entity
 		end
 		
 	end
