@@ -193,30 +193,29 @@ const hpghoul = ref(100)
 
 onMounted(() => {
   // console.log(store.tctsrf)
-  nextTick(() => {
-        secured
-        .post('/user/ghoulstat')
-          .then(response => {
-            console.log(response.data)
-            hpbosspoints.value = response.data.bosshp
-            var percentcutboss = hpbosspoints.value * 100 / response.data.bossfullhp
-            hpboss.value = percentcutboss
-            if (response.data.death == true){
-              familiarup.value = false
-            }
-            hpghoulpoints.value = response.data.fullhp - response.data.hpweak
 
-            if (response.data.death == false && response.data.hpweak != 0 ){
-              var percentcut = hpghoulpoints.value * 100 / response.data.fullhp
-              hpghoul.value = percentcut 
-              famspawn()
-            }
-            // store.setCurrentUser(meResponse.data, response.data.csrf)
-            // this.error = ''
-            // this.$router.replace('/')
-          })
-          .catch(error => console.log(error))
-  })
+  secured
+  .post('/user/ghoulstat')
+    .then(response => {
+      console.log(response.data)
+      hpbosspoints.value = response.data.bosshp
+      var percentcutboss = hpbosspoints.value * 100 / response.data.bossfullhp
+      hpboss.value = percentcutboss
+      if (response.data.death == true){
+        familiarup.value = false
+      }
+      hpghoulpoints.value = response.data.fullhp - response.data.hpweak
+
+      if (response.data.death == false && response.data.hpweak != 0 ){
+        var percentcut = hpghoulpoints.value * 100 / response.data.fullhp
+        hpghoul.value = percentcut 
+        famspawn()
+      }
+      // store.setCurrentUser(meResponse.data, response.data.csrf)
+      // this.error = ''
+      // this.$router.replace('/')
+    })
+    .catch(error => console.log(error))
 })
 // хэндлер удара по миньону
 
