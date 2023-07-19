@@ -47,134 +47,71 @@
   const plain: any = inject('plain')
   const secured: any = inject('secured')
   const store = useLogStore()
-// export default {
+
   const email = ref()
   const password = ref()
 
   const emailRules = reactive([
-        v => !!v || 'E-mail необходим для регистрации',
-        v => /.+@.+\..+/.test(v) || 'E-mail введен некорректно',
-      ])
+    v => !!v || 'E-mail необходим для регистрации',
+    v => /.+@.+\..+/.test(v) || 'E-mail введен некорректно',
+  ])
   const confirmRules = reactive([
-        v => !!v || 'нужно ввести пароль',
-        v => v.length >= 5 || 'Пароль должен содержать более 6 символов',
-                    // v => (v || '').indexOf(' ') < 0 ||  'Пробелов не должно быть'
-        v => v ==  password.value || "Пароли не совпадают"
-      ]) 
-  // data () {
-  //   return {
-  //     emailRules: [
-  //       v => !!v || 'E-mail необходим для авторизации',
-  //       v => /.+@.+\..+/.test(v) || 'E-mail введен некорректно',
-  //     ],        
-  //     email: '',
-  //     password: '',
-  //     error: ''
-  //   }
-  // },
- 
-  // created () {
-  //   this.checkSignedIn()
-  // },
-  // updated () {
-  //   this.checkSignedIn()
-  // },
- 
-    // ...mapActions(useLogStore, ["setCurrentUser"]), 
-    // ...mapActions(useLogStore, ["unsetCurrentUser"]),  
+    v => !!v || 'нужно ввести пароль',
+    v => v.length >= 5 || 'Пароль должен содержать более 6 символов',
+                // v => (v || '').indexOf(' ') < 0 ||  'Пробелов не должно быть'
+    v => v ==  password.value || "Пароли не совпадают"
+  ]) 
 
-    function signin () {
-      plain
-        .post('/signin', { email: email.value, password: password.value })
-        // .then(response => signinSuccessful(response))
-        // .catch(error => signinFailed(error))
-        .then((response: { data: any }) => {
-          // console.log(response.data.message)  
-          signinSuccessful(response)
-       
-        })
-        .catch(error => {
-          notify({ title: "Ошибка авторизации", type: 'error', text: error.response.data.message});
-          // console.log(error.response.data.message)          
-        })
-    }
+  function signin () {
+    plain
+      .post('/signin', { email: email.value, password: password.value })
+      // .then(response => signinSuccessful(response))
+      // .catch(error => signinFailed(error))
+      .then((response: { data: any }) => {
+        // console.log(response.data.message)  
+        signinSuccessful(response)
+     
+      })
+      .catch(error => {
+        notify({ title: "Ошибка авторизации", type: 'error', text: error.response.data.message});
+        // console.log(error.response.data.message)          
+      })
+  }
 
-    function signinSuccessful (response) {
-      notify({ title: "Успешная авторизация", type: 'success'});
-      store.unsetLoa()
-      if (!response.data.csrf) {
-        signupFailed(response)
-        return
-      }else{
-        console.log("me")
+  function signinSuccessful (response) {
+    notify({ title: "Успешная авторизация", type: 'success'});
+    store.unsetLoa()
+    if (!response.data.csrf) {
+      signupFailed(response)
+      return
+    }else{
+      console.log("me")
       secured
       .get('/me')
-        .then(meResponse => {
-          console.log(meResponse.data)
-          store.setCurrentUser(meResponse.data, response.data.csrf)
-          // this.error = ''
-          // this.$router.replace('/')
-          nextTick(() => {
-            router.push({ name: "lobby" });
-          })
+      .then(meResponse => {
+        console.log(meResponse.data)
+        store.setCurrentUser(meResponse.data, response.data.csrf)
+        // this.error = ''
+        // this.$router.replace('/')
+        nextTick(() => {
+          router.push({ name: "lobby" });
         })
-        .catch(error => console.log(error))
+      })
+      .catch(error => console.log(error))
       // this.$router.replace('/')        
-      }
-
     }
+  }
 
-    function signinFailed (error) {
-      console.log(error)
-      store.unsetCurrentUser 
-      // this.error = (error.response && error.response.data && error.response.data.error) || error.data.errors
-      // delete localStorage.csrf
-      // delete localStorage.signedIn
-    }  
+  function signinFailed (error) {
+    console.log(error)
+    store.unsetCurrentUser 
+  }  
 
-    // signinSuccessful (response) {
-    //   console.log(response)
-    //   console.log("signinSuccessful")
-    //   if (!response.data.csrf) {
-    //     this.signinFailed(response)
-    //     return
-    //   }
-    //     this.$http.plain.get('/me')
-    //     .then(meResponse => {
-
-    //       this.setCurrentUser(meResponse.data, response.data.csrf)
-    //       this.error = ''
-
-    //            this.$router.replace('/')
-    //     })
-    //     .catch(error => this.signinFailed(error))
-
- 
-    // },
-    // signinFailed (error) {
-
-    //   this.error = (error.response && error.response.data && error.response.data.error) || ''
-
-    //   this.unsetCurrentUser()
-      
-    // },
-    // checkSignedIn () {
-    //   if (this.signedIn == true) {
- 
-    //   }
-    // }
- 
-// }
 </script>
 
 <style lang="css">
 input:-webkit-autofill { 
     -webkit-background-clip: text;
 }
-.form-signin {
-  /*width: 70%;*/
-  /*max-width: 500px;*/
-  /*padding: 10% 15px;*/
-  /*margin: 0 auto;*/
-}
+
 </style>

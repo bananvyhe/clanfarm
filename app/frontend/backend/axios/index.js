@@ -28,15 +28,15 @@ const plainAxiosInstance = axios.create({
  
 securedAxiosInstance.interceptors.request.use(config => {
   const method = config.method.toUpperCase()
-  // const logStore = useLogStore()
-  const logStore =  ls.get('account').ctsrf
+  const logStore = useLogStore()
+  // const logStore =  ls.get('account').ctsrf
   if (method !== 'OPTIONS' && method !== 'GET') { 
     console.log("interceptors.request")
 
-    console.log( logStore )
+    console.log( logStore.tctsrf )
     config.headers = {
       ...config.headers,
-      'X-CSRF-TOKEN': logStore 
+      'X-CSRF-TOKEN': logStore.tctsrf 
     }
   }
   return config
