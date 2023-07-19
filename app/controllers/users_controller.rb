@@ -53,6 +53,7 @@ class UsersController < ApplicationController
 
 	include ExpCalcul 
   def me
+  	puts "use me controller"
   	us = current_user.expirience.to_i
   	level_info = calcul_getexp(us, false)
 		if level_info
