@@ -3,8 +3,8 @@ import { useLogStore } from '../../store.js'
 import ls from 'localstorage-slim';  
 // const logStore = useLogStore();
 // const API_URL = window.location.href 
-const API_URL = 'http://localhost:3000'
-// const API_URL = 'https://farmspot.ru'
+// const API_URL = 'http://localhost:3000'
+const API_URL = 'https://farmspot.ru'
 const securedAxiosInstance = axios.create({ 
   baseURL: API_URL,
   withCredentials: true,
