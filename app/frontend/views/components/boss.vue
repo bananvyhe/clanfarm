@@ -194,6 +194,7 @@ const hpghoul = ref(100)
 onMounted(() => {
   // console.log(store.tctsrf)
 if (store.tsignedIn){
+  console.log(' request ghoulstat')
   secured
   .get('/users/ghoulstat')
     .then(response => {
