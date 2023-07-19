@@ -195,6 +195,11 @@ onMounted(() => {
   // console.log(store.tctsrf)
 if (store.tsignedIn){
   console.log(' request ghoulstat')
+  ghoulstatreq()
+  }
+})
+function ghoulstatreq() {
+
   secured
   .get('/users/ghoulstat')
     .then(response => {
@@ -217,10 +222,8 @@ if (store.tsignedIn){
       // this.$router.replace('/')
     })
     .catch(error => console.log(error))
-  }
-})
+}
 // хэндлер удара по миньону
-
 function handlerghoul() {
   if (ready.value == true ) {
 
