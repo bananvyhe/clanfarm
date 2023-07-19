@@ -37,7 +37,7 @@ const mdrop = ref()
 
 const props = defineProps(['width'])
 import { gsap } from "gsap";
-import { ref, computed, inject, nextTick, watch } from 'vue';
+import { ref, computed, inject, nextTick, watch, onMounted } from 'vue';
 import { promiseTimeout, useTimeout} from '@vueuse/core'
 const { ready, start } = useTimeout(1000, { controls: true })
 import { useLogStore } from '../../store.js'

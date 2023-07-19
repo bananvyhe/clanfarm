@@ -82,7 +82,7 @@
 <script setup lang="ts">
 import { ref, computed, inject, onMounted } from 'vue';
 import { useLogStore } from '../../store.js' 
- const invarray = computed({
+const invarray = computed({
   get(){
     return store.tinventory
   },
@@ -90,94 +90,31 @@ import { useLogStore } from '../../store.js'
     store.setinv(val)
   }
   
- })
-// const invarray = computed(() => store.tinventory)
+})
   const store = useLogStore()
   const plain: any = inject('plain')
   const secured: any = inject('secured')
+  const menu = ref(false) 
+  import draggable from "vuedraggable"
 
-  const menu = ref(false)
- 
-    // const thisinv = computed(() => store.tinventory)
-// import { mapState, mapActions } from 'pinia' 
-// import { useLogStore } from 'store.js'
-// import axios from 'axios'  
-import draggable from "vuedraggable"
-// export default {
-  // components: { draggable },
- 
-  
-  // data() {
-  //   return {
-  //     fav: true,
-  //     menu: false,
-  //     message: false,
-  //     hints: true,
-  //     dis: false,
-  //     responseClan: false,
-  //     dialogBuildClan: false,   
-  //     result: [],
-  //     delay: 500,
-  //     clicks: 0,
-  //     timer: null,  
-  //     items: [],
-  //     isOpen: false,
-  //   }
-  // },
-    function itemMoved(event) {
-
-      const evt = event.added || event.moved
-      if (evt == undefined) {return}
-      const element = evt.element
-      console.log(event)
-
-      var data = new FormData
-        
- 
-      data.append("my_item[position]", event.moved.newIndex  + 1)
-      data.append("my_item[my_item_id]", event.moved.element.id  )
-      console.log(data.my_item)
-        secured
-        .patch(`/my_items/${element.id}/move`, data)
-          .then(response => { 
-    
-        menuget()
-        })
-        .catch(error => { this.setError(error, 'Something went wrong') })
+  function itemMoved(event) {
+    const evt = event.added || event.moved
+    if (evt == undefined) {return}
+    const element = evt.element
+    console.log(event)
+    var data = new FormData
       
-    }
-  // watch: {
+    data.append("my_item[position]", event.moved.newIndex  + 1)
+    data.append("my_item[my_item_id]", event.moved.element.id  )
+    console.log(data.my_item)
+      secured
+      .patch(`/my_items/${element.id}/move`, data)
+        .then(response => { 
   
-  //   isOpen(){
-  //     if (this.isOpen == true) {
- 
-  //     }
-  //   }
-  // },
-  // computed: {   
-  //   ...mapState(useLogStore, {
-  //     thisinv: "thisinv",
-  //   }),      
-  //   ...mapState(useLogStore, {
-  //     loareg: "thisloareg",
-  //   }),    
-  // },
-  // created() {
-  //   this.getloareg()
-  //   this.menuget()
-  // },
-  // methods: {
-  //   ...mapActions(useLogStore, ["setinv"]),
-  //   ...mapActions(useLogStore, ["setLoareg"]),     
-  //   getloareg(){
-  //      this.$http.secured.get('/my_items')
-  //     .then(response => { 
-  //       console.log(response.data)
- 
-  //       this.setLoareg(response.data)
-  //     })
-  //     .catch(error => { this.setError(error, 'Something went wrong') })
-  //   }, 
+      menuget()
+      })
+      .catch(error => { this.setError(error, 'Something went wrong') })
+  }
   onMounted(() => {
     if (store.tsignedIn){
     console.log("menuget")
@@ -199,45 +136,7 @@ import draggable from "vuedraggable"
   function oneClick(el, id) {
     console.log(el)
     console.log(id)
-      // this.clicks++
-      //   if (this.clicks === 1) {
-      //     var self = this
-      //     this.timer = setTimeout(function() {
-      //       self.result.push(event.type);
-      //       self.clicks = 0
-      //     }, this.delay);
-      //   } else {
- 
-      //     clearTimeout(this.timer);
-      //     this.result.push('dblclick');
-      //     this.clicks = 0;
-      //     this.itemUse(event, id)
-      //   }
-    }  
-  //   itemUse(name, id){
- 
-  //     if (name == 'Права лидера'){
-  //       this.dialogBuildClan = true;
- 
-  //     }
-  //     axios({
-  //       method: 'post',
-  //       url: `/my_items/${id}/use_item`,
-  //       data: {
-  //         name: name
-  //       },
-  //       headers: {
-  //         'Authorization': 'bearer '+this.token.access
-  //       } 
-  //     }).then((response) => { 
-         
-  //     })
-  //   },
-
- 
-        
-  // }
-// }
+  }  
 </script>
 <style scoped>
 .hovbut{

@@ -1,7 +1,8 @@
 <template>
   <div class="d-flex " :class="{ deathfilther: store.tdead }"> 
  <!-- {{userhp}}  -->
- <!-- {{store.tctsrf}} -->
+<!--   {{store.tctsrf}}
+ {{store.tsignedIn}} -->
     <div v-if="store.tsignedIn == true" class="d-flex align-center">
       <div v-if="store.tdead">
         <v-btn
@@ -63,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, inject, watch } from 'vue';
+import { ref, computed, inject, watch, onMounted } from 'vue';
 const karma = ref(0)
 const userhp = ref()
  
@@ -92,7 +93,7 @@ const ressurect = () => {
  
 };
 const getImageUrl = (number) => {
-  console.log(number)
+  // console.log(number)
   if ((number+1) <= store.tavcpoints) {
     return greenimg;
   } else {
