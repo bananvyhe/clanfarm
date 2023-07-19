@@ -3,8 +3,8 @@ import { useLogStore } from '../../store.js'
 import ls from 'localstorage-slim';  
 // const logStore = useLogStore();
 // const API_URL = window.location.href 
-// const API_URL = 'http://localhost:3000'
-const API_URL = 'https://farmspot.ru'
+const API_URL = 'http://localhost:3000'
+// const API_URL = 'https://farmspot.ru'
 const securedAxiosInstance = axios.create({ 
   baseURL: API_URL,
   withCredentials: true,
@@ -45,15 +45,20 @@ securedAxiosInstance.interceptors.request.use(config => {
 securedAxiosInstance.interceptors.response.use(null, error => {
 
   if (error.response && error.response.config && error.response.status === 401) {
-      const logStore = ls.get('account').ctsrf
-  // console.log(ls.get('ctsrf'))
+      const store = ls.get('account').ctsrf
+    const logStore = useLogStore()
+    console.log("refresh send")
+    console.log(logStore.tctsrf)
     // In case 401 is caused by expired access cookie - we'll do refresh request
-    return plainAxiosInstance.post('/refresh', {}, { headers: { 'X-CSRF-TOKEN': logStore } })
+    return plainAxiosInstance.post('/refresh', {}, { headers: { 'X-CSRF-TOKEN': store } })
       .then(response => {
+            console.log("interceptors.response11")
         // logStore.refresh(response.data.csrf) 
-
-          console.log("interceptors.response11")
-
+        // const logStore = useLogStore();
+        // logStore.setctsrf(response.data.csrf)
+        console.log(response.data.csrf)
+        logStore.setctsrf(response.data.csrf)
+        console.log(logStore.tctsrf)
         let retryConfig = error.response.config
         retryConfig.headers['X-CSRF-TOKEN'] = logStore.tctsrf
         return plainAxiosInstance.request(retryConfig)

@@ -145,6 +145,12 @@ export const useLogStore = defineStore(
       makevalues()
       savesign()
     }
+    function setctsrf(val) {
+      makevalues()
+      ctsrf.value = val
+      valueall.ctsrf = val
+      ls.set('account', valueall)
+    }     
     function setdead(val) {
       makevalues()
       dead.value = val
@@ -256,5 +262,6 @@ export const useLogStore = defineStore(
     tcpoints,
     setcp,
     tdead,
-    setdead }
+    setdead,
+    setctsrf }
 })
