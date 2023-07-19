@@ -42,8 +42,8 @@
     </div>  
 
     <div v-if="store.tsignedIn == false"> 
-<!--       <signup></signup>
-      <signin></signin> -->
+      <signup></signup>
+      <signin></signin>
     </div>
  
     <div class="useraction d-flex  flex-column">  
