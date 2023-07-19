@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   get '/lobby', to: 'welcome#index' 
   post '/hitboss', to: 'mobs#hitboss' 
-  post '/user/ghoulstat', to: 'users#ghoulstat' 
+  get '/user/ghoulstat', to: 'users#ghoulstat' 
   post '/hitghoul', to: 'mobs#hitghoul' 
   post '/user/ressurect', to: 'users#ressurect' 
 

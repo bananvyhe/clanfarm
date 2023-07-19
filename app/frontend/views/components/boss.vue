@@ -195,7 +195,7 @@ onMounted(() => {
   // console.log(store.tctsrf)
 if (store.tsignedIn){
   secured
-  .post('/user/ghoulstat')
+  .get('/user/ghoulstat')
     .then(response => {
       console.log(response.data)
       hpbosspoints.value = response.data.bosshp
