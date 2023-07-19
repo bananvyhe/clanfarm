@@ -113,7 +113,7 @@ const invarray = computed({
   
       menuget()
       })
-      .catch(error => { this.setError(error, 'Something went wrong') })
+      .catch(error => console.log(error)) 
   }
   onMounted(() => {
     if (store.tsignedIn){
@@ -131,7 +131,7 @@ const invarray = computed({
       console.log(response.data)
       // this.items = this.thisinv
     })
-    .catch(error => { this.setError(error, 'Something went wrong') })            
+    .catch(error => console.log(error))            
   }
   function oneClick(el, id) {
     console.log(el)

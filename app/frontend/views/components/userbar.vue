@@ -81,7 +81,7 @@ const reducedNumber = computed(() => {
 });
 const ressurect = () => {
     secured
-    .post('/user/ressurect')
+    .post('/users/ressurect')
     .then(response => {
       console.log(response.data.health)
       if (response.data.health > 0){
