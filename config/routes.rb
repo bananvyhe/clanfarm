@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post :news, to: "news#create"
   get :me, to: "users#me"
   
-  resources :my_items  do 
+  resources :my_items do 
     member do
       post :use_item
       patch :move
@@ -29,8 +29,9 @@ Rails.application.routes.draw do
   get '/lobby', to: 'welcome#index' 
   post '/hitboss', to: 'mobs#hitboss' 
   get '/users/ghoulstat', to: 'users#ghoulstat' 
-  post '/hitghoul', to: 'mobs#hitghoul' 
   post '/users/ressurect', to: 'users#ressurect' 
+  post '/hitghoul', to: 'mobs#hitghoul' 
+
 
   require "sidekiq/web"
   Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
