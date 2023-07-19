@@ -226,6 +226,9 @@ export const useLogStore = defineStore(
     function refresh (csrf) {
       signedIn.value = true
       ctsrf.value = csrf
+      valueall.ctsrf = csrf
+      ls.set('account', valueall)
+
     }
 
   return { trock, 
