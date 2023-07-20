@@ -10,8 +10,8 @@ class NewsController < ApplicationController
 		puts "||||||||||"
   end
 	def create 
-		getrecords = News.limit(200).order(created_at: :desc)
-		puts "rec"
+		getrecords = News.limit(300).order(updated_at: :desc)
+		# puts "rec"
 		tokenrapid = News.tokenmake
 		params.require(:_json).each do |d|
 			findrec = false
@@ -19,7 +19,7 @@ class NewsController < ApplicationController
 	    getrecords.each do |item|
 	      if item.link == link
 	        findrec = true
-	        puts findrec
+	        # puts findrec
 	        break
 	      end
 	    end 
