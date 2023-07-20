@@ -10,7 +10,8 @@ class NewsController < ApplicationController
 		puts "||||||||||"
   end
 	def create 
-		getrecords = News.limit(300).order(updated_at: :desc)
+		# getrecords = News.limit(200).order(created_at: :desc)
+		 getrecords = News.order(created_at: :desc)
 		# puts "rec"
 		tokenrapid = News.tokenmake
 		params.require(:_json).each do |d|
