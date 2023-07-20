@@ -13,7 +13,7 @@
       
 <!--         <template v-slot:default="dialog"> -->
           
-          <v-card class="sign" title="Создать аккаунт" subtitle="после регистрации откроется доступ к системе кланов">
+          <v-card class="sign" title="Создать аккаунт" subtitle="после регистрации откроется доступ к системе подбора">
             <!-- <v-card-title>создать аккаунт</v-card-title> -->
 
   <v-form class="form-signup pt-9 pb-5" >
