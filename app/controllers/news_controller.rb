@@ -10,7 +10,15 @@ class NewsController < ApplicationController
 		puts "||||||||||"
   end
 	def create 
-		getrecords = News.limit(1200).order(created_at: :desc)
+		num_entries_to_keep = 2000
+		total_entries = News.count
+		num_entries_to_delete = total_entries - num_entries_to_keep
+	  if num_entries_to_delete > 0
+	    news_to_delete = News.order(created_at: :asc).limit(num_entries_to_delete)
+	    news_to_delete.destroy_all
+	  end
+
+		getrecords = News.order(created_at: :desc)
 		 # getrecords = News.order(created_at: :desc)
 		# puts "rec"
 		tokenrapid = News.tokenmake
