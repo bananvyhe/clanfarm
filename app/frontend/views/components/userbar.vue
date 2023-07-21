@@ -209,7 +209,7 @@ watch(() => store.thealth, ( ) => {
 
 }
 .bars {
-  width: 120px;
+  width: 125px;
   position: relative;
 }
 .karma {
