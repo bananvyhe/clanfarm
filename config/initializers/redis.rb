@@ -4,7 +4,7 @@
 # If you have a different Redis configuration, adjust accordingly.
 
 redis_config = {
-  url: ENV['REDIS_URL'], # Set your Redis URL here, e.g., 'redis://localhost:6379/0'
+  url: ENV['redis://127.0.0.1:6379'], # Set your Redis URL here, e.g., 'redis://localhost:6379/0'
   pool_size: 30 # Set your desired connection pool size here
 }
 
