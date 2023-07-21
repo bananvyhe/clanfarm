@@ -252,17 +252,17 @@ function handlerghoul() {
         // this.$router.replace('/')
       }
     })
-        .catch(error => {
-           if (error.response && error.response.data && error.response.data.error) {
-              const errorMessage = error.response.data.error;
-              notify({ title: errorMessage, type: 'error'});
-              // Display the error message or perform any other actions
-            } else {
-              // Handle other types of errors
-            }
+    .catch(error => {
+      if (error.response && error.response.data && error.response.data.error) {
+          const errorMessage = error.response.data.error;
+          notify({ title: errorMessage, type: 'error'});
+          // Display the error message or perform any other actions
+        } else {
+          // Handle other types of errors
+        }
           
-        }) 
-  start()
+    }) 
+    start()
   } 
 }
 //хэндлер удара по боссу
@@ -296,13 +296,10 @@ function handler(){
             }else{
               bosshit()
               hpbosspoints.value = response.data.hp
-   
-              // hpboss.value = hpbosspoints.value * 100 / response.data.bossfullhp
-
               if (response.data.health >= 0){
                 store.sethealth(response.data.health)
                 store.hitme()
-                const firstPhrase = phrases.value[Math.floor(Math.random() * 23)]; // First phrase object
+                const firstPhrase = phrases.value[Math.floor(Math.random() * phrases.value.length )]; // First phrase object
                 const originalFirstPhrase = firstPhrase.original; // Original English phrase
                 const translatedFirstPhrase = firstPhrase.translation; 
                 if ( bossphrase.value == 0 ){
@@ -321,8 +318,6 @@ function handler(){
               }
             }               
           }
-
-
         })
         .catch(error => {
            if (error.response && error.response.data && error.response.data.error) {
@@ -338,7 +333,6 @@ function handler(){
     }    
   }
 }
-
 
 const ghouldirection = ref(2.4)
 watch(ghouldirection, () => {
