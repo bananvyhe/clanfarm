@@ -80,6 +80,9 @@
   </div>
 </template>
 <script setup lang="ts">
+const retryCount = ref(3);
+const retryDelay = ref(1000);
+
 import { ref, computed, inject, onMounted } from 'vue';
 import { useLogStore } from '../../store.js' 
 const invarray = computed({
@@ -118,21 +121,39 @@ const invarray = computed({
   onMounted(() => {
     if (store.tsignedIn){
     console.log("menuget")
-      menuget()
+      menuget();
     }
   })
-  function menuget(){
+  async function menuget() {
+      const apiUrl = '/my_items/menuget'; // Customize the API URL here
+      try {
+        const response = await secured.get('/my_items/menuget')
+        store.setinv(response.data)
+        console.log(response.data)
+      } catch (error) {
+        await handleAxiosError(error, apiUrl, retryCount.value, retryDelay.value);
+      }
+    }
+    async function handleAxiosError(error, url, retryCount, retryDelay) {
+      if (retryCount > 0) {
+        await new Promise(resolve => setTimeout(resolve, retryDelay));
+        return menuget(url, retryCount - 1, retryDelay);
+      } else {
+        throw error;
+      }
+    }    
+  // function menuget(){
     
-    secured
-    .get('/my_items/menuget')
-    .then(response => { 
+  //   secured
+  //   .get('/my_items/menuget')
+  //   .then(response => { 
 
-      store.setinv(response.data)
-      console.log(response.data)
-      // this.items = this.thisinv
-    })
-    .catch(error => console.log(error))            
-  }
+  //     store.setinv(response.data)
+  //     console.log(response.data)
+  //     // this.items = this.thisinv
+  //   })
+  //   .catch(error => console.log(error))            
+  // }
   function oneClick(el, id) {
     console.log(el)
     console.log(id)
