@@ -4,20 +4,22 @@
 <!--   {{store.tctsrf}}
  {{store.tsignedIn}} -->
     <div v-if="store.tsignedIn == true" class="d-flex align-center">
+
       <div v-if="store.tdead">
         <v-btn
           color="secondary"  
           @click="ressurect"> воскреснуть
         </v-btn>    
       </div>
+
       <v-btn
         color="primary"  
         @click="signOut">выйти
-      </v-btn>    
+      </v-btn> 
+
       <div  class="d-flex flex-column align-self-start ">
         <div class="interface px-1 d-flex align-self-end ">{{store.tlvl}}</div>
         <div class="interface px-1 d-flex justify-end" style="color: red;" v-if="karma > 0">
- 
 <!--           <div class="karma mx-1" v-bind:style="{backgroundImage: 'url('+ karmaimg}"> 
           </div> -->
           карма:
@@ -26,10 +28,8 @@
       </div>   
 
       <div class="d-flex flex-column bars" >
- 
         <v-progress-linear :height="10" class="mb-1 " :model-value="userhp" color="success" >  <div class="health play">{{store.thealth}}</div> </v-progress-linear>
         <v-progress-linear :height="2" class="mb-1" :model-value="store.tprogress" color="secondary"  >
-         
         </v-progress-linear>
         <div class="interface " style="font-size: 0.8em" v-html="reducedNumber+' ' + '%'"> </div>
         <div class="d-flex flex-row-reverse " style="position: absolute; right: 0; bottom: 0;">
@@ -46,24 +46,30 @@
       <signup></signup>
       <signin></signin>
     </div>
- 
-    <div class="useraction d-flex  flex-column">  
- 
-      <inventory  v-if="store.tsignedIn == true"> </inventory>
-      <div class="d-flex" >
-        <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
-        <div class="skull align-self-center"></div>        
-      </div>
-      <div v-if="store.tsignedIn == true">
-        <div class=" bag"></div>
-      </div>
 
+    <div v-if="store.tsignedIn == true">
+
+      <div class="useraction d-flex  flex-column">  
+        <inventory> </inventory>
+        <div class="d-flex" >
+          <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
+          <div class="skull align-self-center"></div>        
+        </div>
+        <div v-if="store.tsignedIn == true">
+          <div class=" bag"></div>
+        </div>
+      </div> 
+         
     </div>
+
   
   </div>
 </template>
 
 <script setup lang="ts">
+const retryCount = ref(3);
+const retryDelay = ref(1000);
+
 import { ref, computed, inject, watch, onMounted } from 'vue';
 const karma = ref(0)
 const userhp = ref()
@@ -123,26 +129,44 @@ import ls from 'localstorage-slim';
 //вычисление уровня
 onMounted(() => {
   if (store.tsignedIn){
-    console.log(store.tctsrf)
-      secured
-      .get('/me')
-        .then(meResponse => {
-          console.log(meResponse.data)
-          store.setCurrentUser(meResponse.data, store.tctsrf)
-          // this.error = ''
-          // this.$router.replace('/')
- 
-        })
-        .catch(error => console.log(error)) 
+    mefetch()
+    // console.log(store.tctsrf)
+    // secured
+    // .get('/me')
+    // .then(meResponse => {
+    //   console.log(meResponse.data)
+    //   store.setCurrentUser(meResponse.data, store.tctsrf)
+    //   // this.error = ''
+    //   // this.$router.replace('/')
+
+    // })
+    // .catch(error => console.log(error)) 
   }
-
-
+    
   nextTick(() => {
     // console.log(store.tmaxhealth)
     // console.log(store.thealth)
     userhp.value = (store.thealth / store.tmaxhealth)*100
   })
 })
+async function mefetch() {
+  const apiUrl = '/me'; // Customize the API URL here
+  try {
+    const response = await secured.get(apiUrl)
+    store.setCurrentUser(response.data, store.tctsrf)
+    console.log(response.data)
+  } catch (error) {
+    await handleAxiosError(error, apiUrl, retryCount.value, retryDelay.value);
+  }
+}
+async function handleAxiosError(error, url, retryCount, retryDelay) {
+  if (retryCount > 0) {
+    await new Promise(resolve => setTimeout(resolve, retryDelay));
+    return mefetch(url, retryCount - 1, retryDelay);
+  } else {
+    throw error;
+  }
+} 
 watch(() => store.thealth, ( ) => {
   console.log('store health')
   userhp.value = (store.thealth / store.tmaxhealth)*100

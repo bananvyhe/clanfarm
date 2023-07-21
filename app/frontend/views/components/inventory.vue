@@ -127,9 +127,10 @@ const invarray = computed({
   async function menuget() {
       const apiUrl = '/my_items/menuget'; // Customize the API URL here
       try {
-        const response = await secured.get('/my_items/menuget')
-        store.setinv(response.data)
-        console.log(response.data)
+            const response = await secured.get(apiUrl)
+            store.setinv(response.data)
+            console.log(response.data)
+ 
       } catch (error) {
         await handleAxiosError(error, apiUrl, retryCount.value, retryDelay.value);
       }
