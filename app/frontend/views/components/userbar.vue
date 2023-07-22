@@ -42,9 +42,11 @@
 
     </div>  
 
-    <div v-if="store.tsignedIn == false"> 
+    <div v-if="store.tsignedIn == false" class="d-flex"> 
       <signup></signup>
       <signin></signin>
+                <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
+          <div class="skull align-self-center"></div>   
     </div>
 
     <div v-if="store.tsignedIn == true">
