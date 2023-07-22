@@ -13,7 +13,8 @@
       </div>
 
       <v-btn
-        color="primary"  
+        color="primary" 
+        size="x-small" 
         @click="signOut">выйти
       </v-btn> 
 
