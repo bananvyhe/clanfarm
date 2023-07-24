@@ -13,7 +13,7 @@ class HealthpWorker < ApplicationController
 			end	
 	    mhp = calculate_health_points(level, 1)
 			if c.dead == false && c.health < mhp.round
- 				heal = mhp.round*0.05
+ 				heal = mhp.round*0.13
  				c.health += heal
  				if c.health > mhp.round
  					c.health = mhp.round
