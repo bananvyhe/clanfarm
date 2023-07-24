@@ -2,5 +2,5 @@ class MyItem < ApplicationRecord
 	scope :sorted, ->{ order(position: :asc) }
   belongs_to :user
   belongs_to :listitem
-  acts_as_list
+  acts_as_list scope: [ :user_id]
 end
