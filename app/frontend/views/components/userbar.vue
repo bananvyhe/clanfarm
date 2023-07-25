@@ -5,6 +5,12 @@
  {{store.tsignedIn}} -->
  
  <!-- {{route.path}} -->
+    <div v-if="store.tsignedIn == false" class="d-flex"> 
+      <signup></signup>
+      <signin></signin>
+                <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
+          <div class="skull align-self-center"></div>   
+    </div>
     <div v-if="store.tsignedIn == true" class="d-flex align-center">
 
       <div v-if="store.tdead">
@@ -19,12 +25,7 @@
         size="x-small" 
         @click="signOut">выйти
       </v-btn> 
-    <div v-if="store.tsignedIn == false" class="d-flex"> 
-      <signup></signup>
-      <signin></signin>
-                <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
-          <div class="skull align-self-center"></div>   
-    </div>
+
 
       <div v-if="route.path === '/lobby'" class="d-flex">
         <div  class="d-flex flex-column align-self-start ">
