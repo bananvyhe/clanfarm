@@ -3,6 +3,8 @@
  <!-- {{userhp}}  -->
 <!--   {{store.tctsrf}}
  {{store.tsignedIn}} -->
+ 
+ <!-- {{route.path}} -->
     <div v-if="store.tsignedIn == true" class="d-flex align-center">
 
       <div v-if="store.tdead">
@@ -17,32 +19,6 @@
         size="x-small" 
         @click="signOut">выйти
       </v-btn> 
-
-      <div  class="d-flex flex-column align-self-start ">
-        <div class="interface px-1 d-flex align-self-end ">{{store.tlvl}}</div>
-        <div class="interface px-1 d-flex justify-end" style="color: red;" v-if="karma > 0">
-<!--           <div class="karma mx-1" v-bind:style="{backgroundImage: 'url('+ karmaimg}"> 
-          </div> -->
-          карма:
-          {{karma}}
-        </div>        
-      </div>   
-
-      <div class="d-flex flex-column bars" >
-        <v-progress-linear :height="10" class="mb-1 " :model-value="userhp" color="success" >  <div class="health play">{{store.thealth}}</div> </v-progress-linear>
-        <v-progress-linear :height="2" class="mb-1" :model-value="store.tprogress" color="secondary"  >
-        </v-progress-linear>
-        <div class="interface " style="font-size: 0.8em" v-html="reducedNumber+' ' + '%'"> </div>
-        <div class="d-flex flex-row-reverse " style="position: absolute; right: 0; bottom: 0;">
-          <div v-for="(item, index) in store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}">
-          </div>
-          <div v-if="store.tavcpoints > store.tcpoints" v-for="(item, index) in store.tavcpoints-store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ overcpimg}">
-          </div>
-        </div>          
-      </div>
-
-    </div>  
-
     <div v-if="store.tsignedIn == false" class="d-flex"> 
       <signup></signup>
       <signin></signin>
@@ -50,18 +26,53 @@
           <div class="skull align-self-center"></div>   
     </div>
 
+      <div v-if="route.path === '/lobby'" class="d-flex">
+        <div  class="d-flex flex-column align-self-start ">
+          <div class="interface px-1 d-flex align-self-end ">{{store.tlvl}}</div>
+          <div class="interface px-1 d-flex justify-end" style="color: red;" v-if="karma > 0">
+   
+   
+            <!-- <div class="karma mx-1" v-bind:style="{backgroundImage: 'url('+ karmaimg}"> 
+            </div> -->
+            карма:
+            {{karma}}
+          </div>        
+        </div>   
+
+        <div class="d-flex flex-column bars" >
+          <v-progress-linear :height="10" class="mb-1 " :model-value="userhp" color="success" >  <div class="health play">{{store.thealth}}</div> </v-progress-linear>
+          <v-progress-linear :height="2" class="mb-1" :model-value="store.tprogress" color="secondary"  >
+          </v-progress-linear>
+          <div class="interface " style="font-size: 0.8em" v-html="reducedNumber+' ' + '%'"> </div>
+          <div class="d-flex flex-row-reverse " style="position: absolute; right: 0; bottom: 0;">
+            <div v-for="(item, index) in store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}">
+            </div>
+            <div v-if="store.tavcpoints > store.tcpoints" v-for="(item, index) in store.tavcpoints-store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ overcpimg}">
+            </div>
+          </div>          
+        </div>
+        <div class="useraction d-flex  flex-column">  
+          <inventory> </inventory>
+          <div class="d-flex" >
+            <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
+            <div class="skull align-self-center"></div>        
+          </div>
+          <div v-if="store.tsignedIn == true">
+            <div class=" bag"></div>
+          </div>
+        </div> 
+      </div>
+      <div v-else>
+        <v-btn><router-link to="/lobby">лобби</router-link></v-btn>
+      </div>
+
+    </div>  
+
+
+
     <div v-if="store.tsignedIn == true">
 
-      <div class="useraction d-flex  flex-column">  
-        <inventory> </inventory>
-        <div class="d-flex" >
-          <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
-          <div class="skull align-self-center"></div>        
-        </div>
-        <div v-if="store.tsignedIn == true">
-          <div class=" bag"></div>
-        </div>
-      </div> 
+
          
     </div>
 
@@ -70,6 +81,11 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter, useRoute } from 'vue-router'
+const router = useRouter()
+const route = useRoute()
+ 
+ 
 const retryCount = ref(3);
 const retryDelay = ref(1000);
 
@@ -113,9 +129,7 @@ const karmaimg = new URL("../images/karma.png", import.meta.url).href;
 const greenimg = new URL("../images/cp/green.png", import.meta.url).href;
 const overcpimg = new URL("../images/cp/overcp.png", import.meta.url).href;
 const cpimg = new URL("../images/cp/cp.png", import.meta.url).href;
-import { useRouter, useRoute } from 'vue-router'
-const router = useRouter()
-const route = useRoute()  
+
 import ls from 'localstorage-slim'; 
 
   import { useLogStore } from '../../store.js'  
