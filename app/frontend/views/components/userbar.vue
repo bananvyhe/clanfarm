@@ -39,19 +39,24 @@
           </div>        
         </div>   
 
-        <div class="d-flex flex-column bars" >
-          <v-progress-linear :height="10" class="mb-1 " :model-value="userhp" color="success" >  <div class="health play">{{store.thealth}}</div> </v-progress-linear>
+        <div class="d-flex flex-column bars align-self-start" >
+          <v-progress-linear :height="10" class="mb-1 " :model-value="userhp" color="success" >
+            <div class="health play">{{store.thealth}}</div> 
+          </v-progress-linear>
           <v-progress-linear :height="2" class="mb-1" :model-value="store.tprogress" color="secondary"  >
           </v-progress-linear>
-          <div class="interface " style="font-size: 0.8em" v-html="reducedNumber+' ' + '%'"> </div>
-          <div class="d-flex flex-row-reverse " style="position: absolute; right: 0; bottom: 0;">
-            <div v-for="(item, index) in store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}">
-            </div>
-            <div v-if="store.tavcpoints > store.tcpoints" v-for="(item, index) in store.tavcpoints-store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ overcpimg}">
-            </div>
-          </div>          
+          <div class="d-flex ">
+            <div class="interface " style="font-size: 0.8em" v-html="reducedNumber+' ' + '%'"> </div>
+ 
+            <div class="d-flex flex-row-reverse " style="position: absolute; right: 0; bottom: 0;">
+              <div v-for="(item, index) in store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}">
+              </div>
+              <div v-if="store.tavcpoints > store.tcpoints" v-for="(item, index) in store.tavcpoints-store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ overcpimg}">
+              </div>
+            </div>  
+          </div>
         </div>
-        <div class="useraction d-flex  flex-column">  
+        <div class="useraction d-flex  flex-column ">  
           <inventory> </inventory>
           <div class="d-flex" >
             <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
@@ -62,6 +67,8 @@
           </div>
         </div> 
       </div>
+
+
       <div v-else>
         <v-btn><router-link to="/lobby">лобби</router-link></v-btn>
       </div>
