@@ -3,8 +3,12 @@ class GhotimeWorker < ApplicationController
 	require 'time'
 	def perform
 		# eight_hours_ago = Time.now - (28800000)
-		eight_hours_ago = Time.now - (8 * 60 * 60)
-		# eight_hours_ago = Time.now - (288 )
+		# eight_hours_ago = Time.now - (8 * 60 * 60)
+		if APP_CONFIG[:apiUrl] == "http://localhost:3000"
+			eight_hours_ago = Time.now - (60 * 3 )
+		else
+			eight_hours_ago = Time.now - (8 * 60 * 60)
+		end
 	 	gho = MobUser.all
 	 	.joins(:mob).where('name = ?', 'ghoul' )
  		gho.each do |c|

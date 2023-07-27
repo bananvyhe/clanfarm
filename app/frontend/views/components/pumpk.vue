@@ -90,10 +90,15 @@
       duration: 6,
     })      
   } 
-
+const apiUrl = window.APP_CONFIG.apiUrl;
   function hitpumpk(){
-       var interval = 15000000;
-    // var interval = 26500;
+       // var interval = 15000000;
+      if (apiUrl == 'http://localhost:3000'){
+        var interval = 26500;
+      }else{
+        var interval = 15000000;
+      }
+    
     // var interval = 7000;
     hitcalc()
     dmg.value =  damageData.hit 
@@ -107,14 +112,11 @@
     popupHit()
 
     if (hpoints.value <= 0){
-
       // ls.set('hey', "death") 
       const account = ls.get('account');
       account.hey = "death"
       ls.set('account', account);   
-
       store.setPumpkDead()
-      
       reset();
       var min = 2
       var max = 5
@@ -122,17 +124,17 @@
       loa =  Math.round(loa)
       loa = Number(loa)
       store.increments(loa)  
-          if (store.tsignedIn == true){
-            secured
-            .post('/incloareg', {loa: loa})
-            .then(response => { 
-               console.log(response)
-               this.increments(loa)   
-            })
-            .catch(error => { this.setError(error, 'Something went wrong') })
-          }else{
+          // if (store.tsignedIn == true){
+          //   secured
+          //   .post('/incloareg', {loa: loa})
+          //   .then(response => { 
+          //      console.log(response)
+          //      this.increments(loa)   
+          //   })
+          //   .catch(error => {   })
+          // }else{
                 
-          }       
+          // }       
     }else{
       console.log("else hitpumpk ")
     }  
@@ -150,146 +152,144 @@
   }
 
   onMounted(() => {
-
-
-      if (ls.get('account').hey != "death"){
-        vis.value = true
-        loc.value = "alive"
-        console.log("666")
-        store.setPumpkAlive()
-      }else{
-        store.setPumpkDead()
-      }
-      if(ls.get('account').endTimer == "death"){
-         // ls.set('hey', "alive") 
+    if (ls.get('account').hey != "death"){
+      vis.value = true
+      loc.value = "alive"
+      console.log("666")
+      store.setPumpkAlive()
+    }else{
+      store.setPumpkDead()
+    }
+    if(ls.get('account').endTimer == "death"){
+       // ls.set('hey', "alive") 
       const account = ls.get('account');
       account.hey = "alive"
       ls.set('account', account);          
-      } 
-      if (ls.get('account').hey){
-         loc.value = ls.get('account').hey
-      }
-nextTick(() => {
-    // window.addEventListener('load', () => {
-      // var self = this
-      function startInterval() {    
-        let intervalId = setInterval(function(){
-      if (store.tsignedIn == true) {
-        clearInterval(intervalId)
-      }          
-          if( ls.get('account').hey == "death" ){
-            // занесение в переменную оставшиеся милисекунды до окончания(обратный отсчет)
-            var getendt = ls.get('account').endTimer
-            var remaining = getendt - new Date;
-            console.log(getendt)
-          }
-          // если отсчет не завершился то присваиваем статус "мертвый" в локалсорадж
-          if( remaining >= 0 ){
-            store.setPumpkDead()
-            // ls.set('hey', "death") 
-            const account = ls.get('account');
-            account.hey = "death"
-            ls.set('account', account);             
-            console.log("dead")
-            console.log(remaining)
-          }else if ( remaining < 0 && store.tsignedIn != true ){
-            vis.value = true
-            console.log(remaining)
-            console.log("remaining < 0 ")
-
-            ressurect()
-            console.log("alive")
-          }
-        }, 1000);   
-      }     
-
-      if (store.tsignedIn == true) {
-        
-      }else{
-        startInterval()
-        // pumpk()
-      }   
-        // if (store.tsignedIn == false) {
-        //   startInterval();
-        // }     
- 
-      function ressurect() {  
-        hp.value = 100
-        hpoints.value = 124
-        store.setPumpkAlive()
-        mdrop.value = false
-        // ls.set('hey', "alive")
-            const account = ls.get('account');
-            account.hey = "alive"
-            ls.set('account', account);           
-        nextTick(() => {
-        pumpk()
-      })
-      }
-
-      function pumpk() {
-        gsap.set(".character", {
-          scale: 1.5,
-          backgroundImage: 'url('+pua+')',
-          backgroundPosition: "-528px",
-        });
-
-        var m1 = gsap.timeline();
-        m1.to(".unit",{
-          opacity:1
-        })
-        .to(".character",{
-          duration: 1,
-          repeat:-1,
-          repeatDelay: 1,
-          // delay:1,
-          backgroundPosition: "-528px",
-          ease: "steps(11)",
-          onRepeat: myFunction
-        })
-
-        function myFunction(){
-
-          if (store.tpumpkdead && hp.value <= 0){
-            gsap.set(".character", {
-              scale: 1.5,
-              backgroundImage: 'url('+pubow+')',
-              backgroundPosition: "-960px",
-            });
-            var m2 = gsap.timeline();
-            m2.to(".character", {
-              // className: "+=death",
-              duration: 1,
-              backgroundPosition: "-960px",
-              ease: "steps(20)",              
-              backgroundImage: 'url('+pubow+')',
-              onComplete: end
-            })
-
-            function end(){
-              m2.to(".unit",{
-                opacity: 0,
-                // className: "+=off",
-                onComplete: twooff
-              })
-              m1.kill()             
-            }
-          } 
-
-          function twooff() {  
-            m2.kill() 
-            vis.value = false
-            mdrop.value = true
-          }         
+    } 
+    if (ls.get('account').hey){
+       loc.value = ls.get('account').hey
+    }
+  nextTick(() => {
+  // window.addEventListener('load', () => {
+    // var self = this
+    function startInterval() {    
+      let intervalId = setInterval(function(){
+    if (store.tsignedIn == true) {
+      clearInterval(intervalId)
+    }          
+        if( ls.get('account').hey == "death" ){
+          // занесение в переменную оставшиеся милисекунды до окончания(обратный отсчет)
+          var getendt = ls.get('account').endTimer
+          var remaining = getendt - new Date;
+          console.log(getendt)
         }
-      }
+        // если отсчет не завершился то присваиваем статус "мертвый" в локалсорадж
+        if( remaining >= 0 ){
+          store.setPumpkDead()
+          // ls.set('hey', "death") 
+          const account = ls.get('account');
+          account.hey = "death"
+          ls.set('account', account);             
+          console.log("dead")
+          console.log(remaining)
+        }else if ( remaining < 0 && store.tsignedIn != true ){
+          vis.value = true
+          console.log(remaining)
+          console.log("remaining < 0 ")
 
-      var master = gsap.timeline();
-      if (ls.get('account').hey == "alive" || !ls.get('account').hey){
-        master.add(pumpk())
+          ressurect()
+          console.log("alive")
+        }
+      }, 1000);   
+    }     
+
+    if (store.tsignedIn == true) {
+      
+    }else{
+      startInterval()
+      // pumpk()
+    }   
+      // if (store.tsignedIn == false) {
+      //   startInterval();
+      // }     
+
+    function ressurect() {  
+      hp.value = 100
+      hpoints.value = 124
+      store.setPumpkAlive()
+      mdrop.value = false
+      // ls.set('hey', "alive")
+          const account = ls.get('account');
+          account.hey = "alive"
+          ls.set('account', account);           
+      nextTick(() => {
+      pumpk()
+    })
+    }
+
+    function pumpk() {
+      gsap.set(".character", {
+        scale: 1.5,
+        backgroundImage: 'url('+pua+')',
+        backgroundPosition: "-528px",
+      });
+
+      var m1 = gsap.timeline();
+      m1.to(".unit",{
+        opacity:1
+      })
+      .to(".character",{
+        duration: 1,
+        repeat:-1,
+        repeatDelay: 1,
+        // delay:1,
+        backgroundPosition: "-528px",
+        ease: "steps(11)",
+        onRepeat: myFunction
+      })
+
+      function myFunction(){
+
+        if (store.tpumpkdead && hp.value <= 0){
+          gsap.set(".character", {
+            scale: 1.5,
+            backgroundImage: 'url('+pubow+')',
+            backgroundPosition: "-960px",
+          });
+          var m2 = gsap.timeline();
+          m2.to(".character", {
+            // className: "+=death",
+            duration: 1,
+            backgroundPosition: "-960px",
+            ease: "steps(20)",              
+            backgroundImage: 'url('+pubow+')',
+            onComplete: end
+          })
+
+          function end(){
+            m2.to(".unit",{
+              opacity: 0,
+              // className: "+=off",
+              onComplete: twooff
+            })
+            m1.kill()             
+          }
+        } 
+
+        function twooff() {  
+          m2.kill() 
+          vis.value = false
+          mdrop.value = true
+        }         
       }
-})
+    }
+
+    var master = gsap.timeline();
+    if (ls.get('account').hey == "alive" || !ls.get('account').hey){
+      master.add(pumpk())
+    }
   })
+})
  
 </script>
 <style scoped>
