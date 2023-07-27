@@ -5,8 +5,9 @@
         <v-col>
           <div 
           class="align-top float-left mr-1 px-3 py-md-1 mx-md-1">
+
           <!-- v-bind:style="{backgroundImage: 'url('+ item.pic}" -->
-            <div class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}">
+            <div class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: apiUrl == 'https://farmspot.ru' ? 'url(' + item.pic + ')' : ''  }" >
               <!-- {{pos}} --> 
             </div>
           </div >
@@ -86,7 +87,7 @@
   </div>
 </template>
 <script setup lang="ts">
-
+  const apiUrl = window.APP_CONFIG.apiUrl;
   const skull = new URL("../images/skull.png", import.meta.url).href;
   import { ref, reactive, inject, onMounted, watch, computed  } from 'vue'
   const plain: any = inject('plain')
