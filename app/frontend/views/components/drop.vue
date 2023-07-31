@@ -57,9 +57,9 @@ const drop = ref()
       }
   })
 
-  watch(() => drop.value, (val) => {
+  // watch(() => drop.value, (val) => {
 
-  })
+  // })
 
   function getdrop(){
  			plain
@@ -77,6 +77,12 @@ const drop = ref()
   }
 
 function newdropanim(){
+  if (tl) {
+    tl.kill(); 
+  }
+  if (tle) {
+    tle.kill(); 
+  }  
   var tl = gsap.timeline();
   var tle = gsap.timeline();
   if (props.makeDrop == true){

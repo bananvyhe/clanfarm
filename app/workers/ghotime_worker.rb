@@ -5,7 +5,7 @@ class GhotimeWorker < ApplicationController
 		# eight_hours_ago = Time.now - (28800000)
 		# eight_hours_ago = Time.now - (8 * 60 * 60)
 		if APP_CONFIG[:apiUrl] == "http://localhost:3000"
-			eight_hours_ago = Time.now - (60 * 3 )
+			eight_hours_ago = Time.now - (60 )
 		else
 			eight_hours_ago = Time.now - (5 * 60 * 60)
 		end

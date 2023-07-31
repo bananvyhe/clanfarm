@@ -1,5 +1,7 @@
-<template>
-  <drop class="drops mx-2 pr-3" :makeDrop="mdrop"  ></drop>
+<template><div ref="headsq" style="overflow: hidden; position: absolute; width: 100%; height: 100%;"> 
+  <!-- <div class="tes">w</div> -->
+   <!--   -->
+  <drop class="drops mx-2 pr-3" :makeDrop="mdrop" :style="{left: droppos +'px'}"></drop></div>
   <div class="info"> 
     <!-- {{props.width}}  -->
     <!-- <br>{{bossdirection}} -->  
@@ -30,6 +32,8 @@
 </template>
 
 <script setup lang="ts">
+const headsq = ref(null)
+const droppos = ref(null)
 import { useNotification } from "@kyvg/vue3-notification";
 const { notify}  = useNotification()
 import Drop from './drop.vue'
@@ -357,7 +361,7 @@ function ghoulmove(val) {
   }       
   ghodir();
   b5 = gsap.timeline();  
-  b5.to([ ".familiar", ".ghohpbar", "hpghoulpoints", ".drops"],{
+  b5.to([ ".familiar", ".ghohpbar", "hpghoulpoints" ],{
     ease: "none",
     // repeat:-1, 
     duration: dur,
@@ -377,7 +381,9 @@ function ghoulmove(val) {
 function ghoulhit() {
   // const myObject = document.getElementById('myObject');
   const currentX = Math.round(gsap.getProperty(ghoul.value, 'x'));
-  
+  if (b5) {
+    b5.kill(); 
+  }  
 
   if (b1) {
     b1.kill(); 
@@ -505,7 +511,10 @@ function famspawn() {
     })  
   })   
 }
-
+// import { useElementBounding } from '@vueuse/core'
+import { useMouseInElement } from '@vueuse/core'
+const { elementX } = useMouseInElement(headsq)
+// const { left } = useElementBounding(ghoul)
 function ghouldeath() {
   if (b1) {
     b1.kill(); 
@@ -516,9 +525,9 @@ function ghouldeath() {
   if (b3) {
     b3.kill(); 
   }  
-  // if (b5) {
-  //   b5.kill(); 
-  // }   
+  if (b5) {
+    b5.kill(); 
+  }   
   gsap.set(".familiar", {
     // scale: 2.4,
     transformOrigin: "bottom ",
@@ -540,14 +549,15 @@ function ghouldeath() {
     // scaleX: bossdirection.value
   })  
   function end(){ 
-
+ 
+      droppos.value = elementX.value - 50
     mdrop.value = true
     setTimeout(() => {
       mdrop.value = false
         if (b5) {
         b5.kill(); 
       }  
-    }, "40000");
+    }, "140000");
     familiarup.value = false
     twooff() 
   }  
@@ -556,7 +566,7 @@ function ghouldeath() {
 
   }      
 }
-import { useElementBounding } from '@vueuse/core'
+
 const spawn = new URL("../images/sprites/monsters/Ghoul/spawn.png", import.meta.url).href;
 const walk = new URL("../images/sprites/monsters/Ghoul/Walk.png", import.meta.url).href;
 const ghouldead = new URL("../images/sprites/monsters/Ghoul/death.png", import.meta.url).href;
@@ -571,6 +581,7 @@ const summon = new URL("../images/sprites/monsters/summoner/summon.png", import.
 
 // const dropmove = ref(null)
 // const { x, y, top, right, bottom, left, width, height } = useElementBounding(ghoul)
+
 const repDelay = ref()
 const plain: any = inject('plain')
 const secured: any = inject('secured')
@@ -744,6 +755,10 @@ function bossidle() {
 </script>
 
 <style scoped>
+/*.tes{
+  position: absolute;
+  left: 200px;
+}*/
 .phrase{
   opacity: 0;
   width: 30%;

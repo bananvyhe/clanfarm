@@ -41,7 +41,7 @@
         </div>   
 
         <div class="d-flex flex-column bars align-self-start" >
-          <v-progress-linear :height="10" class="mb-1 " :model-value="userhp" color="success" >
+          <v-progress-linear :height="10" class="mb-1 mt-1" :model-value="userhp" color="success" >
             <div class="health play">{{store.thealth}}</div> 
           </v-progress-linear>
           <v-progress-linear :height="2" class="mb-1" :model-value="store.tprogress" color="secondary"  >
