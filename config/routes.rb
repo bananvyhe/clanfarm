@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => "/cable" 
   # get "welcome/index"
   root to: "welcome#index"
   get :news, to: "news#index" 
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
   post '/users/ressurect', to: 'users#ressurect' 
   post '/hitghoul', to: 'mobs#hitghoul' 
 
+  post '/hello', to: "welcome#hello"
 
   require "sidekiq/web"
   Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
@@ -42,4 +44,5 @@ Rails.application.routes.draw do
     ActiveSupport::SecurityUtils.secure_compare(password_hash, ::Digest::SHA256.hexdigest(Rails.application.credentials.password))
   end # if Rails.env.production?
   mount Sidekiq::Web, at: "/sidekiq"
+
 end

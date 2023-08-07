@@ -34,6 +34,7 @@ gem 'rack-cors'
 gem 'bcrypt', '~> 3.1.7'
 gem 'acts_as_list'
 gem 'redis-client'
+gem 'actioncable'
 
 group :development, :test do
   gem 'capistrano-passenger'

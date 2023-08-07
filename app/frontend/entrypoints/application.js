@@ -11,7 +11,7 @@ console.log('Vite ⚡️ Rails')
 // If you want to use .jsx or .tsx, add the extension:
 //     <%= vite_javascript_tag 'application.jsx' %>
 
-console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify.app/guide/rails')
+// console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify.app/guide/rails')
 
 // Example: Load Rails libraries in Vite.
 //
@@ -26,6 +26,24 @@ console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify
 
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'
+import { createConsumer } from "@rails/actioncable";
+
+const consumer =  createConsumer("http://localhost:3000/cable");
+
+const subscription = consumer.subscriptions.create({ channel: 'RoomChannel'  }, {
+  connected() {
+    console.log('Connected to the channel.');
+  },
+  disconnected() {
+    console.log('Disconnected from the channel.');
+  },
+  received(data) {
+    console.log('Received data from the channel:', data);
+    // messages.value.push(data.message);
+  },
+});
+
+
 import { createApp, inject } from 'vue/dist/vue.esm-bundler';
 import { createPinia } from 'pinia'
 import App from '../app.vue'
@@ -163,7 +181,7 @@ const app = createApp(App);
 
 app.use(pinia)
 // document.addEventListener('DOMContentLoaded', () => {
-
+ 
 app.use(router);
 // app.use(VueAxios, axios)
 app.use(VueAxios, {
