@@ -139,8 +139,8 @@ onMounted(() => {
 
 const m1 = gsap.timeline();
 
-const message = ref("конст-пати")
-const tl = ref("сбор прайма")
+const message = ref("сбор клана")
+const tl = ref("подбор по прайму")
 
 let isFirstUpdate = true
 const showmenutop = reactive({ status: true});
