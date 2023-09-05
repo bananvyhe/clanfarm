@@ -3,11 +3,12 @@
 
 		<v-layout >
 			<v-app-bar density="compact" class="topmenu py-0">
-        <v-container  class="d-flex align-center py-0 my-0" >
+        <v-container  class="d-flex align-center py-0 my-0" >{{store.tctsrf}}
           <router-link to="/"> 
             <div class=" wel "  >
                 <h3 class=" pr-1">
                   {{message}} 
+                  <!-- <v-btn @click="hello">hello</v-btn> -->
                 </h3>
               <div class=" subs" >
               <span class=" pr-1 text-body-2 mmod d-flex float-right"> {{ tl }}</span> 
@@ -45,6 +46,24 @@
   </div>
 </template>
 <script setup lang="ts">
+// import { createConsumer } from "@rails/actioncable"
+// createConsumer('https://ws.localhost:3000/cable')
+// import { createConsumer } from "@rails/actioncable";
+
+// const consumer =  createConsumer("http://localhost:3000/cable");
+// const messages = ref([]);
+// const subscription = consumer.subscriptions.create({ channel: 'room_channel' }, {
+//   connected() {
+//     console.log('Connected to the channel.');
+//   },
+//   disconnected() {
+//     console.log('Disconnected from the channel.');
+//   },
+//   received(data) {
+//     console.log('Received data from the channel:', data);
+//     messages.value.push(data.message);
+//   },
+// });
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()    
@@ -57,14 +76,65 @@ import { ref, computed, watch, reactive, onMounted, onBeforeMount, toRefs } from
 import { useScroll } from '@vueuse/core'
 import { debounce } from 'lodash'
 const { x, y, isScrolling, arrivedState, directions } = useScroll(document)
-const { left: toLeft, right: toRight, top: toTop, bottom: toBottom } = toRefs(directions)
+const { left: toLeft, right: toRight, top: toTop, bottom: toBottom } = toRefs(directions) 
+ 
+const plain: any = inject('plain')
+const secured: any = inject('secured')
+
+import { createConsumer } from "@rails/actioncable";
+// createConsumer('https://ws.example.com/cable')
+
+// Use a function to dynamically generate the URL
+const consumer = createConsumer(getWebSocketURL)
+
+function getWebSocketURL() {
+  return `http://localhost:3000/cable?token=${store.tctsrf}`
+}
+consumer.subscriptions.create({ channel: "RoomChannel"},{
+    received(data) {
+    console.log(data)
+  },
+})
+
+// const consumer =  createConsumer("http://localhost:3000/cable");
+
+// const subscription = consumer.subscriptions.create({ channel: 'RoomChannel'  }, {
+//   connected() {
+//     console.log('Connected to the channel.');
+//   },
+//   disconnected() {
+//     console.log('Disconnected from the channel.');
+//   },
+//   received(data) {
+//     console.log('Received data from the channel:', data);
+//     // messages.value.push(data.message);
+//   },
+// }); 
+ 
+
+function hello () {
+  plain
+    .post('/hello', {data: "hj" })
+    // .then(response => signinSuccessful(response))
+    // .catch(error => signinFailed(error))
+    .then((response: { data: any }) => {
+      // console.log(response.data.message)  
+      // signinSuccessful(response)
+   
+    })
+    .catch(error => {
+      notify({ title: "Ошибка авторизации", type: 'error', text: error.response.data.message});
+      // console.log(error.response.data.message)          
+    })
+}
+
 
 // import { useTheme } from "vuetify";
 // const theme = useTheme();
 //  theme.global.name.value = "customDarkTheme";
  
 onMounted(() => {
- 
+ console.log(status)
 })
 
 const m1 = gsap.timeline();

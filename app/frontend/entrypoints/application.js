@@ -26,22 +26,7 @@ console.log('Vite ⚡️ Rails')
 
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'
-import { createConsumer } from "@rails/actioncable";
 
-const consumer =  createConsumer("http://localhost:3000/cable");
-
-const subscription = consumer.subscriptions.create({ channel: 'RoomChannel'  }, {
-  connected() {
-    console.log('Connected to the channel.');
-  },
-  disconnected() {
-    console.log('Disconnected from the channel.');
-  },
-  received(data) {
-    console.log('Received data from the channel:', data);
-    // messages.value.push(data.message);
-  },
-});
 
 
 import { createApp, inject } from 'vue/dist/vue.esm-bundler';
