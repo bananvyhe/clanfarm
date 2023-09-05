@@ -13,7 +13,7 @@
       
 <!--         <template v-slot:default="dialog"> -->
           
-          <v-card class="sign" title="Создать аккаунт" subtitle="формирование команд на фарм, планировщик, нотификатор">
+          <v-card class="sign" title="Создать аккаунт" subtitle="подборщик, планировщик, нотификатор">
             <!-- <v-card-title>создать аккаунт</v-card-title> -->
 
   <v-form class="form-signup pt-9 pb-5" >
