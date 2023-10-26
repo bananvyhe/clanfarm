@@ -3,12 +3,8 @@ class News < ApplicationRecord
 	require 'uri'
 
 	def self.tokenmake
-		# result = %x{yc iam create-token}
-		# puts "tokenmake tokenmake tokenmake tokenmake"
-		# puts "Tokenmake output: #{result}"
 		uri = URI.parse("https://iam.api.cloud.yandex.net/iam/v1/tokens")
 		request = Net::HTTP::Post.new(uri)
-
 		request.body = JSON.dump({
 		  "yandexPassportOauthToken" => Rails.application.credentials.yaOauth
 		})
