@@ -3,23 +3,23 @@ class News < ApplicationRecord
 	require 'uri'
 
 	def self.tokenmake
-		result = %x{yc iam create-token}
-		puts "tokenmake tokenmake tokenmake tokenmake"
-		puts "Tokenmake output: #{result}"
-		# uri = URI.parse("https://iam.api.cloud.yandex.net/iam/v1/tokens")
-		# request = Net::HTTP::Post.new(uri)
+		# result = %x{yc iam create-token}
+		# puts "tokenmake tokenmake tokenmake tokenmake"
+		# puts "Tokenmake output: #{result}"
+		uri = URI.parse("https://iam.api.cloud.yandex.net/iam/v1/tokens")
+		request = Net::HTTP::Post.new(uri)
 
-		# request.body = JSON.dump({
-		#   "yandexPassportOauthToken" => Rails.application.credentials.yaOauth
-		# })
-		# req_options = {
-		# 	use_ssl: uri.scheme == "https",
-		# }
-		# response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-		# 	 @tokwars =  http.request(request).body
-		# end
-		# formj = JSON.parse(@tokwars)
-		# tokenrapid = "bearer " + formj['iamToken']
+		request.body = JSON.dump({
+		  "yandexPassportOauthToken" => Rails.application.credentials.yaOauth
+		})
+		req_options = {
+			use_ssl: uri.scheme == "https",
+		}
+		response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+			 @tokwars =  http.request(request).body
+		end
+		formj = JSON.parse(@tokwars)
+		tokenrapid = "bearer " + formj['iamToken']
 	end	
 
 	def self.piu(d, tok)
