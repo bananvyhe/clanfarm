@@ -56,11 +56,17 @@ export const useLogStore = defineStore(
     }
 
     function increments(val) {
-    	console.log(val)
+    	// console.log(typeof val)
       const account = ls.get('account');
+      console.log(typeof(val))
+
+    const num = Number(loa.value)
+      if (!loa.value){
+        loa.value = 0
+      }
       account.loa = loa.value += val
       ls.set('account', account);
-      // ls.set('account', { loa: reg})     
+      // ls.set('account', { loa: reg})
     }
 
     function decrements(val) {
