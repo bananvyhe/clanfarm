@@ -140,7 +140,7 @@ onMounted(() => {
 
 const m1 = gsap.timeline();
 
-const message = ref("сбор на фарм")
+const message = ref("тиммейт сбор")
 const tl = ref("подбор по прайму")
 
 let isFirstUpdate = true
