@@ -7,8 +7,13 @@
 		  	<div class="clouds2"></div>
 		  	<div class="bgshad"></div>
 		  	<div class="clouds"></div>
-		  	<div class="voodoo ">
-<h3>
+		  	<div class="voodoo ">  
+		  	<div></div>  
+		  		<v-progress-circular   class="FinderAnim mt-8"
+			      color="green"
+			      indeterminate
+			    ></v-progress-circular>
+				<h3>
 		  	 поиск партии...  
 		  	</h3>
 		  	</div>
@@ -52,7 +57,7 @@ onMounted(() => {
 				y: -15,
   		scale: 0.35,
 			opacity: 0.8,	
-  		duration: 0.8,  
+  		duration: 0.5,  
   		// delay: 0.1,
   		 ease: "power.in",
   		  
@@ -60,19 +65,19 @@ onMounted(() => {
   		opacity: 0.7,	 
   		// delay: 0.1,
   		scale: 0.35,
-  		y: -60,
+  		y: -43,
   		// scale: 0.35,
 			// opacity: 0,	
-  		duration: 2.8,  
+  		duration: 1.2,  
   		ease: "none",
   	}).to(".voodoo", {
   		// delay: 0.1,
-  		y: -80,
+  		y: -70,
   		scale: 0.35,
 			opacity: 0,	
-  		duration: 1,  
+  		duration: 0.5,  
   		ease: "power.out",
-  	}, '-=0.7')
+  	}, '-=0.5')
 	}
 
   function bgshad3() {
@@ -204,7 +209,17 @@ onMounted(() => {
 
 </script>
 <style scoped>
+	.v-progress-circular {
+ 
+  margin:  16px;
 
+}
+.FinderAnim{
+
+	 height: 50px;
+	 width: 50px;
+	 /*background-color: #dad;*/
+}
 /* .pumpkin {
   position: absolute;
  
