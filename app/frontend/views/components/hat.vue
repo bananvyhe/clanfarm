@@ -54,7 +54,7 @@ onMounted(() => {
 			opacity: 0.8,	
   		duration: 0.7,  
   		// delay: 0.1,
-  		 ease: "power2.in",
+  		 ease: "circle.in",
   		  
   	}).to(".voodoo", {
   		opacity: 0.7,	 
@@ -84,7 +84,7 @@ onMounted(() => {
 
 		var tl =	gsap.timeline();
 			tl.to(".bgshad3", {
-  		scale: 1.3,
+  		scale: 1.5,
 			opacity: 0.7,	
   		duration: 2.4,  
   		ease: "expo.out", 
@@ -106,11 +106,11 @@ onMounted(() => {
 
 		var tl =	gsap.timeline();
 		tl.to('.warriors', {
-			delay: 1.1,
-			duration: 1.2,
-			ease: "expo.out",
+			// delay: 1.4,
+			duration: 2.4,
+			ease: "expo.in",
 			backgroundPositionY: 0,
-		});
+		}, '-=0.6');
 	}
 
 	function cloud() {
@@ -331,12 +331,12 @@ onMounted(() => {
 
 .bgshad3 {
 	background-repeat: no-repeat;
-	background-position: center bottom;
+	/*background-position: center bottom;*/
 	background-size: cover;
 	background-image: url('../images/_hat/fog2.jpg');
 	position: absolute;
 	height: 100%;
 	width: 100%;
-
+	background-position: center  -52px;
 }
 </style>
