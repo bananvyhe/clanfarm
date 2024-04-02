@@ -60,19 +60,19 @@ onMounted(() => {
   		opacity: 0.7,	 
   		// delay: 0.1,
   		scale: 0.35,
-  		y: -45,
+  		y: -35,
   		// scale: 0.35,
 			// opacity: 0,	
-  		duration: 1,  
+  		duration: 1.2,  
   		ease: "none",
   	}).to(".voodoo", {
-  		
-  		y: -90,
+  		// delay: 0.1,
+  		y: -60,
   		scale: 0.35,
 			opacity: 0,	
-  		duration: 3,  
-  		ease: "expo.out",
-  	})
+  		duration: 1,  
+  		ease: "power.out",
+  	}, '-=0.6')
 	}
 
   function bgshad3() {
@@ -106,7 +106,7 @@ onMounted(() => {
 
 		var tl =	gsap.timeline();
 		tl.to('.warriors', {
-			delay: 0.7,
+			delay: 1.1,
 			duration: 1.2,
 			ease: "expo.out",
 			backgroundPositionY: 0,
