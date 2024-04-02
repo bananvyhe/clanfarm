@@ -108,9 +108,9 @@ onMounted(() => {
 		tl.to('.warriors', {
 			// delay: 1.4,
 			duration: 2.4,
-			ease: "expo.in",
+			ease: "power4.out",
 			backgroundPositionY: 0,
-		}, '-=0.6');
+		}, '+=1.1');
 	}
 
 	function cloud() {
