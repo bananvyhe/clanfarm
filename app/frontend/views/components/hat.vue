@@ -75,8 +75,8 @@ onMounted(() => {
   		y: -70,
   		scale: 0.35,
 			opacity: 0,	
-  		duration: 0.5,  
-  		ease: "power.out",
+  		duration: 1,  
+  		ease: "expo.out",
   	}, '-=0.5')
 	}
 
@@ -111,7 +111,7 @@ onMounted(() => {
 
 		var tl =	gsap.timeline();
 		tl.to('.warriors', {
-			delay: 0.4,
+			delay: 0.3,
 			duration: 1.0,
 			ease: "power4.out",
 			backgroundPositionY: 0,
