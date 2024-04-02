@@ -52,7 +52,7 @@ onMounted(() => {
 				y: -15,
   		scale: 0.35,
 			opacity: 0.8,	
-  		duration: 0.7,  
+  		duration: 0.5,  
   		// delay: 0.1,
   		 ease: "circle.in",
   		  
@@ -67,12 +67,12 @@ onMounted(() => {
   		ease: "none",
   	}).to(".voodoo", {
   		// delay: 0.1,
-  		y: -60,
+  		y: -80,
   		scale: 0.35,
 			opacity: 0,	
   		duration: 1,  
   		ease: "power.out",
-  	}, '-=0.8')
+  	}, '-=0.7')
 	}
 
   function bgshad3() {
@@ -94,7 +94,7 @@ onMounted(() => {
   		y:-45,
   		scale: 1.8,
 			opacity: 0,	
-  		duration: 4,  
+  		duration: 3,  
   		ease: "sine.out",
   	})
 	}
@@ -106,8 +106,8 @@ onMounted(() => {
 
 		var tl =	gsap.timeline();
 		tl.to('.warriors', {
-			delay: 0.2,
-			duration: 2.0,
+			delay: 0.4,
+			duration: 1.0,
 			ease: "power4.out",
 			backgroundPositionY: 0,
 		}, '+=1.1');
