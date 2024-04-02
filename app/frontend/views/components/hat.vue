@@ -72,14 +72,14 @@ onMounted(() => {
 			opacity: 0,	
   		duration: 1,  
   		ease: "power.out",
-  	}, '-=0.6')
+  	}, '-=0.8')
 	}
 
   function bgshad3() {
 		gsap.set(".bgshad3", {
 			opacity: 1,	
 			scale: 1,
- 
+			y:-0,
 		});
 
 		var tl =	gsap.timeline();
@@ -87,7 +87,7 @@ onMounted(() => {
   		scale: 1.5,
 			opacity: 0.7,	
   		duration: 2.4,  
-  		ease: "expo.out", 
+  		ease: "circ.out", 
   	})
 			.to(".bgshad3", {
 			// delay: 0.1,
@@ -106,8 +106,8 @@ onMounted(() => {
 
 		var tl =	gsap.timeline();
 		tl.to('.warriors', {
-			// delay: 1.4,
-			duration: 2.4,
+			delay: 0.2,
+			duration: 2.0,
 			ease: "power4.out",
 			backgroundPositionY: 0,
 		}, '+=1.1');
