@@ -7,7 +7,7 @@
 		  	<div class="clouds2"></div>
 		  	<div class="bgshad"></div>
 		  	<div class="clouds"></div>
-		  	<div class="voodoo "> СБОР НА ФАРМ </div>
+		  	<div class="voodoo "> <h3>подбор по прайму</h3> </div>
 		  	<div class="warriors"></div>
 		  	<div class="warriors brightness"></div>
 		  	<div class="bgshad2"></div>
