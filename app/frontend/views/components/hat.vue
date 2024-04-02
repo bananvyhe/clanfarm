@@ -52,18 +52,18 @@ onMounted(() => {
 				y: -15,
   		scale: 0.35,
 			opacity: 0.8,	
-  		duration: 0.5,  
+  		duration: 0.8,  
   		// delay: 0.1,
-  		 ease: "circle.in",
+  		 ease: "power.in",
   		  
   	}).to(".voodoo", {
   		opacity: 0.7,	 
   		// delay: 0.1,
   		scale: 0.35,
-  		y: -35,
+  		y: -60,
   		// scale: 0.35,
 			// opacity: 0,	
-  		duration: 1.2,  
+  		duration: 2.8,  
   		ease: "none",
   	}).to(".voodoo", {
   		// delay: 0.1,
