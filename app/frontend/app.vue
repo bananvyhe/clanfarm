@@ -140,7 +140,7 @@ onMounted(() => {
 
 const m1 = gsap.timeline();
 
-const message = ref("клан менеджер")
+const message = ref("клан фарм")
 const tl = ref("сбор команд")
 
 let isFirstUpdate = true
