@@ -7,7 +7,11 @@
 		  	<div class="clouds2"></div>
 		  	<div class="bgshad"></div>
 		  	<div class="clouds"></div>
-		  	<div class="voodoo "> подбор по прайму  </div>
+		  	<div class="voodoo ">
+<h3>
+		  	 поиск партии...  
+		  	</h3>
+		  	</div>
 		  	<div class="warriors"></div>
 		  	<div class="warriors brightness"></div>
 		  	<div class="bgshad2"></div>
@@ -39,24 +43,35 @@ onMounted(() => {
 		gsap.set(".voodoo", {
 			opacity: 0,	
 			scale: 0,
-			y: 0,
+			y: -15,
 			// color: "#9f0000",	
 		});
 
 		var tl =	gsap.timeline();
 			tl.to(".voodoo", {
+				y: -15,
   		scale: 0.35,
 			opacity: 0.8,	
-  		duration: 0.5,  
-  		delay: 0.1,
-  		 ease: "sine.in",
+  		duration: 0.7,  
+  		// delay: 0.1,
+  		 ease: "power2.in",
   		  
   	}).to(".voodoo", {
-  		y:-20,
+  		opacity: 0.7,	 
+  		// delay: 0.1,
+  		scale: 0.35,
+  		y: -45,
+  		// scale: 0.35,
+			// opacity: 0,	
+  		duration: 1,  
+  		ease: "none",
+  	}).to(".voodoo", {
+  		
+  		y: -90,
   		scale: 0.35,
 			opacity: 0,	
-  		duration: 2,  
-  		ease: "my-wiggle",
+  		duration: 3,  
+  		ease: "expo.out",
   	})
 	}
 
@@ -69,19 +84,19 @@ onMounted(() => {
 
 		var tl =	gsap.timeline();
 			tl.to(".bgshad3", {
-  		scale: 1.2,
+  		scale: 1.3,
 			opacity: 0.7,	
-  		duration: 1.1,  
-  		ease: "sine.in",
-  		  
+  		duration: 2.4,  
+  		ease: "expo.out", 
   	})
-			// .to(".voodoo", {
-  	// 	y:+5,
-  	// 	scale: 0.55,
-			// opacity: 0,	
-  	// 	duration: 2.5,  
-  	// 	ease: "my-wiggle",
-  	// })
+			.to(".bgshad3", {
+			// delay: 0.1,
+  		y:-45,
+  		scale: 1.8,
+			opacity: 0,	
+  		duration: 4,  
+  		ease: "sine.out",
+  	})
 	}
 
 	function warriors() {
@@ -91,9 +106,9 @@ onMounted(() => {
 
 		var tl =	gsap.timeline();
 		tl.to('.warriors', {
-			delay: 0.0,
-			duration: 1.1,
-			ease: "sine.in",
+			delay: 0.7,
+			duration: 1.2,
+			ease: "expo.out",
 			backgroundPositionY: 0,
 		});
 	}
@@ -254,7 +269,7 @@ onMounted(() => {
  
 	position: absolute;
  
-	font-size: 12vh;
+	font-size: 76px;
 }
  
 .brightness{
