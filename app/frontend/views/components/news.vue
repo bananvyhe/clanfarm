@@ -3,14 +3,15 @@
 <v-row>
     <v-col v-for="item in alld" class="d-flex flex-column px-1 my-2 py-2 " cols="12" sm="6" >
       <v-row>
-        <v-col>
+        <v-col class="colcontainer ">
+          <div class="urlsite play d-flex align-end justify-end pb-8 pr-8" :style="{ transform: 'rotate(' + -3 + 'deg)' }">{{item.pic.match(/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1]}}
+          </div>
           <div 
-          class="align-top float-left mr-1 px-3 py-md-1 mx-md-1">
-           
-            <div 
-              alt="{backgroundImage: 'url('+ item.pic} {backgroundImage: apiUrl == 'https://farmspot.ru' ? 'url(' + item.pic + ')' : ''  }" 
+            class="align-top float-left mr-1 px-3 py-md-1 mx-md-1 ">
 
-              class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}" >
+            <div 
+              alt="{backgroundImage: 'url('+ item.pic} {backgroundImage: apiUrl == 'https://farmspot.ru' ? 'url(' + item.pic + ')' : '' }" 
+              class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: apiUrl == 'https://farmspot.ru' ? 'url(' + item.pic + ')' : '' }" >
             </div>
           </div >
           <div class="px-2 pt-2 pb-2 colr">
@@ -162,6 +163,21 @@
 </script>
 
 <style scoped>
+.urlsite{
+  /*background-color: #dad;*/
+  z-index: -1;
+  color: #222;
+  overflow: hidden;
+  position: absolute;
+  font-size:  28px;
+  height: 100%;
+  width: 100%;
+}
+
+.colcontainer{
+  position: relative;
+  overflow: hidden;
+}
 .overbut{
   /*background-color: #dad;*/
     bottom: 1.5em;
