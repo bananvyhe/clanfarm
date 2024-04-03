@@ -1,14 +1,16 @@
 <template>
-  <div>
-    <v-card v-for="item in alld" class="px-1 my-2 py-2 ">
+
+<v-row>
+    <v-col v-for="item in alld" class="d-flex flex-column px-1 my-2 py-2 " cols="12" sm="6" >
       <v-row>
         <v-col>
           <div 
           class="align-top float-left mr-1 px-3 py-md-1 mx-md-1">
+           
+            <div 
+              alt="{backgroundImage: 'url('+ item.pic} {backgroundImage: apiUrl == 'https://farmspot.ru' ? 'url(' + item.pic + ')' : ''  }" 
 
-          <!-- v-bind:style="{backgroundImage: 'url('+ item.pic}" -->
-            <div class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: apiUrl == 'https://farmspot.ru' ? 'url(' + item.pic + ')' : ''  }" >
-              <!-- {{pos}} --> 
+              class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}" >
             </div>
           </div >
           <div class="px-2 pt-2 pb-2 colr">
@@ -18,8 +20,9 @@
             {{item.desc}}… 
           </div>
           <v-card-subtitle
-          class="px-2 py-0 float-left date">
-          {{item.date}} 
+          class="px-2 py-0 float-left date play">
+ 
+                {{new Date(item.created_at).toLocaleDateString()}}
           </v-card-subtitle>
           <v-btn  
             target="_blank" 
@@ -59,7 +62,8 @@
 
         </v-col>
       </v-row>
-    </v-card>
+    </v-col>
+     </v-row>
 
     <v-dialog
       v-model="showModal"
@@ -84,7 +88,9 @@
           </v-card-actions>
       </v-card>
     </v-dialog>  
-  </div>
+
+
+ 
 </template>
 <script setup lang="ts">
   const apiUrl = window.APP_CONFIG.apiUrl;
@@ -112,7 +118,7 @@
   const rock = computed(() => store.trock)
 
   onMounted(() => {
-    console.log(bottom.value)
+    console.log(bottom.value) 
      getList()
      console.log("getlist")
   })

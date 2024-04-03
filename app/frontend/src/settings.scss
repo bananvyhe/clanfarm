@@ -3,7 +3,7 @@
   $color-pack: false,
   // $utilities: false,
   // $button-height: global.$sizew,
-  $body-font-family: 'Roboto Slab',
+  $body-font-family: 'Merriweather',
   $heading-font-family: 'Play',
   $grid-breakpoints:  (
     'xs': 0,
@@ -18,12 +18,16 @@
   // $v-theme-primary: global.$primary-color
  // $v-primary: global.$primary-color !default
 );
+.text-body-1{
+  color: #717171;
+}
 .grid{
-  background: #dad;
+  background: #ada;
 }
 .gridb{
   background: #ada;
 }
+
 .play{
   font-family: 'Play';
 }
