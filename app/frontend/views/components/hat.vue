@@ -215,7 +215,7 @@ onMounted(() => {
 
 }
 .FinderAnim{
-
+	
 	 height: 50px;
 	 width: 50px;
 	 /*background-color: #dad;*/
@@ -347,7 +347,7 @@ onMounted(() => {
 .bgshad3 {
 	background-repeat: no-repeat;
 	/*background-position: center bottom;*/
-	background-size: cover;
+	/*background-size: cover;*/
 	background-image: url('../images/_hat/fog2.jpg');
 	position: absolute;
 	height: 100%;
