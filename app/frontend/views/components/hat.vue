@@ -209,17 +209,15 @@ onMounted(() => {
 
 </script>
 <style scoped>
-	.v-progress-circular {
- 
+.v-progress-circular {
   margin:  16px;
-
 }
 .FinderAnim{
-	
 	 height: 50px;
 	 width: 50px;
 	 /*background-color: #dad;*/
 }
+
 /* .pumpkin {
   position: absolute;
  
@@ -230,7 +228,6 @@ onMounted(() => {
 .plashken {
 	position: absolute;
 	width: 100%;
- 
 	height: 0.4em;
 }
 .blank {
@@ -250,7 +247,6 @@ onMounted(() => {
 .hat {
 	height: 140px;
 	top: 0;
- 
 }
 .warriors {
 	position: absolute;
@@ -280,10 +276,7 @@ onMounted(() => {
 	justify-content: center;
 	height: 100%;
 	width: 100%;
- 
- 
 	position: absolute;
- 
 	font-size: 76px;
 }
  
@@ -316,7 +309,6 @@ onMounted(() => {
 
 }
 .clouds2 {  
- 
 	opacity: 0.9;
 	background-repeat: repeat-x;
 	position: absolute;
@@ -325,7 +317,6 @@ onMounted(() => {
 	background-size: 800px auto;
 	height: 100%;
 	width: 100%;
-	
 }
 
 .bgshad {
