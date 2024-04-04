@@ -1,48 +1,34 @@
 <template>
 
-<v-row>
+  <v-row>
     <v-col v-for="item in alld" class="d-flex flex-column px-1 my-2 py-2 " cols="12" sm="6" >
       <v-row>
         <v-col class="colcontainer ">
-          <div class="urlsite play d-flex align-end justify-end pb-8 pr-8" :style="{ transform: 'rotate(' + -3 + 'deg)' }">{{item.pic.match(/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1]}}
-          </div>
-          <div 
-            class="align-top float-left mr-1 px-3 py-md-1 mx-md-1 ">
+            <div class="d-flex" align="right">
+          <div class=" ">
+            <div class="urlsite play d-flex align-end justify-end pb-8 pr-8" :style="{ transform: 'rotate(' + -3 + 'deg)' }">{{item.pic.match(/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1]}}
+            </div>
 
             <div 
-              alt="{backgroundImage: 'url('+ item.pic} {backgroundImage: apiUrl == 'https://farmspot.ru' ? 'url(' + item.pic + ')' : '' }" 
-              class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: apiUrl == 'https://farmspot.ru' ? 'url(' + item.pic + ')' : '' }" >
-            </div>
-          </div >
-          <div class="px-2 pt-2 pb-2 colr">
-            <h3>{{ item.head }}</h3>
-          </div>
-          <div class="px-2 text-body-1">
-            {{item.desc}}… 
-          </div>
-          <v-card-subtitle
-          class="px-2 py-0 float-left date play">
- 
-                {{new Date(item.created_at).toLocaleDateString()}}
-          </v-card-subtitle>
-          <v-btn  
-            target="_blank" 
-            v-bind:href="item.link"
-            class="px-1 py-0 float-left"
-            color="orange lighten-2"
-            variant="text"
-            size="x-small">
-            источник
-          </v-btn> 
- 
-          <v-tooltip location="start" >
+              class="align-top float-left mr-1 px-3 py-md-1 mx-md-1 ">
+              <div 
+                alt="{backgroundImage: 'url('+ item.pic} {backgroundImage: apiUrl == 'https://farmspot.ru' ? 'url(' + item.pic + ')' : '' }" 
+                class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}" >
+              </div>
+            </div >  
+
+
+
+
+                      <v-tooltip location="start" >
             <template v-slot:activator="{ props }">
               <div  class="overbut px-2 py-0 mx-2"  v-bind="props" v-if="isButtonDisabled" :style="{cursor: 'not-allowed'}"> 
                   </div>
-                <v-btn 
+                <v-btn  rounded="0"
 
-                color="primary"
-                  class="px-2 py-0 mx-2 but"
+                  color="primary"
+                  class="px-2 py-0 mx-2 but mr-4 "
+
                   v-bind="props"
                   @click="handleClick(item.id, item.head)"
                   :disabled="isButtonDisabled" 
@@ -61,10 +47,41 @@
             </span>
           </v-tooltip>
 
+
+
+          </div> 
+
+          <div class=" " align="left">
+            <div class="px-0 pt-2 pb-2 colr">
+              <h3>{{ item.head }}</h3>
+            </div>
+            <div class="px-0 text-body-1">
+              {{item.desc}}… 
+            </div>
+            <v-card-subtitle
+            class="px-2 py-0 float-left date play">
+   
+                  {{new Date(item.created_at).toLocaleDateString()}}
+            </v-card-subtitle>
+            <v-btn  
+              target="_blank" 
+              v-bind:href="item.link"
+              class="px-1 py-0 float-left"
+              color="orange lighten-2"
+              variant="text"
+              size="x-small">
+              источник
+            </v-btn>                
+          </div>
+        </div>
+
+ 
+
+
         </v-col>
       </v-row>
     </v-col>
-     </v-row>
+  </v-row>
 
     <v-dialog
       v-model="showModal"
@@ -179,12 +196,13 @@
   overflow: hidden;
 }
 .overbut{
+    position: absolute;
   /*background-color: #dad;*/
-    bottom: 1.5em;
-  right: 1.5em;
-  height: 2em; 
-  width: 6em;
-  position: absolute;
+    /*bottom: 1em;*/
+  left: 90px;
+  height: 1.8em; 
+  width: 5em;
+ 
   z-index: 1000;
 }
 .skull{
@@ -197,9 +215,9 @@
  
 }
 .pic {
-  /*background-color: #dad;*/
-  width: 100px;
-  height: 100px;
+  background-color: #dad;
+  width: 150px;
+  height: 150px;
 }
 .colr{
   /*color: #60845b;*/
@@ -210,9 +228,11 @@
   color: #9d9681; 
 }
 .but{
+
   /*background-color: #dad;  */
-  position: absolute;
-  bottom: 1.5em;
-  right: 1.5em;
+  /*position: absolute;*/
+  /*bottom: 1.5em;*/
+  /*right: 1.5em;*/
+
 }
 </style>
