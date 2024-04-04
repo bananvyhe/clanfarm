@@ -1,7 +1,7 @@
 <template>
-<v-col>
+<v-col class="">
   <v-row>
-    <v-col v-for="item in alld" class="d-flex flex-column px-1 my-2 py-2 " cols="12" sm="6" >
+    <v-col v-for="item in alld" class="d-flex flex-column px-1 my-2 py-2 " cols="12" md="6" >
       <v-row>
         <v-col class="colcontainer px-0 mx-3 py-1">
             <div class="d-flex" align="right">

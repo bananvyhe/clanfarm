@@ -3,7 +3,7 @@
 
 		<v-layout >
 			<v-app-bar density="compact" class="topmenu py-0">
-        <v-container  class="d-flex align-center py-0 my-0" >
+        <v-container  class="d-flex align-center py-0 my-0 px-0" >
           <!-- {{store.tctsrf}} -->
           <router-link to="/"> 
             <div class=" wel "  >
@@ -25,7 +25,7 @@
         </v-container>
 			</v-app-bar>
 		 <v-main >
-        <v-container class="pt-0 cont" > 
+        <v-container class="pt-0 cont px-0"  > 
           <router-view></router-view>
 <!-- <notifications /> -->
 <notifications position="bottom left" classes="my-notification" >
