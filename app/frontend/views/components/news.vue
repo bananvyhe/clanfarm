@@ -1,16 +1,16 @@
 <template>
-
+<v-col>
   <v-row>
     <v-col v-for="item in alld" class="d-flex flex-column px-1 my-2 py-2 " cols="12" sm="6" >
       <v-row>
-        <v-col class="colcontainer ">
+        <v-col class="colcontainer px-0 mx-3 py-1">
             <div class="d-flex" align="right">
           <div class=" ">
-            <div class="urlsite play d-flex align-end justify-end pb-8 pr-8" :style="{ transform: 'rotate(' + -3 + 'deg)' }">{{item.pic.match(/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1]}}
+            <div class="urlsite play d-flex align-end justify-end pb-0 pr-6" :style="{ transform: 'rotate(' + -3 + 'deg)' }">{{item.pic.match(/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1]}}
             </div>
 
             <div 
-              class="align-top float-left mr-1 px-3 py-md-1 mx-md-1 ">
+              class="align-top float-left mr-1 px-2  mx-md-1 ">
               <div 
                 alt="{backgroundImage: 'url('+ item.pic} {backgroundImage: apiUrl == 'https://farmspot.ru' ? 'url(' + item.pic + ')' : '' }" 
                 class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}" >
@@ -20,20 +20,20 @@
 
 
 
-                      <v-tooltip location="start" >
+          <v-tooltip location="start" >
             <template v-slot:activator="{ props }">
               <div  class="overbut px-2 py-0 mx-2"  v-bind="props" v-if="isButtonDisabled" :style="{cursor: 'not-allowed'}"> 
                   </div>
                 <v-btn  rounded="0"
 
                   color="primary"
-                  class="px-2 py-0 mx-2 but mr-4 "
+                  class="px-2 py-0 mx-2 but mr-3 "
 
                   v-bind="props"
                   @click="handleClick(item.id, item.head)"
                   :disabled="isButtonDisabled" 
                   size="small">
-                  открыть
+                  прочитать ai перевод
                   </v-btn>                    
             
             </template>
@@ -51,27 +51,30 @@
 
           </div> 
 
-          <div class=" " align="left">
+          <div class="textbg" align="left">
             <div class="px-0 pt-2 pb-2 colr">
               <h3>{{ item.head }}</h3>
             </div>
             <div class="px-0 text-body-1">
               {{item.desc}}… 
             </div>
-            <v-card-subtitle
-            class="px-2 py-0 float-left date play">
-   
-                  {{new Date(item.created_at).toLocaleDateString()}}
-            </v-card-subtitle>
-            <v-btn  
-              target="_blank" 
-              v-bind:href="item.link"
-              class="px-1 py-0 float-left"
-              color="orange lighten-2"
-              variant="text"
-              size="x-small">
-              источник
-            </v-btn>                
+
+            <div class="datatime">            
+              <v-card-subtitle
+              class="px-2 py-0 float-left date play">
+     
+                    {{new Date(item.created_at).toLocaleDateString()}}
+              </v-card-subtitle>
+              <v-btn  
+                target="_blank" 
+                v-bind:href="item.link"
+                class="px-1 py-0 float-left"
+                color="orange lighten-2"
+                variant="text"
+                size="x-small">
+                источник
+              </v-btn>  
+            </div>              
           </div>
         </div>
 
@@ -82,7 +85,7 @@
       </v-row>
     </v-col>
   </v-row>
-
+</v-col>
     <v-dialog
       v-model="showModal"
       max-width="1080px"
@@ -180,13 +183,22 @@
 </script>
 
 <style scoped>
+.datatime{
+  position: absolute;
+  right: 0px;
+  bottom: 0;
+}
+.textbg{
+  z-index: 2;
+  /*background-color: #dad;*/
+}
 .urlsite{
   /*background-color: #dad;*/
-  z-index: -1;
-  color: #222;
+  z-index: 1;
+  color: #0E0E0E;
   overflow: hidden;
   position: absolute;
-  font-size:  28px;
+  font-size:  48px;
   height: 100%;
   width: 100%;
 }
@@ -194,13 +206,14 @@
 .colcontainer{
   position: relative;
   overflow: hidden;
+  background-color: #1B1B1B;
 }
 .overbut{
     position: absolute;
   /*background-color: #dad;*/
     /*bottom: 1em;*/
-  left: 90px;
-  height: 1.8em; 
+  left: 50px;
+  height: 2em; 
   width: 5em;
  
   z-index: 1000;
@@ -215,7 +228,10 @@
  
 }
 .pic {
-  background-color: #dad;
+background-size: cover;
+  border-radius: 0% 0% 0% 8%;
+  /*background-color: #dad;*/
+ 
   width: 150px;
   height: 150px;
 }
@@ -228,7 +244,7 @@
   color: #9d9681; 
 }
 .but{
-
+z-index: 2;
   /*background-color: #dad;  */
   /*position: absolute;*/
   /*bottom: 1.5em;*/
