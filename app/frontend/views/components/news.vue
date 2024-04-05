@@ -4,13 +4,12 @@
     <v-col v-for="item in alld" class="d-flex flex-column px-1 my-2 py-2 " cols="12" md="6" >
       <v-row>
         <v-col class="colcontainer px-0 mx-3 py-1">
-            <div class="d-flex" align="right">
-          <div class=" ">
-            <div class="urlsite play d-flex align-end justify-end pb-0 pr-6" :style="{ transform: 'rotate(' + -3 + 'deg)' }">{{item.pic.match(/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1]}}
-            </div>
+          <div class="d-flex justify-end">
+            <div class="aibutton d-flex flex-column align-end">
+
 
             <div 
-              class="align-top float-left mr-1 px-2  mx-md-1 ">
+              class=" mr-1 px-2  mx-md-1 ">
               <div 
                 alt="{backgroundImage: 'url('+ item.pic} {backgroundImage: apiUrl == 'https://farmspot.ru' ? 'url(' + item.pic + ')' : '' }" 
                 class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}" >
@@ -18,46 +17,47 @@
             </div >  
 
 
-
-
-          <v-tooltip location="start" >
-            <template v-slot:activator="{ props }">
-              <div  class="overbut px-2 py-0 mx-2"  v-bind="props" v-if="isButtonDisabled" :style="{cursor: 'not-allowed'}"> 
+            <div class="aibutton pb-2">
+              <v-tooltip location="start" >
+                <template v-slot:activator="{ props }">
+                  <div  class="overbut px-2 py-0 mx-2"  v-bind="props" v-if="isButtonDisabled" :style="{cursor: 'not-allowed'}"> 
                   </div>
-                <v-btn  rounded="0"
+                  <v-btn  rounded="0"
 
-                  color="primary"
-                  class="px-2 py-0 mx-2 but mr-3 "
+                    color="primary"
+                    class="px-2 py-0 mx-2 but mr-3 "
 
-                  v-bind="props"
-                  @click="handleClick(item.id, item.head)"
-                  :disabled="isButtonDisabled" 
-                  size="small">
-                  прочитать ai перевод
+                    v-bind="props"
+                    @click="handleClick(item.id, item.head)"
+                    :disabled="isButtonDisabled" 
+                    size="small">
+                    прочитать ai перевод
                   </v-btn>                    
-            
-            </template>
-            <span class=" d-flex align-center"  v-if="!isButtonDisabled">
-              <div class="mr-1">потратить: 5</div>
-              <div class="skull">
-              </div>
-            </span>
-            <span class=" "  v-if="isButtonDisabled">
-              недостаточно очков действия
-            </span>
-          </v-tooltip>
+              
+                </template>
+                <span class=" d-flex align-center"  v-if="!isButtonDisabled">
+                  <div class="mr-1">потратить: 5</div>
+                  <div class="skull">
+                  </div>
+                </span>
+                <span class=" "  v-if="isButtonDisabled">
+                  недостаточно очков действия
+                </span>
+              </v-tooltip>
+            </div>
 
+            </div>
 
-
-          </div> 
-
+            <div class="urlsite play d-flex align-end justify-end pb-0 pr-2" :style="{ transform: 'rotate(' + -3 + 'deg)' }">{{item.pic.match(/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1]}}
+            </div>
           <div class="textbg" align="left">
             <div class="px-0 pt-2 pb-2 colr">
               <h3>{{ item.head }}</h3>
             </div>
-            <div class="px-0 text-body-1">
+            <div class="px-0 text-body-1 mb-5">
               {{item.desc}}… 
             </div>
+
 
             <div class="datatime">            
               <v-card-subtitle
@@ -76,6 +76,7 @@
               </v-btn>  
             </div>              
           </div>
+
         </div>
 
  
@@ -183,6 +184,17 @@
 </script>
 
 <style scoped>
+.aibutton{
+  /*margin-left: -150px;*/
+  /*margin-right: 1em;*/
+  /*position: relative;*/
+/*  bottom: 0;*/
+  /*right: 0;*/
+
+ 
+/*background-color: #dad;*/
+  /*height: 150px;*/
+}
 .datatime{
   position: absolute;
   right: 0px;
@@ -228,6 +240,8 @@
  
 }
 .pic {
+  position: relative;
+  z-index: 2;
 background-size: cover;
   border-radius: 0% 0% 0% 8%;
   /*background-color: #dad;*/

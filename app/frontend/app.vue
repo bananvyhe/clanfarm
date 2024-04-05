@@ -3,7 +3,7 @@
 
 		<v-layout >
 			<v-app-bar density="compact" class="topmenu py-0">
-        <v-container  class="d-flex align-center py-0 my-0 px-0" >
+        <v-container  class="d-flex align-center py-0 my-0 px-2" >
           <!-- {{store.tctsrf}} -->
           <router-link to="/"> 
             <div class=" wel "  >
