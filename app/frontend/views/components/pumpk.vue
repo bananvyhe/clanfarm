@@ -170,13 +170,11 @@ const apiUrl = window.APP_CONFIG.apiUrl;
        loc.value = ls.get('account').hey
     }
   nextTick(() => {
-  // window.addEventListener('load', () => {
-    // var self = this
     function startInterval() {    
       let intervalId = setInterval(function(){
-    if (store.tsignedIn == true) {
-      clearInterval(intervalId)
-    }          
+        if (store.tsignedIn == true) {
+          clearInterval(intervalId)
+        }          
         if( ls.get('account').hey == "death" ){
           // занесение в переменную оставшиеся милисекунды до окончания(обратный отсчет)
           var getendt = ls.get('account').endTimer
@@ -196,7 +194,6 @@ const apiUrl = window.APP_CONFIG.apiUrl;
           vis.value = true
           console.log(remaining)
           console.log("remaining < 0 ")
-
           ressurect()
           console.log("alive")
         }
@@ -207,11 +204,7 @@ const apiUrl = window.APP_CONFIG.apiUrl;
       
     }else{
       startInterval()
-      // pumpk()
-    }   
-      // if (store.tsignedIn == false) {
-      //   startInterval();
-      // }     
+    }
 
     function ressurect() {  
       hp.value = 100

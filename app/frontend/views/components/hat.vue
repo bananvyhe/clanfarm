@@ -91,8 +91,8 @@ onMounted(() => {
 			tl.to(".bgshad3", {
   		scale: 1.5,
 			opacity: 0.7,	
-  		duration: 2.4,  
-  		ease: "circ.out", 
+  		duration: 3.4,  
+  		ease: "sine.out", 
   	})
 			.to(".bgshad3", {
 			// delay: 0.1,
