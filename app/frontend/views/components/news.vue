@@ -48,7 +48,7 @@
 
             </div>
 
-            <div class="urlsite play d-flex align-end justify-end pb-0 pr-2" :style="{ transform: 'rotate(' + -3 + 'deg)' }">{{item.pic.match(/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1]}}
+            <div class="urlsite play d-flex align-end justify-end pr-2" :style="{ transform: 'rotate(' + -2 + 'deg)' }">{{item.pic.match(/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1]}}
             </div>
           <div class="textbg" align="left">
             <div class="px-0 pt-2 pb-2 colr">
@@ -205,11 +205,13 @@
   /*background-color: #dad;*/
 }
 .urlsite{
+  padding-bottom: -4em;
   /*background-color: #dad;*/
   z-index: 1;
   color: #0E0E0E;
   overflow: hidden;
   position: absolute;
+  bottom: -18px;
   font-size:  48px;
   height: 100%;
   width: 100%;
