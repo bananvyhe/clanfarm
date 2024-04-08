@@ -83,13 +83,13 @@ onMounted(() => {
   function bgshad3() {
 		gsap.set(".bgshad3", {
 			opacity: 1,	
-			scale: 1,
+			scale: 1.1,
 			y:-0,
 		});
 
 		var tl =	gsap.timeline();
 			tl.to(".bgshad3", {
-  		scale: 1.5,
+  		scale: 1.6,
 			opacity: 0.7,	
   		duration: 3.4,  
   		ease: "sine.out", 
