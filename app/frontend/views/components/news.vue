@@ -19,7 +19,7 @@
 
               <div class="d-flex flex-column align-end picture">
                 <div 
-                  class=" mr-1 px-2  mx-md-1 ">
+                  class=" mr-2 px-2  mx-md-1 ">
                   <div 
                     alt="{backgroundImage: 'url('+ item.pic} {backgroundImage: apiUrl == 'https://farmspot.ru' ? 'url(' + item.pic + ')' : '' }" 
                     class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}" >
