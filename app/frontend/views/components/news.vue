@@ -34,7 +34,7 @@
                       <v-btn  rounded="0"
 
                         color="primary"
-                        class="px-2 py-0 mx-2 but mr-3 "
+                        class="px-2 py-0 mx-2 but mr-4 "
 
                         v-bind="props"
                         @click="handleClick(item.id, item.head)"
