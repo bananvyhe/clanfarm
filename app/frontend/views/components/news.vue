@@ -1,115 +1,125 @@
 <template>
-<v-col class="">
-  <v-row>
-    <v-col v-for="item in alld" class="d-flex flex-column px-1 my-2 py-2 " cols="12" md="6" >
-      <v-row>
-        <v-col class="colcontainer px-0 mx-3 py-1">
-          <div class="d-flex justify-end">
-            <div class="aibutton d-flex flex-column align-end">
+  <v-col class="">
+    <v-row>
+      <v-col v-for="item in alld" class="d-flex flex-column px-1 my-2 py-2 " cols="12" md="6" >
+        <v-row>
+          <v-col class="colcontainer px-0 mx-3 py-1">
 
 
-            <div 
-              class=" mr-1 px-2  mx-md-1 ">
-              <div 
-                alt="{backgroundImage: 'url('+ item.pic} {backgroundImage: apiUrl == 'https://farmspot.ru' ? 'url(' + item.pic + ')' : '' }" 
-                class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}" >
+            <div class="d-flex justify-end">
+
+
+              <div class="urlsite play d-flex align-end justify-end pr-2" :style="{ transform: 'rotate(' + -2 + 'deg)' }">{{item.pic.match(/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1]}}
               </div>
-            </div >  
+              <div class="textbg" align="left">
 
 
-            <div class="aibutton pb-2">
-              <v-tooltip location="start" >
-                <template v-slot:activator="{ props }">
-                  <div  class="overbut px-2 py-0 mx-2"  v-bind="props" v-if="isButtonDisabled" :style="{cursor: 'not-allowed'}"> 
+
+
+
+              <div class="d-flex flex-column align-end picture">
+                <div 
+                  class=" mr-1 px-2  mx-md-1 ">
+                  <div 
+                    alt="{backgroundImage: 'url('+ item.pic} {backgroundImage: apiUrl == 'https://farmspot.ru' ? 'url(' + item.pic + ')' : '' }" 
+                    class ="pic px-0 align-center my-2" v-bind:style="{backgroundImage: 'url('+ item.pic}" >
                   </div>
-                  <v-btn  rounded="0"
+                </div >  
 
-                    color="primary"
-                    class="px-2 py-0 mx-2 but mr-3 "
+                <div class="mb-2">
+                  <v-tooltip location="start" >
+                    <template v-slot:activator="{ props }">
+                      <div  class="overbut px-2 py-0 mx-2"  v-bind="props" v-if="isButtonDisabled" :style="{cursor: 'not-allowed'}"> 
+                      </div>
+                      <v-btn  rounded="0"
 
-                    v-bind="props"
-                    @click="handleClick(item.id, item.head)"
-                    :disabled="isButtonDisabled" 
-                    size="small">
-                    прочитать ai перевод
-                  </v-btn>                    
-              
-                </template>
-                <span class=" d-flex align-center"  v-if="!isButtonDisabled">
-                  <div class="mr-1">потратить: 5</div>
-                  <div class="skull">
-                  </div>
-                </span>
-                <span class=" "  v-if="isButtonDisabled">
-                  недостаточно очков действия
-                </span>
-              </v-tooltip>
-            </div>
+                        color="primary"
+                        class="px-2 py-0 mx-2 but mr-3 "
 
-            </div>
-
-            <div class="urlsite play d-flex align-end justify-end pr-2" :style="{ transform: 'rotate(' + -2 + 'deg)' }">{{item.pic.match(/^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/im)[1]}}
-            </div>
-          <div class="textbg" align="left">
-            <div class="px-0 pt-2 pb-2 colr">
-              <h3>{{ item.head }}</h3>
-            </div>
-            <div class="px-0 text-body-1 mb-5">
-              {{item.desc}}… 
-            </div>
+                        v-bind="props"
+                        @click="handleClick(item.id, item.head)"
+                        :disabled="isButtonDisabled" 
+                        size="small">
+                        прочитать ai перевод
+                      </v-btn>                    
+                  
+                    </template>
+                    <span class=" d-flex align-center"  v-if="!isButtonDisabled">
+                      <div class="mr-1">потратить: 5</div>
+                      <div class="skull"></div>
+                    </span>
+                    <span class=" "  v-if="isButtonDisabled">
+                      недостаточно очков действия
+                    </span>
+                  </v-tooltip>
+                </div>
+              </div>
 
 
-            <div class="datatime">            
-              <v-card-subtitle
-              class="px-2 py-0 float-left date play">
-     
+
+
+
+
+
+
+
+                <div class="px-0 pt-0 mb-1 colr">
+                  <h3>{{ item.head }}</h3>
+                </div>
+                <div class="px-0 text-body-1 mb-5">
+                  {{item.desc}}… 
+                </div>
+
+                <div class="datatime">            
+                  <v-card-subtitle
+                  class="px-2 py-0 float-left date play">
                     {{new Date(item.created_at).toLocaleDateString()}}
-              </v-card-subtitle>
-              <v-btn  
-                target="_blank" 
-                v-bind:href="item.link"
-                class="px-1 py-0 float-left"
-                color="orange lighten-2"
-                variant="text"
-                size="x-small">
-                источник
-              </v-btn>  
-            </div>              
-          </div>
-
-        </div>
-
- 
+                  </v-card-subtitle>
+                  <v-btn  
+                  target="_blank" 
+                  v-bind:href="item.link"
+                  class="px-1 py-0 float-left"
+                  color="orange lighten-2"
+                  variant="text"
+                  size="x-small">
+                    источник
+                  </v-btn>  
+                </div>              
+              </div>
+            </div>
 
 
-        </v-col>
-      </v-row>
-    </v-col>
-  </v-row>
-</v-col>
-    <v-dialog
+
+
+
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-col>
+  <v-dialog
       v-model="showModal"
       max-width="1080px"
       width="95%">
-      <v-card 
-      class="px-md-5 py-md-2">
+    <v-card 
+        class="px-md-5 py-md-2">
       <v-card-title class="pb-md-4">
-          <h5>{{ tithead }}</h5>
-        </v-card-title>
-        <v-card-text >
-          <span class="text-body-1" v-html="fullarticle"></span> 
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-            color="green darken-1 "
-            text
-            @click="showModal = false">
-            Закрыть
-            </v-btn>
-          </v-card-actions>
-      </v-card>
-    </v-dialog>  
+        <h5>{{ tithead }}</h5>
+      </v-card-title>
+      <v-card-text >
+        <span class="text-body-1" v-html="fullarticle"></span> 
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+              color="green darken-1 "
+              text
+              @click="showModal = false">
+              Закрыть
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>  
 
 
  
@@ -184,16 +194,8 @@
 </script>
 
 <style scoped>
-.aibutton{
-  /*margin-left: -150px;*/
-  /*margin-right: 1em;*/
-  /*position: relative;*/
-/*  bottom: 0;*/
-  /*right: 0;*/
-
- 
-/*background-color: #dad;*/
-  /*height: 150px;*/
+.picture{
+  float: left;
 }
 .datatime{
   position: absolute;
