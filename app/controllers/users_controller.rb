@@ -53,7 +53,7 @@ class UsersController < ApplicationController
 
 	include ExpCalcul 
   def me
-  	puts "use me controller"
+  	puts "---+++++use me controller++++------"
   	us = current_user.expirience.to_i
   	level_info = calcul_getexp(us, false)
 		if level_info
@@ -64,8 +64,9 @@ class UsersController < ApplicationController
 		else
 		  puts "Experience exceeds maximum level"
 		end
- 
-		response = current_user.as_json(only: [:id, :email, :role, :loa, :expirience, :health, :cpoints, :avcpoints, :karma, :cry, :pk, :dead])
+ 		
+		response = current_user.as_json(only: [:online_field, :updated_at, :id, :email, :role, :loa, :expirience, :health, :cpoints, :avcpoints, :karma, :cry, :pk, :dead])
+    
     response['lvl'] = level
     response['progress'] = progress.round(2)
     mhp = calculate_health_points(level, 1)
