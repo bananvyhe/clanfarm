@@ -63,10 +63,10 @@
 
 
 
-                <div class="px-0 pt-0 mb-1 colr" :style="[  store.tonline > item.created_at ?  {color: '#9F6B40 !important'}:{} ]">
+                <div class="px-0 pt-0 mb-1 colr" :style="[  store.tonline < item.created_at ?  {color: '#9F6B40 !important'}:{} ]">
                   <h3>{{ item.head }}</h3>
                 </div>
-                <div class="px-0 text-body-1 mb-5" :style="[  store.tonline > item.created_at ?  {color: '#959595'}:{} ]">
+                <div class="px-0 text-body-1 mb-5" :style="[  store.tonline < item.created_at ?  {color: '#959595'}:{} ]">
                   {{item.desc}}… 
                 </div>
  <!-- {{store.tonline}} {{item.created_at}} -->
