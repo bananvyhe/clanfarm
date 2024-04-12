@@ -5,7 +5,7 @@
         <v-row>
           <v-col class="colcontainer px-0 mx-3 py-1">
 
-
+<!-- {{currentUser}} -->
             <div class="d-flex justify-end">
 
 
@@ -59,17 +59,17 @@
 
 
 
-
+<!-- :style="[  !ready ?  {cursor: 'not-allowed'}:{} ]" -->
 
 
 
                 <div class="px-0 pt-0 mb-1 colr">
                   <h3>{{ item.head }}</h3>
                 </div>
-                <div class="px-0 text-body-1 mb-5">
+                <div class="px-0 text-body-1 mb-5" :style="[  store.tonline < item.created_at ?  {color: '#999'}:{} ]">
                   {{item.desc}}… 
                 </div>
-
+ <!-- {{store.tonline}} {{item.created_at}} -->
                 <div class="datatime">            
                   <v-card-subtitle
                   class="px-2 py-0 float-left date play">
@@ -87,9 +87,6 @@
                 </div>              
               </div>
             </div>
-
-
-
 
 
           </v-col>

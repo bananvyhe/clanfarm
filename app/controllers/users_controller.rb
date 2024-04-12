@@ -65,13 +65,21 @@ class UsersController < ApplicationController
 		  puts "Experience exceeds maximum level"
 		end
  		
-		response = current_user.as_json(only: [:online_field, :updated_at, :id, :email, :role, :loa, :expirience, :health, :cpoints, :avcpoints, :karma, :cry, :pk, :dead])
-    
+		response = current_user.as_json(only: [:updated_at, :id, :email, :role, :loa, :expirience, :health, :cpoints, :avcpoints, :karma, :cry, :pk, :dead])
+   puts "---0000use me controller0000------"
+    puts current_user.online_field
     response['lvl'] = level
     response['progress'] = progress.round(2)
     mhp = calculate_health_points(level, 1)
     response['maxhealth'] = mhp.round
+
+    current_user.touch(:online_field)
+    # response['online_field'] = current_user.online_field
     render json: response
+
+    
+    puts "---0000use me controller0000------"
+    puts current_user.online_field
   end	
 
 	def deluser

@@ -115,6 +115,8 @@ export const useLogStore = defineStore(
     const tavcpoints = computed(() => avcpoints.value)
     const dead = ref(ls.get('account').dead)
     const tdead = computed(() => dead.value)
+    const online = ref(ls.get('account').online)
+    const tonline = computed(() => online.value)
 
     let valueall;
     function makevalues() {
@@ -132,6 +134,7 @@ export const useLogStore = defineStore(
         cpoints: cpoints.value,
         avcpoints: avcpoints.value,
         dead: dead.value,
+        online: online.value,
       }     
     }
 
@@ -148,6 +151,7 @@ export const useLogStore = defineStore(
       cpoints.value = currentUser.cpoints
       avcpoints.value = currentUser.avcpoints
       dead.value = currentUser.dead
+      online.value = currentUser.updated_at
       makevalues()
       savesign()
     }
@@ -209,6 +213,7 @@ export const useLogStore = defineStore(
 
     function unsetCurrentUser () {
       const value = {
+        online: "",
         signedIn: false,
         ctsrf: "",
         currentUser: "",
@@ -237,7 +242,9 @@ export const useLogStore = defineStore(
 
     }
 
-  return { trock, 
+  return { 
+    tonline,
+    trock, 
     tloa, 
     tpumpkdead, 
     increments, 
