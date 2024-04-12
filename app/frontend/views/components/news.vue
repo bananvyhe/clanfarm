@@ -253,7 +253,7 @@ background-size: cover;
 .colr{
   /*color: #60845b;*/
   /*color: #657d62;*/
-  color: #5B8556;
+  color: #7D9E79;
 }
 .date{
   color: #9d9681; 
