@@ -9,7 +9,7 @@
 		  	<div class="clouds"></div>
 		  	<div class="voodoo ">  
 		  	<div></div>  
-		  		<v-progress-circular   class="FinderAnim mt-8"
+		  		<v-progress-circular class="FinderAnim mt-8"
 			      color="green"
 			      indeterminate
 			    ></v-progress-circular>
@@ -17,8 +17,18 @@
 		  	 поиск партии...  
 		  	</h3>
 		  	</div>
-		  	<div class="warriors"></div>
-		  	<div class="warriors brightness"></div>
+
+		  		<div class="war d-flex justify-center">
+		  			<div class="warone wardelay  brightness"></div>
+		  			<div class="wartwo wardelay brightness"><div style="width: 325px;"
+		  				></div>
+		  			</div><div class="wartri wardelay brightness"></div>
+		  		</div>
+ 
+ 
+	 
+		  	<!-- <div class="warriors">		  	</div> -->
+		  	<!-- <div class="warriors brightness"></div> -->
 		  	<div class="bgshad2"></div>
 		  	<div v-if="store.tsignedIn != true">
 					<pumpk></pumpk>
@@ -117,7 +127,20 @@ onMounted(() => {
 			backgroundPositionY: 0,
 		}, '+=1.1');
 	}
+	function wardelay() {
+		gsap.set(".wardelay", {
+			backgroundPositionY: 165,
+		});
 
+		var tl =	gsap.timeline();
+		tl.to('.wardelay', {
+			delay: 0.3,
+			duration: 0.5,
+			ease: "power4.out",
+			backgroundPositionY: 0,
+			stagger: 0.2
+		}, '+=1.1');
+	}
 	function cloud() {
   	gsap.set(".clouds", {
 
@@ -142,7 +165,6 @@ onMounted(() => {
 		});
 	}
 	function brightness() {
-		var tl =	gsap.timeline({repeat:-1});
 		tl.set('.brightness', {opacity: "0"})
 		.to('.brightness', {
 			duration: 0.05,
@@ -154,19 +176,33 @@ onMounted(() => {
 			duration: 1.4, 
 			opacity: "0", 
 			ease: "sine.out"}, '+=0.0')
-		.to('.brightness', {
-			delay: 1.4,
-			duration: 0.05,
-				ease: "sine.in",
-			opacity: "1"}, '-=0.0')
-		.to('.brightness',{
-			delay: 0.3,
-			duration: 2, 
-			opacity: "0", 
-			ease: "sine.out",})
-		.to('.brightness',{
-			delay: 3});		  		
 	}
+	// function brightness() {
+	// 	var tl =	gsap.timeline({repeat:-1});
+	// 	tl.set('.brightness', {opacity: "0"})
+	// 	.to('.brightness', {
+	// 		duration: 0.05,
+	// 		ease: "sine.in",
+	// 		delay: 0.5, 
+	// 		opacity: "1"}, 1.1)
+	// 	.to('.brightness', {
+	// 		delay: 0.3,
+	// 		duration: 1.4, 
+	// 		opacity: "0", 
+	// 		ease: "sine.out"}, '+=0.0')
+	// 	.to('.brightness', {
+	// 		delay: 1.4,
+	// 		duration: 0.05,
+	// 			ease: "sine.in",
+	// 		opacity: "1"}, '-=0.0')
+	// 	.to('.brightness',{
+	// 		delay: 0.3,
+	// 		duration: 2, 
+	// 		opacity: "0", 
+	// 		ease: "sine.out",})
+	// 	.to('.brightness',{
+	// 		delay: 3});		  		
+	// }
 
 	function flash() {
 		var tl =	gsap.timeline({repeat:-1});
@@ -192,23 +228,37 @@ onMounted(() => {
 			duration: 2,
 			opacity: "0", 
 			ease: "sine.out"})
-		.to('.brightness',{
-			delay: 3});		  		  		
+		// .to('.brightness',{
+		// 	delay: 3});		  		  		
 	}
 	var master = gsap.timeline();
 
 	master.add(voodoo())
+	.add(wardelay())
 	.add(bgshad3())
   .add(warriors())     //with a gap of 2 seconds
   .add(cloud()) 
   .add(cloud2()) 
-		.add(brightness() ) 
+		// .add(brightness() ) 
 		.add(flash() ) 
 })
 })
 
 </script>
 <style scoped>
+ 
+.war{
+	/*background-color: #fff;*/
+
+	/*position: absolute;*/
+	display: flex;
+ 
+	background-repeat: no-repeat;
+	background-position: center bottom;
+ 
+	height: 100%;
+	width: 100%;
+}
 .v-progress-circular {
   margin:  16px;
 }
@@ -249,7 +299,7 @@ onMounted(() => {
 	top: 0;
 }
 .warriors {
-	position: absolute;
+	position: relative;
 	display: flex;
  
 	background-repeat: no-repeat;
@@ -257,9 +307,33 @@ onMounted(() => {
  
 	height: 100%;
 	width: 100%;
-	background-position: 43% 12px;
-	background-size: auto 150%;
-	background-image: url('../images/_hat/warriors2.png');
+	background-position: 100% 12px;
+	/*background-size: auto 150%;*/
+	/*background-image: url('../images/_hat/warriors2.png');*/
+}
+.warone{
+	/*background-color: #ada;*/
+	width: 414px;
+	height: 100%;
+	background-position: 100% -10px;
+	background-size: auto 145%;
+	background-image: url('../images/_hat/1war.png');
+}
+.wartwo{
+	/*background-color: #ada;*/
+	width: 315px;
+	height: 100%;
+	background-position: -5PX -10px;
+	background-size: auto 145%;
+	background-image: url('../images/_hat/2war.png');
+}
+.wartri{
+	/*background-color: #ada;*/
+	width: 356px;
+	height: 100%;
+	background-position: -7px -10px;
+	background-size: auto 145%;
+	background-image: url('../images/_hat/3war.png');
 }
 .war1{
 	position: relative;
@@ -281,9 +355,10 @@ onMounted(() => {
 }
  
 .brightness{
-	filter: brightness(35%);
+	/*filter: brightness(35%);*/
 }
 .flash {
+	z-index: -1;
 	opacity: 0;
 	position: absolute;
 	height: 100%;
@@ -336,6 +411,7 @@ onMounted(() => {
 }
 
 .bgshad3 {
+	z-index: -1;
 	background-repeat: no-repeat;
 	/*background-position: center bottom;*/
 	/*background-size: cover;*/
