@@ -211,7 +211,8 @@ onMounted(() => {
 		.to('.flash', {
 			duration: 0.05,
 			ease: "sine.in",
-			delay: 0.5, 
+			delay: 0.5,
+ 
 			opacity: "1"}, 1.1)
 		.to('.flash', {
 			delay: 0.3,
@@ -236,7 +237,7 @@ onMounted(() => {
 	master.add(voodoo())
 	.add(wardelay())
 	.add(bgshad3())
-  .add(warriors())     //with a gap of 2 seconds
+  // .add(warriors())     //with a gap of 2 seconds
   .add(cloud()) 
   .add(cloud2()) 
 		// .add(brightness() ) 

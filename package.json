@@ -13,6 +13,7 @@
     "@kyvg/vue3-notification": "^2.9.0",
     "@rails/actioncable": "^7.0.6",
     "@vitejs/plugin-vue": "^4.0.0",
+    "@vuepic/vue-datepicker": "6.1.0",
     "@vueuse/core": "^9.12.0",
     "axios": "^1.3.4",
     "crypto-js": "^4.1.1",
