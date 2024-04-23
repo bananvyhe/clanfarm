@@ -6,12 +6,17 @@
 			<summoner :width = "width"></summoner>
 			</div>
   	</div>
-		<news></news>
+  	<!-- <div class="d-flex  justify-center"> -->
+  		<sheduler class=" "></sheduler>
+  	<!-- </div> -->
+  	
+<!-- 		<news></news> -->
 
 </template>
 <script setup lang="ts">
 import Summoner from './boss.vue'
 import News from './news.vue'
+import Sheduler from './sheduler.vue'
  // import pumpk from './pumpk.vue'
 import { gsap } from "gsap";
 import { SlowMo } from "gsap/EasePack";
@@ -34,7 +39,9 @@ onMounted(() => {
 
 </script>
 <style scoped>
-
+.shed{
+	width: 200px;
+}
 /* .pumpkin {
   position: absolute;
  

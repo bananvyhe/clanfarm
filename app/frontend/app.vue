@@ -26,6 +26,7 @@
 			</v-app-bar>
 		 <v-main >
         <v-container class="pt-0 cont px-0"  > 
+  <!-- <hat></hat> -->
           <router-view></router-view>
 <!-- <notifications /> -->
 <notifications position="bottom left" classes="my-notification" >
@@ -47,6 +48,7 @@
   </div>
 </template>
 <script setup lang="ts">
+
 // import { createConsumer } from "@rails/actioncable"
 // createConsumer('https://ws.localhost:3000/cable')
 // import { createConsumer } from "@rails/actioncable";
@@ -70,6 +72,7 @@ const router = useRouter()
 const route = useRoute()    
 import { useLogStore } from './store.js'  
 const store = useLogStore()
+// import hat from './views/components/hat.vue' 
 
 import userbar from './views/components/userbar.vue'
 import { gsap } from "gsap";
@@ -78,7 +81,8 @@ import { useScroll } from '@vueuse/core'
 import { debounce } from 'lodash'
 const { x, y, isScrolling, arrivedState, directions } = useScroll(document)
 const { left: toLeft, right: toRight, top: toTop, bottom: toBottom } = toRefs(directions) 
- 
+import sheduler from './views/components/sheduler.vue'
+
 const plain: any = inject('plain')
 const secured: any = inject('secured')
 

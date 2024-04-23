@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import hat from '../views/components/hat.vue'
+import hat from '../views/components/welcomepage.vue'
 import login_area from '../views/components/login_area.vue'
 const router = createRouter({
 	// history: createWebHistory(import.meta.env.BASE_URL),

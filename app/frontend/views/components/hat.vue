@@ -14,7 +14,7 @@
 			      indeterminate
 			    ></v-progress-circular>
 				<h3>
-		  	 поиск партии...  
+		  	 поиск партии...
 		  	</h3>
 		  	</div>
 
@@ -35,7 +35,7 @@
 				</div>
 			</div>
   	</div>
-		<news></news>
+
 
 </template>
 <script setup lang="ts">
