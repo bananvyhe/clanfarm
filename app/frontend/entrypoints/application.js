@@ -43,6 +43,8 @@ import Notifications from '@kyvg/vue3-notification'
 import ls from 'localstorage-slim';
 import encUTF8 from 'crypto-js/enc-utf8';
 import AES from 'crypto-js/aes';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 ls.config.encrypt = true; 
 ls.config.secret = 'bananvyhe';
 ls.config.encrypter = (data, secret) => AES.encrypt(JSON.stringify(data), secret).toString();
@@ -55,17 +57,15 @@ ls.config.decrypter = (data, secret) => {
   }
 };
 
-  if (ls.get('load')){
-    var loaf = ls.get('load')
-      const value = {
-        loa: loaf
-      }
-      // const account = ls.get('account');
-      // account.loa = loa.value += val
-      ls.set('account', value);  
-    // ls.set('account', { loa: loaf }) 
-    // ls.remove('load'); 
-  }
+  // if (ls.get('load')){
+  //   var loaf = ls.get('load')
+  //     const value = {
+  //       loa: loaf
+  //     }
+ 
+  //     ls.set('account', value);  
+ 
+  // }
   var acccheck = ls.get('account')
   if (!acccheck){
     const value = {
@@ -121,7 +121,7 @@ const myCustomLightTheme = {
 const customDarkTheme = {
   dark: true,
   colors: {
-     background: "#adaada",
+     // background: "#adaada",
     // background: "#15202b",
     // surface: "#15202b",
      
@@ -177,8 +177,8 @@ app.use(VueAxios, {
 app.provide('plain', app.config.globalProperties.plain) 
 app.provide('secured', app.config.globalProperties.secured) 
 app.provide('axios', app.config.globalProperties.axios)
-
 app.use(vuetify);
+app.component('VueDatePicker', VueDatePicker);
 app.use(Notifications)
 app.mount('#app');
 // createApp(App).mount('#app') 
