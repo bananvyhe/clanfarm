@@ -1,7 +1,7 @@
 <template>
 <div class="d-flex">
-  <VueDatePicker v-model="date" dark locale="ru"  time-picker-inline disable-month-year-select  uid="demo"    class="vdp" auto-apply :min-date="new Date()"  :preview-format="format"/>
-  <div>
+  <VueDatePicker v-model="date" dark locale="ru"  time-picker-inline disable-month-year-select  uid="demo"    class="vdp" auto-apply :min-date="new Date()"  :format="format"/>
+  <div class="d-flex align-center mx-2">
     <p v-if="date"> {{ date }}</p>
   </div>
 </div> 
@@ -21,8 +21,9 @@ const format = (date) => {
   const day = date.getDate();
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
-
-  return `${day}/${month}/${year}`;
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
 }
 onMounted(() => {
  
