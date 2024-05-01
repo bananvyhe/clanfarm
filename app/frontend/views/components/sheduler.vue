@@ -6,7 +6,8 @@
   </div> -->
 
 
-  <div v-for="item in date" :key="item">
+  <div v-for="(item, index) in date" :key="index">
+    <VueDatePicker v-model="item[index]" dark locale="ru"  time-picker-inline disable-month-year-select  uid="demo"    class="vdp" auto-apply :min-date="new Date()"  :format="format"  model-type="timestamp"/>
  {{item}}
   </div>
    <v-btn @click="addItem">
