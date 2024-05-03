@@ -1,5 +1,5 @@
 <template>
-<div class="d-flex">
+<div class=" ">
 <!--   <VueDatePicker v-model="date" dark locale="ru"  time-picker-inline disable-month-year-select  uid="demo"    class="vdp" auto-apply :min-date="new Date()"  :format="format"  model-type="timestamp"/>
   <div class="d-flex align-center mx-2">
     <p v-if="date"> {{ date }}</p>
@@ -7,10 +7,14 @@
 
 
   <div v-for="(item, index) in date" :key="index">
-    <VueDatePicker v-model="item[index]" dark locale="ru"  time-picker-inline disable-month-year-select  uid="demo"    class="vdp" auto-apply :min-date="new Date()"  :format="format"  model-type="timestamp"/>
- {{item}}
+    <div class="d-flex ma-2">
+      <VueDatePicker v-model="item[index]" dark locale="ru"  time-picker-inline disable-month-year-select  uid="demo"    class="vdp " auto-apply :min-date="new Date()"  :format="format"  model-type="timestamp"/>
+      <div class="d-flex align-center mx-2">content</div>
+    </div>
+
+    <!-- {{item}} -->
   </div>
-   <v-btn @click="addItem">
+   <v-btn @click="addItem" class="px-2">
   добавить
 </v-btn>
 <!--     <v-switch
