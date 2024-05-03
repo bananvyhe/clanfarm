@@ -1,9 +1,9 @@
 <template>
-  <hat></hat>
+<!--   <hat></hat> -->
   <news></news>
 </template>
 <script setup lang="ts">
- import hat from './hat.vue' 
+ // import hat from './hat.vue' 
  import news from './news.vue'
 // import { useLogStore } from './store.js'  
 // const store = useLogStore()

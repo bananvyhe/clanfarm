@@ -25,8 +25,11 @@
         </v-container>
 			</v-app-bar>
 		 <v-main >
-        <v-container class="pt-0 cont px-0"  > 
-  <!-- <hat></hat> -->
+        <v-container class="pt-0 cont px-0"  >   
+          <!-- {{store.tsignedIn}} -->
+          <logina v-if="store.tsignedIn"></logina>
+          <hat v-else></hat>
+          <sheduler class=" "></sheduler>
           <router-view></router-view>
 <!-- <notifications /> -->
 <notifications position="bottom left" classes="my-notification" >
@@ -70,6 +73,10 @@
 const message = ref("Уведомлятор")
 const tl = ref("клан фарм")
 
+import hat from './views/components/hat.vue' 
+import logina from './views/components/login_area.vue' 
+import sheduler from './views/components/sheduler.vue'
+
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()    
@@ -84,7 +91,7 @@ import { useScroll } from '@vueuse/core'
 import { debounce } from 'lodash'
 const { x, y, isScrolling, arrivedState, directions } = useScroll(document)
 const { left: toLeft, right: toRight, top: toTop, bottom: toBottom } = toRefs(directions) 
-import sheduler from './views/components/sheduler.vue'
+
 
 const plain: any = inject('plain')
 const secured: any = inject('secured')
@@ -186,7 +193,7 @@ watch(() => store.tsignedIn,
     // console.log(oldVal)
     // console.log(newVal)
     if (newVal == false)
-      router.push({ name: "hat" });
+      router.push({ name: "welc" });
  
     },
   {deep: true}

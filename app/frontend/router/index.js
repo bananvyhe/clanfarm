@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import hat from '../views/components/welcomepage.vue'
-import login_area from '../views/components/login_area.vue'
+import welc from '../views/components/welcomepage.vue'
+import login_area from '../views/components/login_area2.vue'
 const router = createRouter({
 	// history: createWebHistory(import.meta.env.BASE_URL),
 	// history: createWebHistory('/'),
@@ -8,8 +8,8 @@ const router = createRouter({
 	routes: [
 		{
 			path: '/',
-			name: 'hat',
-			component: hat
+			name: 'welc',
+			component: welc
 		},
 		{
 			path: '/lobby',

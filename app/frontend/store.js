@@ -224,11 +224,12 @@ export const useLogStore = defineStore(
         progress: "",
  
       }
+      signedIn.value = false
        loa.value = 0
       // ls.set('currentUser', 0) 
       currentUser.value = ""
       // ls.set('signedIn', false) 
-      signedIn.value = false
+      
       // ls.set('ctsrf', 0) 
       ctsrf.value = ""
       ls.set('account', value)

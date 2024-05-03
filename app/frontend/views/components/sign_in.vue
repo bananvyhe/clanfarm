@@ -13,10 +13,10 @@
           </v-btn>
         </template>
         <template v-slot:default="dialog">
-          <v-card class="sign">
+          <v-card class="sign"  title="Войти на сайт">
 
   <v-form class="px-3 py-2">
-     <div for="email" class="mb-2">Войти на сайт</div>
+     <!-- <div for="email" class="mb-2">Войти на сайт</div> -->
     <!-- <div class="alert alert-danger" v-if="error">{{ error }}</div> -->
         <v-text-field  class="px-2 pt-2" v-model="email"  :rules="emailRules" type="email" filled id="email" placeholder="email@example.ru">
         </v-text-field>

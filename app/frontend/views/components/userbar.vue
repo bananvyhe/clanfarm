@@ -75,14 +75,7 @@
       </div>
 
     </div>  
-
-
-
-    <div v-if="store.tsignedIn == true">
-
-
-         
-    </div>
+ 
 
   
   </div>
@@ -201,9 +194,11 @@ watch(() => store.thealth, ( ) => {
       secured
       .delete('/signin')
       .then(response => {
+        console.log(store.tsignedIn)
         // store.unsetLoa()
         store.unsetCurrentUser()
-        router.push({ name: "hat" });
+        console.log(store.tsignedIn)
+        router.push({ name: "welc" });
         // store.unsetLoa
         // this.$router.replace('/')
       })
