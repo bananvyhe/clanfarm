@@ -67,6 +67,9 @@
 //     messages.value.push(data.message);
 //   },
 // });
+const message = ref("Уведомлятор")
+const tl = ref("клан фарм")
+
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()    
@@ -144,8 +147,7 @@ onMounted(() => {
 
 const m1 = gsap.timeline();
 
-const message = ref("клан фарм")
-const tl = ref("сбор команд")
+
 
 let isFirstUpdate = true
 const showmenutop = reactive({ status: true});

@@ -4,19 +4,6 @@
   <div class="d-flex align-center mx-2">
     <p v-if="date"> {{ date }}</p>
   </div> -->
-
-
-  <div v-for="(item, index) in date" :key="index">
-    <div class="d-flex ma-2">
-      <VueDatePicker v-model="item[index]" dark locale="ru"  time-picker-inline disable-month-year-select  uid="demo"    class="vdp " auto-apply :min-date="new Date()"  :format="format"  model-type="timestamp"/>
-      <div class="d-flex align-center mx-2">content</div>
-    </div>
-
-    <!-- {{item}} -->
-  </div>
-   <v-btn @click="addItem" class="px-2">
-  добавить
-</v-btn>
 <!--     <v-switch
     density ="compact"
       v-model="people"
@@ -34,6 +21,30 @@
       hide-details
     ></v-switch> -->
 
+  <div v-for="(item, index) in date" :key="index"  >
+    <div class="d-flex ma-2">
+      <VueDatePicker 
+  
+      dark locale="ru"  
+      time-picker-inline 
+      disable-month-year-select  
+      uid="demo"
+      class="vdp " 
+      auto-apply :min-date="new Date()"  
+      :format="format"  
+ 
+        :modelValue="item" 
+        @update:modelValue="newValue => updateDate(index, newValue)"
+      model-type="timestamp"/>
+ 
+      <div class="d-flex align-center mx-2">{{item}}</div>
+    </div>
+  </div>
+    <v-btn @click="addItem" class="px-2">
+      добавить
+    </v-btn>
+
+
 </div> 
 
 </template>
@@ -47,11 +58,23 @@
 
 // const plain: any = inject('plain')
 // const secured: any = inject('secured')
-const date = ref(['123', '567', '896'])
-const addItem = () => {
-  date.value.push('666');
-};
+const date = ref([''])
+// const addItem = () => {
+//   date.value.push('666');
+// };
 // const date = ref(new Date().getTime());
+const addItem = () => {
+  // date.value.push(new Date().getTime().toString());
+  date.value.push('')
+};
+ 
+const updateDate = (index, newValue) => {
+ date.value[index] = newValue;
+  // date.value[index] = date.value[index].value;
+
+  console.log(date.value) 
+};
+ 
 const format = (date) => {
   const day = date.getDate();
   const month = date.getMonth() + 1;
