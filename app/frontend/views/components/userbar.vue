@@ -166,7 +166,7 @@ window.onTelegramAuth = (user) => {
   script.setAttribute('data-telegram-login', 'farmspot_bot');
   script.setAttribute('data-size', 'large');
   script.setAttribute('data-radius', '10');
-  script.setAttribute('data-auth-url', '/auth/telegram'); // URL для обработки авторизации на вашем сервере
+  // script.setAttribute('data-auth-url', '/auth/telegram'); // URL для обработки авторизации на вашем сервере
   script.setAttribute('data-request-access', 'write');
   script.setAttribute('data-onauth', 'onTelegramAuth(user)');
   script.async = true;
