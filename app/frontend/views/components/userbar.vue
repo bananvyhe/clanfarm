@@ -87,14 +87,10 @@
 </template>
 
 <script setup lang="ts">
-const message = ref('');
-
-
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
- 
- 
+
 const retryCount = ref(3);
 const retryDelay = ref(1000);
 
@@ -153,27 +149,22 @@ import ls from 'localstorage-slim';
   const lvl = ref()
   const exp = ref()
 //вычисление уровня
+
 onMounted(() => {
+const message = ref('');
+
 window.onTelegramAuth = (user) => {
   message.value = "Авторизация прошла успешно!";
   console.log(message.value)
   console.log(user)
   // sendUserDataToServer(user);
 
- 
-    alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
-  }
- 
-
-
-
-
 };
   // Инициализация Telegram Login Widget при загрузке компонента
   const script = document.createElement('script');
   script.src = 'https://telegram.org/js/telegram-widget.js?22';
   script.setAttribute('data-telegram-login', 'farmspot_bot');
-  script.setAttribute('data-size', 'large');
+  script.setAttribute('data-size', 'medium');
   script.setAttribute('data-radius', '10');
   // script.setAttribute('data-auth-url', '/auth/telegram'); // URL для обработки авторизации на вашем сервере
   script.setAttribute('data-request-access', 'write');
