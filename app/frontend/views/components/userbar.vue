@@ -159,6 +159,15 @@ window.onTelegramAuth = (user) => {
   console.log(message.value)
   console.log(user)
   // sendUserDataToServer(user);
+
+ 
+    alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
+  }
+ 
+
+
+
+
 };
   // Инициализация Telegram Login Widget при загрузке компонента
   const script = document.createElement('script');
