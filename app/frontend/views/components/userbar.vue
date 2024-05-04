@@ -88,12 +88,7 @@
 
 <script setup lang="ts">
 const message = ref('');
-const onTelegramAuth = (user) => {
-  message.value = "Авторизация прошла успешно!";
-  console.log(message.value)
-  console.log(user)
-  // sendUserDataToServer(user);
-};
+
 
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
@@ -159,6 +154,12 @@ import ls from 'localstorage-slim';
   const exp = ref()
 //вычисление уровня
 onMounted(() => {
+window.onTelegramAuth = (user) => {
+  message.value = "Авторизация прошла успешно!";
+  console.log(message.value)
+  console.log(user)
+  // sendUserDataToServer(user);
+};
   // Инициализация Telegram Login Widget при загрузке компонента
   const script = document.createElement('script');
   script.src = 'https://telegram.org/js/telegram-widget.js?22';
