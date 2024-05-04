@@ -159,7 +159,7 @@ import ls from 'localstorage-slim';
 onMounted(() => {
   // Инициализация Telegram Login Widget при загрузке компонента
   const script = document.createElement('script');
-  script.src = 'https://telegram.org/js/telegram-widget.js?14';
+  script.src = 'https://telegram.org/js/telegram-widget.js?22';
   script.setAttribute('data-telegram-login', 'farmspot_bot');
   script.setAttribute('data-size', 'large');
   script.setAttribute('data-radius', '10');
