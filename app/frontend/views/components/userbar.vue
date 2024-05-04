@@ -90,7 +90,9 @@
 const message = ref('');
 const onTelegramAuth = (user) => {
   message.value = "Авторизация прошла успешно!";
-  sendUserDataToServer(user);
+  console.log(message.value)
+  console.log(user)
+  // sendUserDataToServer(user);
 };
 
 import { useRouter, useRoute } from 'vue-router'
