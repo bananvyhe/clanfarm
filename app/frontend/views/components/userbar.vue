@@ -6,8 +6,13 @@
  
  <!-- {{route.path}} -->
     <div v-if="store.tsignedIn == false" class="d-flex"> 
-      <signup></signup>
-      <signin></signin>
+
+    <div id="telegram-login-button"> </div>
+    <!-- <p v-if="message">{{ message }}</p> -->
+
+
+      <!-- <signup></signup> -->
+      <!-- <signin></signin> -->
                 <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
           <div class="skull align-self-center"></div>   
     </div>
@@ -82,6 +87,12 @@
 </template>
 
 <script setup lang="ts">
+const message = ref('');
+const onTelegramAuth = (user) => {
+  message.value = "Авторизация прошла успешно!";
+  sendUserDataToServer(user);
+};
+
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
@@ -90,7 +101,7 @@ const route = useRoute()
 const retryCount = ref(3);
 const retryDelay = ref(1000);
 
-import { ref, computed, inject, watch, onMounted } from 'vue';
+import { ref, computed, inject, watch, onMounted, mounted   } from 'vue';
 const karma = ref(0)
 const userhp = ref()
  
@@ -146,6 +157,17 @@ import ls from 'localstorage-slim';
   const exp = ref()
 //вычисление уровня
 onMounted(() => {
+  // Инициализация Telegram Login Widget при загрузке компонента
+  const script = document.createElement('script');
+  script.src = 'https://telegram.org/js/telegram-widget.js?14';
+  script.setAttribute('data-telegram-login', 'sitebot');
+  script.setAttribute('data-size', 'large');
+  script.setAttribute('data-radius', '10');
+  script.setAttribute('data-auth-url', '/auth/telegram'); // URL для обработки авторизации на вашем сервере
+  script.setAttribute('data-request-access', 'write');
+  script.setAttribute('data-onauth', 'onTelegramAuth(user)');
+  script.async = true;
+  document.getElementById('telegram-login-button').appendChild(script);
   if (store.tsignedIn){
     mefetch()
     // console.log(store.tctsrf)
@@ -197,7 +219,7 @@ watch(() => store.thealth, ( ) => {
         console.log(store.tsignedIn)
         // store.unsetLoa()
         store.unsetCurrentUser()
-        console.log(store.tsignedIn)
+        // console.log(store.tsignedIn)
         router.push({ name: "welc" });
         // store.unsetLoa
         // this.$router.replace('/')
