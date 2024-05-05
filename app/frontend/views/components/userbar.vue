@@ -119,6 +119,17 @@ const reducedNumber = computed(() => {
   const modifiedNumber = rep.replace(regex, ".<span style=\"font-size: smaller;\">$&</span>");
   return modifiedNumber;
 });
+
+const exitgram = () => {
+  const telid = ls.get('gramlog').id
+  plain
+ .post('/signin/exitgram', {  id: telid  })
+ .then(response => {
+      console.log(response.data)
+ 
+    })
+  .catch(error => console.log(error))
+};
 const ressurect = () => {
     secured
     .post('/users/ressurect')

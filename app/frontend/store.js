@@ -167,11 +167,9 @@ export const useLogStore = defineStore(
       const gramlogjson  = JSON.stringify(val)
       // valueall.gramlog = JSON.stringify(val)
       ls.set('gramlog', val)
-      console.log (gramlog)
+      // console.log (gramlog)
       const gramid = ls.get('gramlog').id
       console.log (gramid)
- 
-      // console.log (valueall.gramlog.id)
     }     
     function setdead(val) {
       makevalues()

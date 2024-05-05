@@ -31,7 +31,8 @@ Rails.application.routes.draw do
   post '/hitboss', to: 'mobs#hitboss' 
   get '/users/ghoulstat', to: 'users#ghoulstat' 
   post '/users/ressurect', to: 'users#ressurect' 
-  post '/hitghoul', to: 'mobs#hitghoul' 
+  post '/hitghoul', to: 'mobs#hitghoul'
+  post '/signin/exitgram', to: 'signin#exitgram' 
 
   post '/hello', to: "welcome#hello"
 

@@ -1,6 +1,13 @@
 class SigninController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authorize_access_request!, only: [:destroy]
+  
+  def exitgram
+    puts params[:id]
+    par = params[:id]
+    render json: par
+  end
+
   def create
      user = User.find_by(email: params[:email])
   puts user 
