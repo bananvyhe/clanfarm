@@ -121,6 +121,7 @@ export const useLogStore = defineStore(
     let valueall;
     function makevalues() {
       valueall = {
+        gramlog: gramlog.value,
         signedIn: signedIn.value,
         ctsrf: ctsrf.value,
         currentUser: currentUser.value,
@@ -155,10 +156,16 @@ export const useLogStore = defineStore(
       makevalues()
       savesign()
     }
-    function setctsrf(val) {
+    function setctsrf(UserData, ) {
       makevalues()
       ctsrf.value = val
       valueall.ctsrf = val
+      ls.set('account', valueall)
+    }  
+    function setgramlog(val) {
+      makevalues()
+      gramlog.value = val
+      valueall.gramlog = val
       ls.set('account', valueall)
     }     
     function setdead(val) {
@@ -244,6 +251,7 @@ export const useLogStore = defineStore(
     }
 
   return { 
+    setgramlog,
     tonline,
     trock, 
     tloa, 

@@ -6,10 +6,10 @@
  
  <!-- {{route.path}} -->
     <div v-if="store.tsignedIn == false" class="d-flex"> 
-<!--         <v-btn
+        <v-btn
           color="secondary"  
           @click="exitgram"> выйти
-        </v-btn> -->    
+        </v-btn>    
     <div id="telegram-login-button" class="d-flex align-center mx-2"> </div>
     <!-- <p v-if="message">{{ message }}</p> -->
 
@@ -94,6 +94,13 @@ import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 
+import ls from 'localstorage-slim'; 
+import { useLogStore } from '../../store.js'  
+
+const store = useLogStore()
+const plain: any = inject('plain')
+const secured: any = inject('secured')
+
 const retryCount = ref(3);
 const retryDelay = ref(1000);
 
@@ -138,12 +145,7 @@ const greenimg = new URL("../images/cp/green.png", import.meta.url).href;
 const overcpimg = new URL("../images/cp/overcp.png", import.meta.url).href;
 const cpimg = new URL("../images/cp/cp.png", import.meta.url).href;
 
-import ls from 'localstorage-slim'; 
 
-  import { useLogStore } from '../../store.js'  
-  const store = useLogStore()
-  const plain: any = inject('plain')
-  const secured: any = inject('secured')
   import inventory from './inventory.vue';  
  
   // import { useLogStore } from 'store.js'
@@ -160,7 +162,8 @@ window.onTelegramAuth = (user) => {
   message.value = "Авторизация прошла успешно!";
   console.log(message.value)
   console.log(user)
-  localStorage.setItem('telegramUserData', JSON.stringify(user));
+  // localStorage.setItem('telegramUserData', JSON.stringify(user));
+  store.setgramlog(JSON.stringify(user))
   // sendUserDataToServer(user);
 
 };
