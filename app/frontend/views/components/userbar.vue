@@ -6,8 +6,11 @@
  
  <!-- {{route.path}} -->
     <div v-if="store.tsignedIn == false" class="d-flex"> 
-
-    <div id="telegram-login-button"> </div>
+<!--         <v-btn
+          color="secondary"  
+          @click="exitgram"> выйти
+        </v-btn> -->    
+    <div id="telegram-login-button" class="d-flex align-center mx-2"> </div>
     <!-- <p v-if="message">{{ message }}</p> -->
 
 
@@ -157,6 +160,7 @@ window.onTelegramAuth = (user) => {
   message.value = "Авторизация прошла успешно!";
   console.log(message.value)
   console.log(user)
+  localStorage.setItem('telegramUserData', JSON.stringify(user));
   // sendUserDataToServer(user);
 
 };
