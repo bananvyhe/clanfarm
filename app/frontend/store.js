@@ -117,11 +117,11 @@ export const useLogStore = defineStore(
     const tdead = computed(() => dead.value)
     const online = ref(ls.get('account').online)
     const tonline = computed(() => online.value)
+    const gramlog = ref(ls.get('gramlog'))
 
     let valueall;
     function makevalues() {
       valueall = {
-        gramlog: gramlog.value,
         signedIn: signedIn.value,
         ctsrf: ctsrf.value,
         currentUser: currentUser.value,
@@ -163,10 +163,15 @@ export const useLogStore = defineStore(
       ls.set('account', valueall)
     }  
     function setgramlog(val) {
-      makevalues()
-      gramlog.value = val
-      valueall.gramlog = val
-      ls.set('account', valueall)
+      // makevalues()
+      const gramlogjson  = JSON.stringify(val)
+      // valueall.gramlog = JSON.stringify(val)
+      ls.set('gramlog', val)
+      console.log (gramlog)
+      const gramid = ls.get('gramlog').id
+      console.log (gramid)
+ 
+      // console.log (valueall.gramlog.id)
     }     
     function setdead(val) {
       makevalues()

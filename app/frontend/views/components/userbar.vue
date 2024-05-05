@@ -163,7 +163,7 @@ window.onTelegramAuth = (user) => {
   console.log(message.value)
   console.log(user)
   // localStorage.setItem('telegramUserData', JSON.stringify(user));
-  store.setgramlog(JSON.stringify(user))
+  store.setgramlog(user)
   // sendUserDataToServer(user);
 
 };
