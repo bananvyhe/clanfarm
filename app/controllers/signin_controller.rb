@@ -14,8 +14,8 @@ class SigninController < ApplicationController
     # paf = URI::Parser.new
     # paf = paf.escape(mesa)
     # puts paf
- 
-    HTTParty.post("https://api.telegram.org/bot#{Rails.application.credentials.telegramtoken}/revokeAuthorization", body: { user_id: para })
+    tok = Rails.application.credentials.telegramtoken
+    HTTParty.post("https://api.telegram.org/bot#{tok}/revokeAuthorization", body: { user_id: para })
     response
     # HTTParty.post(paf)
   end
