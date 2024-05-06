@@ -1,11 +1,23 @@
 class SigninController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authorize_access_request!, only: [:destroy]
-  
+  require 'httparty' 
+
   def exitgram
     puts params[:id]
     par = params[:id]
     render json: par
+
+
+    para =  params[:id] 
+    # mesa = 'https://api.telegram.org/bot5531512315:AAHmGCiQQQfdVzQrcja0c9woh5TxrrYldk8/sendMessage?chat_id=199874565&text='+para 
+    # paf = URI::Parser.new
+    # paf = paf.escape(mesa)
+    # puts paf
+ 
+    HTTParty.post("https://api.telegram.org/bot#{Rails.application.credentials.telegramtoken}/revokeAuthorization", body: { user_id: para })
+    response
+    # HTTParty.post(paf)
   end
 
   def create
