@@ -4,9 +4,9 @@ class SigninController < ApplicationController
   require 'httparty' 
 
   def exitgram
-    puts params[:id]
-    par = params[:id]
-    render json: par
+    # puts params[:id]
+    # par = params[:id]
+    # render json: par
 
 
     para =  params[:id]
@@ -15,13 +15,10 @@ class SigninController < ApplicationController
     # paf = paf.escape(mesa)
     # puts paf
     tok = Rails.application.credentials.telegramtoken
-    # HTTParty.post("https://api.telegram.org/bot#{tok}/revokeAuthorization", body: { user_id: para })
-    # response
-
-    response = HTTParty.post("https://api.telegram.org/bot#{tok}/revokeAuthorization", 
-                             body: { user_id: para },
-                             headers: { 'Content-Type' => 'application/json' })
-
+  
+      puts tok
+    response = HTTParty.post("https://api.telegram.org/bot5531512315:AAHmGCiQQQfdVzQrcja0c9woh5TxrrYldk8/revokeAuthorization", body: { user_id: para })
+    render json: response
     # HTTParty.post(paf)
   end
 
