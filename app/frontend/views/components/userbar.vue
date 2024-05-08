@@ -11,14 +11,14 @@
           color="secondary"  
           @click="exitgram"> выйти
         </v-btn>  -->
-        <!-- <div id="telegram-login-button" class="d-flex align-center mx-2" v-else> </div> -->
+        <div id="telegram-login-button" class="d-flex align-center mx-2" > </div>
     
     <div v-if="store.tsignedIn == false" class="d-flex"> 
 
     <!-- <p v-if="message">{{ message }}</p> -->
 
-      <signup></signup>
-      <signin></signin>
+<!--       <signup></signup>
+      <signin></signin> -->
                 <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
           <div class="skull align-self-center"></div>   
     </div>
@@ -173,27 +173,27 @@ const cpimg = new URL("../images/cp/cp.png", import.meta.url).href;
 onMounted(() => {
 const message = ref('');
 
-// if(!ls.get('gramlog')){
-//   window.onTelegramAuth = (user) => {
-//     message.value = "Авторизация прошла успешно!";
-//     console.log(message.value)
-//     console.log(user)
+if(!ls.get('gramlog')){
+  window.onTelegramAuth = (user) => {
+    message.value = "Авторизация прошла успешно!";
+    console.log(message.value)
+    console.log(user)
  
-//     store.setgramlog(user)
+    store.setgramlog(user)
  
 
-//   };
-//     // Инициализация Telegram Login Widget при загрузке компонента
-//     const script = document.createElement('script');
-//     script.src = 'https://telegram.org/js/telegram-widget.js?22';
-//     script.setAttribute('data-telegram-login', 'farmspot_bot');
-//     script.setAttribute('data-size', 'medium');
-//     script.setAttribute('data-radius', '10');
-//     script.setAttribute('data-request-access', 'write');
-//     script.setAttribute('data-onauth', 'onTelegramAuth(user)');
-//     script.async = true;
-//     document.getElementById('telegram-login-button').appendChild(script);
-// }
+  };
+    // Инициализация Telegram Login Widget при загрузке компонента
+    const script = document.createElement('script');
+    script.src = 'https://telegram.org/js/telegram-widget.js?22';
+    script.setAttribute('data-telegram-login', 'farmspot_bot');
+    script.setAttribute('data-size', 'medium');
+    script.setAttribute('data-radius', '10');
+    script.setAttribute('data-request-access', 'write');
+    script.setAttribute('data-onauth', 'onTelegramAuth(user)');
+    script.async = true;
+    document.getElementById('telegram-login-button').appendChild(script);
+}
 
 
   if (store.tsignedIn){
