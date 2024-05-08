@@ -40,9 +40,14 @@
       <div class="d-flex align-center mx-2">{{item}}</div>
     </div>
   </div>
+  <div class="d-flex ">
     <v-btn @click="addItem" class="px-2">
       добавить
     </v-btn>
+    <div id="telegram-login-button" class="d-flex align-center mx-2" > </div>  
+  </div>
+
+    <div></div>
 
 
 </div> 
@@ -84,9 +89,29 @@ const format = (date) => {
   return `${day}.${month}.${year} ${hours}:${minutes}`;
 }
 onMounted(() => {
+  window.onTelegramAuth = (user) => {
+    message.value = "Авторизация прошла успешно!";
+    console.log(message.value)
+    console.log(user)
  
+    store.setgramlog(user)
+ 
+
+  };
+    // Инициализация Telegram Login Widget при загрузке компонента
+    const script = document.createElement('script');
+    script.src = 'https://telegram.org/js/telegram-widget.js?22';
+    script.setAttribute('data-telegram-login', 'farmspot_bot');
+    script.setAttribute('data-size', 'medium');
+    script.setAttribute('data-radius', '10');
+    script.setAttribute('data-request-access', 'write');
+    script.setAttribute('data-onauth', 'onTelegramAuth(user)');
+    script.async = true;
+    document.getElementById('telegram-login-button').appendChild(script);
 })
- 
+// if(!ls.get('gramlog')){
+
+// }
 </script>
 
 <style scoped  lang="scss" >
