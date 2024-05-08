@@ -96,20 +96,20 @@ const { left: toLeft, right: toRight, top: toTop, bottom: toBottom } = toRefs(di
 const plain: any = inject('plain')
 const secured: any = inject('secured')
 
-import { createConsumer } from "@rails/actioncable";
+// import { createConsumer } from "@rails/actioncable";
 // createConsumer('https://ws.example.com/cable')
 
 // Use a function to dynamically generate the URL
-const consumer = createConsumer(getWebSocketURL)
+// const consumer = createConsumer(getWebSocketURL)
 
-function getWebSocketURL() {
-  return `http://localhost:3000/cable?token=${store.tctsrf}`
-}
-consumer.subscriptions.create({ channel: "RoomChannel"},{
-    received(data) {
-    console.log(data)
-  },
-})
+// function getWebSocketURL() {
+//   return `http://localhost:3000/cable?token=${store.tctsrf}`
+// }
+// consumer.subscriptions.create({ channel: "RoomChannel"},{
+//     received(data) {
+//     console.log(data)
+//   },
+// })
 
 // const consumer =  createConsumer("http://localhost:3000/cable");
 

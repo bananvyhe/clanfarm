@@ -118,6 +118,7 @@ export const useLogStore = defineStore(
     const online = ref(ls.get('account').online)
     const tonline = computed(() => online.value)
     const gramlog = ref(ls.get('gramlog'))
+    // const tgramlog = computed(() => gramlog.value)
 
     let valueall;
     function makevalues() {
@@ -170,6 +171,7 @@ export const useLogStore = defineStore(
       console.log (gramlog)
       const gramid = ls.get('gramlog').id
       console.log (gramid)
+      gramlog.value = gramlogjson
     }     
     function setdead(val) {
       makevalues()
@@ -254,6 +256,7 @@ export const useLogStore = defineStore(
     }
 
   return { 
+    // tgramlog,
     setgramlog,
     tonline,
     trock, 

@@ -45,6 +45,7 @@
       добавить
     </v-btn>
     <div id="telegram-login-button" class="d-flex align-center mx-2" > </div>  
+    <div>{{store.gramlog}}</div>
   </div>
 
     <div></div>
@@ -54,9 +55,13 @@
 
 </template>
 <script setup lang="ts">
- const switcher = ref(true)
- const people = ref(['John'])
- const telegr = ref('');
+  import { useLogStore } from '../../store.js'
+  const store = useLogStore()
+
+  const switcher = ref(true)
+  const people = ref(['John'])
+  const telegr = ref('');
+
 // import { useLogStore } from './store.js'  
 // const store = useLogStore()
 
@@ -64,24 +69,24 @@
 
 // const plain: any = inject('plain')
 // const secured: any = inject('secured')
-const date = ref([''])
+  const date = ref([''])
 // const addItem = () => {
 //   date.value.push('666');
 // };
 // const date = ref(new Date().getTime());
-const addItem = () => {
+  const addItem = () => {
   // date.value.push(new Date().getTime().toString());
   date.value.push('')
 };
  
-const updateDate = (index, newValue) => {
+  const updateDate = (index, newValue) => {
  date.value[index] = newValue;
   // date.value[index] = date.value[index].value;
 
   console.log(date.value) 
 };
  
-const format = (date) => {
+  const format = (date) => {
   const day = date.getDate();
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
