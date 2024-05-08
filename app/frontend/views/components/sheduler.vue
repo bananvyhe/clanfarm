@@ -56,6 +56,7 @@
 <script setup lang="ts">
  const switcher = ref(true)
  const people = ref(['John'])
+ const telegr = ref('');
 // import { useLogStore } from './store.js'  
 // const store = useLogStore()
 
@@ -90,8 +91,8 @@ const format = (date) => {
 }
 onMounted(() => {
   window.onTelegramAuth = (user) => {
-    message.value = "Авторизация прошла успешно!";
-    console.log(message.value)
+    telegr.value = "Авторизация прошла успешно!";
+    console.log(telegr.value)
     console.log(user)
  
     store.setgramlog(user)
