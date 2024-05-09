@@ -10,13 +10,14 @@ class SigninController < ApplicationController
 
 
     para =  params[:id]
-    # mesa = 'https://api.telegram.org/bot5531512315:AAHmGCiQQQfdVzQrcja0c9woh5TxrrYldk8/sendMessage?chat_id=199874565&text='+para 
+    # 'https://api.telegram.org/bot5531512315:AAHmGCiQQQfdVzQrcja0c9woh5TxrrYldk8/sendMessage?chat_id=199874565&text='+para 
     # paf = URI::Parser.new
     # paf = paf.escape(mesa)
     # puts paf
     tok = Rails.application.credentials.telegramtoken
   
       puts tok
+
     response = HTTParty.post("https://api.telegram.org/bot5531512315:AAHmGCiQQQfdVzQrcja0c9woh5TxrrYldk8/revokeAuthorization", body: { user_id: para })
     render json: response
     # HTTParty.post(paf)
