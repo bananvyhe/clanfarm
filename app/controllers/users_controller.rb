@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 	include HealthCalc
 
 	def addtelegram
+		current_user.update(username: params[:username], id: params[:id])
 		render json: params
 	end
 
@@ -93,4 +94,8 @@ class UsersController < ApplicationController
 	  else 	
 	  end	 
 	end	  
+  private
+  def current_user
+    @current_user ||= User.find(payload['user_id'])
+  end  
 end
