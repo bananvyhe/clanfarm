@@ -45,7 +45,7 @@
       добавить
     </v-btn>
     <div id="telegram-login-button" class="d-flex align-center mx-2" > </div>  
-    <div>{{store.gramlog}}</div>
+    <div>{{store.tgramlog}}</div>
   </div>
 
     <div></div>
@@ -101,9 +101,9 @@ onMounted(() => {
     telegr.value = "Авторизация прошла успешно!";
     console.log(telegr.value)
     console.log(user)
-    const ressurect = () => {
+    const sendteleg = () => {
         secured
-        .post('/users/addtelegram')
+        .post('/users/addtelegram',{id: store.tgramlog.id})
         .then(response => {
           console.log(response)
  
@@ -112,6 +112,7 @@ onMounted(() => {
      
     };
     store.setgramlog(user)
+    sendteleg();
  
 
   };

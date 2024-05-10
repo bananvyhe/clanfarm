@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 	include HealthCalc
 
 	def addtelegram
-		
+		render json: params
 	end
 
 	def ressurect

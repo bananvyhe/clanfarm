@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_09_150949) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_10_114248) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,6 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_09_150949) do
     t.integer "health", default: 240
     t.datetime "online_field"
     t.integer "telegramid"
+    t.string "telegramusername"
   end
 
   add_foreign_key "dropitems", "listitems"
