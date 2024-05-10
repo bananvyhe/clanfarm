@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
 	before_action :authorize_access_request! 
-	include HealthCalc 
+	include HealthCalc
+
+	def addtelegram
+		
+	end
 
 	def ressurect
 		expa = current_user.expirience.to_i

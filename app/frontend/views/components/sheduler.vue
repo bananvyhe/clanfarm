@@ -57,7 +57,9 @@
 <script setup lang="ts">
   import { useLogStore } from '../../store.js'
   const store = useLogStore()
+  const plain: any = inject('plain')
 
+  const secured: any = inject('secured')
   const switcher = ref(true)
   const people = ref(['John'])
   const telegr = ref('');
@@ -80,11 +82,11 @@
 };
  
   const updateDate = (index, newValue) => {
- date.value[index] = newValue;
-  // date.value[index] = date.value[index].value;
+    date.value[index] = newValue;
+    // date.value[index] = date.value[index].value;
 
-  console.log(date.value) 
-};
+    console.log(date.value) 
+  };
  
   const format = (date) => {
   const day = date.getDate();
@@ -99,7 +101,16 @@ onMounted(() => {
     telegr.value = "Авторизация прошла успешно!";
     console.log(telegr.value)
     console.log(user)
+    const ressurect = () => {
+        secured
+        .post('/users/addtelegram')
+        .then(response => {
+          console.log(response)
  
+        })
+      .catch(error => console.log(error))
+     
+    };
     store.setgramlog(user)
  
 
