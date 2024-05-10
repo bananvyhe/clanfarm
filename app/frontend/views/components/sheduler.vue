@@ -103,7 +103,7 @@ onMounted(() => {
     console.log(user)
     const sendteleg = () => {
         secured
-        .post('/users/addtelegram',{id: store.tgramlog.id})
+        .post('/users/addtelegram',{id: store.tgramlog.id, username: store.tgramlog.username })
         .then(response => {
           console.log(response)
  
