@@ -169,7 +169,7 @@ export const useLogStore = defineStore(
       const gramlogjson  = JSON.stringify(val)
       // valueall.gramlog = JSON.stringify(val)
       ls.set('gramlog', val)
-      console.log (store.tgramlog.id)
+      console.log (gramlog.id)
       const gramid = ls.get('gramlog').id
       console.log (gramid)
       gramlog.value = val
