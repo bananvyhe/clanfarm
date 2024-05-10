@@ -45,7 +45,7 @@
       добавить
     </v-btn>
     <div id="telegram-login-button" class="d-flex align-center mx-2" > </div>  
-    <div>{{store.tgramlog}}</div>
+    <!-- <div>{{store.tgramlog}}</div> -->
   </div>
 
     <div></div>

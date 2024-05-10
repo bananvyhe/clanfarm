@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 	include HealthCalc
 
 	def addtelegram
-		current_user.update(username: params[:username], id: params[:id])
+		current_user.update(telegramusername: params[:username], telegramid: params[:id])
 		render json: params
 	end
 
