@@ -14,7 +14,7 @@ every 3.hours do
   sidekiq 'push HardWorker'
 end
 
-every :hour do
+every 15.minutes do
   sidekiq 'push CpWorker'
 end
 
