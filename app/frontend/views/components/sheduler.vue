@@ -24,7 +24,6 @@
   <div v-for="(item, index) in date" :key="index"  >
     <div class="d-flex ma-2">
       <VueDatePicker 
-  
       dark locale="ru"  
       time-picker-inline 
       disable-month-year-select  
@@ -32,21 +31,22 @@
       class="vdp " 
       auto-apply :min-date="new Date()"  
       :format="format"  
- 
-        :modelValue="item" 
-        @update:modelValue="newValue => updateDate(index, newValue)"
+      :modelValue="item" 
+      @update:modelValue="newValue => updateDate(index, newValue)"
       model-type="timestamp"/>
- 
       <div class="d-flex align-center mx-2">{{item}}</div>
     </div>
   </div>
-  <div class="d-flex ">
-    <v-btn 
-    :disabled="isButtonDisabled" 
-    @click="addItem" 
-    class="px-2">
-      добавить
-    </v-btn>
+  <div class="d-flex">
+    <div :style="[ true ?  {cursor: 'not-allowed'}:{}]">
+      <v-btn 
+      :disabled="isButtonDisabled" 
+      @click="addItem" 
+      class="px-2">
+        добавить
+      </v-btn>    
+    </div>
+
     <div v-if="store.tsignedIn" id="telegram-login-button" class="d-flex align-center mx-2" > </div>  
     <!-- <div>{{store.tgramlog}}</div> -->
   </div>
