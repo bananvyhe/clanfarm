@@ -41,7 +41,10 @@
     </div>
   </div>
   <div class="d-flex ">
-    <v-btn @click="addItem" class="px-2">
+    <v-btn 
+    :disabled="isButtonDisabled" 
+    @click="addItem" 
+    class="px-2">
       добавить
     </v-btn>
     <div v-if="store.tsignedIn" id="telegram-login-button" class="d-flex align-center mx-2" > </div>  
@@ -96,6 +99,10 @@
   const minutes = date.getMinutes();
   return `${day}.${month}.${year} ${hours}:${minutes}`;
 }
+  const isButtonDisabled = computed(() => {
+     console.log(store.tsignedIn)
+    return !store.tsignedIn;
+  });
 onMounted(() => {
   if(store.tsignedIn){
   window.onTelegramAuth = (user) => {
