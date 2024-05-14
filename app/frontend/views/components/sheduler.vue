@@ -97,6 +97,7 @@
   return `${day}.${month}.${year} ${hours}:${minutes}`;
 }
 onMounted(() => {
+  if(store.tsignedIn){
   window.onTelegramAuth = (user) => {
     telegr.value = "Авторизация прошла успешно!";
     console.log(telegr.value)
@@ -126,6 +127,8 @@ onMounted(() => {
     script.setAttribute('data-onauth', 'onTelegramAuth(user)');
     script.async = true;
     document.getElementById('telegram-login-button').appendChild(script);
+  }
+
 })
 // if(!ls.get('gramlog')){
 

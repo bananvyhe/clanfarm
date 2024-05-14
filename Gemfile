@@ -35,6 +35,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'acts_as_list'
 gem 'redis-client'
 gem 'actioncable'
+gem 'sidekiq-scheduler', '~> 1'
 
 group :development, :test do
   gem 'capistrano-passenger'
