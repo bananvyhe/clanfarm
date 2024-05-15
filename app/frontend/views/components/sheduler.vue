@@ -46,7 +46,7 @@
         добавить
       </v-btn>    
     </div>
-
+ 
     <div v-if="store.tsignedIn" id="telegram-login-button" class="d-flex align-center mx-2" > </div>  
     <!-- <div>{{store.tgramlog}}</div> -->
   </div>
@@ -103,28 +103,27 @@
      console.log(store.tsignedIn)
     return !store.tsignedIn;
   });
-onMounted(() => {
+onUpdated(() => {
   if(store.tsignedIn){
-  window.onTelegramAuth = (user) => {
-    telegr.value = "Авторизация прошла успешно!";
-    console.log(telegr.value)
-    console.log(user)
-    const sendteleg = () => {
-        secured
-        .post('/users/addtelegram',{id: store.tgramlog.id, username: store.tgramlog.username })
-        .then(response => {
-          console.log(response)
- 
-        })
-      .catch(error => console.log(error))
-     
-    };
-    store.setgramlog(user)
-    sendteleg();
- 
 
-  };
+    window.onTelegramAuth = (user) => {
+      telegr.value = "Авторизация прошла успешно!";
+      console.log(telegr.value)
+      console.log(user)
+      const sendteleg = () => {
+          secured
+          .post('/users/addtelegram',{id: store.tgramlog.id, username: store.tgramlog.username })
+          .then(response => {
+            console.log(response)
+   
+          })
+        .catch(error => console.log(error))
+      };
+      store.setgramlog(user)
+      sendteleg();
+    };
     // Инициализация Telegram Login Widget при загрузке компонента
+    
     const script = document.createElement('script');
     script.src = 'https://telegram.org/js/telegram-widget.js?22';
     script.setAttribute('data-telegram-login', 'farmspot_bot');
@@ -135,6 +134,9 @@ onMounted(() => {
     script.async = true;
     document.getElementById('telegram-login-button').appendChild(script);
   }
+})
+onMounted(() => {
+
 
 })
 // if(!ls.get('gramlog')){
