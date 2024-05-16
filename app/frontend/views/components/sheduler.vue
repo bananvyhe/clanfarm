@@ -47,7 +47,7 @@
       </v-btn>    
     </div>
  
-    <div v-if="store.tsignedIn" id="telegram-login-button" class="d-flex align-center mx-2" > </div>  
+    <div v-if="store.tsignedIn" id="telegram-login-button" class="d-flex align-center mx-2" ></div>  
     <!-- <div>{{store.tgramlog}}</div> -->
   </div>
 
@@ -104,8 +104,11 @@
     return !store.tsignedIn;
   });
 onUpdated(() => {
-  if(store.tsignedIn){
+  console.log("onUpdated")
 
+})
+onMounted(() => {
+console.log("onMounted")
     window.onTelegramAuth = (user) => {
       telegr.value = "Авторизация прошла успешно!";
       console.log(telegr.value)
@@ -122,8 +125,8 @@ onUpdated(() => {
       store.setgramlog(user)
       sendteleg();
     };
+      if(store.tsignedIn){
     // Инициализация Telegram Login Widget при загрузке компонента
-    
     const script = document.createElement('script');
     script.src = 'https://telegram.org/js/telegram-widget.js?22';
     script.setAttribute('data-telegram-login', 'farmspot_bot');
@@ -134,10 +137,6 @@ onUpdated(() => {
     script.async = true;
     document.getElementById('telegram-login-button').appendChild(script);
   }
-})
-onMounted(() => {
-
-
 })
 // if(!ls.get('gramlog')){
 

@@ -14,7 +14,7 @@
 			      indeterminate
 			    ></v-progress-circular>
 				<h3>
-		  	 поиск партии...
+		  			сбор пака...
 		  	</h3>
 		  	</div>
 
