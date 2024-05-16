@@ -81,8 +81,8 @@
 // const date = ref(new Date().getTime());
   const addItem = () => {
   // date.value.push(new Date().getTime().toString());
-  date.value.push('')
-};
+    date.value.push('')
+  };
  
   const updateDate = (index, newValue) => {
     date.value[index] = newValue;
@@ -92,20 +92,34 @@
   };
  
   const format = (date) => {
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  return `${day}.${month}.${year} ${hours}:${minutes}`;
-}
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    return `${day}.${month}.${year} ${hours}:${minutes}`;
+  }
   const isButtonDisabled = computed(() => {
-     console.log(store.tsignedIn)
+    console.log(store.tsignedIn)
     return !store.tsignedIn;
   });
+  async function telega() {
+    if(store.tsignedIn){
+  // Инициализация Telegram Login Widget при загрузке компонента
+      const script = document.createElement('script');
+      script.src = 'https://telegram.org/js/telegram-widget.js?22';
+      script.setAttribute('data-telegram-login', 'farmspot_bot');
+      script.setAttribute('data-size', 'medium');
+      script.setAttribute('data-radius', '10');
+      script.setAttribute('data-request-access', 'write');
+      script.setAttribute('data-onauth', 'onTelegramAuth(user)');
+      script.async = true;
+      document.getElementById('telegram-login-button').appendChild(script);
+    }
+  }
 onUpdated(() => {
   console.log("onUpdated")
-
+  telega()
 })
 onMounted(() => {
 console.log("onMounted")
@@ -125,18 +139,7 @@ console.log("onMounted")
       store.setgramlog(user)
       sendteleg();
     };
-      if(store.tsignedIn){
-    // Инициализация Telegram Login Widget при загрузке компонента
-    const script = document.createElement('script');
-    script.src = 'https://telegram.org/js/telegram-widget.js?22';
-    script.setAttribute('data-telegram-login', 'farmspot_bot');
-    script.setAttribute('data-size', 'medium');
-    script.setAttribute('data-radius', '10');
-    script.setAttribute('data-request-access', 'write');
-    script.setAttribute('data-onauth', 'onTelegramAuth(user)');
-    script.async = true;
-    document.getElementById('telegram-login-button').appendChild(script);
-  }
+ telega()
 })
 // if(!ls.get('gramlog')){
 
