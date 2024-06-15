@@ -30,10 +30,12 @@
       uid="demo"
       class="vdp " 
       auto-apply :min-date="new Date()"  
-      :modelValue="item" 
+      :modelValue="item.date" 
       @update:modelValue="newValue => updateDate(index, newValue)"
       model-type="timestamp"/>
-      <div class="d-flex align-center mx-2">{{item}}</div>
+      <div class="d-flex align-center mx-2">
+        {{item}} 
+        <v-btn color="error" density="compact" icon="mdi-window-close"></v-btn></div>
     </div>
   </div>
   <div class="d-flex">
