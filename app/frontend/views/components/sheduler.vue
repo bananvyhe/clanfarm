@@ -35,7 +35,9 @@
       model-type="timestamp"/>
       <div class="d-flex align-center mx-2">
         {{item}} 
+        <div v-if="item.id">
         <v-btn color="error" density="compact" icon="mdi-window-close"></v-btn></div>
+        </div>
     </div>
   </div>
   <div class="d-flex">
@@ -48,7 +50,8 @@
       </v-btn>    
     </div>
  
-    <div v-if="store.tsignedIn" id="telegram-login-button" class="d-flex align-center mx-2" ></div>  
+    <div v-if="store.tsignedIn" id="telegram-login-button" class="d-flex align-center 
+mx-2" ></div>  
     <!-- <div>{{store.tgramlog}}</div> -->
   </div>
 
@@ -83,7 +86,7 @@
 // const date = ref(new Date().getTime());
   const addItem = () => {
   // date.value.push(new Date().getTime().toString());
-    date.value.push({ id: '1', date: null }); 
+    date.value.push({ id: '', date: null }); 
     // date.value.push('')
   };
  
@@ -93,6 +96,7 @@
   const item = date.value[index];
   if (item) {
     item.date = newValue;
+    item.id = "1"
   }
     console.log(date.value) 
   };
