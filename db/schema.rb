@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_10_114248) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_13_192613) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,6 +76,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_10_114248) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "scheduled_tasks", force: :cascade do |t|
+    t.string "name"
+    t.string "schedule"
+    t.string "class_name"
+    t.text "args"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_scheduled_tasks_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
@@ -102,4 +113,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_10_114248) do
   add_foreign_key "mob_users", "users"
   add_foreign_key "my_items", "listitems"
   add_foreign_key "my_items", "users"
+  add_foreign_key "scheduled_tasks", "users"
 end
