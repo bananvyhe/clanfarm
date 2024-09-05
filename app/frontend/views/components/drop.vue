@@ -21,7 +21,7 @@
             <span>
               <h4 >{{item.title}}</h4>
               <span >
-                {{item.desc}}
+                <div class="text-caption shad">{{item.desc}}</div>
               </span>
             </span>
           </v-tooltip> 
