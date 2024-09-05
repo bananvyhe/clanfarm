@@ -63,7 +63,7 @@
 
 
 
-                <div class="px-0 pt-0 mb-1 colr" :style="[  store.tonline < item.created_at ?  {color: '#BB9365 !important'}:{} ]">
+                <div class="px-0 pt-0 mb-1 colr" :style="[  store.tonline < item.created_at ?  {color: '#E3A842 !important'}:{} ]">
                   <h3>{{ item.head }}</h3>
                 </div>
                 <div class="px-0 text-body-1 mb-5" :style="[  store.tonline < item.created_at ?  {color: '#959595'}:{} ]">
@@ -253,7 +253,7 @@ background-size: cover;
 .colr{
   /*color: #60845b;*/
   /*color: #657d62;*/
-  color: #7D9E79;
+  color: #9FC99A;
 }
 .date{
   color: #9d9681; 

@@ -28,14 +28,16 @@
 
                 <v-tooltip top>
                   <template  v-slot:activator="{ props}"  class=" ">
-                    <div v-bind="props" class=" hovbut">
+                    <div v-bind="props" class=" hovbut d-flex align-end justify-end tshad" >
                      {{element.qty}}
                     </div>
 
                   </template>
                   <span>
-                    <h4 > {{element.title}}</h4>
-                    {{element.desc}}
+                    <div  class="setochka">
+                      <h4>{{element.title}}</h4>
+                      <div class="text-caption shad">{{element.desc}}</div>        
+                    </div>
                   </span>                
                 </v-tooltip>
 
@@ -163,6 +165,7 @@ const invarray = computed({
 <style scoped>
 .hovbut{
   height: 100%;
+
 }
 .item-inv {
   border: 1px solid color( $screenbg shade(56%));; 

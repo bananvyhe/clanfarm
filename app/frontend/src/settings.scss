@@ -13,7 +13,7 @@
     'xl': 1180px - 16px,
     'xxl': 1380px - 16px,
   ),
-  $tooltip-text-color: #000,
+  $tooltip-text-color: #101010,
   $tooltip-background-color: rgba(var(--v-theme-surface-variant), .8),
   // $v-theme-primary: global.$primary-color
  // $v-primary: global.$primary-color !default
@@ -22,6 +22,7 @@
   color: #717171;
   line-height: 1.3rem !important;
 }
+
 .grid{
   background: #ada;
 }
@@ -35,12 +36,29 @@
 .v-btn--size-default{
   padding: 0 0;
 }
+  .tshad {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
 .v-tooltip{
   h4{
     font-weight: 600;
-    color: #276604;
+    color: #202020;
   }
+  .shad {
+    // text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+
+  }
+  // .setochka{
+  //        background: repeating-linear-gradient(
+  //       45deg,          /* Угол градиента - 45 градусов */
+  //       #ffffff,        /* Цвет полоски */
+  //       #ffffff 2px,   /* Ширина белой полосы */
+  //       #000000 2x,   /* Цвет фона между полосами */
+  //       #000000 4px    /* Ширина черной полосы */
+  //   ); 
+  // }
 }
+
 .my-notification {
   // styling
   margin: 0 5px 5px;
