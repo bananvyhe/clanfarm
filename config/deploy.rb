@@ -2,7 +2,7 @@
 lock "~> 3.17.2"
 set :rbenv_ruby, '3.0.2'
 set :assets_prefix, 'vite'
-namespace :sidekiq do
+namespace :sidekiqfarm do
   task :quiet do
     on roles(:app) do
       puts capture("pgrep -f 'sidekiq' | xargs kill -TSTP") 
@@ -13,6 +13,26 @@ namespace :sidekiq do
       execute :sudo,  :restart, :workers
     end
   end
+  task :start do
+    on roles(:app) do
+      execute :sudo, :systemctl, :start, 'sidekiq' # Запускаем сервис sidekiq
+    end
+  end
+  task :stop do
+    on roles(:app) do
+      execute :sudo, :systemctl, :stop, 'sidekiq' # Останавливаем сервис sidekiq
+    end
+  end
+  task :restart do
+    on roles(:app) do
+      execute :sudo, :systemctl, :restart, 'sidekiq' # Перезапускаем сервис sidekiq
+    end
+  end
+  task :resume do
+    on roles(:app) do
+      puts capture("pgrep -f 'sidekiq' | xargs kill -CONT")
+    end
+  end
 end
 
 set :application, "farmspot"
@@ -21,7 +41,7 @@ set :repo_url, "git@github.com:bananvyhe/clanfarm.git"
 set :branch, "main"
 set :deploy_to, "/home/deploy/apps/farmspot"
 
-namespace :deploy do
+namespace :deployfarm do
 	desc "Update cron jobs"
   task :update_crontab do
   	on roles(:deploy) do
@@ -35,8 +55,8 @@ namespace :deploy do
   	end
   end
 end
-after 'deploy:starting', 'deploy:clear_crontab'
-after 'deploy:starting', 'deploy:update_crontab'
+after 'deploy:starting', 'deployfarm:clear_crontab'
+after 'deploy:starting', 'deployfarm:update_crontab'
 
 SSHKit.config.command_map[:sidekiq] = "bundle exec sidekiq"
 SSHKit.config.command_map[:sidekiqctl] = "bundle exec sidekiqctl"
@@ -73,12 +93,12 @@ SSHKit.config.command_map[:sidekiqctl] = "bundle exec sidekiqctl"
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
-after 'deploy:starting', 'sidekiq:quiet'
-after 'deploy:updated', 'sidekiq:stop'
-after 'deploy:published', 'sidekiq:start'
+after 'deploy:starting', 'sidekiqfarm:quiet'
+after 'deploy:updated', 'sidekiqfarm:stop'
+after 'deploy:published', 'sidekiqfarm:start'
 after 'deploy:published', 'passenger:restart'
-after 'deploy:failed', 'sidekiq:restart'
-
+after 'deploy:failed', 'sidekiqfarm:restart'
+after 'deploy:published', 'sidekiqfarm:resume'
 # Default value for :pty is false
 # set :pty, true
 set :pty,  false
