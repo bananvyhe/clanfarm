@@ -14,7 +14,7 @@
 			      indeterminate
 			    ></v-progress-circular>
 				<h3>
-		  			сбор пака...
+		  			загрузка паркета
 		  	</h3>
 		  	</div>
 

@@ -29,7 +29,7 @@
           <!-- {{store.tsignedIn}} -->
           <logina v-if="store.tsignedIn"></logina>
           <hat v-else></hat>
-          <sheduler class=" "></sheduler>
+          <scheduler class=" "></scheduler>
           <router-view></router-view>
 <!-- <notifications /> -->
 <notifications position="bottom left" classes="my-notification" >
@@ -75,7 +75,7 @@ const tl = ref("время сбора")
 
 import hat from './views/components/hat.vue' 
 import logina from './views/components/login_area.vue' 
-import sheduler from './views/components/sheduler.vue'
+import scheduler from './views/components/scheduler.vue'
 
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()

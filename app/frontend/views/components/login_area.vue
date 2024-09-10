@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import Summoner from './boss.vue'
 import News from './news.vue'
-import Sheduler from './sheduler.vue'
+// import Scheduler from './scheduler.vue'
  // import pumpk from './pumpk.vue'
 import { gsap } from "gsap";
 import { SlowMo } from "gsap/EasePack";

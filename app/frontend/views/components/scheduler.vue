@@ -50,7 +50,8 @@
       </v-btn>    
     </div>
  
-    <div v-if="store.tsignedIn" id="telegram-login-button" class="d-flex align-center 
+    <div v-if="store.tsignedIn" id="telegram-login-button" class="d-flex align-center 
+
 mx-2" ></div>  
     <!-- <div>{{store.tgramlog}}</div> -->
   </div>
