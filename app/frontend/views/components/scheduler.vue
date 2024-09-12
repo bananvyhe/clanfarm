@@ -20,13 +20,13 @@
       value="Jacob"
       hide-details
     ></v-switch> -->
-{{date}}
+<!-- {{date}} -->
   <div v-for="(item, index) in date" :key="index"  >
     <div class="d-flex ma-2">
       <VueDatePicker 
       dark locale="ru"  
       time-picker-inline 
-      disable-month-year-select  
+    
       uid="demo"
       class="vdp " 
       auto-apply :min-date="new Date()"  
@@ -34,7 +34,7 @@
       @update:modelValue="newValue => updateDate(index, newValue)"
       model-type="timestamp"/>
       <div class="d-flex align-center mx-2">
-        {{item}} 
+        <!-- {{item}}  -->
         <div v-if="item.id">
         <v-btn color="error" density="compact" icon="mdi-window-close"></v-btn></div>
         </div>
@@ -80,7 +80,7 @@ mx-2" ></div>
 // const plain: any = inject('plain')
 // const secured: any = inject('secured')
 
-  const date = ref([])
+  const date = ref([{ id: '', date: null }])
 // const addItem = () => {
 //   date.value.push('666');
 // };
