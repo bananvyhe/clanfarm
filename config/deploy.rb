@@ -8,24 +8,24 @@ namespace :sidekiq_farmspot do
       puts capture("pgrep -f 'sidekiq' | xargs kill -TSTP") 
     end
   end
-  # task :restart do
-  #   on roles(:app) do
-  #     execute :sudo,  :restart, :workers
-  #   end
-  # end
+  task :restart do
+    on roles(:app) do
+      execute :sudo,  :restart, :workers
+    end
+  end
   task :start do
     on roles(:app) do
-      execute :sudo, :systemctl, :start, 'sidekiq_farmspot' # Запускаем сервис sidekiq
+      execute :sudo, :systemctl, :start, 'sidekiq' # Запускаем сервис sidekiq
     end
   end
   task :stop do
     on roles(:app) do
-      execute :sudo, :systemctl, :stop, 'sidekiq_farmspot' # Останавливаем сервис sidekiq
+      execute :sudo, :systemctl, :stop, 'sidekiq' # Останавливаем сервис sidekiq
     end
   end
   task :restart do
     on roles(:app) do
-      execute :sudo, :systemctl, :restart, 'sidekiq_farmspot' # Перезапускаем сервис sidekiq
+      execute :sudo, :systemctl, :restart, 'sidekiq' # Перезапускаем сервис sidekiq
     end
   end
   task :resume do
@@ -96,7 +96,7 @@ SSHKit.config.command_map[:sidekiqctl] = "bundle exec sidekiqctl"
 after 'deploy:starting', 'sidekiq_farmspot:quiet'
 after 'deploy:updated', 'sidekiq_farmspot:stop'
 after 'deploy:published', 'sidekiq_farmspot:start'
-after 'deploy:published', 'sidekiq_farmspot:restart'
+after 'deploy:published', 'passenger:restart'
 after 'deploy:failed', 'sidekiq_farmspot:restart'
 after 'deploy:published', 'sidekiq_farmspot:resume'
 # Default value for :pty is false
