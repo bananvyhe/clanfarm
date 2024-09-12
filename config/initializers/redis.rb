@@ -11,3 +11,7 @@ redis_config = {
 Redis.current = ConnectionPool.new(size: redis_config[:pool_size]) do
   Redis.new(url: redis_config[:url])
 end
+
+Sidekiq.configure_server do |config|
+  config.redis = { url: 'redis://localhost:6379/0', namespace: 'farmspot' }
+end
