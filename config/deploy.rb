@@ -93,12 +93,12 @@ SSHKit.config.command_map[:sidekiqctl] = "bundle exec sidekiqctl"
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
-after 'deploy:starting', 'sidekiqfarm:quiet'
-after 'deploy:updated', 'sidekiqfarm:stop'
-after 'deploy:published', 'sidekiqfarm:start'
-after 'deploy:published', 'passenger:restart'
-after 'deploy:failed', 'sidekiqfarm:restart'
-after 'deploy:published', 'sidekiqfarm:resume'
+after 'deploy:starting', 'sidekiq_farmspot:quiet'
+after 'deploy:updated', 'sidekiq_farmspot:stop'
+after 'deploy:published', 'sidekiq_farmspot:start'
+after 'deploy:published', 'sidekiq_farmspot:restart'
+after 'deploy:failed', 'sidekiq_farmspot:restart'
+after 'deploy:published', 'sidekiq_farmspot:resume'
 # Default value for :pty is false
 # set :pty, true
 set :pty,  false
