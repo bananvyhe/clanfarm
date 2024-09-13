@@ -8,24 +8,24 @@ namespace :sidekiq_farmspot do
       puts capture("pgrep -f 'sidekiq' | xargs kill -TSTP") 
     end
   end
-  task :restart do
-    on roles(:app) do
-      execute :sudo,  :restart, :workers
-    end
-  end
+  # task :restart do
+  #   on roles(:app) do
+  #     execute :sudo,  :restart, :workers
+  #   end
+  # end
   task :start do
     on roles(:app) do
-      execute :sudo, :systemctl, :start, 'sidekiq' # Запускаем сервис sidekiq
+      execute :sudo, :systemctl, :start, 'sidekiq_farmspot' # Запускаем сервис sidekiq
     end
   end
   task :stop do
     on roles(:app) do
-      execute :sudo, :systemctl, :stop, 'sidekiq' # Останавливаем сервис sidekiq
+      execute :sudo, :systemctl, :stop, 'sidekiq_farmspot' # Останавливаем сервис sidekiq
     end
   end
   task :restart do
     on roles(:app) do
-      execute :sudo, :systemctl, :restart, 'sidekiq' # Перезапускаем сервис sidekiq
+      execute :sudo, :systemctl, :restart, 'sidekiq_farmspot' # Перезапускаем сервис sidekiq
     end
   end
   task :resume do
