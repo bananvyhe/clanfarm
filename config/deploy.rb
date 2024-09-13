@@ -5,7 +5,7 @@ set :assets_prefix, 'vite'
 namespace :sidekiq_farmspot do
   task :quiet do
     on roles(:app) do
-      puts capture("pgrep -f 'sidekiq' .*farmspot' | xargs kill -TSTP") 
+      puts capture("pgrep -f 'sidekiq .*farmspot' | xargs kill -TSTP") 
     end
   end
   # task :restart do
@@ -30,7 +30,7 @@ namespace :sidekiq_farmspot do
   end
   task :resume do
     on roles(:app) do
-      puts capture("pgrep -f 'sidekiq' .*farmspot' | xargs kill -CONT")
+      puts capture("pgrep -f 'sidekiq .*farmspot' | xargs kill -CONT")
     end
   end
 end
