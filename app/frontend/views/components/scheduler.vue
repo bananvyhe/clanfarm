@@ -21,25 +21,31 @@
       hide-details
     ></v-switch> -->
 <!-- {{date}} -->
+<!-- {{ }}ss -->
   <div v-for="(item, index) in date" :key="index"  >
     <div class="d-flex ma-2">
       <VueDatePicker 
       dark locale="ru"  
-      time-picker-inline 
-    
+      placeholder="Выбор даты" 
+ @closed="alertFn"
+ v-model="selectedDate"
+ ref="datepicker"
       uid="demo"
       class="vdp " 
       auto-apply :min-date="new Date()"  
       :modelValue="item.date" 
       @update:modelValue="newValue => updateDate(index, newValue)"
       model-type="timestamp"/>
-      <div class="d-flex align-center mx-2">
-        <!-- {{item}}  -->
-        <div v-if="item.id">
-        <v-btn color="error" density="compact" icon="mdi-window-close"></v-btn></div>
-        </div>
+
+<!--         <div class="d-flex align-center mx-2">
+ 
+          <div v-if="item.id">
+            <v-btn color="error" density="compact" icon="mdi-window-close"></v-btn>
+          </div>
+        </div> -->
+
+      </div>
     </div>
-  </div>
   <div class="d-flex">
     <div :style="[ true ?  {cursor: 'not-allowed'}:{}]">
       <v-btn 
@@ -72,6 +78,20 @@ mx-2" ></div>
   const people = ref(['John'])
   const telegr = ref('');
 
+const selectedDate = ref(null);  // Выбранная дата
+const lastSelectedDate = ref(null);  // Последняя сохраненная дата
+const alertFn = () => {
+  // alert('Menu closed');
+  if (!selectedDate.value) {
+    selectedDate.value = lastSelectedDate.value || new Date();  // Используем последнее выбранное время или текущее время
+  } else {
+    lastSelectedDate.value = selectedDate.value;  // Обновляем последнюю выбранную дату
+  }
+
+}// const onClickOutside = () => {
+//   if (dpRef.value) dpRef.value.closeMenu();
+//   alert('Click outside handler')
+// }
 // import { useLogStore } from './store.js'  
 // const store = useLogStore()
 
@@ -94,11 +114,19 @@ mx-2" ></div>
   const updateDate = (index, newValue) => {
     // date.value[index] = newValue;
     // date.value[index] = date.value[index].value;
-  const item = date.value[index];
-  if (item) {
-    item.date = newValue;
-    item.id = "1"
-  }
+    const item = date.value[index];
+    if (item) {
+      item.date = newValue;
+      item.id = "1"
+    }
+    selectedDate.value = newValue;
+    if (newValue && !selectedDate) {
+      selectedTime.value = {
+        hours: newValue.getHours(),
+        minutes: newValue.getMinutes(),
+      };
+    }
+
     console.log(date.value) 
   };
  
