@@ -21,7 +21,7 @@
       hide-details
     ></v-switch> -->
 <!-- {{date}} -->
-<!-- {{ }}ss -->
+{{  }}ss
   <div v-for="(item, index) in date" :key="index"  >
     <div class="d-flex ma-2">
       <VueDatePicker 
@@ -30,6 +30,8 @@
  @closed="alertFn"
  v-model="selectedDate"
  ref="datepicker"
+      :format="customDateFormat"
+      @focus="fillCurrentTime" 
       uid="demo"
       class="vdp " 
       auto-apply :min-date="new Date()"  
@@ -37,12 +39,12 @@
       @update:modelValue="newValue => updateDate(index, newValue)"
       model-type="timestamp"/>
 
-<!--         <div class="d-flex align-center mx-2">
+        <div class="d-flex align-center mx-2">
  
           <div v-if="item.id">
             <v-btn color="error" density="compact" icon="mdi-window-close"></v-btn>
           </div>
-        </div> -->
+        </div>
 
       </div>
     </div>
@@ -77,28 +79,11 @@ mx-2" ></div>
   const switcher = ref(true)
   const people = ref(['John'])
   const telegr = ref('');
-
-const selectedDate = ref(null);  // Выбранная дата
-const lastSelectedDate = ref(null);  // Последняя сохраненная дата
-const alertFn = () => {
-  // alert('Menu closed');
-  if (!selectedDate.value) {
-    selectedDate.value = lastSelectedDate.value || new Date();  // Используем последнее выбранное время или текущее время
-  } else {
-    lastSelectedDate.value = selectedDate.value;  // Обновляем последнюю выбранную дату
-  }
-
-}// const onClickOutside = () => {
-//   if (dpRef.value) dpRef.value.closeMenu();
-//   alert('Click outside handler')
-// }
-// import { useLogStore } from './store.js'  
-// const store = useLogStore()
-
-// import { ref, computed, watch, reactive, onMounted, onBeforeMount, toRefs } from 'vue'
-
-// const plain: any = inject('plain')
-// const secured: any = inject('secured')
+const customDateFormat = 'dd/MM/yyyy, HH:mm';
+const fillCurrentTime = () => {
+  const now = new Date();
+  selectedDate.value = now;  // Устанавливаем текущее время
+};
 
   const date = ref([{ id: '', date: null }])
 // const addItem = () => {
@@ -114,22 +99,48 @@ const alertFn = () => {
   const updateDate = (index, newValue) => {
     // date.value[index] = newValue;
     // date.value[index] = date.value[index].value;
+
+    console.log(newValue) 
     const item = date.value[index];
     if (item) {
       item.date = newValue;
       item.id = "1"
     }
+
+
+
     selectedDate.value = newValue;
     if (newValue && !selectedDate) {
       selectedTime.value = {
         hours: newValue.getHours(),
         minutes: newValue.getMinutes(),
       };
+
+      console.log("ththth")
     }
 
-    console.log(date.value) 
+    console.log(selectedTime.value) 
   };
- 
+
+
+
+const selectedDate = ref(null);  // Выбранная дата
+const lastSelectedDate = ref(null);  // Последняя сохраненная дата
+const selectedTime = ref({hours: null, minutes: null});  // Отдельно храним выбранное время
+const alertFn = () => {
+  // alert('Menu closed');
+  if (!selectedDate.value) {
+    selectedDate.value = lastSelectedDate.value || new Date();  // Используем последнее выбранное время или текущее время
+     const newDate = new Date(selectedDate.value);
+    newDate.setHours(selectedTime.value.hours);
+    newDate.setMinutes(selectedTime.value.minutes);
+    selectedDate.value = newDate;
+  } else {
+    lastSelectedDate.value = selectedDate.value;  // Обновляем последнюю выбранную дату
+  }
+  lastSelectedDate.value = selectedDate.value;
+} 
+
   const format = (date) => {
     const day = date.getDate();
     const month = date.getMonth() + 1;
