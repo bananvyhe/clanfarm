@@ -21,32 +21,40 @@
       hide-details
     ></v-switch> -->
 <!-- {{date}} -->
-{{  }}ss
+<!-- {{  }}ss -->
   <div v-for="(item, index) in date" :key="index"  >
-    <div class="d-flex ma-2">
-      <VueDatePicker 
-      dark locale="ru"  
-      placeholder="Выбор даты" 
- @closed="alertFn"
- v-model="selectedDate"
- ref="datepicker"
-      :format="customDateFormat"
-      @focus="fillCurrentTime" 
-      uid="demo"
-      class="vdp " 
-      auto-apply :min-date="new Date()"  
-      :modelValue="item.date" 
-      @update:modelValue="newValue => updateDate(index, newValue)"
-      model-type="timestamp"/>
+    <div class="d-flex ma-2 pa-0 align-center">
 
-        <div class="d-flex align-center mx-2">
- 
-          <div v-if="item.id">
-            <v-btn color="error" density="compact" icon="mdi-window-close"></v-btn>
-          </div>
-        </div>
-
+      <VueDatePicker
+        dark locale="ru"  
+        placeholder="Выбор даты" 
+        @closed="alertFn"
+        v-model="selectedDate"
+        ref="datepicker"
+        :format="customDateFormat"
+        @focus="fillCurrentTime" 
+        uid="demo"
+        class="vdp d-flex" 
+        auto-apply :min-date="new Date()"  
+        :modelValue="item.date" 
+        @update:modelValue="newValue => updateDate(index, newValue)"
+        model-type="timestamp"/>
+        
+        <v-switch
+           class=" pl-3 "
+          color="primary"
+          :model-value="true"
+          v-model="vaba"
+          :label="`${vaba}`"
+          false-value="выкл"
+          true-value="вкл"
+          hide-details>
+        </v-switch>  
       </div>
+
+
+
+ 
     </div>
   <div class="d-flex">
     <div :style="[ true ?  {cursor: 'not-allowed'}:{}]">
@@ -109,36 +117,36 @@ const fillCurrentTime = () => {
 
 
 
-    selectedDate.value = newValue;
-    if (newValue && !selectedDate) {
-      selectedTime.value = {
-        hours: newValue.getHours(),
-        minutes: newValue.getMinutes(),
-      };
+    // selectedDate.value = newValue;
+    // if (newValue && !selectedDate) {
+    //   selectedTime.value = {
+    //     hours: newValue.getHours(),
+    //     minutes: newValue.getMinutes(),
+    //   };
 
-      console.log("ththth")
-    }
+    //   console.log("ththth")
+    // }
 
-    console.log(selectedTime.value) 
+    // console.log(selectedTime.value) 
   };
 
 
-
+const vaba = ref("выкл"); 
 const selectedDate = ref(null);  // Выбранная дата
-const lastSelectedDate = ref(null);  // Последняя сохраненная дата
-const selectedTime = ref({hours: null, minutes: null});  // Отдельно храним выбранное время
+// const lastSelectedDate = ref(null);  // Последняя сохраненная дата
+// const selectedTime = ref({hours: null, minutes: null});  // Отдельно храним выбранное время
 const alertFn = () => {
   // alert('Menu closed');
-  if (!selectedDate.value) {
-    selectedDate.value = lastSelectedDate.value || new Date();  // Используем последнее выбранное время или текущее время
-     const newDate = new Date(selectedDate.value);
-    newDate.setHours(selectedTime.value.hours);
-    newDate.setMinutes(selectedTime.value.minutes);
-    selectedDate.value = newDate;
-  } else {
-    lastSelectedDate.value = selectedDate.value;  // Обновляем последнюю выбранную дату
-  }
-  lastSelectedDate.value = selectedDate.value;
+  // if (!selectedDate.value) {
+  //   selectedDate.value = lastSelectedDate.value || new Date();  // Используем последнее выбранное время или текущее время
+  //    const newDate = new Date(selectedDate.value);
+  //   newDate.setHours(selectedTime.value.hours);
+  //   newDate.setMinutes(selectedTime.value.minutes);
+  //   selectedDate.value = newDate;
+  // } else {
+  //   lastSelectedDate.value = selectedDate.value;  // Обновляем последнюю выбранную дату
+  // }
+  // lastSelectedDate.value = selectedDate.value;
 } 
 
   const format = (date) => {
