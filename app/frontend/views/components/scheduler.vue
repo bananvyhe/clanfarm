@@ -29,23 +29,23 @@
         dark locale="ru"  
         placeholder="Выбор даты" 
         @closed="alertFn"
-        v-model="selectedDate"
+      @focus="fillCurrentTime(index, item.date)"
         ref="datepicker"
         :format="customDateFormat"
-        @focus="fillCurrentTime" 
+   
         uid="demo"
         class="vdp d-flex" 
         auto-apply :min-date="new Date()"  
         :modelValue="item.date" 
         @update:modelValue="newValue => updateDate(index, newValue)"
         model-type="timestamp"/>
-        
+
         <v-switch
            class=" pl-3 "
           color="primary"
-          :model-value="true"
-          v-model="vaba"
-          :label="`${vaba}`"
+     
+          v-model="item.switchValue"
+          :label="`${item.switchValue}`"
           false-value="выкл"
           true-value="вкл"
           hide-details>
@@ -87,20 +87,41 @@ mx-2" ></div>
   const switcher = ref(true)
   const people = ref(['John'])
   const telegr = ref('');
-const customDateFormat = 'dd/MM/yyyy, HH:mm';
-const fillCurrentTime = () => {
-  const now = new Date();
-  selectedDate.value = now;  // Устанавливаем текущее время
-};
+  const customDateFormat = 'dd/MM/yyyy, HH:mm';
 
-  const date = ref([{ id: '', date: null }])
+  const date = ref([{ id: '0', date: null, switchValue: "выкл" }])
+
+  const fillCurrentTime = (ind, vremya) => {
+    // const now = new Date().getTime();
+    // date.value[0].date = now;  // Устанавливаем текущее время
+ 
+    if (vremya != null) {
+      console.log("vremya esty"+date) 
+
+    }else{
+      const now = new Date().getTime();
+ 
+       date.value[ind].date = now
+       
+      console.log(date.value[0].date ) 
+      // console.log("vremya null"+date) 
+      // console.log(item) 
+    }
+  };
+
+
 // const addItem = () => {
 //   date.value.push('666');
 // };
 // const date = ref(new Date().getTime());
   const addItem = () => {
   // date.value.push(new Date().getTime().toString());
-    date.value.push({ id: '', date: null }); 
+
+    const val = date.value.length;
+    console.log(val) 
+
+
+    date.value.push({ id: val, date: null, switchValue: "выкл" }); 
     // date.value.push('')
   };
  
@@ -108,24 +129,27 @@ const fillCurrentTime = () => {
     // date.value[index] = newValue;
     // date.value[index] = date.value[index].value;
 
-    console.log(newValue) 
+    console.log(date.value) 
     const item = date.value[index];
+    // const nomer =  date.value.length
+
+    console.log(date.length)
     if (item) {
       item.date = newValue;
-      item.id = "1"
+      // item.id = nomer
     }
 
 
 
     // selectedDate.value = newValue;
-    // if (newValue && !selectedDate) {
-    //   selectedTime.value = {
-    //     hours: newValue.getHours(),
-    //     minutes: newValue.getMinutes(),
-    //   };
+    if (newValue && !selectedDate) {
+      selectedTime.value = {
+        hours: newValue.getHours(),
+        minutes: newValue.getMinutes(),
+      };
 
-    //   console.log("ththth")
-    // }
+      console.log("ththth")
+    }
 
     // console.log(selectedTime.value) 
   };
@@ -134,7 +158,7 @@ const fillCurrentTime = () => {
 const vaba = ref("выкл"); 
 const selectedDate = ref(null);  // Выбранная дата
 // const lastSelectedDate = ref(null);  // Последняя сохраненная дата
-// const selectedTime = ref({hours: null, minutes: null});  // Отдельно храним выбранное время
+const selectedTime = ref({hours: null, minutes: null});  // Отдельно храним выбранное время
 const alertFn = () => {
   // alert('Menu closed');
   // if (!selectedDate.value) {
