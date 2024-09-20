@@ -88,7 +88,7 @@ mx-2" ></div>
   const people = ref(['John'])
   const telegr = ref('');
   const customDateFormat = 'dd/MM/yyyy, HH:mm';
-
+  import { v4 as uuidv4 } from 'uuid';
   const date = ref([{ id: '0', date: null, switchValue: "выкл" }])
 
   const fillCurrentTime = (ind, vremya) => {
@@ -100,9 +100,10 @@ mx-2" ></div>
 
     }else{
       const now = new Date().getTime();
- 
-       date.value[ind].date = now
-       
+       const val = ref(uuidv4());
+       // date.value.id[ind].date = now
+      date.value[ind].date = now
+      date.value[ind].id = val
       console.log(date.value[0].date ) 
       // console.log("vremya null"+date) 
       // console.log(item) 
@@ -116,9 +117,10 @@ mx-2" ></div>
 // const date = ref(new Date().getTime());
   const addItem = () => {
   // date.value.push(new Date().getTime().toString());
+    const val = ref(uuidv4());
 
-    const val = date.value.length;
-    console.log(val) 
+     
+    console.log(val.value) 
 
 
     date.value.push({ id: val, date: null, switchValue: "выкл" }); 
