@@ -183,8 +183,8 @@ const alertFn = () => {
   }
 
   const isButtonDisabled = computed(() => {
-    console.log(store.tsignedIn)
-    return !store.tsignedIn || date.value.find(d => d.id === 0);
+    
+    return !store.tsignedIn || date.value.some(d => d.id === 0);
  
   });
 
