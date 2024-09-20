@@ -20,7 +20,7 @@
       value="Jacob"
       hide-details
     ></v-switch> -->
-{{date}}
+<!-- {{date}} -->
 <!-- {{  }}ss -->
   <div v-for="(item, index) in sortedDate" :key="index"  >
     <div class="d-flex ma-2 pa-0 align-center">
@@ -38,7 +38,7 @@
         auto-apply :min-date="new Date()"  
         :modelValue="item.date" 
         model-type="timestamp"/>
-        <div>
+        <div v-if="item.id != 0">
           <v-switch
              class=" pl-3 "
             color="primary"
@@ -181,10 +181,13 @@ const alertFn = () => {
     const minutes = date.getMinutes();
     return `${day}.${month}.${year} ${hours}:${minutes}`;
   }
+
   const isButtonDisabled = computed(() => {
     console.log(store.tsignedIn)
-    return !store.tsignedIn;
+    return !store.tsignedIn || date.value.find(d => d.id === 0);
+ 
   });
+
   async function telega() {
     if(store.tsignedIn){
   // Инициализация Telegram Login Widget при загрузке компонента
