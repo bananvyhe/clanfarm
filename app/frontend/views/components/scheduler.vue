@@ -20,7 +20,7 @@
       value="Jacob"
       hide-details
     ></v-switch> -->
-<!-- {{date}} -->
+{{date}}
 <!-- {{  }}ss -->
   <div v-for="(item, index) in sortedDate" :key="index"  >
     <div class="d-flex ma-2 pa-0 align-center">
@@ -29,7 +29,7 @@
         dark locale="ru"  
         placeholder="Выбор даты" 
         @closed="alertFn"
-      @focus="fillCurrentTime(item.id, item.date)"
+        @focus="fillCurrentTime(item.id, item.date)"
         ref="datepicker"
         :format="customDateFormat"
         @update:modelValue="newValue => updateDate(item.id, newValue)"
@@ -37,19 +37,18 @@
         class="vdp d-flex" 
         auto-apply :min-date="new Date()"  
         :modelValue="item.date" 
- 
         model-type="timestamp"/>
-
-        <v-switch
-           class=" pl-3 "
-          color="primary"
-     
-          v-model="item.switchValue"
-          :label="`${item.switchValue}`"
-          false-value="выкл"
-          true-value="вкл"
-          hide-details>
-        </v-switch>  
+        <div>
+          <v-switch
+             class=" pl-3 "
+            color="primary"
+            v-model="item.switchValue"
+            :label="`${item.switchValue}`"
+            false-value="выкл"
+            true-value="вкл"
+            hide-details>
+          </v-switch>  
+        </div>
       </div>
  
     </div>
