@@ -27,11 +27,11 @@
 $input-control-height: 35px; 
 $selection-control-height: 35px; 
 $selection-control-size: 35px; 
-.v-input--density-default {
-    height: $input-control-height;  // Применяем высоту к элементу
-    padding-top: 0px;              // Можем добавить отступы
-    padding-bottom: 0px;           // Регулируем нижний отступ
-}
+// .v-input--density-default {
+//     height: $input-control-height;  // Применяем высоту к элементу
+//     padding-top: 0px;              // Можем добавить отступы
+//     padding-bottom: 0px;           // Регулируем нижний отступ
+// }
 
 .v-switch .v-selection-control {
     min-height: 35px;
