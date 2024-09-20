@@ -22,22 +22,22 @@
     ></v-switch> -->
 <!-- {{date}} -->
 <!-- {{  }}ss -->
-  <div v-for="(item, index) in date" :key="index"  >
+  <div v-for="(item, index) in sortedDate" :key="index"  >
     <div class="d-flex ma-2 pa-0 align-center">
 
       <VueDatePicker
         dark locale="ru"  
         placeholder="Выбор даты" 
         @closed="alertFn"
-      @focus="fillCurrentTime(index, item.date)"
+      @focus="fillCurrentTime(item.id, item.date)"
         ref="datepicker"
         :format="customDateFormat"
-   
+        @update:modelValue="newValue => updateDate(item.id, newValue)"
         uid="demo"
         class="vdp d-flex" 
         auto-apply :min-date="new Date()"  
         :modelValue="item.date" 
-        @update:modelValue="newValue => updateDate(index, newValue)"
+ 
         model-type="timestamp"/>
 
         <v-switch
@@ -51,9 +51,6 @@
           hide-details>
         </v-switch>  
       </div>
-
-
-
  
     </div>
   <div class="d-flex">
@@ -89,7 +86,11 @@ mx-2" ></div>
   const telegr = ref('');
   const customDateFormat = 'dd/MM/yyyy, HH:mm';
   import { v4 as uuidv4 } from 'uuid';
-  const date = ref([{ id: '0', date: null, switchValue: "выкл" }])
+  const date = ref([{ id: 0, date: null, switchValue: "выкл" }])
+   
+  const sortedDate = computed(() => {
+    return date.value.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
+  });
 
   const fillCurrentTime = (ind, vremya) => {
     // const now = new Date().getTime();
@@ -100,11 +101,23 @@ mx-2" ></div>
 
     }else{
       const now = new Date().getTime();
-       const val = ref(uuidv4());
-       // date.value.id[ind].date = now
-      date.value[ind].date = now
-      date.value[ind].id = val
-      console.log(date.value[0].date ) 
+      const val = ref(uuidv4());
+
+      if (ind != 0) {
+ 
+
+
+        const item = date.value.find(d => d.id === ind);
+        // item.date = vremya;
+
+      }else{
+        const item = date.value.find(d => d.id === ind);
+        item.date = now
+        item.id = val
+      }
+      // date.value.id[ind].date = now
+
+      // console.log(date.value[0].date ) 
       // console.log("vremya null"+date) 
       // console.log(item) 
     }
@@ -118,21 +131,20 @@ mx-2" ></div>
   const addItem = () => {
   // date.value.push(new Date().getTime().toString());
     const val = ref(uuidv4());
-
-     
     console.log(val.value) 
 
-
-    date.value.push({ id: val, date: null, switchValue: "выкл" }); 
+    date.value.push({ id: 0, date: null, switchValue: "выкл" }); 
     // date.value.push('')
   };
  
-  const updateDate = (index, newValue) => {
+   const updateDate = (index, newValue) => {
     // date.value[index] = newValue;
     // date.value[index] = date.value[index].value;
 
     console.log(date.value) 
-    const item = date.value[index];
+    // const item = date.value[index];
+    const item = date.value.find(d => d.id === index);
+    item.date = newValue
     // const nomer =  date.value.length
 
     console.log(date.length)
@@ -140,27 +152,14 @@ mx-2" ></div>
       item.date = newValue;
       // item.id = nomer
     }
-
-
-
-    // selectedDate.value = newValue;
-    if (newValue && !selectedDate) {
-      selectedTime.value = {
-        hours: newValue.getHours(),
-        minutes: newValue.getMinutes(),
-      };
-
-      console.log("ththth")
-    }
-
-    // console.log(selectedTime.value) 
+  
   };
 
 
 const vaba = ref("выкл"); 
-const selectedDate = ref(null);  // Выбранная дата
+// const selectedDate = ref(null);  // Выбранная дата
 // const lastSelectedDate = ref(null);  // Последняя сохраненная дата
-const selectedTime = ref({hours: null, minutes: null});  // Отдельно храним выбранное время
+// const selectedTime = ref({hours: null, minutes: null});  // Отдельно храним выбранное время
 const alertFn = () => {
   // alert('Menu closed');
   // if (!selectedDate.value) {
