@@ -24,22 +24,27 @@
   font-size: 0.7rem;  
 }
 
-$input-control-height: 35px; 
-$selection-control-height: 35px; 
-$selection-control-size: 35px; 
-// .v-input--density-default {
-//     height: $input-control-height;  // Применяем высоту к элементу
-//     padding-top: 0px;              // Можем добавить отступы
-//     padding-bottom: 0px;           // Регулируем нижний отступ
+
+// $field-padding-bottom: 5px;
+// $input-control-height: 45px; 
+// $selection-control-height: 25px; 
+// $selection-control-size: 25px; 
+ 
+.v-input--density-default {
+
+    padding-top: 5px;
+    // height: $input-control-height;  // Применяем высоту к элементу
+    // padding-top: 0px;              // Можем добавить отступы
+    // padding-bottom: 0px;           // Регулируем нижний отступ
+}
+
+// .v-switch .v-selection-control {
+//     min-height: 35px;
 // }
 
-.v-switch .v-selection-control {
-    min-height: 35px;
-}
-
-.v-selection-control--density-default {
-   height: $selection-control-size;
-}
+// .v-selection-control--density-default {
+//    height: $selection-control-size;
+// }
 
 .text-body-1{
   color: #717171;

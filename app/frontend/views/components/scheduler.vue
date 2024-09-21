@@ -23,7 +23,7 @@
 <!-- {{date}} -->
 <!-- {{  }}ss -->
   <div v-for="(item, index) in sortedDate" :key="index"  >
-    <div class="d-flex ma-2 pa-0 align-center">
+    <div class="d-flex ma-2 pa-0 " >
 
       <VueDatePicker
         dark locale="ru"  
@@ -34,20 +34,51 @@
         :format="customDateFormat"
         @update:modelValue="newValue => updateDate(item.id, newValue)"
         uid="demo"
-        class="vdp d-flex" 
+        class="vdp d-flex " 
         auto-apply :min-date="new Date()"  
         :modelValue="item.date" 
         model-type="timestamp"/>
-        <div v-if="item.id != 0">
-          <v-switch
-             class=" pl-3 "
-            color="primary"
-            v-model="item.switchValue"
-            :label="`${item.switchValue}`"
-            false-value="выкл"
-            true-value="вкл"
-            hide-details>
-          </v-switch>  
+        <div  class=" d-flex  align-center "  >
+<!--             <v-progress-linear
+      class="d-flex progresbar"
+      v-model="power"
+      color="knowledge"
+      height="5">
+      </v-progress-linear> -->
+  
+        </div>
+
+
+        <div v-if="item.id != 0" class="d-flex flex-row align-center interface">
+          <div style="width: 96px;">
+            <v-switch
+               
+              density="compact"
+              class=" pl-4 pt-0 "
+              color="primary"
+              v-model="item.switchValue"
+              :label="`${item.switchValue}`"
+              false-value="выкл"
+              true-value="вкл"
+              hide-details>
+            </v-switch> 
+         </div>
+
+ 
+
+ 
+          <v-text-field  density  variant="solo-inverted" hide-details clearable></v-text-field>
+
+          <div class="ma-2">
+            
+          4:43
+          </div>
+          <v-btn
+          icon="$delete" variant="plain"
+          max-height="27"
+          max-width="27"
+           color="warning">
+          </v-btn>   
         </div>
       </div>
  
@@ -68,7 +99,7 @@ mx-2" ></div>
     <!-- <div>{{store.tgramlog}}</div> -->
   </div>
 
-    <div></div>
+ 
 
 
 </div> 
@@ -90,7 +121,7 @@ mx-2" ></div>
   const sortedDate = computed(() => {
     return date.value.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
   });
-
+const power = ref(78)
   const fillCurrentTime = (ind, vremya) => {
     // const now = new Date().getTime();
     // date.value[0].date = now;  // Устанавливаем текущее время
@@ -120,8 +151,13 @@ mx-2" ></div>
       // console.log("vremya null"+date) 
       // console.log(item) 
     }
-  };
+  }
 
+// Функция для удаления элемента по id
+function removeById(id) {
+  date.value = date.value.filter(item => item.id !== id);
+  console.log(`Элемент с id ${id} удалён.`);
+}
 
 // const addItem = () => {
 //   date.value.push('666');
@@ -232,7 +268,14 @@ console.log("onMounted")
 </script>
 
 <style scoped  lang="scss" >
+   .interface{
+    width: 100%;
+
+   }
+.progresbar{
+
+}
 .vdp{
-  width: 200px;
+  width: 246px;
 }
 </style>
