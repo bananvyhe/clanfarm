@@ -72,7 +72,7 @@
 
           <div class="ma-2">
             
-          4:43
+          3ч:59м
           </div>
           <v-btn
             @click="removeById(item.id)"
