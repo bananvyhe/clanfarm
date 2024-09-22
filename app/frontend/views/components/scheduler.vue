@@ -26,6 +26,7 @@
     <div class="d-flex ma-2 pa-0 align-center" >
 
       <VueDatePicker
+      :disabled="item.switchValue == 'вкл' ? true : false"
         dark locale="ru"  
         placeholder="Выбор даты" 
         @closed="alertFn"
@@ -65,7 +66,7 @@
          </div>
  
           <v-text-field 
-
+          :disabled="item.switchValue == 'вкл' ? true : false"
           density="compact"
           variant="solo-inverted" 
           hide-details clearable></v-text-field>
@@ -278,6 +279,6 @@ console.log("onMounted")
 
 }
 .vdp{
-  width: 246px;
+  width: 250px;
 }
 </style>
