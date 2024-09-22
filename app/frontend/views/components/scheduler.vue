@@ -53,7 +53,6 @@
         <div v-if="item.id != 0" class="d-flex flex-row align-center interface">
           <div style="width: 96px;">
             <v-switch
-               
               density="compact"
               class=" pl-4 pt-0 "
               color="primary"
@@ -66,6 +65,7 @@
          </div>
  
           <v-text-field 
+          v-model="item.inputValue"
           :disabled="item.switchValue == 'вкл' ? true : false"
           density="compact"
           variant="solo-inverted" 
@@ -119,7 +119,7 @@ mx-2" ></div>
   const telegr = ref('');
   const customDateFormat = 'dd/MM/yyyy, HH:mm';
   import { v4 as uuidv4 } from 'uuid';
-  const date = ref([{ id: 0, date: null, switchValue: "выкл" }])
+  const date = ref([{ id: 0, date: null, switchValue: "выкл", inputValue: null }])
    
   const sortedDate = computed(() => {
     return date.value.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -171,7 +171,7 @@ function removeById(id) {
     const val = ref(uuidv4());
     console.log(val.value) 
 
-    date.value.push({ id: 0, date: null, switchValue: "выкл" }); 
+    date.value.push({ id: 0, date: null, switchValue: "выкл", inputValue: null }); 
     // date.value.push('')
   };
  
