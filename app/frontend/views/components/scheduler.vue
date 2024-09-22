@@ -23,7 +23,7 @@
 <!-- {{date}} -->
 <!-- {{  }}ss -->
   <div v-for="(item, index) in sortedDate" :key="index"  >
-    <div class="d-flex ma-2 pa-0 " >
+    <div class="d-flex ma-2 pa-0 align-center" >
 
       <VueDatePicker
         dark locale="ru"  
@@ -63,11 +63,12 @@
               hide-details>
             </v-switch> 
          </div>
-
  
+          <v-text-field 
 
- 
-          <v-text-field  density  variant="solo-inverted" hide-details clearable></v-text-field>
+          density="compact"
+          variant="solo-inverted" 
+          hide-details clearable></v-text-field>
 
           <div class="ma-2">
             
