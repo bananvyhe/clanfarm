@@ -23,7 +23,7 @@
 <!-- {{date}} -->
 <!-- {{  }}ss -->
   <div v-for="(item, index) in sortedDate" :key="index"  >
-    <div class="d-flex ma-2 pa-0 align-center" >
+    <div class="d-flex my-0 mx-2 pa-0 align-center" >
 
       <VueDatePicker
       :disabled="item.switchValue == 'вкл' ? true : false"
@@ -35,26 +35,32 @@
         :format="customDateFormat"
         @update:modelValue="newValue => updateDate(item.id, newValue)"
         uid="demo"
-        class="vdp d-flex " 
+        class="vdp d-flex my-1" 
         auto-apply :min-date="new Date()"  
         :modelValue="item.date" 
         model-type="timestamp"/>
-        <div  class=" d-flex  align-center "  >
-<!--             <v-progress-linear
-      class="d-flex progresbar"
-      v-model="power"
-      color="knowledge"
-      height="5">
-      </v-progress-linear> -->
-  
-        </div>
+
 
 
         <div v-if="item.id != 0" class="d-flex flex-row align-center interface">
-          <div style="width: 96px;">
+<!--           <div style="width: 96px;">
+
+         </div> -->
+ 
+          <v-text-field 
+            class="my-1 mx-2"
+            v-model="item.inputValue"
+            :disabled="item.switchValue == 'вкл' ? true : false"
+            density="compact"
+            variant="solo-inverted" 
+            hide-details 
+            clearable>
+              
+          </v-text-field>
+          <div>
             <v-switch
               density="compact"
-              class=" pl-4 pt-0 "
+              class=" pl-2 pt-0 swi"
               color="primary"
               v-model="item.switchValue"
               :label="`${item.switchValue}`"
@@ -62,31 +68,24 @@
               true-value="вкл"
               hide-details>
             </v-switch> 
-         </div>
- 
-          <v-text-field 
-          v-model="item.inputValue"
-          :disabled="item.switchValue == 'вкл' ? true : false"
-          density="compact"
-          variant="solo-inverted" 
-          hide-details clearable></v-text-field>
+          </div>
 
           <div class="ma-2">
             
           4:43
           </div>
           <v-btn
-          @click="removeById(item.id)"
-          icon="$delete" variant="plain"
-          max-height="27"
-          max-width="27"
+            @click="removeById(item.id)"
+            icon="$delete" variant="plain"
+            max-height="27"
+            max-width="27"
            color="warning">
           </v-btn>   
         </div>
       </div>
  
     </div>
-  <div class="d-flex">
+  <div class="d-flex py-1">
     <div :style="[ true ?  {cursor: 'not-allowed'}:{}]">
       <v-btn 
       :disabled="isButtonDisabled" 
@@ -271,10 +270,13 @@ console.log("onMounted")
 </script>
 
 <style scoped  lang="scss" >
-   .interface{
-    width: 100%;
+  .swi{
 
-   }
+  }
+ .interface{
+  width: 100%;
+
+ }
 .progresbar{
 
 }
