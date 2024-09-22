@@ -48,6 +48,7 @@
          </div> -->
  
           <v-text-field 
+            placeholder="Введите текст..."
             class="my-1 mx-2"
             v-model="item.inputValue"
             :disabled="item.switchValue == 'вкл' ? true : false"
