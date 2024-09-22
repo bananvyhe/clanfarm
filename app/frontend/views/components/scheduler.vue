@@ -75,6 +75,7 @@
           4:43
           </div>
           <v-btn
+          @click="removeById(item.id)"
           icon="$delete" variant="plain"
           max-height="27"
           max-width="27"
