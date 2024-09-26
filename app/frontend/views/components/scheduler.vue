@@ -67,9 +67,9 @@
             </v-switch> 
           </div>
 
-          <div class="ma-2 animated-time">            
+          <div class="ma-2 animated-time">
           <!-- 3ч:59м -->
-          {{ formattedTime(item.date) }}
+          {{ formattedTime(item.remainingSeconds, item.date)}}
           </div>
           <v-btn
             @click="removeById(item.id)"
@@ -111,7 +111,7 @@ const people = ref(['John'])
 const telegr = ref('');
 const customDateFormat = 'dd/MM/yyyy, HH:mm';
 import { v4 as uuidv4 } from 'uuid';
-const date = ref([{ id: 0, date: null, switchValue: "выкл", inputValue: null }])
+const date = ref([{ id: 0, date: null, switchValue: "выкл", inputValue: null, remainingSeconds: null }])
  
 const sortedDate = computed(() => {
   return date.value.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -148,7 +148,7 @@ const addItem = () => {
   const val = ref(uuidv4());
   console.log(val.value) 
 
-  date.value.push({ id: 0, date: null, switchValue: "выкл", inputValue: null }); 
+  date.value.push({ id: 0, date: null, switchValue: "выкл", inputValue: null, remainingSeconds: null }); 
   // date.value.push('')
 };
 
@@ -201,21 +201,22 @@ async function telega() {
   }
 }
 
+// const remainingTimes = ref(date.value.map(item => item.date - Math.floor(Date.now() / 1000))); // Массив оставшегося времени
+
 // Функция для форматирования времени
-const formattedTime = (timestamp) => {
+const formattedTime = (remtime, timestamp ) => {
   // Если timestamp больше, чем 10^10, это миллисекунды — делим на 1000
   if (timestamp > 1e10) {
     timestamp = Math.floor(timestamp / 1000); // Приводим к секундам
   }
   console.log(timestamp)
-  const now = Math.floor(Date.now() / 1000); // Текущее время в секундах
+  const now = Math.floor(Date.now()  / 1000); // Текущее время в секундах
   console.log(now)
   const remainingSeconds = timestamp - now; // Разница между текущим временем и timestamp
   console.log(remainingSeconds)
   if (remainingSeconds <= 0) {
     return 'Время вышло';
   }
-
 
   const days = Math.floor(remainingSeconds / 86400); // 86400 секунд в дне
   const hours = Math.floor((remainingSeconds % 86400) / 3600);
@@ -226,6 +227,38 @@ const formattedTime = (timestamp) => {
   return `${hours}ч:${minutes}м`;
 };
 
+// Перезапуск анимации при добавлении новых элементов
+// watch(date, (newVal, oldVal) => {
+//   console.log(newVal)
+//   if (newVal.length > oldVal.length) {
+//     nextTick(() => {
+//       const addedItemIndex = newVal.length - 1;
+//       startTimerForItem(addedItemIndex, newVal[addedItemIndex]);
+//     });
+//   }
+// });
+// const remainingSeconds = ref([]);
+
+const updateRemainingTimes = (remainingSeconds) => {
+  const now = Math.floor(Date.now()   ); // Текущее время в секундах
+  // date.remainingSeconds.value = sortedDate.value.map(item => item.date - now);
+
+  date.value.forEach(item => {
+    item.remainingSeconds = item.date - now;
+  });
+
+};
+// Запуск интервала для обновления времени
+let timerInterval = null;
+onMounted(() => {
+  updateRemainingTimes();
+  timerInterval = setInterval(updateRemainingTimes, 1000); // Обновляем каждую секунду
+});
+
+// Остановка интервала при демонтировании компонента
+onBeforeUnmount(() => {
+  clearInterval(timerInterval);
+});
 
 onUpdated(() => {
   console.log("onUpdated")
@@ -235,7 +268,6 @@ onUnmounted(() => {
  
 });
 onMounted(() => {
- 
   console.log("onMounted")
 
   window.onTelegramAuth = (user) => {
@@ -255,9 +287,8 @@ onMounted(() => {
   };
   telega()
 })
-// if(!ls.get('gramlog')){
+ 
 
-// }
 </script>
 
 <style scoped  lang="scss" >
