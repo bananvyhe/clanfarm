@@ -38,6 +38,8 @@ Rails.application.routes.draw do
   post '/signin/exitgram', to: 'signin#exitgram' 
 
   post '/hello', to: "welcome#hello"
+  post '/shed', to: "my_tasks#schedule_task"
+
 
   require "sidekiq/web"
   Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]

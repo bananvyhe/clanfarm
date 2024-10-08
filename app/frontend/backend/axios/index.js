@@ -26,7 +26,6 @@ const plainAxiosInstance = axios.create({
   }
 })
 
- 
 securedAxiosInstance.interceptors.request.use(config => {
   const method = config.method.toUpperCase()
   const logStore = useLogStore()
@@ -46,7 +45,7 @@ securedAxiosInstance.interceptors.request.use(config => {
 securedAxiosInstance.interceptors.response.use(null, error => {
 
   if (error.response && error.response.config && error.response.status === 401) {
-      const store = ls.get('account').ctsrf
+    const store = ls.get('account').ctsrf
     const logStore = useLogStore()
     console.log("refresh send")
     console.log(logStore.tctsrf)

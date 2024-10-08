@@ -20,7 +20,7 @@
       value="Jacob"
       hide-details
     ></v-switch> -->
-<!-- {{date}} -->
+{{date}}
 <!-- {{  }}ss -->
   <div v-for="(item, index) in sortedDate" :key="index"  >
     <div class="d-flex my-0 mx-2 pa-0 align-center" >
@@ -55,6 +55,8 @@
             clearable>
           </v-text-field>
           <div>
+
+                         <!-- :loading="loadingItems[item.id]"  -->
             <v-switch
               density="compact"
               class=" pl-2 pt-0 swi"
@@ -63,6 +65,8 @@
               :label="`${item.switchValue}`"
               false-value="выкл"
               true-value="вкл"
+  
+               @update:modelValue="handleSwitchChange(item.id, item.date, item.inputValue)"
               hide-details>
             </v-switch> 
           </div>
@@ -112,7 +116,22 @@ const telegr = ref('');
 const customDateFormat = 'dd/MM/yyyy, HH:mm';
 import { v4 as uuidv4 } from 'uuid';
 const date = ref([{ id: 0, date: null, switchValue: "выкл", inputValue: null, remainingSeconds: null }])
- 
+
+// const loadingItems = reactive({});
+
+const handleSwitchChange = (id, vremya, text) => {
+  // loadingItems[id] = true;
+  console.log(id)
+  console.log(vremya) 
+    secured
+      .post("/shed", {uniqid: id, milliseconds: vremya, text: text })
+      .then((response: { data: any }) => {
+      console.log(response.data)
+      // fullarticle.value = response.data.fullarticle
+      // tithead.value = head
+      // console.log( Object.keys(alld.value).length)
+    });  
+}
 const sortedDate = computed(() => {
   return date.value.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
 });
@@ -252,7 +271,7 @@ const updateRemainingTimes = (remainingSeconds) => {
 let timerInterval = null;
 onMounted(() => {
   updateRemainingTimes();
-  timerInterval = setInterval(updateRemainingTimes, 1000); // Обновляем каждую секунду
+  timerInterval = setInterval(updateRemainingTimes, 10000); // Обновляем каждые 10 сек
 });
 
 // Остановка интервала при демонтировании компонента
