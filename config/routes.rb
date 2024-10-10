@@ -42,6 +42,8 @@ Rails.application.routes.draw do
 
 
   require "sidekiq/web"
+  require 'sidekiq-scheduler/web'
+  
   Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     login_hash = ::Digest::SHA256.hexdigest(username)

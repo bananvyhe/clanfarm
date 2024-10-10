@@ -1,4 +1,9 @@
 :concurrency: 10
-:queues:
-  - default
 :tag: farmspot
+:dynamic: true
+
+:scheduler:
+  enabled: true
+  dynamic: true
+  include_metadata: true
+  dynamic_every: "15s" 

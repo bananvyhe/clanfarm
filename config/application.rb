@@ -17,7 +17,9 @@ require "rails/test_unit/railtie"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-
+# Sidekiq::Scheduler.enabled = true
+# Sidekiq::Scheduler.dynamic = true
+# Sidekiq::Scheduler.reload_schedule!
 module Clanfarm
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

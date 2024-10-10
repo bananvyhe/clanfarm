@@ -20,7 +20,7 @@
       value="Jacob"
       hide-details
     ></v-switch> -->
-{{date}}
+<!-- {{date}} -->
 <!-- {{  }}ss -->
   <div v-for="(item, index) in sortedDate" :key="index"  >
     <div class="d-flex my-0 mx-2 pa-0 align-center" >
@@ -121,8 +121,11 @@ const date = ref([{ id: 0, date: null, switchValue: "выкл", inputValue: null
 
 const handleSwitchChange = (id, vremya, text) => {
   // loadingItems[id] = true;
+  console.log("---------0000---------") 
   console.log(id)
   console.log(vremya) 
+
+  console.log("---------0000---------") 
     secured
       .post("/shed", {uniqid: id, milliseconds: vremya, text: text })
       .then((response: { data: any }) => {

@@ -3,8 +3,7 @@
 # It's helpful, but not entirely necessary to understand cron before proceeding.
 # http://en.wikipedia.org/wiki/Cron
 env :PATH, ENV['PATH']
-job_type :sidekiq,  "cd :path && RAILS_ENV=:environment bundle exec sidekiq-client -r
- false :task :output"
+job_type :sidekiq,  "cd :path && RAILS_ENV=:environment bundle exec sidekiq -r ./sidekiq.yml "
 # job_type :sidekiq, "cd :path && BUNDLE_PATH=/bundle /usr/local/bin/bundle exec sidekiq-client :task :output"
 set :output, "#{path}/log/sidekiq.log"
 set :environment, :production
@@ -29,7 +28,13 @@ end
 every :hour do
   sidekiq 'push HealthbWorker'
 end
-
+# Sidekiq.configure_server do |config|
+#   config.on(:startup) do
+#     Sidekiq.schedule = YAML.load_file(File.expand_path("../sidekiq.yml", __FILE__))
+#     Sidekiq::Scheduler.enabled = true
+#     Sidekiq::Scheduler.reload_schedule!
+#   end
+# end
 # Example:
 #
 # set :output, "/path/to/my/cron_log.log"
