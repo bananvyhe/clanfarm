@@ -5,7 +5,7 @@ require 'uri'
 class MyTaskWorker
   include Sidekiq::Worker
 
-  def perform(uniqid)
+  def perform(text, uniqid)
     # user = User.find_by(id: user_id)
     # telegramid = user.telegramid
     # telegramusername = user.telegramusername
