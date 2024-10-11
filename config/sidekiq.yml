@@ -6,4 +6,5 @@
   enabled: true
   dynamic: true
   include_metadata: true
+  listened_queues_only: true
   dynamic_every: "15s" 
