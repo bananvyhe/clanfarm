@@ -28,7 +28,7 @@ class MyTasksController < ApplicationController
       name: uniqid,
       schedule: scheduled_time,
       class_name: 'MyTaskWorker',
-      args: [text]
+      args: [text,uniqid]
     )
 
     if task.persisted?
