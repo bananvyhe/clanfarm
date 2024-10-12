@@ -1,7 +1,32 @@
-class MyTasksController < ApplicationController
+class ScheduledTasksController < ApplicationController
   # skip_before_action :verify_authenticity_token
-  before_action :authorize_access_request!, only: [:schedule_task, :unschedule_task]
+  before_action :authorize_access_request!, only: [:schedule_task, :unschedule_task, :shedGet]
 
+  def shedGet
+    puts "==----shedGet---=="
+puts payload['user_id']
+    @schedFind = ScheduledTask.where('user_id = ?', payload['user_id'])
+      .select('name', 'schedule', 'args ' )
+
+  #   user = User.find(payload['user_id'])
+
+    # my_items = user.myItems.includes(:listitem).group(:listitem_id) 
+ 
+    # @schedFind = @schedFind.sorted
+      # @invfind = @invfind
+    # @invfind = MyItem.where('listitem_id = ?', params[:id]).joins(:user).where('users.id = ?', payload['user_id']) 
+      # .select(' qty, listitems.title')
+      # .joins(:listitem)
+      # .joins(:user)
+      # .where('user_id = ?', payload['user_id'])
+    puts @schedFind.inspect
+
+    # @invfind.each do |item| 
+    #   puts item.listitem.inspect
+    # end
+    puts "==----shedGet---==" 
+    render json: @schedFind
+  end
   def schedule_task
     puts "gssgsgsgs gsgssgsgsgsg sgsgsgsgsgsg"
     puts params[:milliseconds].to_i

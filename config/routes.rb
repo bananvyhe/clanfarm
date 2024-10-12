@@ -38,12 +38,12 @@ Rails.application.routes.draw do
   post '/signin/exitgram', to: 'signin#exitgram' 
 
   post '/hello', to: "welcome#hello"
-  post '/shed', to: "my_tasks#schedule_task"
-
+  post '/shed', to: "scheduled_tasks#schedule_task"
+  get '/shed', to: "scheduled_tasks#shedGet"
 
   require "sidekiq/web"
   require 'sidekiq-scheduler/web'
-  
+
   Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     login_hash = ::Digest::SHA256.hexdigest(username)

@@ -127,24 +127,24 @@ const invarray = computed({
     }
   })
   async function menuget() {
-      const apiUrl = '/my_items/menuget'; // Customize the API URL here
-      try {
-            const response = await secured.get(apiUrl)
-            store.setinv(response.data)
-            console.log(response.data)
- 
-      } catch (error) {
-        await handleAxiosError(error, apiUrl, retryCount.value, retryDelay.value);
-      }
+    const apiUrl = '/my_items/menuget'; // Customize the API URL here
+    try {
+      const response = await secured.get(apiUrl)
+      store.setinv(response.data)
+      console.log(response.data)
+
+    } catch (error) {
+      await handleAxiosError(error, apiUrl, retryCount.value, retryDelay.value);
     }
-    async function handleAxiosError(error, url, retryCount, retryDelay) {
-      if (retryCount > 0) {
-        await new Promise(resolve => setTimeout(resolve, retryDelay));
-        return menuget(url, retryCount - 1, retryDelay);
-      } else {
-        throw error;
-      }
-    }    
+  }
+  async function handleAxiosError(error, url, retryCount, retryDelay) {
+    if (retryCount > 0) {
+      await new Promise(resolve => setTimeout(resolve, retryDelay));
+      return menuget(url, retryCount - 1, retryDelay);
+    } else {
+      throw error;
+    }
+  }    
   // function menuget(){
     
   //   secured

@@ -270,7 +270,27 @@ const updateRemainingTimes = (remainingSeconds) => {
   });
 
 };
-// Запуск интервала для обновления времени
+ 
+async function shedGet() {
+  const apiUrl = '/shed'; // Customize the API URL here
+  try {
+        const response = await secured.get(apiUrl)
+        // store.setinv(response.data)
+        console.log(response.data)
+
+  } catch (error) {
+    await handleAxiosError(error, apiUrl, retryCount.value, retryDelay.value);
+  }
+}
+async function handleAxiosError(error, url, retryCount, retryDelay) {
+  if (retryCount > 0) {
+    await new Promise(resolve => setTimeout(resolve, retryDelay));
+    return menuget(url, retryCount - 1, retryDelay);
+  } else {
+    throw error;
+  }
+}   
+// Запуск интервала для обновления времени 
 let timerInterval = null;
 onMounted(() => {
   updateRemainingTimes();
@@ -291,7 +311,7 @@ onUnmounted(() => {
 });
 onMounted(() => {
   console.log("onMounted")
-
+  shedGet()
   window.onTelegramAuth = (user) => {
     telegr.value = "Авторизация прошла успешно!";
     console.log(telegr.value)
