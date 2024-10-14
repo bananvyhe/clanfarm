@@ -62,10 +62,10 @@
               class=" pl-2 pt-0 swi"
               color="primary"
               v-model="item.switchValue"
-              :label="`${item.switchValue}`"
-         
+               
+  :label="item.switchValue ? 'вкл' : 'выкл'" 
   
-               @update:modelValue="handleSwitchChange(item.name, item.date, item.text)"
+               @update:modelValue="handleSwitchChange(item.name, item.date, item.inputValue)"
               hide-details>
             </v-switch> 
           </div>
