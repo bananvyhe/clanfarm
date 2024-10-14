@@ -6,7 +6,7 @@ class ScheduledTasksController < ApplicationController
     puts "==----shedGet---=="
 puts payload['user_id']
     @schedFind = ScheduledTask.where('user_id = ?', payload['user_id'])
-      .select('name', 'schedule', 'args ' )
+      .select('name', 'schedule', 'args ', 'switch_value' )
 
   #   user = User.find(payload['user_id'])
 

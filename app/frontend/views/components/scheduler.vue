@@ -20,7 +20,7 @@
       value="Jacob"
       hide-details
     ></v-switch> -->
-<!-- {{date}} -->
+{{date}}
 <!-- {{  }}ss -->
   <div v-for="(item, index) in sortedDate" :key="index"  >
     <div class="d-flex my-0 mx-2 pa-0 align-center" >
@@ -30,24 +30,24 @@
         dark locale="ru"
         placeholder="Выбор даты" 
         @closed="alertFn"
-        @focus="fillCurrentTime(item.id, item.date)"
+        @focus="fillCurrentTime(item.name, item.date)"
         ref="datepicker"
         :format="customDateFormat"
-        @update:modelValue="newValue => updateDate(item.id, newValue)"
+        @update:modelValue="(newValue) => updateDate(item.name, newValue)"
         uid="demo"
         class="vdp d-flex my-1" 
         auto-apply :min-date="new Date()"  
         :modelValue="item.date" 
         model-type="timestamp"/>
 
-        <div v-if="item.id != 0" class="d-flex flex-row align-center interface">
+        <div v-if="item.name != 0" class="d-flex flex-row align-center interface">
 <!--           <div style="width: 96px;">
          </div> -->
  
           <v-text-field 
             placeholder="Введите текст..."
             class="my-1 mx-2"
-            v-model="item.inputValue"
+            v-model="item.text"
             :disabled="item.switchValue == 'вкл' ? true : false"
             density="compact"
             variant="solo-inverted" 
@@ -66,7 +66,7 @@
               false-value="выкл"
               true-value="вкл"
   
-               @update:modelValue="handleSwitchChange(item.id, item.date, item.inputValue)"
+               @update:modelValue="handleSwitchChange(item.name, item.date, item.inputValue)"
               hide-details>
             </v-switch> 
           </div>
@@ -76,7 +76,7 @@
           {{ formattedTime(item.remainingSeconds, item.date)}}
           </div>
           <v-btn
-            @click="removeById(item.id)"
+            @click="removeById(item.name)"
             icon="$delete" variant="plain"
             max-height="27"
             max-width="27"
@@ -115,7 +115,9 @@ const people = ref(['John'])
 const telegr = ref('');
 const customDateFormat = 'dd/MM/yyyy, HH:mm';
 import { v4 as uuidv4 } from 'uuid';
-const date = ref([{ id: 0, date: null, switchValue: "выкл", inputValue: null, remainingSeconds: null }])
+const date = ref([{ name: 0, date: null, switchValue: false, text: null, remainingSeconds: null }])
+const nowdate = Date.now() 
+
 
 // const loadingItems = reactive({});
 
@@ -127,7 +129,7 @@ const handleSwitchChange = (id, vremya, text) => {
 
   console.log("---------0000---------") 
     secured
-      .post("/shed", {uniqid: id, milliseconds: vremya, text: text })
+      .post("/shed", {uniqid: name, milliseconds: vremya, text: text })
       .then((response: { data: any }) => {
       console.log(response.data)
       // fullarticle.value = response.data.fullarticle
@@ -150,13 +152,13 @@ const fillCurrentTime = (ind, vremya) => {
     const now = new Date().getTime();
     const val = ref(uuidv4());
 
-    if (ind != 0) {
-      const item = date.value.find(d => d.id === ind);
+    if (date.length > 1) {
+      const item = date.value.find(d => d.name === ind);
       // item.date = vremya;
     }else{
-      const item = date.value.find(d => d.id === ind);
+      const item = date.value.find(d => d.name === ind);
       item.date = now
-      item.id = val
+      item.name = val
     }
   }
 }
@@ -170,7 +172,7 @@ const addItem = () => {
   const val = ref(uuidv4());
   console.log(val.value) 
 
-  date.value.push({ id: 0, date: null, switchValue: "выкл", inputValue: null, remainingSeconds: null }); 
+  date.value.push({ name: val, date: nowdate, switchValue: false, text: null, remainingSeconds: null }); 
   // date.value.push('')
 };
 
@@ -180,7 +182,7 @@ const updateDate = (index, newValue) => {
 
   console.log(date.value) 
   // const item = date.value[index];
-  const item = date.value.find(d => d.id === index);
+  const item = date.value.find(d => d.name === index);
   item.date = newValue
   // const nomer =  date.value.length
 
@@ -205,7 +207,7 @@ const format = (date) => {
 }
 
 const isButtonDisabled = computed(() => {
-  return !store.tsignedIn || date.value.some(d => d.id === 0);
+  return !store.tsignedIn || date.value.some(d => d.name === 0);
 });
 
 async function telega() {
@@ -278,6 +280,8 @@ async function shedGet() {
         // store.setinv(response.data)
         console.log(response.data)
 
+         date.value = response.data;
+
   } catch (error) {
     await handleAxiosError(error, apiUrl, retryCount.value, retryDelay.value);
   }
@@ -311,7 +315,11 @@ onUnmounted(() => {
 });
 onMounted(() => {
   console.log("onMounted")
-  shedGet()
+
+
+    // shedGet()
+
+
   window.onTelegramAuth = (user) => {
     telegr.value = "Авторизация прошла успешно!";
     console.log(telegr.value)
