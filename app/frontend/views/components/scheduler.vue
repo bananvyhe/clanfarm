@@ -63,10 +63,9 @@
               color="primary"
               v-model="item.switchValue"
               :label="`${item.switchValue}`"
-              false-value="выкл"
-              true-value="вкл"
+         
   
-               @update:modelValue="handleSwitchChange(item.name, item.date, item.inputValue)"
+               @update:modelValue="handleSwitchChange(item.name, item.date, item.text)"
               hide-details>
             </v-switch> 
           </div>
@@ -121,10 +120,10 @@ const nowdate = Date.now()
 
 // const loadingItems = reactive({});
 
-const handleSwitchChange = (id, vremya, text) => {
+const handleSwitchChange = (name, vremya, text) => {
   // loadingItems[id] = true;
   console.log("---------0000---------") 
-  console.log(id)
+  console.log(name)
   console.log(vremya) 
 
   console.log("---------0000---------") 
