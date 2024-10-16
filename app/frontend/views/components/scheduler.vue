@@ -65,7 +65,7 @@
                
   :label="item.switchValue ? 'вкл' : 'выкл'" 
   
-               @update:modelValue="handleSwitchChange(item.name, item.date, item.inputValue)"
+               @update:modelValue="handleSwitchChange(item.name, item.date, item.inputValue, item.switchValue)"
               hide-details>
             </v-switch> 
           </div>
@@ -120,21 +120,20 @@ const nowdate = Date.now()
 
 // const loadingItems = reactive({});
 
-const handleSwitchChange = (name, vremya, text) => {
+const handleSwitchChange = (name, vremya, text, switchValue) => {
   // loadingItems[id] = true;
   console.log("---------0000---------") 
   console.log(name)
   console.log(vremya) 
 
   console.log("---------0000---------") 
+  if (switchValue == true){
     secured
       .post("/shed", {uniqid: name, milliseconds: vremya, text: text })
       .then((response: { data: any }) => {
       console.log(response.data)
-      // fullarticle.value = response.data.fullarticle
-      // tithead.value = head
-      // console.log( Object.keys(alld.value).length)
     });  
+  }
 }
 const sortedDate = computed(() => {
   return date.value.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
