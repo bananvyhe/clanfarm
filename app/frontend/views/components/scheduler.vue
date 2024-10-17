@@ -130,7 +130,7 @@ const handleSwitchChange = (name, vremya, text, switchValue) => {
   console.log("---------0000---------") 
   if (switchValue == true){
     secured
-      .post("/shed", {uniqid: name, milliseconds: vremya, text: text })
+      .post("/shed", {uniqid: name, milliseconds: vremya, text: text, switchValue: switchValue })
       .then((response: { data: any }) => {
       console.log(response.data)
     });  
@@ -171,7 +171,7 @@ const addItem = () => {
   const val = ref(uuidv4());
   console.log(val.value) 
 
-  date.value.push({ name: val, date: nowdate, switchValue: false, text: null, remainingSeconds: null }); 
+  date.value.push({ name: val, schedule: nowdate, switchValue: false, text: null, remainingSeconds: null }); 
   // date.value.push('')
 };
 
