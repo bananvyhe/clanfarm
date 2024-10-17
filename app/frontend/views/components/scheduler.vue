@@ -20,9 +20,10 @@
       value="Jacob"
       hide-details
     ></v-switch> -->
-{{date}}
+    {{sortedDate}}
+<!-- {{date}} -->
 <!-- {{  }}ss -->
-  <div v-for="(item, index) in sortedDate" :key="index"  >
+  <div  v-for="(item, index) in sortedDate" :key="index"  >
     <div class="d-flex my-0 mx-2 pa-0 align-center" >
 
       <VueDatePicker
@@ -37,7 +38,7 @@
         uid="demo"
         class="vdp d-flex my-1" 
         auto-apply :min-date="new Date()"  
-        :modelValue="item.date" 
+        :modelValue="item.schedule" 
         model-type="timestamp"/>
 
         <div v-if="item.name != 0" class="d-flex flex-row align-center interface">
@@ -47,7 +48,7 @@
           <v-text-field 
             placeholder="Введите текст..."
             class="my-1 mx-2"
-            v-model="item.text"
+            v-model="item.args"
             :disabled="item.switchValue == 'вкл' ? true : false"
             density="compact"
             variant="solo-inverted" 
@@ -315,7 +316,7 @@ onMounted(() => {
   console.log("onMounted")
 
 
-    // shedGet()
+    shedGet()
 
 
   window.onTelegramAuth = (user) => {
