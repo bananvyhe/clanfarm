@@ -31,7 +31,7 @@
         dark locale="ru"
         placeholder="Выбор даты" 
         @closed="alertFn"
-        @focus="fillCurrentTime(item.name, item.date)"
+        @focus="fillCurrentTime(item.name, item.schedule)"
         ref="datepicker"
         :format="customDateFormat"
         @update:modelValue="(newValue) => updateDate(item.name, newValue)"
@@ -63,17 +63,15 @@
               class=" pl-2 pt-0 swi"
               color="primary"
               v-model="item.switchValue"
-               
-  :label="item.switchValue ? 'вкл' : 'выкл'" 
-  
-               @update:modelValue="handleSwitchChange(item.name, item.date, item.inputValue, item.switchValue)"
+              :label="item.switchValue ? 'вкл' : 'выкл'" 
+              @update:modelValue="handleSwitchChange(item.name, item.schedule, item.inputValue, item.switchValue)"
               hide-details>
             </v-switch> 
           </div>
 
           <div class="ma-2 animated-time">
           <!-- 3ч:59м -->
-          {{ formattedTime(item.remainingSeconds, item.date)}}
+          {{ formattedTime(item.schedule)}}
           </div>
           <v-btn
             @click="removeById(item.name)"
@@ -115,7 +113,7 @@ const people = ref(['John'])
 const telegr = ref('');
 const customDateFormat = 'dd/MM/yyyy, HH:mm';
 import { v4 as uuidv4 } from 'uuid';
-const date = ref([{ name: 0, date: null, switchValue: false, text: null, remainingSeconds: null }])
+const date = ref([{ name: 0, schedule: null, switchValue: false, text: null, remainingSeconds: null }])
 const nowdate = Date.now() 
 
 
@@ -131,6 +129,12 @@ const handleSwitchChange = (name, vremya, text, switchValue) => {
   if (switchValue == true){
     secured
       .post("/shed", {uniqid: name, milliseconds: vremya, text: text, switchValue: switchValue })
+      .then((response: { data: any }) => {
+      console.log(response.data)
+    });  
+  }else{
+    secured
+      .post("/shed/off", {uniqid: name, switchValue: switchValue })
       .then((response: { data: any }) => {
       console.log(response.data)
     });  
@@ -156,7 +160,7 @@ const fillCurrentTime = (ind, vremya) => {
       // item.date = vremya;
     }else{
       const item = date.value.find(d => d.name === ind);
-      item.date = now
+      item.schedule = now
       item.name = val
     }
   }
@@ -182,12 +186,12 @@ const updateDate = (index, newValue) => {
   console.log(date.value) 
   // const item = date.value[index];
   const item = date.value.find(d => d.name === index);
-  item.date = newValue
+  item.schedule = newValue
   // const nomer =  date.value.length
 
   // console.log(date.length)
   if (item) {
-    item.date = newValue;
+    item.schedule = newValue;
     // item.id = nomer
   }
 
@@ -227,11 +231,20 @@ async function telega() {
 // const remainingTimes = ref(date.value.map(item => item.date - Math.floor(Date.now() / 1000))); // Массив оставшегося времени
 
 // Функция для форматирования времени
-const formattedTime = (remtime, timestamp ) => {
+const formattedTime = (timestamp ) => {
+
   // Если timestamp больше, чем 10^10, это миллисекунды — делим на 1000
   if (timestamp > 1e10) {
     timestamp = Math.floor(timestamp / 1000); // Приводим к секундам
   }
+
+
+  //   if ( timestamp === 'string' && timestamp.includes('T')) {
+  //   timestamp = Math.floor(Date.parse(timestamp) / 1000); // Приводим к секундам
+  //   console.log(timestamp)
+  // } else if (timestamp > 1e10) {
+  //   timestamp = Math.floor(timestamp / 1000); // Приводим к секундам, если это миллисекунды
+  // }
   console.log(timestamp)
   const now = Math.floor(Date.now()  / 1000); // Текущее время в секундах
   console.log(now)
@@ -267,7 +280,7 @@ const updateRemainingTimes = (remainingSeconds) => {
   // date.remainingSeconds.value = sortedDate.value.map(item => item.date - now);
 
   date.value.forEach(item => {
-    item.remainingSeconds = item.date - now;
+    item.remainingSeconds = item.schedule - now;
   });
 
 };
@@ -279,7 +292,7 @@ async function shedGet() {
         // store.setinv(response.data)
         console.log(response.data)
 
-         date.value = response.data;
+        date.value = response.data;
 
   } catch (error) {
     await handleAxiosError(error, apiUrl, retryCount.value, retryDelay.value);

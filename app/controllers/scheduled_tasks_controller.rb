@@ -6,7 +6,7 @@ class ScheduledTasksController < ApplicationController
     puts "==----shedGet---=="
 puts payload['user_id']
     @schedFind = ScheduledTask.where('user_id = ?', payload['user_id'])
-      .select('name', 'schedule', 'args ', 'switch_value' )
+      .select('name', 'schedule', 'args ', 'switch_value', )
 
   #   user = User.find(payload['user_id'])
 
@@ -27,6 +27,11 @@ puts payload['user_id']
     puts "==----shedGet---==" 
     render json: @schedFind
   end
+
+  def switchOff
+    
+  end
+  
   def schedule_task
     puts "gssgsgsgs gsgssgsgsgsg sgsgsgsgsgsg"
     puts params[:milliseconds].to_i
@@ -53,18 +58,13 @@ puts payload['user_id']
       name: uniqid,
       schedule: scheduled_time,
       class_name: 'MyTaskWorker',
-      args: text
+      args: text,
+      switch_value: params[:switchValue]
     )
 
     if task.persisted?
       puts "task.persisted"
 
-
-      # Sidekiq.set_schedule("dynamic_task_#{uniqid}", {
-      #   'at' => scheduled_time,
-      #     'class' => 'MyTaskWorker',
-      #     'args' => [text]
-      # })
       Sidekiq.set_schedule("dynamic_task_#{uniqid}", {
         'at' => scheduled_time,           # Время выполнения задачи
         'class' => 'MyTaskWorker',        # Класс воркера
@@ -77,7 +77,6 @@ puts payload['user_id']
     end
   end
       # Добавление задания в Sidekiq
- 
 
   def unschedule_task
     task = current_user.scheduled_tasks.find_by(name: 'dynamic_task')
