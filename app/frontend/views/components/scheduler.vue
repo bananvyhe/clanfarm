@@ -20,14 +20,15 @@
       value="Jacob"
       hide-details
     ></v-switch> -->
-    {{sortedDate}}
+    <!-- {{sortedDate}} -->
+    <!-- <br><br> -->
 <!-- {{date}} -->
 <!-- {{  }}ss -->
   <div  v-for="(item, index) in sortedDate" :key="index"  >
     <div class="d-flex my-0 mx-2 pa-0 align-center" >
 
       <VueDatePicker
-      :disabled="item.switchValue == 'вкл' ? true : false"
+      :disabled="item.switch_value == 'вкл' ? true : false"
         dark locale="ru"
         placeholder="Выбор даты" 
         @closed="alertFn"
@@ -49,7 +50,7 @@
             placeholder="Введите текст..."
             class="my-1 mx-2"
             v-model="item.args"
-            :disabled="item.switchValue == 'вкл' ? true : false"
+            :disabled="item.switch_value == 'вкл' ? true : false"
             density="compact"
             variant="solo-inverted" 
             hide-details 
@@ -62,9 +63,9 @@
               density="compact"
               class=" pl-2 pt-0 swi"
               color="primary"
-              v-model="item.switchValue"
-              :label="item.switchValue ? 'вкл' : 'выкл'" 
-              @update:modelValue="handleSwitchChange(item.name, item.schedule, item.inputValue, item.switchValue)"
+              v-model="item.switch_value"
+              :label="item.switch_value ? 'вкл' : 'выкл'" 
+              @update:modelValue="handleSwitchChange(item.name, item.schedule, item.inputValue, item.switch_value)"
               hide-details>
             </v-switch> 
           </div>
@@ -113,28 +114,28 @@ const people = ref(['John'])
 const telegr = ref('');
 const customDateFormat = 'dd/MM/yyyy, HH:mm';
 import { v4 as uuidv4 } from 'uuid';
-const date = ref([{ name: 0, schedule: null, switchValue: false, text: null, remainingSeconds: null }])
+const date = ref([{ name: 0, schedule: null, switch_value: false, text: null, remainingSeconds: null }])
 const nowdate = Date.now() 
 
 
 // const loadingItems = reactive({});
 
-const handleSwitchChange = (name, vremya, text, switchValue) => {
+const handleSwitchChange = (name, vremya, text, switch_value) => {
   // loadingItems[id] = true;
   console.log("---------0000---------") 
   console.log(name)
   console.log(vremya) 
 
   console.log("---------0000---------") 
-  if (switchValue == true){
+  if (switch_value == true){
     secured
-      .post("/shed", {uniqid: name, milliseconds: vremya, text: text, switchValue: switchValue })
+      .post("/shed", {uniqid: name, milliseconds: vremya, text: text, switch_value: switch_value })
       .then((response: { data: any }) => {
       console.log(response.data)
     });  
   }else{
     secured
-      .post("/shed/off", {uniqid: name, switchValue: switchValue })
+      .post("/shed/off", {uniqid: name, switch_value: switch_value })
       .then((response: { data: any }) => {
       console.log(response.data)
     });  
@@ -175,7 +176,7 @@ const addItem = () => {
   const val = ref(uuidv4());
   console.log(val.value) 
 
-  date.value.push({ name: val, schedule: nowdate, switchValue: false, text: null, remainingSeconds: null }); 
+  date.value.push({ name: val, schedule: nowdate, switch_value: false, text: null, remainingSeconds: null }); 
   // date.value.push('')
 };
 
@@ -234,21 +235,23 @@ async function telega() {
 const formattedTime = (timestamp ) => {
 
   // Если timestamp больше, чем 10^10, это миллисекунды — делим на 1000
-  if (timestamp > 1e10) {
-    timestamp = Math.floor(timestamp / 1000); // Приводим к секундам
-  }
-
-
-  //   if ( timestamp === 'string' && timestamp.includes('T')) {
-  //   timestamp = Math.floor(Date.parse(timestamp) / 1000); // Приводим к секундам
-  //   console.log(timestamp)
-  // } else if (timestamp > 1e10) {
-  //   timestamp = Math.floor(timestamp / 1000); // Приводим к секундам, если это миллисекунды
+  // if (timestamp > 1e10) {
+  //   timestamp = Math.floor(timestamp / 1000); // Приводим к секундам
   // }
+
+console.log(typeof timestamp)
+
+    if ( isNaN(timestamp)) {
+      timestamp = Math.floor(Date.parse(timestamp) / 1000); // Приводим к секундам
+    console.log(timestamp)
+    } else if (timestamp > 1e10) {
+      timestamp = Math.floor(timestamp / 1000); // Приводим к секундам, если это миллисекунды
+    }
   console.log(timestamp)
   const now = Math.floor(Date.now()  / 1000); // Текущее время в секундах
   console.log(now)
   const remainingSeconds = timestamp - now; // Разница между текущим временем и timestamp
+
   console.log(remainingSeconds)
   if (remainingSeconds <= 0) {
     return 'Время вышло';
@@ -280,6 +283,12 @@ const updateRemainingTimes = (remainingSeconds) => {
   // date.remainingSeconds.value = sortedDate.value.map(item => item.date - now);
 
   date.value.forEach(item => {
+        if ( isNaN(item.schedule)) {
+      item.schedule = Math.floor(Date.parse(item.schedule) / 1000); // Приводим к секундам
+  
+    } else if (item.schedule > 1e10) {
+      item.schedule = Math.floor(timestamp / 1000); // Приводим к секундам, если это миллисекунды
+    }
     item.remainingSeconds = item.schedule - now;
   });
 
@@ -309,8 +318,10 @@ async function handleAxiosError(error, url, retryCount, retryDelay) {
 // Запуск интервала для обновления времени 
 let timerInterval = null;
 onMounted(() => {
+    // nextTick(() => {
   updateRemainingTimes();
   timerInterval = setInterval(updateRemainingTimes, 10000); // Обновляем каждые 10 сек
+// })
 });
 
 // Остановка интервала при демонтировании компонента

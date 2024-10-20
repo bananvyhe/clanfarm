@@ -59,7 +59,7 @@ puts payload['user_id']
       schedule: scheduled_time,
       class_name: 'MyTaskWorker',
       args: text,
-      switch_value: params[:switchValue]
+      switch_value: params[:switch_value]
     )
 
     if task.persisted?
@@ -69,7 +69,7 @@ puts payload['user_id']
         'at' => scheduled_time,           # Время выполнения задачи
         'class' => 'MyTaskWorker',        # Класс воркера
         'args' => text,                  # Аргументы для воркера
-        'persist' => true                  # Сохраняем расписание в Redis
+        # 'persist' => true                  # Сохраняем расписание в Redis
       })
       render plain: "Task scheduled for #{scheduled_time}"
     else
