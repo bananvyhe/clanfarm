@@ -68,7 +68,7 @@ puts payload['user_id']
       Sidekiq.set_schedule("dynamic_task_#{uniqid}", {
         'at' => scheduled_time,           # Время выполнения задачи
         'class' => 'MyTaskWorker',        # Класс воркера
-        'args' => text,                  # Аргументы для воркера
+        'args' => [uniqid, text]                   # Аргументы для воркера
         # 'persist' => true                  # Сохраняем расписание в Redis
       })
       render plain: "Task scheduled for #{scheduled_time}"

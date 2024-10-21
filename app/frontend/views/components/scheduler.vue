@@ -20,7 +20,7 @@
       value="Jacob"
       hide-details
     ></v-switch> -->
-    <!-- {{sortedDate}} -->
+    {{sortedDate}}
     <!-- <br><br> -->
 <!-- {{date}} -->
 <!-- {{  }}ss -->
@@ -33,23 +33,23 @@
         placeholder="Выбор даты" 
         @closed="alertFn"
         @focus="fillCurrentTime(item.name, item.schedule)"
-        ref="datepicker"
+       
         :format="customDateFormat"
         @update:modelValue="(newValue) => updateDate(item.name, newValue)"
-        uid="demo"
+      
         class="vdp d-flex my-1" 
         auto-apply :min-date="new Date()"  
         :modelValue="item.schedule" 
         model-type="timestamp"/>
 
-        <div v-if="item.name != 0" class="d-flex flex-row align-center interface">
+        <div class="d-flex flex-row align-center interface">
 <!--           <div style="width: 96px;">
          </div> -->
  
           <v-text-field 
             placeholder="Введите текст..."
             class="my-1 mx-2"
-            v-model="item.args"
+            v-model="item.text"
             :disabled="item.switch_value == 'вкл' ? true : false"
             density="compact"
             variant="solo-inverted" 
@@ -65,7 +65,7 @@
               color="primary"
               v-model="item.switch_value"
               :label="item.switch_value ? 'вкл' : 'выкл'" 
-              @update:modelValue="handleSwitchChange(item.name, item.schedule, item.inputValue, item.switch_value)"
+              @update:modelValue="handleSwitchChange(item.name, item.schedule, item.text, item.switch_value)"
               hide-details>
             </v-switch> 
           </div>
@@ -284,10 +284,10 @@ const updateRemainingTimes = (remainingSeconds) => {
 
   date.value.forEach(item => {
         if ( isNaN(item.schedule)) {
-      item.schedule = Math.floor(Date.parse(item.schedule) / 1000); // Приводим к секундам
+      item.schedule = Math.floor(Date.parse(item.schedule)  ); // Приводим к секундам
   
     } else if (item.schedule > 1e10) {
-      item.schedule = Math.floor(timestamp / 1000); // Приводим к секундам, если это миллисекунды
+      item.schedule = Math.floor(item.schedule  ); // Приводим к секундам, если это миллисекунды
     }
     item.remainingSeconds = item.schedule - now;
   });
@@ -300,8 +300,10 @@ async function shedGet() {
         const response = await secured.get(apiUrl)
         // store.setinv(response.data)
         console.log(response.data)
+  if (response.data !=0){
+    date.value = response.data; 
+  }
 
-        date.value = response.data;
 
   } catch (error) {
     await handleAxiosError(error, apiUrl, retryCount.value, retryDelay.value);
@@ -316,13 +318,7 @@ async function handleAxiosError(error, url, retryCount, retryDelay) {
   }
 }   
 // Запуск интервала для обновления времени 
-let timerInterval = null;
-onMounted(() => {
-    // nextTick(() => {
-  updateRemainingTimes();
-  timerInterval = setInterval(updateRemainingTimes, 10000); // Обновляем каждые 10 сек
-// })
-});
+
 
 // Остановка интервала при демонтировании компонента
 onBeforeUnmount(() => {
@@ -336,9 +332,12 @@ onUpdated(() => {
 onUnmounted(() => {
  
 });
+
+let timerInterval = null;
 onMounted(() => {
   console.log("onMounted")
-
+  updateRemainingTimes();
+  timerInterval = setInterval(updateRemainingTimes, 10000); // Обновляем каждые 10 сек
 
     shedGet()
 

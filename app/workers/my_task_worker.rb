@@ -5,7 +5,7 @@ require 'uri'
 class MyTaskWorker
   include Sidekiq::Worker
 
-  def perform(text)
+  def perform(uniqid, text)
     # user = User.find_by(id: user_id)
     # telegramid = user.telegramid
     # telegramusername = user.telegramusername
@@ -18,7 +18,7 @@ class MyTaskWorker
     # Выполнение HTTP GET-запроса
     uri = URI.parse(url)
     response = Net::HTTP.get_response(uri)
-
+     Sidekiq::Scheduler.remove_schedule("dynamic_task_#{uniqid}")
     # Вывод результата
     puts "Response: #{response.body}"
   end
