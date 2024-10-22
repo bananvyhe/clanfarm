@@ -151,19 +151,20 @@ const fillCurrentTime = (ind, vremya) => {
 
   if (vremya != null) {
     console.log("vremya esty"+date) 
-
+console.log(date.value.length ) 
   }else{
+    
     const now = new Date().getTime();
     const val = ref(uuidv4());
 
-    if (date.length > 1) {
-      const item = date.value.find(d => d.name === ind);
-      // item.date = vremya;
-    }else{
+    // if (date.length > 0) {
+    //   const item = date.value.find(d => d.name === ind);
+    //   // item.date = vremya;
+    // }else{
       const item = date.value.find(d => d.name === ind);
       item.schedule = now
       item.name = val
-    }
+    // }
   }
 }
 
