@@ -70,8 +70,8 @@
 //     messages.value.push(data.message);
 //   },
 // });
-const message = ref("Будильник")
-const tl = ref("время сбора")
+const message = ref("Напоминалка")
+const tl = ref("telegram-bot")
 
 import hat from './views/components/hat.vue' 
 import logina from './views/components/login_area.vue' 

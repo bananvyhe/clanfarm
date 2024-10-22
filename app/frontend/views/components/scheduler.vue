@@ -20,7 +20,7 @@
       value="Jacob"
       hide-details
     ></v-switch> -->
-    {{sortedDate}}
+    <!-- {{sortedDate}} -->
     <!-- <br><br> -->
 <!-- {{date}} -->
 <!-- {{  }}ss -->
@@ -28,7 +28,7 @@
     <div class="d-flex my-0 mx-2 pa-0 align-center" >
 
       <VueDatePicker
-      :disabled="item.switch_value == 'вкл' ? true : false"
+      :disabled="item.switch_value == true ? true : false"
         dark locale="ru"
         placeholder="Выбор даты" 
         @closed="alertFn"
@@ -42,7 +42,7 @@
         :modelValue="item.schedule" 
         model-type="timestamp"/>
 
-        <div class="d-flex flex-row align-center interface">
+        <div v-if="item.schedule != null && store.tsignedIn == true" class="d-flex flex-row align-center interface">
 <!--           <div style="width: 96px;">
          </div> -->
  
@@ -50,7 +50,7 @@
             placeholder="Введите текст..."
             class="my-1 mx-2"
             v-model="item.text"
-            :disabled="item.switch_value == 'вкл' ? true : false"
+            :disabled="item.switch_value == true ? true : false"
             density="compact"
             variant="solo-inverted" 
             hide-details 
@@ -72,7 +72,7 @@
 
           <div class="ma-2 animated-time">
           <!-- 3ч:59м -->
-          {{ formattedTime(item.schedule)}}
+          {{ formattedTime(item.remainingSeconds, item.schedule)}}
           </div>
           <v-btn
             @click="removeById(item.name)"
@@ -233,24 +233,24 @@ async function telega() {
 // const remainingTimes = ref(date.value.map(item => item.date - Math.floor(Date.now() / 1000))); // Массив оставшегося времени
 
 // Функция для форматирования времени
-const formattedTime = (timestamp ) => {
+const formattedTime = (remSeconds, timestamp ) => {
 
   // Если timestamp больше, чем 10^10, это миллисекунды — делим на 1000
   // if (timestamp > 1e10) {
   //   timestamp = Math.floor(timestamp / 1000); // Приводим к секундам
   // }
 
-console.log(typeof timestamp)
+  // console.log(typeof timestamp)
 
-    if ( isNaN(timestamp)) {
-      timestamp = Math.floor(Date.parse(timestamp) / 1000); // Приводим к секундам
-    console.log(timestamp)
-    } else if (timestamp > 1e10) {
-      timestamp = Math.floor(timestamp / 1000); // Приводим к секундам, если это миллисекунды
-    }
-  console.log(timestamp)
-  const now = Math.floor(Date.now()  / 1000); // Текущее время в секундах
-  console.log(now)
+  if ( isNaN(timestamp)) {
+    timestamp = Math.floor(Date.parse(timestamp) / 1000); // Приводим к секундам
+  // console.log(timestamp)
+  } else if (timestamp > 1e10) {
+    timestamp = Math.floor(timestamp / 1000); // Приводим к секундам, если это миллисекунды
+  }
+  // console.log(timestamp)
+  const now = Math.floor(Date.now() / 1000); // Текущее время в секундах
+  // console.log(now)
   const remainingSeconds = timestamp - now; // Разница между текущим временем и timestamp
 
   console.log(remainingSeconds)
@@ -279,18 +279,23 @@ console.log(typeof timestamp)
 // });
 // const remainingSeconds = ref([]);
 
-const updateRemainingTimes = (remainingSeconds) => {
-  const now = Math.floor(Date.now()   ); // Текущее время в секундах
+const updateRemainingTimes = ( ) => {
+  const now = Math.floor(Date.now()); // Текущее время в секундах
   // date.remainingSeconds.value = sortedDate.value.map(item => item.date - now);
 
   date.value.forEach(item => {
-        if ( isNaN(item.schedule)) {
+     // console.log(item)
+
+    if ( isNaN(item.schedule)) {
       item.schedule = Math.floor(Date.parse(item.schedule)  ); // Приводим к секундам
-  
+      // console.log(item.schedule)
     } else if (item.schedule > 1e10) {
+      // console.log(item.schedule)
       item.schedule = Math.floor(item.schedule  ); // Приводим к секундам, если это миллисекунды
+      // console.log(item.schedule)
     }
     item.remainingSeconds = item.schedule - now;
+    console.log(item.remainingSeconds)
   });
 
 };
@@ -317,7 +322,7 @@ async function handleAxiosError(error, url, retryCount, retryDelay) {
   } else {
     throw error;
   }
-}   
+} 
 // Запуск интервала для обновления времени 
 
 
@@ -330,19 +335,14 @@ onUpdated(() => {
   console.log("onUpdated")
   telega()
 })
-onUnmounted(() => {
  
-});
 
 let timerInterval = null;
 onMounted(() => {
   console.log("onMounted")
   updateRemainingTimes();
   timerInterval = setInterval(updateRemainingTimes, 10000); // Обновляем каждые 10 сек
-
-    shedGet()
-
-
+  shedGet()
   window.onTelegramAuth = (user) => {
     telegr.value = "Авторизация прошла успешно!";
     console.log(telegr.value)
