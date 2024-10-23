@@ -22,7 +22,7 @@
     ></v-switch> -->
     <!-- {{sortedDate}} -->
     <!-- <br><br> -->
-{{date}}
+<!-- {{date}} -->
 <!-- {{  }}ss -->
   <div  v-for="(item, index) in sortedDate" :key="index"  >
     <div class="d-flex my-0 mx-2 pa-0 align-center" >
@@ -171,7 +171,7 @@ console.log(date.value.length )
 
 // Функция для удаления элемента по id
 function removeById(id) {
-  date.value = date.value.filter(item => item.id !== id);
+  date.value = date.value.filter(item => item.name !== id);
   console.log(`Элемент с id ${id} удалён.`);
 }
 const addItem = () => {

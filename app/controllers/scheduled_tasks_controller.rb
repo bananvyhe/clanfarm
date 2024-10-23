@@ -79,14 +79,14 @@ puts payload['user_id']
       # Добавление задания в Sidekiq
 
   def unschedule_task
-    task = current_user.scheduled_tasks.find_by(name: 'dynamic_task')
-    
+    task = current_user.scheduled_tasks.find_by(name: params[:name])
+    # task = ScheduledTask.find_by(name: uniqid) 
     if task
       # Удаление задания из базы данных
       task.destroy
 
       # Удаление задания из Sidekiq
-      Sidekiq.remove_schedule(task.name)
+      Sidekiq.remove_schedule( "dynamic_task_#{params[:name]}")
       
       render plain: "Task unscheduled"
     else
