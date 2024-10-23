@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   post '/hello', to: "welcome#hello"
   post '/shed', to: "scheduled_tasks#schedule_task"
   get '/shed', to: "scheduled_tasks#shedGet"
-  get '/shed/off', to: "scheduled_tasks#unschedule_task"
+  post '/shed/off', to: "scheduled_tasks#unschedule_task"
 
   require "sidekiq/web"
   require 'sidekiq-scheduler/web'

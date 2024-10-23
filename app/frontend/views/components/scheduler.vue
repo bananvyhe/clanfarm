@@ -136,7 +136,7 @@ const handleSwitchChange = (name, vremya, text, switch_value) => {
     });  
   }else{
     secured
-      .post("/shed/off", {uniqid: name, switch_value: switch_value })
+      .post("/shed/off", {name: name, switch_value: switch_value })
       .then((response: { data: any }) => {
       console.log(response.data)
     });  
@@ -297,7 +297,7 @@ const updateRemainingTimes = ( ) => {
       item.schedule = Math.floor(item.schedule  ); // Приводим к секундам, если это миллисекунды
       // console.log(item.schedule)
     }
-    if (item.schedule ){
+    if (item.schedule && item.remainingSeconds > 0 ){
       item.remainingSeconds = item.schedule - now;
       console.log(item.remainingSeconds)   
     }
