@@ -17,8 +17,8 @@
 
     <!-- <p v-if="message">{{ message }}</p> -->
 
-      <signup></signup>
-      <signin></signin>
+      <signup></signup><div class="px-2"><signin ></signin></div>
+      
                 <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
           <div class="skull align-self-center"></div>   
     </div>

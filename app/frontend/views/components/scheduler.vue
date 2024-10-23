@@ -56,16 +56,62 @@
             hide-details 
             clearable>
           </v-text-field>
-          <div>
+          <div class="d-flex mr-6 " style="margin-bottom: -15px;">
+            <v-checkbox 
+              v-if="item.pub == false" 
+              v-model="item.pub" 
+              label="в паблик">
+            </v-checkbox> 
+          </div>
+          <div class="mx-2"  v-if="item.pub == true">
+            <div> продолжительность</div>
+            <v-rating
+              density="compact"
+              half-increments
+              hover
+              :length="5"
+              :size="22"
+              :model-value="item.duratiom"
+              active-color="primary"
+            />
+          </div>
+          <div v-if="item.pub == true">
+            <v-slider
 
-                         <!-- :loading="loadingItems[item.id]"  -->
+              style="width: 160px;"
+              density="compact"
+              v-if="item.pub == true"
+              v-model="item.vacan"
+              :max="30"
+              :step="1"
+              class="ma-4"
+       
+              hide-details
+            >
+            <template v-slot:append>
+              <v-text-field
+                placeholder="слоты"
+                v-model="item.vacan"
+                density="compact"
+                style="width: 80px"
+                type="number"
+                variant="outlined"
+                hide-details
+              ></v-text-field>
+            </template>
+            </v-slider> 
+          </div>
+
+
+          <div>
+              <!-- :loading="loadingItems[item.id]"  -->
             <v-switch
               density="compact"
               class=" pl-2 pt-0 swi"
               color="primary"
               v-model="item.switch_value"
               :label="item.switch_value ? 'вкл' : 'выкл'" 
-              @update:modelValue="handleSwitchChange(item.name, item.schedule, item.text, item.switch_value)"
+              @update:modelValue="handleSwitchChange(item.name, item.schedule, item.text, item.switch_value, item.vacan, item.duration, item.pub)"
               hide-details>
             </v-switch> 
           </div>
@@ -115,13 +161,13 @@ const people = ref(['John'])
 const telegr = ref('');
 const customDateFormat = 'dd/MM/yyyy, HH:mm';
 import { v4 as uuidv4 } from 'uuid';
-const date = ref([{ name: 0, schedule: null, switch_value: false, text: null, remainingSeconds: null }])
+const date = ref([{ name: 0, schedule: null, switch_value: false, text: null, remainingSeconds: null, vacan: null, duration: null, pub: false }])
 
 
 
 // const loadingItems = reactive({});
 
-const handleSwitchChange = (name, vremya, text, switch_value) => {
+const handleSwitchChange = (name, vremya, text, switch_value, vacan, duration, pub) => {
   // loadingItems[id] = true;
   console.log("---------0000---------") 
   console.log(name)
@@ -130,13 +176,13 @@ const handleSwitchChange = (name, vremya, text, switch_value) => {
   console.log("---------0000---------") 
   if (switch_value == true){
     secured
-      .post("/shed", {uniqid: name, milliseconds: vremya, text: text, switch_value: switch_value })
+      .post("/shed", {uniqid: name, milliseconds: vremya, text: text, switch_value: switch_value, vacan: vacan, duration: duration, pub: pub })
       .then((response: { data: any }) => {
       console.log(response.data)
     });  
   }else{
     secured
-      .post("/shed/off", {name: name, switch_value: switch_value })
+      .post("/shed/off", {name: name, switch_value: switch_value, vacan, duration, pub: pub })
       .then((response: { data: any }) => {
       console.log(response.data)
     });  
@@ -179,7 +225,7 @@ const addItem = () => {
   const val = ref(uuidv4());
   console.log(val.value) 
 
-  date.value.push({ name: val, schedule: nowdate, switch_value: false, text: null, remainingSeconds: null }); 
+  date.value.push({ name: val, schedule: nowdate, switch_value: false, text: null, remainingSeconds: null, vacan: null, duration: null, pub: pub }); 
   // date.value.push('')
 };
 

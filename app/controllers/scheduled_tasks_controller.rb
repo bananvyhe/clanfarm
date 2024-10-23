@@ -59,7 +59,10 @@ puts payload['user_id']
       schedule: scheduled_time,
       class_name: 'MyTaskWorker',
       args: text,
-      switch_value: params[:switch_value]
+      switch_value: params[:switch_value],
+      vacan: params[:vacan],
+      duration: params[:duration]
+
     )
 
     if task.persisted?
