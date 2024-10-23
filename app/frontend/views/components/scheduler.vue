@@ -66,7 +66,7 @@
             </v-checkbox> 
           </div>
           <div class="mx-2"  v-if="item.pub == true">
-            <div> продолжительность</div>
+            <div> длительность рейда</div>
             <v-rating
               density="compact"
               half-increments
