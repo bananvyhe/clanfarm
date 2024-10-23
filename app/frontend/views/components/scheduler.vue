@@ -294,8 +294,11 @@ const updateRemainingTimes = ( ) => {
       item.schedule = Math.floor(item.schedule  ); // Приводим к секундам, если это миллисекунды
       // console.log(item.schedule)
     }
-    item.remainingSeconds = item.schedule - now;
-    console.log(item.remainingSeconds)
+    if (item.remainingSeconds >= 0){
+      item.remainingSeconds = item.schedule - now;
+      console.log(item.remainingSeconds)   
+    }
+
   });
 
 };
@@ -333,7 +336,7 @@ onBeforeUnmount(() => {
 
 onUpdated(() => {
   console.log("onUpdated")
-  telega()
+  // telega()
 })
  
 
@@ -358,7 +361,10 @@ onMounted(() => {
     store.setgramlog(user)
     sendteleg();
   };
-  telega()
+  if (store.tsignedIn){
+    telega()  
+  }
+
 })
  
 
