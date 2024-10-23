@@ -70,7 +70,7 @@
 //     messages.value.push(data.message);
 //   },
 // });
-const message = ref("Напоминалка")
+const message = ref("party-matching")
 const tl = ref("telegram-bot")
 
 import hat from './views/components/hat.vue' 

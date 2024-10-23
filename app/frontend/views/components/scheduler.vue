@@ -22,7 +22,7 @@
     ></v-switch> -->
     <!-- {{sortedDate}} -->
     <!-- <br><br> -->
-<!-- {{date}} -->
+{{date}}
 <!-- {{  }}ss -->
   <div  v-for="(item, index) in sortedDate" :key="index"  >
     <div class="d-flex my-0 mx-2 pa-0 align-center" >
@@ -75,6 +75,7 @@
           {{ formattedTime(item.remainingSeconds, item.schedule)}}
           </div>
           <v-btn
+            v-if="item.switch_value == false"
             @click="removeById(item.name)"
             icon="$delete" variant="plain"
             max-height="27"
@@ -115,7 +116,7 @@ const telegr = ref('');
 const customDateFormat = 'dd/MM/yyyy, HH:mm';
 import { v4 as uuidv4 } from 'uuid';
 const date = ref([{ name: 0, schedule: null, switch_value: false, text: null, remainingSeconds: null }])
-const nowdate = Date.now() 
+
 
 
 // const loadingItems = reactive({});
@@ -174,6 +175,7 @@ function removeById(id) {
   console.log(`Элемент с id ${id} удалён.`);
 }
 const addItem = () => {
+  const nowdate = Date.now() 
   const val = ref(uuidv4());
   console.log(val.value) 
 
@@ -190,10 +192,11 @@ const updateDate = (index, newValue) => {
   const item = date.value.find(d => d.name === index);
   item.schedule = newValue
   // const nomer =  date.value.length
-
+  const now = Math.floor(Date.now()); // Текущее время в секундах
   // console.log(date.length)
   if (item) {
     item.schedule = newValue;
+    item.remainingSeconds = item.schedule - now;
     // item.id = nomer
   }
 
@@ -294,7 +297,7 @@ const updateRemainingTimes = ( ) => {
       item.schedule = Math.floor(item.schedule  ); // Приводим к секундам, если это миллисекунды
       // console.log(item.schedule)
     }
-    if (item.remainingSeconds >= 0){
+    if (item.schedule ){
       item.remainingSeconds = item.schedule - now;
       console.log(item.remainingSeconds)   
     }
