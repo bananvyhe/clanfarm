@@ -56,8 +56,10 @@
             hide-details 
             clearable>
           </v-text-field>
-          <div class="d-flex mr-6 " style="margin-bottom: -15px;">
+          <div class="d-flex mr-6 " style="margin-bottom: -18px;">
             <v-checkbox 
+              density="compact"
+              class="my-0"
               v-if="item.pub == false" 
               v-model="item.pub" 
               label="в паблик">
@@ -84,7 +86,7 @@
               v-model="item.vacan"
               :max="30"
               :step="1"
-              class="ma-4"
+              class="ma-4 my-0"
        
               hide-details
             >
@@ -225,7 +227,7 @@ const addItem = () => {
   const val = ref(uuidv4());
   console.log(val.value) 
 
-  date.value.push({ name: val, schedule: nowdate, switch_value: false, text: null, remainingSeconds: null, vacan: null, duration: null, pub: pub }); 
+  date.value.push({ name: val, schedule: nowdate, switch_value: false, text: null, remainingSeconds: null, vacan: null, duration: null, pub: false}); 
   // date.value.push('')
 };
 
