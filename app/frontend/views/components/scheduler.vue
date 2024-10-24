@@ -56,10 +56,10 @@
             hide-details 
             clearable>
           </v-text-field>
-          <div class="d-flex mr-6 " style="margin-bottom: -18px;">
+          <div class="d-flex"  >
             <v-checkbox 
-              density="compact"
-              class="my-0"
+              density="mini"
+              class="mr-6"
               v-if="item.pub == false" 
               v-model="item.pub" 
               label="в паблик">
@@ -68,6 +68,7 @@
           <div class="mx-2"  v-if="item.pub == true">
             <div> длительность рейда</div>
             <v-rating
+              class="mr-2"
               density="compact"
               half-increments
               hover
@@ -78,20 +79,20 @@
             />
           </div>
           <div v-if="item.pub == true">
-            <v-slider
 
-              style="width: 160px;"
-              density="compact"
+            <v-slider
+              label="слоты"
+              style="width: 260px;"
+              density="mini"
               v-if="item.pub == true"
               v-model="item.vacan"
-              :max="30"
+              :max="70"
               :step="1"
-              class="ma-4 my-0"
-       
+              class="my-2 mr-7"
               hide-details
             >
             <template v-slot:append>
-              <v-text-field
+<!--               <v-text-field
                 placeholder="слоты"
                 v-model="item.vacan"
                 density="compact"
@@ -99,7 +100,12 @@
                 type="number"
                 variant="outlined"
                 hide-details
-              ></v-text-field>
+              ></v-text-field> -->
+                <div
+                      
+            class="text-h5 font-weight-light"
+            v-text="item.vacan"
+          ></div>
             </template>
             </v-slider> 
           </div>
@@ -306,7 +312,7 @@ const formattedTime = (remSeconds, timestamp ) => {
 
   console.log(remainingSeconds)
   if (remainingSeconds <= 0) {
-    return 'Время вышло';
+    return ' ';
   }
 
   const days = Math.floor(remainingSeconds / 86400); // 86400 секунд в дне

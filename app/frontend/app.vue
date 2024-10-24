@@ -29,7 +29,7 @@
           <!-- {{store.tsignedIn}} -->
           <logina v-if="store.tsignedIn"></logina>
           <hat v-else></hat>
-          <scheduler class=" "></scheduler>
+          <scheduler class="mt-1"></scheduler>
           <router-view></router-view>
 <!-- <notifications /> -->
 <notifications position="bottom left" classes="my-notification" >
