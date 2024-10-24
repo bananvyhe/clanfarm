@@ -242,13 +242,16 @@ const addItem = () => {
 const updateDate = (index, newValue) => {
 // date.value[index] = newValue;
 // date.value[index] = date.value[index].value;
-   if(newValue == 'lfp'){
- 
+  if(newValue == 'lfp'){
+
   }else if (newValue == null){
     console.log("null null null null") 
     const item = date.value.find(d => d.name === index);
     item.schedule = "lfp";
+        
+    item.pub = true
     item.remainingSeconds = null
+
   }else {
     console.log(date.value) 
     // const item = date.value[index];
