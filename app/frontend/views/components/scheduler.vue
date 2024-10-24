@@ -30,7 +30,7 @@
       <VueDatePicker
       :disabled="item.switch_value == true ? true : false"
         dark locale="ru"
-        placeholder="Выбор даты" 
+        :placeholder="item.schedule == 'lfp' ? 'lfp поиск группы' : 'Выбор даты'"
         @closed="alertFn(item.name)"
         @focus="fillCurrentTime(item.name, item.schedule)"
        
@@ -206,9 +206,9 @@ const fillCurrentTime = (ind, vremya) => {
   // const now = new Date().getTime();
   // date.value[0].date = now;  // Устанавливаем текущее время
 
-  if (vremya != null) {
+  if (vremya != null && vremya != "lfp") {
     console.log("vremya esty"+date) 
-console.log(date.value.length ) 
+    console.log(date.value.length ) 
   }else{
     
     const now = new Date().getTime();
@@ -242,20 +242,28 @@ const addItem = () => {
 const updateDate = (index, newValue) => {
 // date.value[index] = newValue;
 // date.value[index] = date.value[index].value;
+   if(newValue == 'lfp'){
 
-  console.log(date.value) 
-  // const item = date.value[index];
-  const item = date.value.find(d => d.name === index);
-  item.schedule = newValue
-  // const nomer =  date.value.length
-  const now = Math.floor(Date.now()); // Текущее время в секундах
-  // console.log(date.length)
-  if (item) {
-    item.schedule = newValue;
-    item.remainingSeconds = item.schedule - now;
-    // item.id = nomer
+ 
+
+  }else if (newValue == null){
+    console.log("null null null null") 
+    const item = date.value.find(d => d.name === index);
+    item.schedule = "lfp";
+  }else {
+    console.log(date.value) 
+    // const item = date.value[index];
+    const item = date.value.find(d => d.name === index);
+     
+    // const nomer =  date.value.length
+    const now = Math.floor(Date.now()); // Текущее время в секундах
+    // console.log(date.length)
+     
+      item.schedule = newValue;
+      item.remainingSeconds = item.schedule - now;
+      // item.id = nomer
+    
   }
-
 };
 const vaba = ref("выкл"); 
 const alertFn = () => {
@@ -303,19 +311,22 @@ const formattedTime = (remSeconds, timestamp ) => {
 
   // console.log(typeof timestamp)
 
-  if ( isNaN(timestamp)) {
-    timestamp = Math.floor(Date.parse(timestamp) / 1000); // Приводим к секундам
-  // console.log(timestamp)
-  } else if (timestamp > 1e10) {
-    timestamp = Math.floor(timestamp / 1000); // Приводим к секундам, если это миллисекунды
-  }
-  // console.log(timestamp)
-  const now = Math.floor(Date.now() / 1000); // Текущее время в секундах
-  // console.log(now)
-  const remainingSeconds = timestamp - now; // Разница между текущим временем и timestamp
+  
+    if ( isNaN(timestamp)) {
+      timestamp = Math.floor(Date.parse(timestamp) / 1000); // Приводим к секундам
+    // console.log(timestamp)
+    } else if (timestamp > 1e10) {
+      timestamp = Math.floor(timestamp / 1000); // Приводим к секундам, если это миллисекунды
+    }
+    // console.log(timestamp)
+    const now = Math.floor(Date.now() / 1000); // Текущее время в секундах
+    // console.log(now)
+    const remainingSeconds = timestamp - now; // Разница между текущим временем и timestamp
 
-  console.log(remainingSeconds)
-  if (remainingSeconds <= 0) {
+    console.log(remainingSeconds)
+ 
+
+  if (remSeconds <= 0) {
     return ' ';
   }
 
@@ -346,19 +357,21 @@ const updateRemainingTimes = ( ) => {
 
   date.value.forEach(item => {
      // console.log(item)
+    if (item.schedule != 'lfp' && item.schedule != 'null' ){
+      if ( isNaN(item.schedule)) {
+        item.schedule = Math.floor(Date.parse(item.schedule)  ); // Приводим к секундам
+        // console.log(item.schedule)
+      } else if (item.schedule > 1e10) {
+        // console.log(item.schedule)
+        item.schedule = Math.floor(item.schedule  ); // Приводим к секундам, если это миллисекунды
+        // console.log(item.schedule)
+      }
+      if (item.remainingSeconds > 0 ){
+        item.remainingSeconds = item.schedule - now;
+        console.log(item.remainingSeconds)   
+      }
+    }
 
-    if ( isNaN(item.schedule)) {
-      item.schedule = Math.floor(Date.parse(item.schedule)  ); // Приводим к секундам
-      // console.log(item.schedule)
-    } else if (item.schedule > 1e10) {
-      // console.log(item.schedule)
-      item.schedule = Math.floor(item.schedule  ); // Приводим к секундам, если это миллисекунды
-      // console.log(item.schedule)
-    }
-    if (item.schedule && item.remainingSeconds > 0 ){
-      item.remainingSeconds = item.schedule - now;
-      console.log(item.remainingSeconds)   
-    }
 
   });
 
