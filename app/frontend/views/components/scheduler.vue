@@ -90,7 +90,7 @@
               :max="12"
               :min="1"
               :step="1"
-              class="my-2 mr-7"
+              class="my-1 mr-7"
               hide-details
             >
             <template v-slot:append>
