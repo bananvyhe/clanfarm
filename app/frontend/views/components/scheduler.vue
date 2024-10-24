@@ -25,7 +25,7 @@
 <!-- {{date}} -->
 <!-- {{  }}ss -->
   <div  v-for="(item, index) in sortedDate" :key="index"  >
-    <div class="d-flex my-0 mx-2 pa-0 align-center" >
+    <div class="d-flex my-1 mx-2 pa-0 align-center" >
 
       <VueDatePicker
       :disabled="item.switch_value == true ? true : false"
@@ -48,7 +48,7 @@
  
           <v-text-field 
             placeholder="Введите текст..."
-            class="my-1 mx-2"
+            class="my-0 mx-2"
             v-model="item.text"
             :disabled="item.switch_value == true ? true : false"
             density="compact"
@@ -58,8 +58,9 @@
           </v-text-field>
           <div class="d-flex"  >
             <v-checkbox 
+
               density="mini"
-              class="mr-6"
+              class="mx-2 d-flex mr-10"
               v-if="item.pub == false" 
               v-model="item.pub" 
               label="в паблик">
