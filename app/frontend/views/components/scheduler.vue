@@ -20,7 +20,7 @@
       value="Jacob"
       hide-details
     ></v-switch> -->
-    <!-- {{sortedDate}} -->
+    {{sortedDate}}
     <!-- <br><br> -->
 <!-- {{date}} -->
 <!-- {{  }}ss -->
@@ -31,7 +31,7 @@
       :disabled="item.switch_value == true ? true : false"
         dark locale="ru"
         placeholder="Выбор даты" 
-        @closed="alertFn"
+        @closed="alertFn(item.name)"
         @focus="fillCurrentTime(item.name, item.schedule)"
        
         :format="customDateFormat"
@@ -59,14 +59,14 @@
           <div class="d-flex"  >
             <v-checkbox 
 
-              density="mini"
+              density="compact"
               class="mx-2 d-flex mr-10"
               v-if="item.pub == false" 
               v-model="item.pub" 
               label="в паблик">
             </v-checkbox> 
           </div>
-          <div class="mx-2"  v-if="item.pub == true">
+<!--           <div class="mx-2"  v-if="item.pub == true">
             <div> длительность рейда</div>
             <v-rating
               class="mr-2"
@@ -78,16 +78,17 @@
               :model-value="item.duratiom"
               active-color="primary"
             />
-          </div>
+          </div> -->
           <div v-if="item.pub == true">
 
             <v-slider
               label="слоты"
               style="width: 260px;"
-              density="mini"
+              density="compact"
               v-if="item.pub == true"
               v-model="item.vacan"
-              :max="70"
+              :max="12"
+              :min="1"
               :step="1"
               class="my-2 mr-7"
               hide-details
@@ -170,7 +171,7 @@ const people = ref(['John'])
 const telegr = ref('');
 const customDateFormat = 'dd/MM/yyyy, HH:mm';
 import { v4 as uuidv4 } from 'uuid';
-const date = ref([{ name: 0, schedule: null, switch_value: false, text: null, remainingSeconds: null, vacan: null, duration: null, pub: false }])
+const date = ref([{ name: 0, schedule: null, switch_value: false, text: null, remainingSeconds: null, vacan: 1, duration: 3, pub: false }])
 
 
 
@@ -234,7 +235,7 @@ const addItem = () => {
   const val = ref(uuidv4());
   console.log(val.value) 
 
-  date.value.push({ name: val, schedule: nowdate, switch_value: false, text: null, remainingSeconds: null, vacan: null, duration: null, pub: false}); 
+  date.value.push({ name: val, schedule: nowdate, switch_value: false, text: null, remainingSeconds: null, vacan: 1, duration: 3, pub: false}); 
   // date.value.push('')
 };
 
@@ -258,6 +259,8 @@ const updateDate = (index, newValue) => {
 };
 const vaba = ref("выкл"); 
 const alertFn = () => {
+  // console.log("alertFn alertFn alertFn") 
+
 } 
 
 const format = (date) => {
