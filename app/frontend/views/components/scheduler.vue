@@ -25,7 +25,7 @@
 <!-- {{date}} -->
 <!-- {{  }}ss -->
   <div  v-for="(item, index) in sortedDate" :key="index"  >
-    <div class="d-flex my-1 mx-2 pa-0 align-center" >
+    <div class="d-flex mt-2 mb-1 mx-2 pa-0 align-center" >
 
       <VueDatePicker
       :disabled="item.switch_value == true ? true : false"
@@ -103,8 +103,8 @@
                 hide-details
               ></v-text-field> -->
                 <div
-                      
-            class="text-h5 font-weight-light"
+                      style="width: 22px;"
+            class="text-h5 font-weight-light d-flex justify-end"
             v-text="item.vacan"
           ></div>
             </template>
