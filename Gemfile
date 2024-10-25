@@ -37,6 +37,7 @@ gem 'acts_as_list'
 gem 'redis-client'
 gem 'actioncable'
 gem 'sidekiq-scheduler', '3.2.2'
+gem 'sanitize', '~> 4.0', '>= 4.0.1'
 
 group :development, :test do
   gem 'capistrano-passenger'

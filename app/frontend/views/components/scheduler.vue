@@ -121,7 +121,7 @@
               color="primary"
               v-model="item.switch_value"
               :label="item.switch_value ? 'вкл' : 'выкл'" 
-              @update:modelValue="handleSwitchChange(item.name, item.schedule, item.text, item.switch_value, item.vacan, item.duration, item.pub)"
+              @update:modelValue="handleSwitchChange(item.name, item.schedule, item.text, item.switch_value, item.vacan, item.pub)"
               hide-details>
             </v-switch> 
           </div>
@@ -171,13 +171,13 @@ const people = ref(['John'])
 const telegr = ref('');
 const customDateFormat = 'dd/MM/yyyy, HH:mm';
 import { v4 as uuidv4 } from 'uuid';
-const date = ref([{ name: 0, schedule: null, switch_value: false, text: null, remainingSeconds: null, vacan: 1, duration: 3, pub: false }])
+const date = ref([{ name: 0, schedule: null, switch_value: false, text: null, remainingSeconds: null, vacan: 1, pub: false }])
 
 
 
 // const loadingItems = reactive({});
 
-const handleSwitchChange = (name, vremya, text, switch_value, vacan, duration, pub) => {
+const handleSwitchChange = (name, vremya, text, switch_value, vacan, pub) => {
   // loadingItems[id] = true;
   console.log("---------0000---------") 
   console.log(name)
@@ -186,13 +186,13 @@ const handleSwitchChange = (name, vremya, text, switch_value, vacan, duration, p
   console.log("---------0000---------") 
   if (switch_value == true){
     secured
-      .post("/shed", {uniqid: name, milliseconds: vremya, text: text, switch_value: switch_value, vacan: vacan, duration: duration, pub: pub })
+      .post("/shed", {uniqid: name, milliseconds: vremya, text: text, switch_value: switch_value, vacan: vacan, pub: pub })
       .then((response: { data: any }) => {
       console.log(response.data)
     });  
   }else{
     secured
-      .post("/shed/off", {name: name, switch_value: switch_value, vacan, duration, pub: pub })
+      .post("/shed/off", {name: name })
       .then((response: { data: any }) => {
       console.log(response.data)
     });  
@@ -235,7 +235,7 @@ const addItem = () => {
   const val = ref(uuidv4());
   console.log(val.value) 
 
-  date.value.push({ name: val, schedule: nowdate, switch_value: false, text: null, remainingSeconds: null, vacan: 1, duration: 3, pub: false}); 
+  date.value.push({ name: val, schedule: nowdate, switch_value: false, text: null, remainingSeconds: null, vacan: 1, pub: false}); 
   // date.value.push('')
 };
 

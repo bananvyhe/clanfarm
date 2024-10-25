@@ -1,5 +1,7 @@
 class ScheduledTasksController < ApplicationController
   # skip_before_action :verify_authenticity_token
+    require 'sanitize'
+
   before_action :authorize_access_request!, only: [:schedule_task, :unschedule_task, :shedGet]
 
   def shedGet
@@ -48,11 +50,11 @@ puts payload['user_id']
 
     uniqid = params[:uniqid]
     if params[:text] != nil
-      text = params[:text]
+      text = Sanitize.fragment(params[:text])
     else
       text = "без заметки"
     end
- 
+    
     # Создание задания и связывание его с пользователем
     task = current_user.scheduled_tasks.create(
       name: uniqid,
@@ -61,8 +63,7 @@ puts payload['user_id']
       args: text,
       switch_value: params[:switch_value],
       vacan: params[:vacan],
-      duration: params[:duration]
-
+      pub: params[:pub]
     )
 
     if task.persisted?
