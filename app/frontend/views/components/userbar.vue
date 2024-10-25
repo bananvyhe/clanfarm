@@ -82,7 +82,7 @@
 
 
       <div v-else>
-        <v-btn><router-link to="/lobby">лобби</router-link></v-btn>
+        <router-link to="/lobby"><v-btn>лобби</v-btn></router-link>
       </div>
 
     </div>  
