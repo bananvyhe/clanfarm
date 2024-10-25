@@ -70,8 +70,8 @@
 //     messages.value.push(data.message);
 //   },
 // });
-const message = ref("party-matching")
-const tl = ref("telegram-bot")
+const message = ref("Prime time")
+const tl = ref("matching")
 
 import hat from './views/components/hat.vue' 
 import logina from './views/components/login_area.vue' 
