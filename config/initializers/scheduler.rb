@@ -3,7 +3,7 @@ Rails.application.config.after_initialize do
     schedule = {
       'at' => task.schedule,
       'class' => task.class_name,
-      'args' => task.args
+      'args' => [task.uniqid, task.text, task.telusname]  
     }
     Sidekiq.set_schedule(task.name, schedule)
   end
