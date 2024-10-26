@@ -235,7 +235,8 @@
   opacity: 0.6;
   height: 1.1em;
   width: 1.1em;
-  background-image: url('../images/skull.png');
+  background-size: cover;
+  background-image: url('../images/goldshtuken.png');
   /*image-rendering: pixelated;*/
   background-size: 100%;
  
