@@ -19,7 +19,7 @@
 
       <signup></signup><div class="px-2"><signin ></signin></div>
       
-                <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
+          <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
           <div class="skull align-self-center"></div>   
     </div>
     <div v-if="store.tsignedIn == true" class="d-flex align-center">
@@ -60,7 +60,7 @@
           <div class="d-flex ">
             <div class="interface " style="font-size: 0.8em" v-html="reducedNumber+' ' + '%'"> </div>
  
-            <div class="d-flex flex-row-reverse " style="position: absolute; right: 0; bottom: 0;">
+            <div class="d-flex flex-row-reverse " style="position: absolute; right: 0; bottom: 4px;">
               <div v-for="(item, index) in store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}">
               </div>
               <div v-if="store.tavcpoints > store.tcpoints" v-for="(item, index) in store.tavcpoints-store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ overcpimg}">
@@ -69,14 +69,14 @@
           </div>
         </div>
         <div class="useraction d-flex  flex-column ">  
-          <inventory> </inventory>
-          <div class="d-flex" >
+          
+          <div class="d-flex skulpos" >
             <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
             <div class="skull align-self-center"></div>        
-          </div>
-          <div v-if="store.tsignedIn == true">
+          </div><inventory> </inventory>
+<!--           <div v-if="store.tsignedIn == true">
             <div class=" bag"></div>
-          </div>
+          </div> -->
         </div> 
       </div>
 
@@ -258,18 +258,28 @@ watch(() => store.thealth, ( ) => {
 </script>
 
 <style scoped>
+  .skulpos{
+
+    scale: 0.8;
+    position: absolute;
+    bottom: -5px;
+/*      border: 1px solid color( $screenbg shade(56%));; */
+  text-shadow: 0px 3px #222, 2px 0px #222;
+  }
+  .skulpos:hover{
+    
+  }
   .deathfilther{
       filter: grayscale(80%);
   }
 
-.bag{
-  /*background-color: #dad;*/
+/*.bag{
   height: 20px;
   width: 62px;
   background-image: url('../images/bag.png');
   background-size: contain;
   background-position: center;
-}
+}*/
 .health{
   line-height: 1em;
   font-size: 0.6em;
@@ -297,6 +307,7 @@ watch(() => store.thealth, ( ) => {
   margin-top: -11px;
 }
 .useraction{
+  cursor: pointer;
   z-index: 100;
   /*background-color: #ada;*/
   position: relative;

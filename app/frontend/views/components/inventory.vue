@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="invent">
     <!-- {{items}} -->
      <v-menu
       v-model="menu"
@@ -163,6 +163,13 @@ const invarray = computed({
   }  
 </script>
 <style scoped>
+  .invent{
+    height: 40px;
+    width: 60px;
+      background-image: url('../images/bag2.png');
+  background-size: contain;
+  background-position: center;
+  }
 .hovbut{
   height: 100%;
 
@@ -175,6 +182,7 @@ const invarray = computed({
   /*background: url(../../images/goldenore.png);*/
   /*background-color: #dad;*/
   /*display: flex;*/
+  cursor: pointer;
    
   background-size: contain;
   padding: 0.3em 0 0 0.5em;
