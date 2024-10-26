@@ -58,7 +58,7 @@
           </v-text-field>
           <div class="d-flex"  >
             <v-checkbox 
-
+              :disabled="item.switch_value == true ? true : false"
               density="compact"
               class="mx-2 d-flex mr-10"
               v-if="item.pub == false" 
@@ -82,6 +82,7 @@
           <div v-if="item.pub == true">
 
             <v-slider
+              :disabled="item.switch_value == true ? true : false"
               label="слоты"
               style="width: 260px;"
               density="compact"

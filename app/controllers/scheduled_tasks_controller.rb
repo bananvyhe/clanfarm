@@ -68,7 +68,7 @@ puts payload['user_id']
 
     if task.persisted?
       puts "task.persisted"
-      telusname = current_user.telegramusername 
+      telusname = current_user.telegramid 
       Sidekiq.set_schedule("dynamic_task_#{uniqid}", {
         'at' => scheduled_time,           # Время выполнения задачи
         'class' => 'MyTaskWorker',        # Класс воркера
