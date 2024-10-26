@@ -70,10 +70,7 @@
         </div>
         <div class="useraction d-flex  flex-column ">  
           
-          <div class="d-flex skulpos" >
-            <div class="loa px-1 align-self-center" >{{store.tloa}}</div>
-            <div class="skull align-self-center"></div>        
-          </div>
+
           <inventory> </inventory>
 <!--           <div v-if="store.tsignedIn == true">
             <div class=" bag"></div>
@@ -259,14 +256,7 @@ watch(() => store.thealth, ( ) => {
 </script>
 
 <style scoped>
-  .skulpos{
-    z-index: 111;
-    scale: 0.8;
-    position: absolute;
-    bottom: -5px;
-/*      border: 1px solid color( $screenbg shade(56%));; */
-  text-shadow: 0px 3px #222, 2px 0px #222;
-  }
+
  
   .deathfilther{
       filter: grayscale(80%);
@@ -314,13 +304,5 @@ watch(() => store.thealth, ( ) => {
 .sign{
   width: 380px;
 }
- .skull{
-  position: relative;
-  z-index: 110;
-  height: 20px;
-  width: 20px;
-  background-size: cover;
-  background-image: url('../images/goldshtuken.png');
-  image-rendering: pixelated;
- }
+
 </style>

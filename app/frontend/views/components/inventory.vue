@@ -13,7 +13,12 @@
           dark
           v-bind="props"
            >
+                       <div class="d-flex skulpos" >
+            <div class="loa px-0 align-self-center" >{{store.tloa}}</div>
+            <div class="skull align-self-center"></div>        
+          </div>
         </div>
+
       </template>
 
       <v-card 
@@ -73,12 +78,14 @@
 
 
       </v-card>
+
     </v-menu>
   <!-- <div style="width: 500px; font-size: 0.8em"> -->
     <!-- {{thisinv}} -->
     <!-- <br> -->
     <!-- {{items}} -->
   <!-- </div> -->
+
   </div>
 </template>
 <script setup lang="ts">
@@ -163,6 +170,23 @@ const invarray = computed({
   }  
 </script>
 <style scoped>
+ .skull{
+  position: relative;
+  z-index: 110;
+  height: 20px;
+  width: 20px;
+  background-size: cover;
+  background-image: url('../images/goldshtuken.png');
+  image-rendering: pixelated;
+ }
+  .skulpos{
+    z-index: 111;
+    scale: 0.8;
+    position: absolute;
+    bottom: -5px;
+/*      border: 1px solid color( $screenbg shade(56%));; */
+  text-shadow: 0px 3px #222, 2px 0px #222;
+  }
   .invent{
     height: 40px;
     width: 60px;
