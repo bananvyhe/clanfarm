@@ -355,6 +355,7 @@ const formattedTime = (remSeconds, timestamp ) => {
 // const remainingSeconds = ref([]);
 
 const updateRemainingTimes = ( ) => {
+  // console.log("updateRemainingTimes")
   const now = Math.floor(Date.now()); // Текущее время в секундах
   // date.remainingSeconds.value = sortedDate.value.map(item => item.date - now);
 
@@ -369,7 +370,7 @@ const updateRemainingTimes = ( ) => {
         item.schedule = Math.floor(item.schedule  ); // Приводим к секундам, если это миллисекунды
         // console.log(item.schedule)
       }
-      if (item.remainingSeconds > 0 ){
+      if (item.remainingSeconds > 0 || !item.remainingSeconds  ){
         item.remainingSeconds = item.schedule - now;
         console.log(item.remainingSeconds)   
       }
