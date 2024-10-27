@@ -18,11 +18,11 @@
 		  	</h3>
 		  	</div>
 
-		  		<div class="war d-flex justify-center">
-		  			<div class="warone wardelay  brightness"></div>
-		  			<div class="wartwo wardelay brightness"><div style="width: 325px;"
+		  		<div class="war d-flex justify-center brightness">
+		  			<div class="warone wardelay  "></div>
+		  			<div class="wartwo wardelay "><div style="width: 325px;"
 		  				></div>
-		  			</div><div class="wartri wardelay brightness"></div>
+		  			</div><div class="wartri wardelay "></div>
 		  		</div>
  
  
@@ -164,45 +164,36 @@ onMounted(() => {
 			ease: "none",
 		});
 	}
+ 
 	function brightness() {
-		tl.set('.brightness', {opacity: "0"})
+		var tl =	gsap.timeline({repeat:-1});
+		tl.set('.brightness', {filter: "brightness(1)"})
 		.to('.brightness', {
 			duration: 0.05,
 			ease: "sine.in",
 			delay: 0.5, 
-			opacity: "1"}, 1.1)
+			filter: "brightness(0.7)",
+			}, 1.1)
 		.to('.brightness', {
 			delay: 0.3,
 			duration: 1.4, 
-			opacity: "0", 
-			ease: "sine.out"}, '+=0.0')
+			filter: "brightness(1)",
+			ease: "sine.out"
+			}, '+=0.0')
+		.to('.brightness', {
+			delay: 1.4,
+			duration: 0.05,
+				ease: "sine.in",
+			filter: "brightness(0.7)"
+			}, '-=0.0')
+		.to('.brightness',{
+			delay: 0.3,
+			duration: 2, 
+			filter: "brightness(1)",
+			ease: "sine.out",
+			})
+		 	
 	}
-	// function brightness() {
-	// 	var tl =	gsap.timeline({repeat:-1});
-	// 	tl.set('.brightness', {opacity: "0"})
-	// 	.to('.brightness', {
-	// 		duration: 0.05,
-	// 		ease: "sine.in",
-	// 		delay: 0.5, 
-	// 		opacity: "1"}, 1.1)
-	// 	.to('.brightness', {
-	// 		delay: 0.3,
-	// 		duration: 1.4, 
-	// 		opacity: "0", 
-	// 		ease: "sine.out"}, '+=0.0')
-	// 	.to('.brightness', {
-	// 		delay: 1.4,
-	// 		duration: 0.05,
-	// 			ease: "sine.in",
-	// 		opacity: "1"}, '-=0.0')
-	// 	.to('.brightness',{
-	// 		delay: 0.3,
-	// 		duration: 2, 
-	// 		opacity: "0", 
-	// 		ease: "sine.out",})
-	// 	.to('.brightness',{
-	// 		delay: 3});		  		
-	// }
 
 	function flash() {
 		var tl =	gsap.timeline({repeat:-1});
@@ -240,7 +231,7 @@ onMounted(() => {
   // .add(warriors())     //with a gap of 2 seconds
   .add(cloud()) 
   .add(cloud2()) 
-		// .add(brightness() ) 
+		.add(brightness() ) 
 		.add(flash() ) 
 })
 })
