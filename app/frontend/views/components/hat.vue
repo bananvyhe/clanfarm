@@ -14,7 +14,7 @@
 			      indeterminate
 			    ></v-progress-circular>
 				<h3>
-		  			подгрузка текстур...
+		  			сбор рейда...
 		  	</h3>
 		  	</div>
 
