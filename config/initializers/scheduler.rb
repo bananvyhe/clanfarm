@@ -5,6 +5,6 @@ Rails.application.config.after_initialize do
       'class' => task.class_name,
       'args' => [task.name, task.args, task.user.telegramid]  
     }
-    Sidekiq.set_schedule(task.name, schedule)
+    Sidekiq.set_schedule("dynamic_task_#{task.name}", schedule)
   end
 end
