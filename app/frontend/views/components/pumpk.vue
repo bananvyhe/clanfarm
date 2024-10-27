@@ -333,6 +333,8 @@ const apiUrl = window.APP_CONFIG.apiUrl;
   image-rendering: pixelated;
   width: 48px;  height:48px; 
   cursor: url("../images/sword.png"), pointer;
+  filter: saturate(0.8) brightness(0.9) sepia(30%);
+ 
 }
 .character:hover{
   cursor: url("../images/sword.png"), pointer;
