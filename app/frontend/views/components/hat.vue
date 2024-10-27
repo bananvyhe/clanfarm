@@ -14,7 +14,7 @@
 			      indeterminate
 			    ></v-progress-circular>
 				<h3>
-		  			клан сбор...
+		  			подгрузка текстур...
 		  	</h3>
 		  	</div>
 
