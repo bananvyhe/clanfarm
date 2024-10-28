@@ -11,7 +11,7 @@
           color="secondary"  
           @click="exitgram"> выйти
         </v-btn>  -->
-        
+        <daily></daily>
     
     <div v-if="store.tsignedIn == false" class="d-flex"> 
 
@@ -91,6 +91,7 @@
 </template>
 
 <script setup lang="ts">
+import daily from './daily.vue'
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()

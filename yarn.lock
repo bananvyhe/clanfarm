@@ -1881,6 +1881,11 @@ vue-axios@^3.5.2:
   resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-3.5.2.tgz#28637524cca550a9e97197e85a41930ec63604d5"
   integrity sha512-GP+dct7UlAWkl1qoP3ppw0z6jcSua5/IrMpjB5O8bh089iIiJ+hdxPYH2NPEpajlYgkW5EVMP95ttXWdas1O0g==
 
+vue-daily-scheduler@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/vue-daily-scheduler/-/vue-daily-scheduler-1.0.12.tgz#8b1dfbf373fcc1bbf4470cde2f1e504d5968aa9f"
+  integrity sha512-uk8M2aumzfA9iwTYkIFIDL+geP5QGkuRiAimwdLXvp/tbGdZB0Ytwsa0w4DKMiToKDxR849iOO82GrzKgBJtlw==
+
 vue-demi@*, vue-demi@>=0.14.5:
   version "0.14.6"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.14.6.tgz#dc706582851dc1cdc17a0054f4fec2eb6df74c92"
