@@ -1,56 +1,32 @@
 <template>
   <div class="d-flex " :class="{ deathfilther: store.tdead }"> 
- <!-- {{userhp}}  -->
-<!--   {{store.tctsrf}}
- {{store.tsignedIn}} -->
- 
- <!-- {{route.path}} -->
-
-<!--         <v-btn
-          v-if="ls.get('gramlog')"
-          color="secondary"  
-          @click="exitgram"> выйти
-        </v-btn>  -->
-        <daily></daily>
-    
     <div v-if="store.tsignedIn == false" class="d-flex"> 
-
-    <!-- <p v-if="message">{{ message }}</p> -->
-
-      <signup></signup><div class="px-2"><signin ></signin></div>
-      
-          <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
-          <div class="skull align-self-center"></div>   
+      <signup></signup>
+      <div class="px-2"><signin ></signin></div>
+      <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
+      <div class="skull align-self-center"></div>   
     </div>
     <div v-if="store.tsignedIn == true" class="d-flex align-center">
-
       <div v-if="store.tdead">
         <v-btn
           color="secondary"  
           @click="ressurect"> воскреснуть
         </v-btn>    
       </div>
-
       <v-btn
         color="primary" 
         size="x-small" 
         @click="signOut">выйти
       </v-btn> 
-
-
       <div v-if="route.path === '/lobby'" class="d-flex">
         <div  class="d-flex flex-column align-self-start ">
           <div class="interface px-1 d-flex align-self-end ">{{store.tlvl}}</div>
           <div class="interface px-1 d-flex justify-end" style="color: red;" v-if="karma > 0">
-   
-   
-            <!-- <div class="karma mx-1" v-bind:style="{backgroundImage: 'url('+ karmaimg}"> 
-            </div> -->
+            <!-- <div class="karma mx-1" v-bind:style="{backgroundImage: 'url('+ karmaimg}"></div> -->
             карма:
             {{karma}}
           </div>        
         </div>   
-
         <div class="d-flex flex-column bars align-self-start" >
           <v-progress-linear :height="10" class="mb-1 mt-1" :model-value="userhp" color="success" >
             <div class="health play">{{store.thealth}}</div> 
@@ -59,7 +35,6 @@
           </v-progress-linear>
           <div class="d-flex ">
             <div class="interface " style="font-size: 0.8em" v-html="reducedNumber+' ' + '%'"> </div>
- 
             <div class="d-flex flex-row-reverse " style="position: absolute; right: 0; bottom: 4px;">
               <div v-for="(item, index) in store.tcpoints" class="cp ml-1 " v-bind:style="{backgroundImage: 'url('+ getImageUrl(index)}">
               </div>
@@ -69,8 +44,6 @@
           </div>
         </div>
         <div class="useraction d-flex  flex-column ">  
-          
-
           <inventory> </inventory>
 <!--           <div v-if="store.tsignedIn == true">
             <div class=" bag"></div>
@@ -78,15 +51,10 @@
         </div> 
       </div>
 
-
       <div v-else>
         <router-link to="/lobby"><v-btn>лобби</v-btn></router-link>
       </div>
-
     </div>  
- 
-
-  
   </div>
 </template>
 

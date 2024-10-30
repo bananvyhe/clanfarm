@@ -1,7 +1,7 @@
 <template>
   <div class="invent">
     <!-- {{items}} -->
-     <v-menu
+    <v-menu
       v-model="menu"
       :close-on-content-click="false"
       :nudge-width="200"
@@ -11,14 +11,12 @@
           class="inventory d-flex"
           color="indigo"
           dark
-          v-bind="props"
-           >
-                       <div class="d-flex skulpos" >
+          v-bind="props">
+            <div class="d-flex skulpos" >
             <div class="loa px-0 align-self-center" >{{store.tloa}}</div>
             <div class="skull align-self-center"></div>        
           </div>
         </div>
-
       </template>
 
       <v-card 
@@ -30,13 +28,11 @@
           <template class="inv  align-self-stretch" #item="{element}">
             <div class="">
               <div v-on:click="oneClick(element.item, element.listid)"  class="item-inv px-1 py-0" v-bind:style="{backgroundImage: 'url(/images/'+element.item+'.png'}">
-
                 <v-tooltip top>
                   <template  v-slot:activator="{ props}"  class=" ">
                     <div v-bind="props" class=" hovbut d-flex align-end justify-end tshad" >
                      {{element.qty}}
                     </div>
-
                   </template>
                   <span>
                     <div  class="setochka">
@@ -45,47 +41,12 @@
                     </div>
                   </span>                
                 </v-tooltip>
-
               </div>
             </div>
           </template>
         </draggable>
-
-        <!-- {{store.tinventory}} -->
-<!--         <draggable 
- 
-          class="inv"
-          :list="Array.from(store.tinventory)"
-          @change="itemMoved"> -->
-
-<!--           <div v-for="(item, index) in store.tinventory" 
-            class="one-item" 
-            v-on:click="oneClick(item.item_name, item.listid)" 
-            :key="item.id">
-            <v-tooltip  top>
-               <template v-slot:activator="{props}">
-                <div v-bind="props" class="item-inv px-1 py-0 d-flex justify-end align-end" v-bind:style="{backgroundImage: 'url(/images/'+item.item+'.png'}">
-                {{item.qty}}              
-                </div>
-              </template>
-                <span>
-                  <h4>{{item.title}}</h4> 
-                  <span class="caption">{{item.desc}}</span></span>
- 
-            </v-tooltip>
-          </div>    -->       
-        <!-- </draggable> -->
-
-
       </v-card>
-
     </v-menu>
-  <!-- <div style="width: 500px; font-size: 0.8em"> -->
-    <!-- {{thisinv}} -->
-    <!-- <br> -->
-    <!-- {{items}} -->
-  <!-- </div> -->
-
   </div>
 </template>
 <script setup lang="ts">
