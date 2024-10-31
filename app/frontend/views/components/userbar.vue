@@ -6,6 +6,7 @@
       <div class="loa px-2 align-self-center" >{{store.tloa}}</div>
       <div class="skull align-self-center"></div>   
     </div>
+
     <div v-if="store.tsignedIn == true" class="d-flex align-center">
       <div v-if="store.tdead">
         <v-btn
@@ -19,15 +20,19 @@
         @click="signOut">выйти
       </v-btn> 
       <div v-if="route.path === '/lobby'" class="d-flex">
-        <div  class="d-flex flex-column align-self-start ">
-          <div class="interface px-1 d-flex align-self-end ">{{store.tlvl}}</div>
-          <div class="interface px-1 d-flex justify-end" style="color: red;" v-if="karma > 0">
-            <!-- <div class="karma mx-1" v-bind:style="{backgroundImage: 'url('+ karmaimg}"></div> -->
-            карма:
-            {{karma}}
-          </div>        
-        </div>   
-        <div class="d-flex flex-column bars align-self-start" >
+
+
+
+      <v-menu
+        v-model="menu"
+        :close-on-content-click="false"
+        :nudge-width="200"
+        location="bottom">
+        <template v-slot:activator="{ props }">
+ 
+
+      
+        <div class="d-flex flex-column bars align-self-start" v-bind="props" >
           <v-progress-linear :height="10" class="mb-1 mt-1" :model-value="userhp" color="success" >
             <div class="health play">{{store.thealth}}</div> 
           </v-progress-linear>
@@ -43,22 +48,36 @@
             </div>  
           </div>
         </div>
+        </template>
+         <daily></daily>
+        </v-menu>
+
+
         <div class="useraction d-flex  flex-column ">  
           <inventory> </inventory>
-<!--           <div v-if="store.tsignedIn == true">
+          <!-- <div v-if="store.tsignedIn == true">
             <div class=" bag"></div>
           </div> -->
         </div> 
+       
+  
+
+
+
+
       </div>
 
       <div v-else>
         <router-link to="/lobby"><v-btn>лобби</v-btn></router-link>
       </div>
-    </div>  
+    </div> 
+
+
   </div>
 </template>
 
 <script setup lang="ts">
+const menu = ref(false) 
 import daily from './daily.vue'
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
