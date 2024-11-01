@@ -46,7 +46,10 @@ puts payload['user_id']
     scheduled_time = Time.at(milliseconds / 1000.0).utc.iso8601
     puts scheduled_time
     uniqid = params[:uniqid]
-    text = params[:text].present? ? ActionController::Base.helpers.strip_tags(params[:text]).to_s : "без заметки"
+    require 'cgi'
+    text = params[:text].present? ? CGI.escape(ActionController::Base.helpers.strip_tags(params[:text]).to_s) : CGI.escape("без заметки")
+
+    # text = params[:text].present? ? ActionController::Base.helpers.strip_tags(params[:text]).to_s : "без заметки"
 
     # Создание задания и связывание его с пользователем
     task = current_user.scheduled_tasks.create(
