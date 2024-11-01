@@ -1,6 +1,5 @@
 class ScheduledTasksController < ApplicationController
   # skip_before_action :verify_authenticity_token
-    require 'sanitize'
 
   before_action :authorize_access_request!, only: [:schedule_task, :unschedule_task, :shedGet]
 
@@ -46,15 +45,9 @@ puts payload['user_id']
     milliseconds = params[:milliseconds].to_i
     scheduled_time = Time.at(milliseconds / 1000.0).utc.iso8601
     puts scheduled_time
- 
-
     uniqid = params[:uniqid]
-    if params[:text] != nil
-      text = Sanitize.fragment(params[:text])
-    else
-      text = "без заметки"
-    end
-    
+    text = params[:text].present? ? ActionController::Base.helpers.strip_tags(params[:text]) : "без заметки"
+
     # Создание задания и связывание его с пользователем
     task = current_user.scheduled_tasks.create(
       name: uniqid,

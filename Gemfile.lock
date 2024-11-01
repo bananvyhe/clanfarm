@@ -173,8 +173,6 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.3-x86_64-linux)
       racc (~> 1.4)
-    nokogumbo (1.5.0)
-      nokogiri
     pg (1.5.3)
     public_suffix (5.0.3)
     puma (5.6.6)
@@ -229,10 +227,6 @@ GEM
     rubyntlm (0.6.3)
     rufus-scheduler (3.9.1)
       fugit (~> 1.1, >= 1.1.6)
-    sanitize (4.6.6)
-      crass (~> 1.0.2)
-      nokogiri (>= 1.4.4)
-      nokogumbo (~> 1.4)
     sidekiq (5.2.5)
       connection_pool (~> 2.2, >= 2.2.2)
       rack (>= 1.5.0)
@@ -309,7 +303,6 @@ DEPENDENCIES
   redis (= 3.3.5)
   redis-client
   redis-namespace (= 1.8.1)
-  sanitize (~> 4.0, >= 4.0.1)
   sidekiq (= 5.2.5)
   sidekiq-client-cli
   sidekiq-scheduler (= 3.2.2)
