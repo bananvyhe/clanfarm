@@ -7,7 +7,7 @@ class ScheduledTasksController < ApplicationController
     puts "==----shedGet---=="
 puts payload['user_id']
     @schedFind = ScheduledTask.where('user_id = ?', payload['user_id'])
-      .select('name', 'schedule', 'args ', 'switch_value', )
+      .select('name', 'schedule', 'args AS text', 'switch_value', )
 
   #   user = User.find(payload['user_id'])
 
@@ -46,8 +46,8 @@ puts payload['user_id']
     scheduled_time = Time.at(milliseconds / 1000.0).utc.iso8601
     puts scheduled_time
     uniqid = params[:uniqid]
-    require 'cgi'
-    text = params[:text].present? ? CGI.escape(ActionController::Base.helpers.strip_tags(params[:text]).to_s) : CGI.escape("без заметки")
+    text = params[:text].present? ? ActionController::Base.helpers.strip_tags(params[:text]).to_s : "без заметки"
+
 
     # text = params[:text].present? ? ActionController::Base.helpers.strip_tags(params[:text]).to_s : "без заметки"
 
