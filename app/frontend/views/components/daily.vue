@@ -37,17 +37,17 @@ const schedule = ref({0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] });
 
  
     const hours = Array.from({ length: 24 }, (_, i) => i);
-    const schedule = ref({});
+    const schedule = ref<{ [key: number]: ScheduleItem[] }>({});
 
-    function addItem(hour) {
-      const name = prompt("Enter event name:");
-      if (name) {
-        if (!schedule.value[hour]) {
-          schedule.value[hour] = [];
-        }
-        schedule.value[hour].push({ name });
-      }
+function addItem(hour: number) {
+  const name = prompt("Enter event name:");
+  if (name) {
+    if (!schedule.value[hour]) {
+      schedule.value[hour] = [];
     }
+    schedule.value[hour].push({ name });
+  }
+}
 
     function removeItem(hour, index) {
       if (schedule.value[hour]) {
