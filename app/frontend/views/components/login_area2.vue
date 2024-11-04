@@ -1,13 +1,13 @@
 <template>
 
- 
+         <daily></daily>
  
   	
 <!-- 		<news></news> -->
 
 </template>
 <script setup lang="ts">
- 
+import daily from './daily.vue'
  
  // import pumpk from './pumpk.vue'
 import { gsap } from "gsap";
