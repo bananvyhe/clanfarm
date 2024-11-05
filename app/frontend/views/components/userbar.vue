@@ -49,7 +49,7 @@
           </div>
         </div>
         </template>
-         <daily></daily>
+
         </v-menu>
 
 
@@ -78,7 +78,7 @@
 
 <script setup lang="ts">
 const menu = ref(false) 
-import daily from './daily.vue'
+
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()

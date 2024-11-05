@@ -1,5 +1,6 @@
 <template>
   <div class="schedule">
+    {{hours}}{{schedule}}
     <div v-for="hour in hours" :key="hour" class="hour-block">
 
       <div class="hour-label">{{ formatHour(hour) }}</div>
@@ -9,10 +10,7 @@
         v-for="(item, index) in schedule[hour]"
         :key="index"
         @click="removeItem(hour, index)">
-        <div @click="addItem(hour)">
-          {{ item.name }}      
-        </div>
-
+        {{ item.name }}
       </div>
 
       <button @click="addItem(hour)">Add</button>
@@ -21,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+ 
 
 // Определение типа для события
 interface ScheduleItem {
@@ -31,11 +29,17 @@ interface ScheduleItem {
 const hours = Array.from({ length: 24 }, (_, i) => i);
 
 // Инициализация schedule с пустыми массивами для каждого часа
-const schedule = ref<{ [key: number]: ScheduleItem[] }>(
+const schedule = ref<{ [key]: ScheduleItem[] }>(
   Object.fromEntries(hours.map(hour => [hour, []]))
 );
 
-function addItem(hour: number) {
+function setItem(hour, index) {
+
+  schedule.value[hour].push({ name });
+
+}
+
+function addItem(hour) {
   const name = prompt("Enter event name:");
   if (name) {
     schedule.value[hour].push({ name });
