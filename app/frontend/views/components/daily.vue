@@ -14,7 +14,8 @@
             <v-card
               :color="isSelected ? 'primary' : ''"
               class="d-flex align-center selectable-item"
-              height="70"
+              height="40"
+              width="100"
               dark
               @mousedown="startSelection(toggle)"
               @mousemove="onMouseMove(toggle, isSelected)"
@@ -22,7 +23,7 @@
             >
               <v-scroll-y-transition>
                 <div
-                  class="text-h3 flex-grow-1 text-center"
+                  class=" flex-grow-1 text-center"
                 >
                  {{ formatHour(n) }}
                 </div>
