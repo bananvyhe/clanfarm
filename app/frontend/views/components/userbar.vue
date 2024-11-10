@@ -12,11 +12,12 @@
         <v-btn
           color="secondary"  
           @click="ressurect"> воскреснуть
-        </v-btn>    
+        </v-btn>
       </div>
       <v-btn
         color="primary" 
         size="x-small" 
+        class="pr-4"
         @click="signOut">выйти
       </v-btn> 
       <div v-if="route.path === '/lobby'" class="d-flex">
