@@ -1,15 +1,8 @@
 <template>
   <div class="schedule">
-
-  <v-item-group multiple>
-    <v-container>
-      
-        <div
-          v-for="n in hours"
-          :key="n"
-          cols="1"
-          class="my-2"
-        >
+    <v-item-group multiple>
+      <v-container>
+        <div v-for="n in hours" :key="n" cols="1" class="my-2">
           <v-item v-slot="{ isSelected, toggle }">
             <v-card
               :color="isSelected ? 'primary' : ''"
@@ -17,62 +10,67 @@
               height="40"
               width="100"
               dark
-              @mousedown="startSelection(toggle)"
-              @mousemove="onMouseMove(toggle, isSelected)"
+              @mousedown="startSelection(toggle, n)"
+              @mousemove="onMouseMove(toggle, isSelected, n)"
               @mouseup="endSelection"
             >
               <v-scroll-y-transition>
-                <div
-                  class=" flex-grow-1 text-center"
-                >
-                 {{ formatHour(n) }}
+                <div class="flex-grow-1 text-center">
+                  {{ formatHour(n) }}
                 </div>
               </v-scroll-y-transition>
             </v-card>
           </v-item>
         </div>
-       
-    </v-container>
-  </v-item-group>
+      </v-container>
+    </v-item-group>
 
-
-
-
-    {{hours}}{{schedule}}
     <div v-for="hour in hours" :key="hour" class="hour-block d-flex">
       <v-hover>
         <template v-slot:default="{ isHovering, props }">
-      <div class="hour-label">{{ formatHour(hour) }}</div>
-        <div
-        v-bind="props"
-        :color="isHovering ? 'primary' : undefined"
-        class="schedule-item"
-        v-for="(item, index) in schedule[hour]"
-        :key="index"
-        @click="removeItem(hour, index)"
-        @contextmenu.prevent="handleRightClick">
-        {{ item   }}
-        </div>
-      
+          <div class="hour-label">{{ formatHour(hour) }}</div>
+          <div
+            v-bind="props"
+            :color="isHovering ? 'primary' : undefined"
+            class="schedule-item"
+            v-for="(item, index) in schedule[hour]"
+            :key="index"
+            @click="removeItem(hour, index)"
+            @contextmenu.prevent="handleRightClick"
+          >
+            {{ item.name }}
+          </div>
         </template>
       </v-hover>
-
-      <button @click="addItem(hour, index)">Add</button>
+      <button @click="addItem(hour)">Add</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from "vue";
+
+interface ScheduleItem {
+  name: string;
+}
+
 const isSelecting = ref(false);
 
-const startSelection = (toggle) => {
+const hours = Array.from({ length: 24 }, (_, i) => i);
+const schedule = ref<{ [key: number]: ScheduleItem[] }>(
+  Object.fromEntries(hours.map((hour) => [hour, []]))
+);
+
+const startSelection = (toggle, hour) => {
   isSelecting.value = true;
-  toggle(); // Выделить первый элемент на котором нажата кнопка
+  toggle();
+  updateSchedule(hour);
 };
 
-const onMouseMove = (toggle, isSelected) => {
+const onMouseMove = (toggle, isSelected, hour) => {
   if (isSelecting.value && !isSelected) {
-    toggle(); // Выделить элемент, если он еще не выбран
+    toggle();
+    updateSchedule(hour);
   }
 };
 
@@ -80,65 +78,40 @@ const endSelection = () => {
   isSelecting.value = false;
 };
 
-// Сброс флага при отпускании кнопки за пределами элементов
+const updateSchedule = (hour) => {
+  if (schedule.value[hour].length === 0) {
+    schedule.value[hour].push({ name: "Scheduled Item" });
+  } else {
+    schedule.value[hour].splice(0, 1);
+  }
+};
+
 const onGlobalMouseUp = () => {
   isSelecting.value = false;
 };
 
 onMounted(() => {
-  window.addEventListener('mouseup', onGlobalMouseUp);
+  window.addEventListener("mouseup", onGlobalMouseUp);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('mouseup', onGlobalMouseUp);
+  window.removeEventListener("mouseup", onGlobalMouseUp);
 });
 
-
-
-// Определение типа для события
-interface ScheduleItem {
-  name: string;
-}
-
-const hours = Array.from({ length: 24 }, (_, i) => i);
-// Инициализация schedule с пустыми массивами для каждого часа
-const schedule = ref<{ [key]: ScheduleItem[] }>(
-  Object.fromEntries(hours.map(hour => [hour, []]))
-);
-
-const handleRightClick = (event) => {
-  console.log("Right-click detected", event);
-  // Ваш код для обработки клика правой кнопкой
+const addItem = (hour) => {
+  const name = prompt("Enter event name:");
+  if (name) {
+    schedule.value[hour].push({ name });
+  }
 };
 
-function setItem(hour, index) {
-
-  schedule.value[hour].push({ name });
-
-}
-
-function addItem(hour, index) {
-  // const name = prompt("Enter event name:");
-  if (schedule.value[hour][0] == null) {
-  console.log(typeof schedule.value[hour])
-  schedule.value[hour].push( true );
-  console.log( schedule.value[hour][0])
-  }else if(typeof schedule.value[hour] === 'boolean'){
-    // schedule.value[hour].push({ tru });
-    // console.log('boolean')
-  }
-  // if (name) {
-  //   schedule.value[hour].push({ name });
-  // }
-}
-
-function removeItem(hour: number, index: number) {
+const removeItem = (hour, index) => {
   schedule.value[hour].splice(index, 1);
-}
+};
 
-function formatHour(hour: number) {
+const formatHour = (hour) => {
   return hour < 10 ? `0${hour}:00` : `${hour}:00`;
-}
+};
 </script>
 
 <style>
@@ -149,8 +122,6 @@ function formatHour(hour: number) {
   margin: auto;
 }
 .hour-block {
-
-/*  background-color: #ada;*/
   display: flex;
   align-items: center;
   margin-bottom: 10px;
