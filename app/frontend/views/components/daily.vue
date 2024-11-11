@@ -25,7 +25,7 @@
       </v-container>
     </v-item-group>
 
-    <div v-for="hour in hours" :key="hour" class="hour-block d-flex">
+<!--     <div v-for="hour in hours" :key="hour" class="hour-block d-flex">
       <v-hover>
         <template v-slot:default="{ isHovering, props }">
           <div class="hour-label">{{ formatHour(hour) }}</div>
@@ -43,7 +43,7 @@
         </template>
       </v-hover>
       <button @click="addItem(hour)">Add</button>
-    </div>
+    </div> -->
   </div>
 </template>
 
