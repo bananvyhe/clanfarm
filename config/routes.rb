@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   post '/shed', to: "scheduled_tasks#schedule_task"
   get '/shed', to: "scheduled_tasks#shedGet"
   post '/shed/off', to: "scheduled_tasks#unschedule_task"
+  
+  post '/telegram_webhook', to: 'telegram#webhook'
 
   require "sidekiq/web"
   require 'sidekiq-scheduler/web'
