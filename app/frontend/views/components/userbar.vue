@@ -22,7 +22,7 @@
       </v-btn> 
       <div v-if="route.path === '/lobby'" class="d-flex">
 
-
+        <div class="pr-2">{{store.tlvl}}</div>
 
       <v-menu
         v-model="menu"
